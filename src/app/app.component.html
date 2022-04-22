@@ -1,0 +1,22 @@
+    <mat-toolbar color="primary" *ngIf="isAdminPage && isUserLoggedIn">
+      <span style="color:white">Hi, {{admin.name}}</span>
+
+      <button mat-icon-button style="position:absolute;right:3%;" (click)="logout()">
+        <mat-icon mat-list-icon>exit_to_app</mat-icon>Logout
+      </button>
+      <!-- <div style="position:absolute;right:3%;">
+        <a (click)="logout()" style="color:white">Hi, {{admin.name}}</a>
+      </div> -->
+    </mat-toolbar>
+
+    <div class="main-content">
+      <div class="loading-shade" *ngIf="isLoading">
+        <div class="col s12" style="display: flex; justify-content: center; align-items: center; margin-top: 10px;">
+          <span>
+            <mat-spinner [diameter]="50" mode="indeterminate" color="warn"></mat-spinner>
+          </span>
+        </div>
+      </div>
+      <router-outlet></router-outlet>
+
+    </div>

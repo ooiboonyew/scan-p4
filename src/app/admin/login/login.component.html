@@ -1,0 +1,27 @@
+<div class="loginbody">
+    <div class="col-md-6 login-container" style="padding-top:30px">
+        <div class="text-center" style="padding-bottom:30px">
+            <!-- <img src="assets/images/airasia.png" alt="aa_logo" style="margin-right:5px;width:100px;"> -->
+            <h4 style="display:contents">RSVP Admin</h4>
+        </div>
+        <div class="card">
+            <div class="card-body" style="margin-top:30px">
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" ngNativeValidate>
+                    <div class="form-group">
+                        <input type="email" id="email" class="form-control myinput" minlength="3" formControlName="email"
+                            required>
+                        <label class="form-control-placeholder" for="email">Email*</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="password" class="form-control myinput" minlength="3" formControlName="password"
+                            required>
+                        <label class="form-control-placeholder" for="password">Password*</label>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-info">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

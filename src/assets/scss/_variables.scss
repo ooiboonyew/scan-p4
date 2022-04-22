@@ -1,0 +1,96 @@
+/* Typography
+========================================================================== */
+$h1-fontsize: 4.2rem !default;
+$h2-fontsize: 3.56rem !default;
+$h3-fontsize: 2.92rem !default;
+$h4-fontsize: 2.28rem !default;
+$h5-fontsize: 1.64rem !default;
+$h6-fontsize: 1rem !default;
+
+$xxxl-fontsize: 1.9rem !default;
+$xxl-fontsize: 1.5rem !default;
+$xl-fontsize: 1.35rem !default;
+$l-fontsize: 1.2rem !default;
+$normal-fontsize: 1rem !default;
+$ms-fontsize: 0.9rem !default;
+$s-fontsize: 0.8rem !default;
+$mobile-s-fontsize: 0.7rem !default;
+$xs-fontsize: 0.6rem !default;
+$xxs-fontsize: 0.5rem !default;
+$xxxs-fontsize: 0.4rem !default;
+
+$bold-font: 400;
+$mb-bold-font: 500;
+$hd-bold-font: 700;
+
+/* iPhone X ans iPhone XSdefaults
+========================================================================== */
+$iphonex-width: 375px !default;
+$iphonex-height: 812px !default;
+$iphonex-margin-portrait: 0px 0px 21px 0px !default;;
+$iphonex-margin-landscape: 0px 44px 21px 44px !default;;
+
+/* iPhone XR, iPhone XS MAX defaults
+========================================================================== */
+
+$iphonexr-xsmax-width: 414px !default;
+$iphonexr-xs-max-height: 896px !default;
+
+/* iPhone 6+,6s+,7+,8+ defaults
+========================================================================== */
+
+$iphone-plus-width: 414px !default;
+$iphonexr-plus-height: 736px !default;
+
+/* Media Query Ranges
+========================================================================== */
+$xxsmall-screen: 320px !default;
+$xsmall-screen: 400px !default;
+$small-screen: 695px !default;
+$medium-screen: 992px !default;
+$large-screen: 1200px !default;
+$small-screen-up: $small-screen + 1px !default;
+$medium-screen-up: $medium-screen + 1px !default;
+$large-screen-up: $large-screen + 1px !default;
+$smaller-screen: 500px !default;
+
+$medium-and-up: "only screen and (min-width : #{$small-screen-up})" !default;
+$large-and-up: "only screen and (min-width : #{$medium-screen-up})" !default;
+$large-and-down: "only screen and (max-width : #{$large-screen})" !default;
+$large-only: "only screen and (min-width : #{$large-screen-up})" !default;
+$small-and-down: "only screen and (max-width : #{$small-screen})" !default;
+$smaller-and-down: "only screen and (max-width : #{$smaller-screen})" !default;
+$small-only: "only screen and (min-width : #{$xxsmall-screen}) and (max-width : #{$small-screen})" !default;
+$xsmall-and-down:"only screen and (max-width : #{$xsmall-screen})" !default;
+$xxsmall-and-down:"only screen and (max-width : #{$xxsmall-screen})" !default;
+$medium-and-down: "only screen and (max-width : #{$medium-screen})" !default;
+$medium-only: "only screen and (min-width : #{$small-screen-up}) and (max-width : #{$medium-screen})" !default;
+$iphonex-dimensions: "only screen and (width: #{$iphonex-width}) and (height: #{$iphonex-height})" !default;
+$iphonexr-xsmax-dimensions: "only screen and (width: #{$iphonexr-xsmax-width}) and (height: #{$iphonexr-xs-max-height})" !default;
+$iphone-plus-dimensions: "only screen and (width: #{$iphone-plus-width}) and (height: #{$iphonexr-plus-height})" !default;
+$datepicker-dimension: "only screen and (max-width: #{$medium-screen + 32px})" !default;
+$medium-tablet: "only screen and (min-width : 700px) and (max-width : 765px)" !default;
+$small-tablet: "only screen and (min-width : 665px) and (max-width : 700px)" !default;
+
+/* Color
+========================================================================== */
+$background-color: white;
+$dark-color: #1D1D1D;
+$tertiary-color: #5a5d63;
+$bright-color: #FFFFFF;
+$border-color: #BFC5CF;
+$primary-color: #067e41;
+$primary-color-red: #E10000;
+$secondary-color: #E10000;
+$footer-color: #CFD6E0;
+$blue-color: #4285f4;
+$dark-blue-color: #33333C;
+$black-blue-color: #222636;
+$gray-color: #3D3D46;
+$galaxy-red: #E95f6A;
+$galaxy-blue: #496b8f;
+$galaxy-green: #669997;
+$galaxy-dark-green: #449144;
+$galaxy-green-shadow: #4a7170;
+$galaxy-blue-shadow: #3d5875;
+$galaxy-red-shadow: #86241d;

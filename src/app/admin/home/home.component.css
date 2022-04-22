@@ -1,0 +1,13 @@
+.mainpage{
+    font-size: small
+  }
+  
+    table {
+        width: 100%;
+    }
+
+    .mat-column-Edit {
+        flex: none;
+        width: 1%;
+    }
+   

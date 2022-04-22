@@ -1,0 +1,106 @@
+.mainbackground {
+    // background: rgb(185,8,3);
+    background-image: url('../../assets/images/LogoBack.png');
+    // background-position: unset;
+    background-size: cover;
+    height: 90vh;
+    width: 100vw;
+//    position: fixed; //for-canvas
+    position: absolute; //for-canvas
+    font-family: helvetica;
+    text-align: justify;
+    // font-size: 1.2rem
+
+    @media (max-width: 576px){
+        background-image: url('../../assets/images/LogoBack_mobile.png');
+        height: 85vh;
+        //width: 100vw;
+        }
+  }
+  
+  .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: white;
+    border-top: solid 5px;
+    border-color: gray;
+}
+
+.footerspace{
+    padding-top: 25px;
+    padding-left: 55px;
+    padding-bottom: 20px;
+
+
+    @media (max-width: 576px){
+        padding-top: 15px;
+        padding-left: 25px;
+        padding-bottom: 15px;    
+    }
+
+}
+
+.footerimage{
+    width: 38%;
+
+    @media (max-width: 576px){
+    width: 90%;
+    }
+}
+
+  .content{
+    padding-left: 5%;
+    padding-top: 40px;
+
+    @media (max-width: 576px){
+    padding-left: 10%;
+    padding-top: 20px;
+
+    }
+  }
+
+
+  .title{
+    font-size: 2.3rem;
+    color: #585858;
+    font-weight: 100;
+
+    @media (max-width: 576px){
+        font-size: 1.4em;
+    }
+    }
+
+  .title1-2{
+    font-size: 2.5rem;
+    color: #585858;
+    font-weight: bold;
+
+      @media (max-width: 576px){
+        font-size: 1.5em;  
+        }
+}
+
+    .title2{
+        font-size: 2rem;
+        color: #585858;
+        font-weight: 500;
+    
+        @media (max-width: 576px){
+            font-size: 1.3em;
+        }
+  }
+
+  .title3{
+    font-size: 1.3rem;
+    color: #585858;
+    font-weight: 500;
+
+    @media (max-width: 576px){
+        font-size: 1.0em;
+    }
+}
+
+.row{
+    margin-right: 0px;
+}
