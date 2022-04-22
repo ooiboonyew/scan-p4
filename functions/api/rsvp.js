@@ -52,6 +52,31 @@ rsvpApp.post("/admin/login", async (req, res, next) => {
   }
 });
 
+rsvpApp.post("/rsvp/add", async (req, res, next) => {
+  try {
+    const rsvp = req.body;
+    rsvp.createdDate = new Date();
+    console.log(rsvp);
+    const result = await rsvpModel.add(rsvp);
+    //send email
+    return res.status(200).json(result);
+  } catch (error) {
+    adeErrorHandler(error, req, res, next);
+  }
+});
+
+rsvpApp.post("/rsvp/update", async (req, res, next) => {
+  try {
+    const rsvp = req.body;
+    console.log(rsvp);
+    const result = await rsvpModel.update(rsvp);
+    //send email
+    return res.status(200).json(result);
+  } catch (error) {
+    adeErrorHandler(error, req, res, next);
+  }
+});
+
 rsvpApp.use(adeErrorHandler);
 
 exports.rsvp = functions.region("asia-southeast1").https.onRequest(rsvpApp);

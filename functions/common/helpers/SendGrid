@@ -1,0 +1,37 @@
+const MainModel = require("../../models/MainModel");
+const sgMail = require("@sendgrid/mail");
+
+class SendGrid extends MainModel {
+  constructor(apiKey) {
+    super();
+    this.mail = sgMail;
+    this.mail.
+    this.mail.setApiKey(apiKey);
+  }
+
+  async sendMail(to, from, subject, message) {
+    const email = {
+      to,
+      from,
+      subject,
+      html: message,
+    };
+
+    try {
+      const result = await this.mail.sendMultiple(email); //BCC
+      const statusInfo = result[0];
+      switch (statusInfo.statusCode) {
+        case 202:
+          return "Message was sent.";
+        default:
+          console.info("Send Grid sendMail", result);
+          return { error: true, message: "Message not sent." };
+      }
+    } catch (error) {
+      console.error(error);
+      return { error: true, message: "Message not sent." };
+    }
+  }
+}
+
+module.exports = SendGrid;

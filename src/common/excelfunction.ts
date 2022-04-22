@@ -3,7 +3,7 @@ import * as FileSaver from 'file-saver';
 import { DatePipe } from '@angular/common';
 
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-const EXCEL_EXTENSION = '.xlsx';
+const EXCEL_EXTENSION = '.csv';
 import { RSVP } from "../models/rsvp.model";
 
 export class ExcelFunction {
@@ -11,7 +11,7 @@ export class ExcelFunction {
   public exportAsExcelFile(json: any[], excelFileName: string): void {
     const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const wb: XLSX.WorkBook = { Sheets: { 'data': ws }, SheetNames: ['data'] };
-    const excelBuffer: any = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    const excelBuffer: any = XLSX.write(wb, { bookType: 'csv', type: 'array' });
     this.saveExcelFile(excelBuffer, excelFileName);
   }
 
@@ -20,22 +20,22 @@ export class ExcelFunction {
     var datePipe = new DatePipe('en-US');
 
     rsvps.forEach(rsvp => {
+      console.log(rsvp.createdDate);
       var json = {
-        "rsvpID": rsvp.rsvpID,
+        "id": rsvp.id,
+        "attending": rsvp.attending == 0 ? "Physical" : "Virtual",
         "firstName": rsvp.firstName,
         "lastName": rsvp.lastName,
         "email": rsvp.email,
+        "mobile": rsvp.mobile,
         "country": rsvp.country,
-        "organization": rsvp.organization,
-        "function": rsvp.function,
-        "brand": rsvp.brand,
-        "createdDate": rsvp.createdDate
+        "createdDate": new Date(JSON.parse(JSON.stringify(rsvp.createdDate))._seconds * 1000).toLocaleString()
       };
       jsons.push(json);
     });
 
     var Heading = [
-      ["ID", "First Name", "Last Name", "E-mail", "Country", "Organization", "Function", "Brand", "Registered Date"],
+      ["Id", "Attending", "First Name", "Last Name", "E-mail", "Mobile", "Country", "Registered Date"],
       // ["ID", "Patient organization", "First Name", "Last Name", "E-mail"],
     ];
 
@@ -44,7 +44,7 @@ export class ExcelFunction {
     XLSX.utils.sheet_add_aoa(ws, Heading);
     XLSX.utils.sheet_add_json(ws, jsons, { origin: 'A2', skipHeader: true });
     const wb: XLSX.WorkBook = { Sheets: { 'data': ws }, SheetNames: ['data'] };
-    const excelBuffer: any = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    const excelBuffer: any = XLSX.write(wb, { bookType: 'csv', type: 'array' });
     this.saveExcelFile(excelBuffer, excelFileName);
   }
 

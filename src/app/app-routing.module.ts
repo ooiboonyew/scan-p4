@@ -12,7 +12,7 @@ import { MainComponent } from './main/main.component';
 const routes: Routes = [
   { path: 'registration', component: LandingComponent },
   { path: 'registered', component: RegisteredComponent },
-  { path: 'landing', component: LandingComponent },
+  // { path: 'landing', component: LandingComponent },
   { path: '', component: MainComponent },
 
   { path: 'admin', component: LoginComponent },

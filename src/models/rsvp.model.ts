@@ -1,19 +1,18 @@
 export class Admin {
-    adminID: number;
-    name: string;
-    email: string;
-    password: string;
-    isSuperAdmin: boolean;
+  adminID: number;
+  name: string;
+  email: string;
+  password: string;
+  isSuperAdmin: boolean;
 }
 
 export class RSVP {
-    rsvpID: number;
-    firstName: string;
-    lastName: string;
-    email: string;
-    country: string;
-    organization: string;
-    function: string;
-    brand: string;
-    createdDate: Date;
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  mobile: string;
+  country: string;
+  attending: number;
+  createdDate: object;
 }

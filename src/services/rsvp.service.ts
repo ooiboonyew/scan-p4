@@ -15,12 +15,12 @@ export class RSVPService {
     return this.http.get<[]>(this.baseUrl);
   }
 
-  AddRSVP(rsvp: RSVP): Observable<ApiResponse> {
-    return this.http.post<ApiResponse>(this.baseUrl + '/Add', rsvp);
+  AddRSVP(rsvp: RSVP): Observable<{}> {
+    return this.http.post<{}>(this.baseUrl + '/Add', rsvp);
   }
 
-  UpdateRSVP(rsvp: RSVP): Observable<ApiResponse> {
-    return this.http.post<ApiResponse>(this.baseUrl + '/Update', rsvp);
+  UpdateRSVP(rsvp: RSVP): Observable<{}> {
+    return this.http.post<{}>(this.baseUrl + '/Update', rsvp);
   }
 
   // UpdateRSVP(rsvp: RSVP): Observable<ApiResponse> {

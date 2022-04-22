@@ -87,7 +87,7 @@ export class CustomValidators {
     }
 
     static sgMobileOnly(control: AbstractControl): { [key: string]: boolean } {
-        let regEx = new RegExp(/^65/);
+        let regEx = new RegExp(/^\+65/);
 
         if (!regEx.test(control.value)) {
             return { sgMobileOnly: true }

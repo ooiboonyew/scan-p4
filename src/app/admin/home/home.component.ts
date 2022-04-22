@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
   totalselect: number = 100;
   dataSource: MatTableDataSource<RSVP>;
   selection: SelectionModel<RSVP> = new SelectionModel<RSVP>(true, []);
-  displayedColumns: string[] = ['rsvpID', 'firstName', 'lastName', 'email','country','organization', 'function', 'brand', 'createdDate', 'Edit'];
+  displayedColumns: string[] = ['id', 'attending','firstName', 'lastName', 'email','mobile','country','createdDate', 'Edit'];
   selectedfilter: string = "";
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
@@ -39,6 +39,7 @@ export class HomeComponent implements OnInit {
         console.log(data);
         setTimeout(() => this.appComponent.isLoading = false, 0);
         this.rsvps = data;
+        console.log(this.rsvps)
         this.dataSource = new MatTableDataSource<RSVP>(data);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
