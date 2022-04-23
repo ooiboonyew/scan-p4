@@ -4,6 +4,7 @@ const {
   adeErrorHandler,
   addResponseHeader,
 } = require("../common/middlewares");
+const EmailNotification = require("../common/helpers/EmailNotification");
 
 const express = require("express");
 const cors = require("cors");
@@ -26,13 +27,17 @@ rsvpApp.get("/", async (req, res, next) => {
 });
 
 rsvpApp.get("/rsvp", async (req, res, next) => {
-    try {
-       const result = await rsvpModel.getRSVP();
-      return res.status(200).json(result);
-    } catch (error) {
-      adeErrorHandler(error, req, res, next);
-    }
-  });
+  try {
+    const result = await rsvpModel.getRSVP();
+    var emailresult = await EmailNotification.sendRsvpEmail(result[0]);
+
+    console.log("here",emailresult);
+    
+    return res.status(200).json(result);
+  } catch (error) {
+    adeErrorHandler(error, req, res, next);
+  }
+});
 
 rsvpApp.post("/admin/login", async (req, res, next) => {
   try {
@@ -58,6 +63,8 @@ rsvpApp.post("/rsvp/add", async (req, res, next) => {
     rsvp.createdDate = new Date();
     console.log(rsvp);
     const result = await rsvpModel.add(rsvp);
+
+    //await EmailNotification.sendRsvpEmail(rsvp);
     //send email
     return res.status(200).json(result);
   } catch (error) {
