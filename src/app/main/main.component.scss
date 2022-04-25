@@ -1,106 +1,148 @@
 .mainbackground {
-    // background: rgb(185,8,3);
-    background-image: url('../../assets/images/LogoBack.png');
-    // background-position: unset;
-    background-size: cover;
-    height: 90vh;
-    width: 100vw;
-//    position: fixed; //for-canvas
-    position: absolute; //for-canvas
-    font-family: helvetica;
-    text-align: justify;
-    // font-size: 1.2rem
+  // background: rgb(185,8,3);
+  background-image: url("../../assets/images/landing/desktop/Background_1920.png");
+  // background-position: unset;
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+  //    position: fixed; //for-canvas
+  position: absolute; //for-canvas
+  text-align: justify;
+  // font-size: 1.2rem
+  color: #3b6e8f;
+  font-family: "Open Sans", semi-bold;
+  font-weight: bold;
 
-    @media (max-width: 576px){
-        background-image: url('../../assets/images/LogoBack_mobile.png');
-        height: 85vh;
-        //width: 100vw;
-        }
+  @media (max-width: 576px) {
+    background-image: url("../../assets/images/landing/mobile/Background_414.png");
+    // height: 85vh;
+    //width: 100vw;
   }
-  
-  .footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    background-color: white;
-    border-top: solid 5px;
-    border-color: gray;
 }
 
-.footerspace{
-    padding-top: 25px;
-    padding-left: 55px;
-    padding-bottom: 20px;
-
-
-    @media (max-width: 576px){
-        padding-top: 15px;
-        padding-left: 25px;
-        padding-bottom: 15px;    
-    }
-
+.footer {
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  // background-color: white;
+  // border-top: solid 5px;
+  // border-color: gray;
 }
 
-.footerimage{
-    width: 38%;
+.footerspace {
+  padding-top: 25px;
+  padding-left: 55px;
+  padding-bottom: 20px;
 
-    @media (max-width: 576px){
-    width: 90%;
-    }
+  @media (max-width: 576px) {
+    padding-top: 15px;
+    padding-left: 25px;
+    padding-bottom: 15px;
+  }
 }
 
-  .content{
+.footerimage {
+  height: 35px;
+
+  @media (max-width: 576px){
+    height: 25px;
+  }
+}
+
+.content {
+  padding-left: 0%;
+  padding-top: 40px;
+
+  @media (max-width: 576px) {
     padding-left: 5%;
-    padding-top: 40px;
-
-    @media (max-width: 576px){
-    padding-left: 10%;
     padding-top: 20px;
+  }
+}
 
-    }
+.topLogoContent {
+  margin-left: -5%;
+  margin-top: -20px;
+
+  @media (max-width: 576px) {
+    margin-left: -10%;
+    margin-top: -10px;
+  }
+}
+
+.topLogoImage {
+  height: 130px;
+  content: url("../../assets/images/landing/desktop/Centurion_logo_1920.png");
+  padding-bottom: 50px;
+
+  @media (max-width: 576px) {
+    padding-bottom: 5px;
+    height: 70px;
+    content: url("../../assets/images/landing/mobile/Centurion_logo_414.png");
+  }
+}
+
+.rightLogo {
+  text-align: right;
+  //Big Screen
+  @media (min-width: 830px) {
+    right: 0;
+    position: absolute;
+    // z-index: 1;
+  }
+}
+
+.rightLogoImage{
+  height: 500px;
+
+  @media (min-width: 1920px) {
+    height: 700px;
+   }
+
+   @media (max-width: 1280px) {
+    height: 400px;
+   }
+
+  @media (max-width: 576px) {
+   height: 200px;
   }
 
 
-  .title{
-    font-size: 2.3rem;
-    color: #585858;
-    font-weight: 100;
-
-    @media (max-width: 576px){
-        font-size: 1.4em;
-    }
-    }
-
-  .title1-2{
-    font-size: 2.5rem;
-    color: #585858;
-    font-weight: bold;
-
-      @media (max-width: 576px){
-        font-size: 1.5em;  
-        }
 }
 
-    .title2{
-        font-size: 2rem;
-        color: #585858;
-        font-weight: 500;
-    
-        @media (max-width: 576px){
-            font-size: 1.3em;
-        }
+.title {
+  font-size: 23.34pt;
+
+  @media (max-width: 576px) {
+    font-size: 17.79pt;
   }
 
-  .title3{
-    font-size: 1.3rem;
-    color: #585858;
-    font-weight: 500;
-
-    @media (max-width: 576px){
-        font-size: 1.0em;
-    }
+  @media (max-height: 500px) {
+    font-size: 17.79pt;
+  }
 }
 
-.row{
-    margin-right: 0px;
+.title1 {
+  font-size: 12.64pt;
+  padding-bottom: 8px;
+
+  @media (max-width: 576px) {
+    font-size: 11.64pt;
+  }
+
+  @media (max-height: 500px) {
+    font-size: 11.64pt;
+  }
+}
+
+.submitButton{
+  width: 170px;
+
+  @media (max-width: 576px) {
+    width: 200px;
+  }
+}
+
+.row {
+  margin-right: 0px;
 }

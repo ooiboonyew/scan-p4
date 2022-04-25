@@ -29,11 +29,18 @@ rsvpApp.get("/", async (req, res, next) => {
 rsvpApp.get("/rsvp", async (req, res, next) => {
   try {
     const result = await rsvpModel.getRSVP();
-    var emailresult = await EmailNotification.sendRsvpEmail(result[0]);
-
-    console.log("here",emailresult);
-    
     return res.status(200).json(result);
+  } catch (error) {
+    adeErrorHandler(error, req, res, next);
+  }
+});
+
+rsvpApp.get("/emailtest", async (req, res, next) => {
+  try {
+    const result = await rsvpModel.getRSVP();
+
+    var emailresult = await EmailNotification.sendRsvpEmail(result[0]);
+    return res.status(200).json(emailresult);
   } catch (error) {
     adeErrorHandler(error, req, res, next);
   }

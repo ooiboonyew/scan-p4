@@ -12,3 +12,12 @@
 p{
     margin-bottom: 30px;
 }
+
+.banner {
+    width: 100%;
+    content: url("../../assets/images/banner/WebBannerDesktop_970x250-DK@2x.png");
+  
+    @media (max-width: 576px) {
+      content: url("../../assets/images/banner/WebBannerMobile_414x414-DK@2x.png");
+    }
+  }
