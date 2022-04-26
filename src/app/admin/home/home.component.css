@@ -7,7 +7,8 @@
     }
 
     .mat-column-Edit {
-        flex: none;
-        width: 1%;
+        text-align: right;
+        /* flex: none;
+        width: 2%; */
     }
    

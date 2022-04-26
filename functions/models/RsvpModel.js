@@ -20,6 +20,36 @@ class RsvpModel extends MainModel {
     return this.toArray(result);
   }
 
+  async getRSVPById(rsvpId) {
+    try {
+      var rsvp = await this.db.collection(RSVP).doc(rsvpId).get();
+      const rsvpData = rsvp.data();
+      return { rsvpId, ...rsvpData };
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async checkRSVPEmail(email) {
+    try {
+      let rsvp, id;
+      await this.db
+        .collection(RSVP)
+        .where("email", "==", email)
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            rsvp = doc.data();
+            id = doc.id;
+          });
+        });
+
+      return { id, ...rsvp };
+    } catch (err) {
+      throw err;
+    }
+  }
+
   async add(product) {
     const result = await this.db
       .collection(RSVP)

@@ -20,22 +20,23 @@ export class ExcelFunction {
     var datePipe = new DatePipe('en-US');
 
     rsvps.forEach(rsvp => {
-      console.log(rsvp.createdDate);
       var json = {
-        "id": rsvp.id,
+        "#": rsvp.num,
         "attending": rsvp.attending == 0 ? "Physical" : "Virtual",
         "firstName": rsvp.firstName,
         "lastName": rsvp.lastName,
         "email": rsvp.email,
         "mobile": rsvp.mobile,
         "country": rsvp.country,
-        "createdDate": new Date(JSON.parse(JSON.stringify(rsvp.createdDate))._seconds * 1000).toLocaleString()
+        "createdDate": rsvp.createdDate ? new Date(JSON.parse(JSON.stringify(rsvp.createdDate))._seconds * 1000).toLocaleString() : "",
+        "emailDate":  rsvp.emailDate ? new Date(JSON.parse(JSON.stringify(rsvp.emailDate))._seconds * 1000).toLocaleString() : ""
+
       };
       jsons.push(json);
     });
 
     var Heading = [
-      ["Id", "Attending", "First Name", "Last Name", "E-mail", "Mobile", "Country", "Registered Date"],
+      ["#", "Attending", "First Name", "Last Name", "E-mail", "Mobile", "Country", "Registered Date", "Email Date"],
       // ["ID", "Patient organization", "First Name", "Last Name", "E-mail"],
     ];
 

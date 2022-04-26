@@ -29,19 +29,25 @@ rsvpApp.get("/", async (req, res, next) => {
 rsvpApp.get("/rsvp", async (req, res, next) => {
   try {
     const result = await rsvpModel.getRSVP();
+
     return res.status(200).json(result);
   } catch (error) {
     adeErrorHandler(error, req, res, next);
   }
 });
 
-rsvpApp.get("/emailtest", async (req, res, next) => {
+rsvpApp.get("/rsvp/email/:rsvpId", async (req, res, next) => {
   try {
-    const result = await rsvpModel.getRSVP();
+    const rsvpId = req.params.rsvpId;
+    console.log(rsvpId);
+    var rsvp = await rsvpModel.getRSVPById(rsvpId);
+    var emailresult = await EmailNotification.sendRsvpEmail(rsvp);
+    rsvp.emailDate = new Date();
+    var updatedRsvp = await rsvpModel.update(rsvp);
 
-    var emailresult = await EmailNotification.sendRsvpEmail(result[0]);
-    return res.status(200).json(emailresult);
+    return res.status(200).json(updatedRsvp);
   } catch (error) {
+    console.log(error);
     adeErrorHandler(error, req, res, next);
   }
 });
@@ -68,11 +74,19 @@ rsvpApp.post("/rsvp/add", async (req, res, next) => {
   try {
     const rsvp = req.body;
     rsvp.createdDate = new Date();
-    console.log(rsvp);
-    const result = await rsvpModel.add(rsvp);
 
-    //await EmailNotification.sendRsvpEmail(rsvp);
-    //send email
+    var existingRSVP = await rsvpModel.checkRSVPEmail(rsvp.email);
+
+    if (existingRSVP.id) {
+      return res.status(405).json("Email already exists.");
+    }
+
+    const resultId = await rsvpModel.add(rsvp);
+    rsvp.id = resultId;
+    var result = await EmailNotification.sendRsvpEmail(rsvp);
+    rsvp.emailDate = new Date();
+    var updatedRsvp = await rsvpModel.update(rsvp);
+
     return res.status(200).json(result);
   } catch (error) {
     adeErrorHandler(error, req, res, next);

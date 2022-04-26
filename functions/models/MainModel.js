@@ -1,4 +1,4 @@
-const makeDb = require('./db');
+const makeDb = require("./db");
 
 class MainModel {
   constructor() {
@@ -7,10 +7,13 @@ class MainModel {
 
   toArray(docs) {
     let collection = [];
+    var i = 1;
     docs.forEach((doc) => {
       let id = doc.id;
+      let num = i;
       let data = doc.data();
-      collection.push({ id, ...data });
+      collection.push({ id, num, ...data });
+      i++;
     });
 
     return collection;

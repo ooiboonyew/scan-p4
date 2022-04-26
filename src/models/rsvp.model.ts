@@ -8,6 +8,7 @@ export class Admin {
 
 export class RSVP {
   id: string;
+  num: number;
   firstName: string;
   lastName: string;
   email: string;
@@ -15,4 +16,5 @@ export class RSVP {
   country: string;
   attending: number;
   createdDate: object;
+  emailDate: object;
 }

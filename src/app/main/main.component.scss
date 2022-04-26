@@ -22,7 +22,9 @@
 
 .footer {
   text-align: center;
-  position: absolute;
+  position: fixed;
+
+  // position: absolute;
   bottom: 0;
   width: 100%;
   // background-color: white;
@@ -45,7 +47,7 @@
 .footerimage {
   height: 35px;
 
-  @media (max-width: 576px){
+  @media (max-width: 576px) {
     height: 25px;
   }
 }
@@ -71,13 +73,16 @@
 }
 
 .topLogoImage {
-  height: 130px;
+  // width: 100%;
+  height: 120px;
   content: url("../../assets/images/landing/desktop/Centurion_logo_1920.png");
   padding-bottom: 50px;
 
   @media (max-width: 576px) {
+    width: 95%;
+    height: auto;
     padding-bottom: 5px;
-    height: 70px;
+    // height: 70px;
     content: url("../../assets/images/landing/mobile/Centurion_logo_414.png");
   }
 }
@@ -88,55 +93,70 @@
   @media (min-width: 830px) {
     right: 0;
     position: absolute;
-    // z-index: 1;
   }
 }
 
-.rightLogoImage{
+.rightLogoImage {
   height: 500px;
 
-  @media (min-width: 1920px) {
-    height: 700px;
-   }
+  // @media (min-width: 1920px) {
+  //   height: 700px;
+  // }
 
-   @media (max-width: 1280px) {
+  @media (max-width: 1280px) {
     height: 400px;
-   }
-
-  @media (max-width: 576px) {
-   height: 200px;
   }
 
+  @media (max-width: 576px) {
+    width: 90%;
+    height: auto;
+  }
+}
+
+.titlerow{
+  padding-top: 80px; 
+  padding-bottom: 20px;
+  // padding-left: 30%;
+
+  @media (max-width: 576px) {
+    // font-size: 17.79pt;
+    padding-top: 30px; 
+    // padding-left: 0%;
+    // margin: auto; 
+    // width: 100%;
+  }
 
 }
 
+
+
+
 .title {
-  font-size: 23.34pt;
+  font-size:xx-large;
 
   @media (max-width: 576px) {
-    font-size: 17.79pt;
+    // font-size: 17.79pt;
+    font-size:large;
   }
 
-  @media (max-height: 500px) {
-    font-size: 17.79pt;
-  }
+  // @media (max-height: 500px) {
+  //   // font-size: 17.79pt;
+  // }
 }
 
 .title1 {
-  font-size: 12.64pt;
+  // font-size: 12.64pt;
+  font-size: medium;
   padding-bottom: 8px;
 
   @media (max-width: 576px) {
-    font-size: 11.64pt;
-  }
-
-  @media (max-height: 500px) {
-    font-size: 11.64pt;
+    font-size: small;
   }
 }
 
-.submitButton{
-  width: 170px;
+.submitButton {
+  padding-left: 50px;
+  width: 200px;
 
   @media (max-width: 576px) {
     width: 200px;
