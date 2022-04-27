@@ -76,7 +76,7 @@ Venue: The Pavilion, Level 4, Conrad Centennial Singapore</p>
   </head>
   <body>
   <div class="main">
-  <img class="banner" src="https://alconcenturionrsvp.web.app/WebBannerDesktop_970x250-DK@2x.1000cd59db433371dddc.png" >
+  <img class="banner" src="https://alconcenturionrsvp.web.app/WebBannerDesktop_970x250-27Apr@3x.3d989a4d61ba950afc3e.png" >
   <p>Dear ${rsvp.firstName} ${rsvp.lastName},</p>
   <p>Thank you for your RSVP to Alcon Centurion<sup>&reg;</sup> Active Sentry<sup>&reg;</sup> Official Launch Event on 11 May 2022, 6.30pm.</p>
   <p>You will receive the event log-in link (via zoom platform) within the next 2 working days. Should you have any questions, you may contact our Alcon Sales Team.</p>
