@@ -9,6 +9,7 @@ export class MainComponent implements OnInit {
   constructor() {}
 
   public isMobileLayout = false;
+  
   ngOnInit() {
     window.onresize = () => (this.isMobileLayout = window.innerWidth <= 576);
   }

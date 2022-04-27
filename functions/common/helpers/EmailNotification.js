@@ -5,7 +5,7 @@ var transporter = nodemailer.createTransport({
   //port: 587,
   auth: {
     user: "hhglobalevents@gmail.com",
-    pass: "hhg12345",
+    pass: "hfmjajibkudqotbz",
   },
 });
 
@@ -42,13 +42,13 @@ p {font-family: Arial; font-size:12px;line-height: 1.6}
 </head>
 <body>
 <div class="main">
-<img class="banner" src="https://alconcenturionrsvp.web.app/WebBannerDesktop_970x250-DK@2x.1000cd59db433371dddc.png" >
+<img class="banner" src="https://alconcenturionrsvp.web.app/WebBannerDesktop_970x250-27Apr@3x.3d989a4d61ba950afc3e.png" >
 <p>Dear ${rsvp.firstName} ${rsvp.lastName},</p>
 <p>Thank you for your RSVP to Alcon Centurion<sup>&reg;</sup> Active Sentry<sup>&reg;</sup> Official Launch Event on 11 May 2022.</p>
 <p>Date: 11 May 2022, Wednesday<br />
 Time: 6.30pm - 9pm (Registration starts at 6pm)<br />
 Venue: The Pavilion, Level 4, Conrad Centennial Singapore</p>
-<p>Add to your caleander <br />
+<p>Add to your calendar <br />
 <a href="https://www.addevent.com/event/GE13551434+apple" title="Apple" target="_blank" style="display:inline;"><img src="https://cdn.addevent.com/libs/imgs/icon-emd-share-apple-t1.png" alt="Apple" width="45" border="0" style="width:45px;display:inline;"></a> 
 <a href="https://www.addevent.com/event/GE13551434+google" title="Google" target="_blank" style="display:inline;"><img src="https://cdn.addevent.com/libs/imgs/icon-emd-share-google-t1.png" alt="Google" width="45" border="0" style="width:45px;display:inline;"></a>
 <a href="https://www.addevent.com/event/GE13551434+office365" title="Office 365" target="_blank" style="display:inline;"><img src="https://cdn.addevent.com/libs/imgs/icon-emd-share-office365-t1.png" alt="Office 365" width="45" border="0" style="width:45px;display:inline;"></a>
@@ -97,9 +97,11 @@ Venue: The Pavilion, Level 4, Conrad Centennial Singapore</p>
 
   return await transporter.sendMail(mailOptions);
 
-  // await transporter.sendMail(mailOptions, function (error, info) {
+  // transporter.sendMail(mailOptions, function (error, info) {
+  //   console.log("here");
+  //   console.log(info);
   //   if (error) {
-  //     // console.log(error);
+  //     console.log(error);
   //   } else {
   //     console.log("Email sent: " + info.response);
   //   }

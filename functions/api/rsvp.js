@@ -78,7 +78,7 @@ rsvpApp.post("/rsvp/add", async (req, res, next) => {
     var existingRSVP = await rsvpModel.checkRSVPEmail(rsvp.email);
 
     if (existingRSVP.id) {
-      return res.status(405).json("Email already exists.");
+      return res.status(405).json("Our record shows that you have already registered for this event. For assistance, please write to hhglobalevents@gmail.com.");
     }
 
     const resultId = await rsvpModel.add(rsvp);

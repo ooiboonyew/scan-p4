@@ -5,9 +5,8 @@
 export const environment = {
   production: false,
   //token : "ayJ2eXAkOiJlV1mnLCJhkx",
-  Service_URL: 'http://localhost:5001/alconcenturionrsvp/asia-southeast1/rsvp'
-  //Service_URL: 'http://35.240.144.45/rsvp_backend/api'
- // Service_URL: 'https://www.appis2021.com/rsvp_backend/api'
+  // Service_URL: 'http://localhost:5001/alconcenturionrsvp/asia-southeast1/rsvp'
+  Service_URL: 'https://asia-southeast1-alconcenturionrsvp.cloudfunctions.net/rsvp'
 };
 
 /*

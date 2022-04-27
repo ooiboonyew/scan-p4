@@ -27,17 +27,42 @@
       <div class="col-12 col-md-10 col-lg-8 ml-2">
         <div class="form-group">
           <label>I will be attending*:</label>
-          <div>
+          <table>
+            <tr>
+
+            <td>
+              <input type="radio" value="0" formControlName="attending" /> 
+            </td>
+            <td>
+              <label class="radioSpace"
+              >Physical event at Conrad Centennial Singapore</label
+            >
+            </td>
+            </tr>
+            <tr>
+              <td>
+                <input type="radio" value="1" formControlName="attending" />
+              </td>
+              <td>
+                <label class="radioSpace">Virtually</label>
+              </td>
+            </tr>
+
+          </table>
+
+
+
+          <!-- <div>
             <input type="radio" value="0" formControlName="attending" />
             <label class="radioSpace"
               >Physical event at Conrad Centennial Singapore</label
             >
-          </div>
+          </div> -->
 
-          <div>
+          <!-- <div>
             <input type="radio" value="1" formControlName="attending" />
             <label class="radioSpace">Virtually</label>
-          </div>
+          </div> -->
 
           <div
             class="box arrow-top"

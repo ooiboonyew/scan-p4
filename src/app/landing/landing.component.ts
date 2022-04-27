@@ -63,7 +63,8 @@ export class LandingComponent implements OnInit {
         err => {
           var errorstr = JSON.stringify(err.error)
           console.log(err.error);
-          alert(errorstr)
+          // alert(errorstr.replace('"/g', ""))
+          alert(errorstr.replace(new RegExp('"', "g"), ""));
           this.appComponent.isLoading = false;
         }
       );
