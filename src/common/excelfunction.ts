@@ -22,7 +22,7 @@ export class ExcelFunction {
     rsvps.forEach(rsvp => {
       var json = {
         "#": rsvp.num,
-        "attending": rsvp.attending == 0 ? "Physical" : "Virtual",
+        // "attending": rsvp.attending == 0 ? "Physical" : "Virtual",
         "firstName": rsvp.firstName,
         "lastName": rsvp.lastName,
         "email": rsvp.email,
@@ -36,8 +36,8 @@ export class ExcelFunction {
     });
 
     var Heading = [
-      ["#", "Attending", "First Name", "Last Name", "E-mail", "Mobile", "Country", "Registered Date", "Email Date"],
-      // ["ID", "Patient organization", "First Name", "Last Name", "E-mail"],
+      ["#", "First Name", "Last Name", "E-mail", "Mobile", "Country", "Registered Date", "Email Date"],
+     // ["#", "Attending", "First Name", "Last Name", "E-mail", "Mobile", "Country", "Registered Date", "Email Date"],
     ];
 
     const ws = XLSX.utils.book_new();

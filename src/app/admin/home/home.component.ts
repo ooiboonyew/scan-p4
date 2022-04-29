@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
   selection: SelectionModel<RSVP> = new SelectionModel<RSVP>(true, []);
   displayedColumns: string[] = [
     "num",
-    "attending",
+    // "attending",
     "firstName",
     "lastName",
     "email",

@@ -62,10 +62,10 @@ export class DialogEditdonationComponent implements OnInit {
         Validators.required,
         Validators.maxLength(50),
       ]),
-      attending: new FormControl(
-        { value: this.rsvp.attending.toString(), disabled: false },
-        [Validators.required]
-      ),
+      // attending: new FormControl(
+      //   { value: this.rsvp.attending.toString(), disabled: false },
+      //   [Validators.required]
+      // ),
     });
   }
 
@@ -82,7 +82,8 @@ export class DialogEditdonationComponent implements OnInit {
     editrsvp.email = this.editrsvp.controls.email.value;
     editrsvp.country = this.editrsvp.controls.country.value;
     editrsvp.mobile = this.editrsvp.controls.mobile.value;
-    editrsvp.attending = Number(this.editrsvp.controls.attending.value);
+    // editrsvp.attending = Number(this.editrsvp.controls.attending.value);
+    editrsvp.attending = 0;
 
     editrsvp.id = this.rsvp.id;
 
