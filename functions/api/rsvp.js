@@ -74,6 +74,7 @@ rsvpApp.post("/rsvp/add", async (req, res, next) => {
   try {
     const rsvp = req.body;
     rsvp.createdDate = new Date();
+    rsvp.email = rsvp.email.toLowerCase();
 
     var existingRSVP = await rsvpModel.checkRSVPEmail(rsvp.email);
 
@@ -96,6 +97,7 @@ rsvpApp.post("/rsvp/add", async (req, res, next) => {
 rsvpApp.post("/rsvp/update", async (req, res, next) => {
   try {
     const rsvp = req.body;
+    rsvp.email = rsvp.email.toLowerCase();
     console.log(rsvp);
     const result = await rsvpModel.update(rsvp);
     //send email
