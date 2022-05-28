@@ -9,7 +9,7 @@ import { DatePipe } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './admin/login/login.component';
-import { HomeComponent } from './admin/home/home.component';
+import { AdminHomeComponent } from './admin/home/home.component';
 import { AdminService } from 'src/services/admin.service';
 import { RSVPService } from 'src/services/rsvp.service';
 
@@ -24,11 +24,18 @@ import { DialogEditdonationComponent } from './admin/dialog-editdonation/dialog-
 import { ExcelFunction } from 'src/common/excelfunction';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { MainComponent } from './main/main.component';
+import { HomeComponent } from './home/home.component';
+import { AgendaComponent } from './agenda/agenda.component';
+import { FloorplanComponent } from './floorplan/floorplan.component';
+import { BoothComponent } from './booth/booth.component';
+import { MyqrComponent } from './myqr/myqr.component';
+import { GuestLoginComponent } from './guest-login/guest-login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
+    AdminHomeComponent,
     HomeComponent,
     LogoutComponent,
     ManageComponent,
@@ -36,7 +43,12 @@ import { MainComponent } from './main/main.component';
     LandingComponent,
     RegisteredComponent,
     DialogEditdonationComponent,
-    MainComponent
+    MainComponent,
+    AgendaComponent,
+    FloorplanComponent,
+    BoothComponent,
+    MyqrComponent,
+    GuestLoginComponent
   ],
   imports: [
     NgMultiSelectDropDownModule.forRoot(),
