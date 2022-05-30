@@ -1,22 +1,57 @@
-    <mat-toolbar color="primary" *ngIf="isAdminPage && isUserLoggedIn">
-      <span style="color:white">Hi, {{admin.name}}</span>
+<mat-toolbar
+  class="mat-admin-toolbar"
+  color="primary"
+  *ngIf="isAdminPage && isAdminLoggedIn"
+>
+  <span style="color: white">Hi, {{ admin.name }}</span>
+  <span class="example-spacer"></span>
+  <button mat-button (click)="logoutadmin()">
+    <mat-icon>exit_to_app</mat-icon>
+    Logout
+  </button>
+</mat-toolbar>
 
-      <button mat-icon-button style="position:absolute;right:3%;" (click)="logout()">
-        <mat-icon mat-list-icon>exit_to_app</mat-icon>Logout
-      </button>
-      <!-- <div style="position:absolute;right:3%;">
-        <a (click)="logout()" style="color:white">Hi, {{admin.name}}</a>
-      </div> -->
-    </mat-toolbar>
+<div
+  *ngIf="isEventPage && isUserLoggedIn"
+  style="border-bottom: 1px solid black; margin-bottom: 20px"
+>
+  <mat-toolbar class="mat-user-toolbar">
+    <span>Hi, {{ user.name }}</span>
+    <span class="example-spacer"></span>
+    <button mat-button (click)="logoutuser()">
+      <mat-icon>exit_to_app</mat-icon>
+      Logout
+    </button>
+  </mat-toolbar>
+  <div style="padding: 10px" [routerLink]="['/event']" *ngIf="router.url !== '/event'">
+    <img
+      width="30px"
+      src="../assets/images/icon/home-svgrepo-com.svg"
+    />
+  </div>
+</div>
 
-    <div class="main-content">
-      <div class="loading-shade" *ngIf="isLoading">
-        <div class="col s12" style="display: flex; justify-content: center; align-items: center; margin-top: 10px;">
-          <span>
-            <mat-spinner [diameter]="50" mode="indeterminate" color="warn"></mat-spinner>
-          </span>
-        </div>
-      </div>
-      <router-outlet></router-outlet>
-
+<div class="main-content">
+  <div class="loading-shade" *ngIf="isLoading">
+    <div
+      class="col s12"
+      style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+      "
+    >
+      <span>
+        <mat-spinner
+          [diameter]="50"
+          mode="indeterminate"
+          color="skyblue"
+        ></mat-spinner>
+      </span>
     </div>
+  </div>
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+</div>

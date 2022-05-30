@@ -1,28 +1,31 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './admin/login/login.component';
-import { AdminHomeComponent } from './admin/home/home.component';
-import { LogoutComponent } from './admin/logout/logout.component';
+import { HomeComponent } from './admin/home/home.component';
 import { ManageComponent } from './admin/manage/manage.component';
 import { AccountComponent } from './admin/account/account.component';
 import { LandingComponent } from './landing/landing.component';
 import { RegisteredComponent } from './registered/registered.component';
 import { MainComponent } from './main/main.component';
-import { HomeComponent } from './home/home.component';
+import { AgendaComponent } from './agenda/agenda.component';
+import { FloorplanComponent } from './floorplan/floorplan.component';
+import { BoothComponent } from './booth/booth.component';
+import { MyqrComponent } from './myqr/myqr.component';
+import { GuestLoginComponent } from './guest-login/guest-login.component';
 
 const routes: Routes = [
-  { path: 'registration', component: LandingComponent },
-  { path: 'registered', component: RegisteredComponent },
-  // { path: 'landing', component: LandingComponent },
   { path: '', component: MainComponent },
-  { path: 'home', component: HomeComponent },
-
+  { path: 'login', component: GuestLoginComponent },
+  { path: 'event', component: LandingComponent },
+  { path: 'event/agenda', component: AgendaComponent },
+  { path: 'event/floor-plan', component: FloorplanComponent },
+  { path: 'event/booth', component: BoothComponent },
+  { path: 'event/my-qr', component: MyqrComponent },
   { path: 'admin', component: LoginComponent },
   { path: 'admin/login', component: LoginComponent },
   { path: 'admin/account', component: AccountComponent },
-  { path: 'admin/home', component: AdminHomeComponent },
+  { path: 'admin/home', component: HomeComponent },
   { path: 'admin/manage', component: ManageComponent },
-  { path: 'admin/logout', component: LogoutComponent }
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

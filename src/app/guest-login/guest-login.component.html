@@ -1,1 +1,44 @@
-<p>guest-login works!</p>
+<div class="loginbody">
+  <div class="col-md-6 login-container" style="padding-top: 30px">
+    <div class="text-center" style="padding-bottom: 30px">
+      <!-- <img src="assets/images/airasia.png" alt="aa_logo" style="margin-right:5px;width:100px;"> -->
+      <div style="display: contents">Please login to continue:</div>
+    </div>
+    <div>
+      <div style="margin-top: 15px">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" ngNativeValidate>
+          <div class="form-group">
+            <input
+              placeholder="email"
+              type="email"
+              id="email"
+              class="form-control myinput"
+              minlength="3"
+              formControlName="email"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <input
+              placeholder="staff ID"
+              id="password"
+              class="form-control myinput"
+              minlength="3"
+              formControlName="password"
+              required
+            />
+          </div>
+          <div class="text-center" style="margin-top: 15px">
+            <button
+              type="submit"
+              class="btn"
+              style="width: 100%; background-color: skyblue; color: white;height: 50px;"
+            >
+              Enter
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

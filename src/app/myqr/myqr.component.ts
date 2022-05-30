@@ -6,10 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./myqr.component.css']
 })
 export class MyqrComponent implements OnInit {
-
-  constructor() { }
+  public myAngularxQrCode: string = "";
 
   ngOnInit() {
+    this.myAngularxQrCode = 'Your QR code data string';
+
   }
 
 }

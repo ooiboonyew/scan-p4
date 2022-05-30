@@ -1,29 +1,28 @@
 @import '~src/assets/scss/_variables';
 
-.mat-toolbar {
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.mat-admin-toolbar {
   background: lightseagreen;
   color: #fff;
   height: 50px !important;
+
 }
 
-// .mat-sidenav {
-//   width: 20%;
+.mat-user-toolbar {
+  height: 50px !important;
+  color: black;
+  background-color: #fff;
+  border-bottom: black solid 1px;
+  font-weight: normal !important;
+}
 
-//   box-shadow: none;
 
-//   @media (max-width: 576px){
-//   width: 50%;
-//   }
-// }
-
-// .main-content {
-//   padding-left: 4%;
-//   padding-right: 4%;
-//   padding-bottom: 50px;
-// }
 
 .main-content{
-  height: 100%;
+  // height: 100%;
 }
 
 .loading-shade {
@@ -37,4 +36,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.container{
+  padding-left: 25px;
+  padding-right: 25px;
 }

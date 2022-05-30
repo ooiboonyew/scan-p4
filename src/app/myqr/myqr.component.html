@@ -1,1 +1,19 @@
-<p>myqr works!</p>
+<div class="row">
+  <div class="col-12">
+    <div style="font-size: xx-large">My QR</div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12 text-center">
+    <!-- <qrcode
+      [qrdata]="'Your data string'"
+      [width]="350"
+      [errorCorrectionLevel]="'M'"
+    ></qrcode> -->
+    <qrcode
+      [qrdata]="myAngularxQrCode"
+      [width]="350"
+      [errorCorrectionLevel]="'M'"
+    ></qrcode>
+  </div>
+</div>

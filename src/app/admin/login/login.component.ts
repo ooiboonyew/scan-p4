@@ -46,8 +46,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
           this.appComponent.isLoading = false;
           console.log(data);
           this.appComponent.admin = data;
-          sessionStorage.setItem('token', JSON.stringify(this.appComponent.admin));
-          this.appComponent.isUserLoggedIn = true;
+          sessionStorage.setItem('admintoken', JSON.stringify(this.appComponent.admin));
+          this.appComponent.isAdminLoggedIn = true;
           this.router.navigate(['admin/home']);
       },
       err => {
@@ -59,12 +59,12 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
 
   ngAfterViewInit() {
-    if (sessionStorage.getItem("token") !== null) {
+    if (sessionStorage.getItem("admintoken") !== null) {
       this.router.navigate(['admin/home']);
-      this.appComponent.isUserLoggedIn = true;
+      this.appComponent.isAdminLoggedIn = true;
     }
     else {
-      this.appComponent.isUserLoggedIn = false;
+      this.appComponent.isAdminLoggedIn = false;
     }
   }
 

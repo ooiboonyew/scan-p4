@@ -1,0 +1,27 @@
+.login-container {
+    display: flex;
+    flex-direction: column;
+    margin: 2em auto auto;
+  }
+  
+  .myinput {
+      text-align: center;
+    border: 1px solid skyblue;
+    outline: none;
+    box-shadow: none;
+    border-radius: 0;
+    height: 50px;
+  }
+  
+  .form-group {
+    position: relative;
+    margin-bottom: 2.5rem;
+  }
+  
+  .form-control-placeholder {
+    position: absolute;
+    top: 0;
+    transform: translate3d(0, -90%, 0);
+    transition: all 200ms;
+    opacity: 0.5;
+  }

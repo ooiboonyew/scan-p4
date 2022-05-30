@@ -18,7 +18,7 @@ import { ExcelFunction } from "../../../common/excelfunction";
   templateUrl: "./home.component.html",
   styleUrls: ["./home.component.css"],
 })
-export class AdminHomeComponent implements OnInit {
+export class HomeComponent implements OnInit {
   rsvps: RSVP[];
   selectedAll: boolean;
   datasource: any[];

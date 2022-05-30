@@ -1,29 +1,31 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
-import { Location } from '@angular/common';
-import { Admin } from 'src/models/rsvp.model';
-import { MatSidenav} from '@angular/material';
-import { environment } from '../environments/environment';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { Router } from "@angular/router";
+import { Location } from "@angular/common";
+import { Admin } from "src/models/rsvp.model";
+import { MatSidenav } from "@angular/material";
+import { environment } from "../environments/environment";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.scss"],
 })
 export class AppComponent implements OnInit {
-  title = 'rsvp-web';
-  isUserLoggedIn: boolean = false;
+  title = "rsvp-web";
   isLoading: boolean = false;
   isAdminPage: boolean = false;
+  isAdminLoggedIn: boolean = false;
   admin: Admin;
 
-  @ViewChild('sidenav', {static: false}) sidenav: MatSidenav;
+  isEventPage: boolean = false;
+  user: Admin;
+  isUserLoggedIn: boolean = false;
 
-  constructor(private router: Router, private location: Location) {
-  }
+  @ViewChild("sidenav", { static: false }) sidenav: MatSidenav;
+
+  constructor(private router: Router, private location: Location) {}
 
   ngOnInit() {
-
     if (this.location.path().startsWith("/admin", 0)) {
       this.isAdminPage = true;
     } else {
@@ -31,28 +33,57 @@ export class AppComponent implements OnInit {
     }
 
     if (this.isAdminPage) {
-      this.admin = JSON.parse(sessionStorage.getItem("token"));
+      this.admin = JSON.parse(sessionStorage.getItem("admintoken"));
       if (this.admin == null) {
-        this.isUserLoggedIn = false;
-        this.router.navigate(['/admin/login']);
+        this.isAdminLoggedIn = false;
+        this.router.navigate(["/admin/login"]);
+      } else {
+        this.isAdminLoggedIn = true;
       }
-      else {
+    }
+
+    if (this.location.path().startsWith("/event", 0)) {
+      this.isEventPage = true;
+    } else {
+      this.isEventPage = false;
+    }
+
+    if (this.isEventPage) {
+      this.user = JSON.parse(sessionStorage.getItem("usertoken"));
+
+      console.log(this.isEventPage);
+      console.log(this.user);
+
+      if (this.user == null) {
+        this.isUserLoggedIn = false;
+        this.router.navigate(["/login"]);
+      } else {
         this.isUserLoggedIn = true;
       }
     }
   }
 
-  logout() {
+  logoutuser() {
     let cfm = confirm("Are you sure you want to log out?");
 
     if (cfm) {
-      if (sessionStorage.getItem("token") !== null) {
+      if (sessionStorage.getItem("usertoken") !== null) {
         sessionStorage.clear();
         this.isUserLoggedIn = false;
-        this.router.navigate(['admin/login']);
+        this.router.navigate(["login"]);
       }
     }
   }
 
+  logoutadmin() {
+    let cfm = confirm("Are you sure you want to log out?");
 
+    if (cfm) {
+      if (sessionStorage.getItem("admintoken") !== null) {
+        sessionStorage.clear();
+        this.isAdminLoggedIn = false;
+        this.router.navigate(["admin/login"]);
+      }
+    }
+  }
 }
