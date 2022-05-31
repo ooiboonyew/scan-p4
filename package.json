@@ -3,8 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "generate": "cd src && cd app && ng g component home --module app",
-    "generate-admin": "cd src && cd app/admin && ng g component home --module app",
-
+    "generate-admin": "cd src && cd app/admin && ng g component checkin --module app",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --prod --configuration=production",
@@ -43,7 +42,7 @@
     "lodash": "^4.17.15",
     "ng-multiselect-dropdown": "^0.3.4",
     "ngx-soap": "^0.6.3",
-    "rxjs": "~6.4.0",
+    "rxjs": "^6.6.3",
     "sax": "^1.2.4",
     "stream": "0.0.2",
     "tslib": "^1.10.0",

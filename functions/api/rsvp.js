@@ -55,6 +55,24 @@ rsvpApp.get("/rsvp/email/:rsvpId", async (req, res, next) => {
   }
 });
 
+rsvpApp.get("/rsvp/scanqr/:userId", async (req, res, next) => {
+  try {
+    const userId = req.params.userId;
+    console.log(userId);
+    var user = await userModel.getUserById(userId);
+
+    if (user) {
+      return res.status(200).json(user);
+    } else {
+      return res.status(401).json("QR Code Not Found.");
+    }
+
+  } catch (error) {
+    console.log(error);
+    adeErrorHandler(error, req, res, next);
+  }
+});
+
 rsvpApp.post("/rsvp/guestLogin", async (req, res, next) => {
   try {
     let email = req.body.email;

@@ -1,0 +1,38 @@
+/*   
+  input[type="text"],
+  select.form-control {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid black;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-radius: 0;
+    padding-bottom: 10px;
+    text-align: center;
+  }
+  
+  @media print {
+    .footer,
+    #non-printable {
+        display: none !important;
+    }
+    #printable {
+        display: block;
+    }
+  }
+  
+  
+  .checkedintext{
+      font-size: 30px;
+      padding-bottom:10px;
+  }
+  
+  
+  .small-video {
+    width: 600px;
+  }
+   */
+  .qr{
+    border: none !important;
+    color: white;
+  }

@@ -1,0 +1,7 @@
+.item{
+    padding-top: 25px;
+  }
+  
+  .item:hover {
+    cursor: pointer;
+  }

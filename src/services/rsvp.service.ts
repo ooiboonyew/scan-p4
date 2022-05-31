@@ -32,6 +32,10 @@ export class RSVPService {
     return this.http.get<ApiResponse>(this.baseUrl + '/email/' + id);
   }
 
+  ScanQR(id: string): Observable<{}> {
+    return this.http.get<ApiResponse>(this.baseUrl + '/scanqr/' + id);
+  }
+
   // UpdateRSVP(rsvp: RSVP): Observable<ApiResponse> {
   //   return this.http.post<ApiResponse>(this.baseUrl + '/Update', rsvp);
   // }

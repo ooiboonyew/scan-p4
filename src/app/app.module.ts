@@ -7,6 +7,7 @@ import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { MaterialModule } from './material.module';
 import { DatePipe } from '@angular/common';
 import { QRCodeModule } from 'angularx-qrcode';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './admin/login/login.component';
@@ -29,6 +30,11 @@ import { FloorplanComponent } from './floorplan/floorplan.component';
 import { BoothComponent } from './booth/booth.component';
 import { MyqrComponent } from './myqr/myqr.component';
 import { GuestLoginComponent } from './guest-login/guest-login.component';
+import { HomeComponent } from './admin/home/home.component';
+import { ScanQrComponent } from './admin/scan-qr/scan-qr.component';
+import { StatComponent } from './admin/stat/stat.component';
+import { BoothSetupComponent } from './admin/booth-setup/booth-setup.component';
+import { CheckinComponent } from './admin/checkin/checkin.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +51,12 @@ import { GuestLoginComponent } from './guest-login/guest-login.component';
     FloorplanComponent,
     BoothComponent,
     MyqrComponent,
-    GuestLoginComponent
+    GuestLoginComponent,
+    HomeComponent,
+    ScanQrComponent,
+    StatComponent,
+    BoothSetupComponent,
+    CheckinComponent
   ],
   imports: [
     NgMultiSelectDropDownModule.forRoot(),
@@ -57,7 +68,8 @@ import { GuestLoginComponent } from './guest-login/guest-login.component';
     NgbModule,
     BrowserAnimationsModule,
     MaterialModule,
-    QRCodeModule
+    QRCodeModule,
+    ZXingScannerModule
   ],
   entryComponents: [
     DialogEditdonationComponent,
