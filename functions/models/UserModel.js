@@ -20,11 +20,11 @@ class UserModel extends MainModel {
     return this.toArray(result);
   }
 
-  async getUserById(userId) {
+  async getUserById(id) {
     try {
-      var user = await this.db.collection(USERS).doc(userId).get();
+      var user = await this.db.collection(USERS).doc(id).get();
       const userData = user.data();
-      return { userId, ...userData };
+      return { id, ...userData };
     } catch (err) {
       throw err;
     }

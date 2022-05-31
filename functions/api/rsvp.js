@@ -61,12 +61,11 @@ rsvpApp.get("/rsvp/scanqr/:userId", async (req, res, next) => {
     console.log(userId);
     var user = await userModel.getUserById(userId);
 
-    if (user) {
+    if (user.email) {
       return res.status(200).json(user);
     } else {
-      return res.status(401).json("QR Code Not Found.");
+      return res.status(401).json("Record Not Found.");
     }
-
   } catch (error) {
     console.log(error);
     adeErrorHandler(error, req, res, next);

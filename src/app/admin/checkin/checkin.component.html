@@ -1,1 +1,44 @@
-<p>checkin works!</p>
+<div class="row">
+  <div class="col-12">
+    <div style="font-size: xx-large">Check In</div>
+  </div>
+</div>
+<br />
+<div *ngIf="user">
+  <div class="row" style="padding-bottom: 20px">
+    <div class="col-12">
+      <span style="padding-right: 20px"> Gust Name: {{ user.name }} </span>
+      <span>
+        <button class="btn btn-primary" style="width: 200px">Check-in</button>
+      </span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div style="padding-bottom: 15px">Accompanying Guest</div>
+      <div style="padding-bottom: 15px">
+        <button class="btn btn-primary" style="width: 200px">Check-in</button>
+      </div>
+      <div style="padding-bottom: 15px">
+        <button class="btn btn-primary" style="width: 200px">Check-in</button>
+      </div>
+      <div style="padding-bottom: 15px">
+        <button class="btn btn-primary" style="width: 200px">Check-in</button>
+      </div>
+      <div style="padding-bottom: 15px">
+        <button class="btn btn-primary" style="width: 200px">Check-in</button>
+      </div>
+    </div>
+  </div>
+  <div class="row" style="padding-top: 25px">
+    <div class="col-12">
+      <hr />
+      <div style="padding-bottom: 15px;padding-top: 15px;">
+        <button class="btn btn-danger" style="width: 150px; margin-right: 20px">
+          Cancel
+        </button>
+        <button class="btn btn-success" style="width: 150px">Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>

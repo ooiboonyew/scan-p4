@@ -19,9 +19,8 @@ import { Router } from "@angular/router";
 export class ScanQrComponent implements OnInit, AfterViewInit {
   rsvp: RSVP;
   scanned: boolean = false;
-  attended: boolean = false;
-  errormsg: string = "";
-
+  // attended: boolean = false;
+  // errormsg: string = "";
   //qrstring: string = "";
   // @ViewChild('scaninput') input: ElementRef;
 
@@ -38,7 +37,6 @@ export class ScanQrComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {}
 
   onCodeResult(resultString: string) {
-
     if (resultString == "") {
       this.scanned = false;
       return;
@@ -49,13 +47,15 @@ export class ScanQrComponent implements OnInit, AfterViewInit {
       (data) => {
         this.scanned = true;
         this.appComponent.isLoading = false;
-        console.log(data);
-        this.router.navigate(["admin/checkin"]);
+        this.router.navigate(["admin/checkin"], {
+          queryParams: { id: data.id },
+        });
       },
       (err) => {
         this.appComponent.isLoading = false;
-        this.errormsg = err.result;
-        this.scanned = true;
+        alert(err.error);
+        // this.errormsg = err.error;
+        // this.scanned = true;
       }
     );
   }

@@ -1,15 +1,24 @@
-<mat-toolbar
-  class="mat-admin-toolbar"
-  color="primary"
+<div
   *ngIf="isAdminPage && isAdminLoggedIn"
+  style="border-bottom: 1px solid black; margin-bottom: 20px"
 >
-  <span style="color: white">Hi, {{ admin.name }}</span>
-  <span class="example-spacer"></span>
-  <button mat-button (click)="logoutadmin()">
-    <mat-icon>exit_to_app</mat-icon>
-    Logout
-  </button>
-</mat-toolbar>
+  <mat-toolbar class="mat-admin-toolbar" color="primary">
+    <span style="color: white">Hi, {{ admin.name }}</span>
+    <span class="example-spacer"></span>
+    <button mat-button (click)="logoutadmin()">
+      <mat-icon>exit_to_app</mat-icon>
+      Logout
+    </button>
+  </mat-toolbar>
+  <div
+  style="padding: 10px"
+  [routerLink]="['/admin']"
+  *ngIf="router.url !== '/admin'"
+>
+  <img width="30px" src="../assets/images/icon/home-svgrepo-com.svg" />
+</div>
+</div>
+
 
 <div
   *ngIf="isEventPage && isUserLoggedIn"
@@ -23,11 +32,12 @@
       Logout
     </button>
   </mat-toolbar>
-  <div style="padding: 10px" [routerLink]="['/event']" *ngIf="router.url !== '/event'">
-    <img
-      width="30px"
-      src="../assets/images/icon/home-svgrepo-com.svg"
-    />
+  <div
+    style="padding: 10px"
+    [routerLink]="['/event']"
+    *ngIf="router.url !== '/event'"
+  >
+    <img width="30px" src="../assets/images/icon/home-svgrepo-com.svg" />
   </div>
 </div>
 

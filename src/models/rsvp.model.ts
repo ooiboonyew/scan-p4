@@ -11,8 +11,12 @@ export class User {
   id: string;
   staffId: string
   email: string;
+  name: string;
   createdDate: object;
-  Booths: Booth[];
+  booths: Booth[];
+  guestAttend: number
+  guestAvailable: number
+  userAttend: number
 }
 
 
