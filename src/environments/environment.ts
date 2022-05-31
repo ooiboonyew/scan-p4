@@ -4,9 +4,7 @@
 
 export const environment = {
   production: false,
-  //token : "ayJ2eXAkOiJlV1mnLCJhkx",
-  // Service_URL: 'http://localhost:5001/alconcenturionrsvp/asia-southeast1/rsvp'
-  Service_URL: 'https://asia-southeast1-alconcenturionrsvp.cloudfunctions.net/rsvp'
+  Service_URL: 'http://localhost:5001/citi-webapp/asia-southeast1/rsvp'
 };
 
 /*

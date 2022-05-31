@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { LoginRequest } from "src/models/rsvp-request.model";
+import { GuestLoginRequest } from "src/models/rsvp-request.model";
 import { Router } from "@angular/router";
 import { AppComponent } from "src/app/app.component";
 import { RSVPService } from "src/services/rsvp.service";
@@ -33,7 +33,7 @@ export class GuestLoginComponent implements OnInit, AfterViewInit {
           Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"),
         ],
       ],
-      password: ["", Validators.required],
+      staffId: ["", Validators.required],
     });
   }
 
@@ -46,38 +46,41 @@ export class GuestLoginComponent implements OnInit, AfterViewInit {
 
     this.appComponent.isLoading = true;
 
-    var loginRequest = new LoginRequest();
+    var loginRequest = new GuestLoginRequest();
     loginRequest.email = this.loginForm.controls.email.value;
-    loginRequest.password = this.loginForm.controls.password.value;
+    loginRequest.staffId = this.loginForm.controls.staffId.value;
 
     //temp
-    this.appComponent.isLoading = false;
-    this.appComponent.user = {
-      adminID: 123,
-      name: "ooi",
-      password: "",
-      email: "ooi@aira",
-      isSuperAdmin: false,
-    };
-    
-    sessionStorage.setItem("usertoken", JSON.stringify(this.appComponent.user));
-    this.appComponent.isUserLoggedIn = true;
-    this.router.navigate(["event"]);
+    // this.appComponent.isLoading = false;
+    // this.appComponent.user = {
+    //   adminID: 123,
+    //   name: "ooi",
+    //   password: "",
+    //   email: "ooi@aira",
+    //   isSuperAdmin: false,
+    // };
 
-    // this.rsvpService.Login(loginRequest)
-    //   .subscribe(data => {
-    //       this.appComponent.isLoading = false;
-    //       console.log(data);
-    //       this.appComponent.admin = data;
-    //       sessionStorage.setItem('token', JSON.stringify(this.appComponent.admin));
-    //       this.appComponent.isUserLoggedIn = true;
-    //       this.router.navigate(['admin/home']);
-    //   },
-    //   err => {
-    //     this.appComponent.isLoading = false;
-    //     alert(err.error);
-    //   }
-    //   );
+    // sessionStorage.setItem("usertoken", JSON.stringify(this.appComponent.user));
+    // this.appComponent.isUserLoggedIn = true;
+    // this.router.navigate(["event"]);
+
+    this.rsvpService.guestLogin(loginRequest).subscribe(
+      (data) => {
+        this.appComponent.isLoading = false;
+        console.log(data);
+        this.appComponent.user = data;
+        sessionStorage.setItem(
+          "usertoken",
+          JSON.stringify(this.appComponent.user)
+        );
+        this.appComponent.isUserLoggedIn = true;
+        this.router.navigate(["event"]);
+      },
+      (err) => {
+        this.appComponent.isLoading = false;
+        alert(err.error);
+      }
+    );
   }
 
   ngAfterViewInit() {

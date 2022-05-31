@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './admin/login/login.component';
-import { HomeComponent } from './admin/home/home.component';
+import { AttendanceComponent } from './admin/attendance/attendance.component';
 import { ManageComponent } from './admin/manage/manage.component';
 import { AccountComponent } from './admin/account/account.component';
 import { LandingComponent } from './landing/landing.component';
@@ -14,7 +14,7 @@ import { MyqrComponent } from './myqr/myqr.component';
 import { GuestLoginComponent } from './guest-login/guest-login.component';
 
 const routes: Routes = [
-  { path: '', component: MainComponent },
+  { path: '', component: GuestLoginComponent },
   { path: 'login', component: GuestLoginComponent },
   { path: 'event', component: LandingComponent },
   { path: 'event/agenda', component: AgendaComponent },
@@ -24,7 +24,7 @@ const routes: Routes = [
   { path: 'admin', component: LoginComponent },
   { path: 'admin/login', component: LoginComponent },
   { path: 'admin/account', component: AccountComponent },
-  { path: 'admin/home', component: HomeComponent },
+  { path: 'admin/attendance', component: AttendanceComponent },
   { path: 'admin/manage', component: ManageComponent },
 ];
 @NgModule({

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import { Location } from "@angular/common";
-import { Admin } from "src/models/rsvp.model";
+import { Admin, User } from "src/models/rsvp.model";
 import { MatSidenav } from "@angular/material";
 import { environment } from "../environments/environment";
 
@@ -18,12 +18,12 @@ export class AppComponent implements OnInit {
   admin: Admin;
 
   isEventPage: boolean = false;
-  user: Admin;
+  user: User;
   isUserLoggedIn: boolean = false;
 
   @ViewChild("sidenav", { static: false }) sidenav: MatSidenav;
 
-  constructor(private router: Router, private location: Location) {}
+  constructor(public router: Router, private location: Location) {}
 
   ngOnInit() {
     if (this.location.path().startsWith("/admin", 0)) {

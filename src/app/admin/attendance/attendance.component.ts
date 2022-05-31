@@ -14,11 +14,11 @@ import { DialogEditdonationComponent } from "../dialog-editdonation/dialog-editd
 import { ExcelFunction } from "../../../common/excelfunction";
 
 @Component({
-  selector: "app-home",
-  templateUrl: "./home.component.html",
-  styleUrls: ["./home.component.css"],
+  selector: "app-attendance",
+  templateUrl: "./attendance.component.html",
+  styleUrls: ["./attendance.component.css"],
 })
-export class HomeComponent implements OnInit {
+export class AttendanceComponent implements OnInit {
   rsvps: RSVP[];
   selectedAll: boolean;
   datasource: any[];

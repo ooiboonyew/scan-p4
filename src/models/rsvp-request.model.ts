@@ -4,6 +4,11 @@ export class LoginRequest {
     password: string;
 }
 
+export class GuestLoginRequest {
+    email: string;
+    staffId: string;
+}
+
 export class ChangePasswordReq {
     adminID: number;
     newpassword: string;

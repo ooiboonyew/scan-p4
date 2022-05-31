@@ -3,16 +3,22 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs/index";
 import { ApiResponse } from "../models/api.response";
 import { environment } from "../environments/environment";
-import { RSVP } from "../models/rsvp.model";
+import { RSVP, User } from "../models/rsvp.model";
+import { GuestLoginRequest } from "../models/rsvp-request.model";
 
 @Injectable()
 export class RSVPService {
   constructor(private http: HttpClient) {}
   baseUrl: string = environment.Service_URL + "/rsvp";
 
+  guestLogin(loginRequest: GuestLoginRequest): Observable<User> {
+    return this.http.post<User>(this.baseUrl + '/guestLogin', loginRequest);
+  }
+
   listRSVP(): Observable<[]> {
     return this.http.get<[]>(this.baseUrl);
   }
+
 
   AddRSVP(rsvp: RSVP): Observable<{}> {
     return this.http.post<{}>(this.baseUrl + "/Add", rsvp);

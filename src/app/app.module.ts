@@ -10,7 +10,7 @@ import { QRCodeModule } from 'angularx-qrcode';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './admin/login/login.component';
-import { HomeComponent } from './admin/home/home.component';
+import { AttendanceComponent } from './admin/attendance/attendance.component';
 import { AdminService } from 'src/services/admin.service';
 import { RSVPService } from 'src/services/rsvp.service';
 
@@ -34,7 +34,7 @@ import { GuestLoginComponent } from './guest-login/guest-login.component';
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent,
+    AttendanceComponent,
     ManageComponent,
     AccountComponent,
     LandingComponent,

@@ -14,6 +14,9 @@ rsvpApp.use(cors({ origin: true }));
 const RsvpModel = require("../models/RsvpModel");
 const rsvpModel = new RsvpModel();
 
+const UserModel = require("../models/UserModel");
+const userModel = new UserModel();
+
 // rsvpApp.use(verifyToken);
 rsvpApp.use(addResponseHeader);
 
@@ -52,6 +55,28 @@ rsvpApp.get("/rsvp/email/:rsvpId", async (req, res, next) => {
   }
 });
 
+rsvpApp.post("/rsvp/guestLogin", async (req, res, next) => {
+  try {
+    let email = req.body.email;
+    let staffId = req.body.staffId;
+
+    var users = await userModel.getUserByEmail(email);
+
+    if (
+      users &&
+      users.length > 0 &&
+      email == users[0].email &&
+      staffId == users[0].staffId
+    ) {
+      return res.status(200).json(users[0]);
+    } else {
+      return res.status(401).json("Invalid Email or Staff ID");
+    }
+  } catch (error) {
+    adeErrorHandler(error, req, res, next);
+  }
+});
+
 rsvpApp.post("/admin/login", async (req, res, next) => {
   try {
     let email = req.body.email;
@@ -79,7 +104,11 @@ rsvpApp.post("/rsvp/add", async (req, res, next) => {
     var existingRSVP = await rsvpModel.checkRSVPEmail(rsvp.email);
 
     if (existingRSVP.id) {
-      return res.status(405).json("Our record shows that you have already registered for this event. For assistance, please write to hhglobalevents@gmail.com.");
+      return res
+        .status(405)
+        .json(
+          "Our record shows that you have already registered for this event. For assistance, please write to hhglobalevents@gmail.com."
+        );
     }
 
     const resultId = await rsvpModel.add(rsvp);
