@@ -153,6 +153,20 @@ rsvpApp.post("/rsvp/update", async (req, res, next) => {
   }
 });
 
+
+rsvpApp.post("/rsvp/checkin", async (req, res, next) => {
+  try {
+    const user = req.body;
+    user.lastCheckInDate = new Date();
+    console.log(user);
+    const result = await userModel.update(user);
+    //send email
+    return res.status(200).json(result);
+  } catch (error) {
+    adeErrorHandler(error, req, res, next);
+  }
+});
+
 rsvpApp.use(adeErrorHandler);
 
 exports.rsvp = functions.region("asia-southeast1").https.onRequest(rsvpApp);

@@ -60,7 +60,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
           JSON.stringify(this.appComponent.admin)
         );
         this.appComponent.isAdminLoggedIn = true;
-        this.router.navigate(["admin/home"]);
+        this.router.navigate(["admin"]);
       },
       (err) => {
         this.appComponent.isLoading = false;
@@ -71,7 +71,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     if (sessionStorage.getItem("admintoken") !== null) {
-      this.router.navigate(["admin/home"]);
+      this.router.navigate(["admin"]);
       this.appComponent.isAdminLoggedIn = true;
     } else {
       this.appComponent.isAdminLoggedIn = false;

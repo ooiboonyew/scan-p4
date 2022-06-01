@@ -36,6 +36,10 @@ export class RSVPService {
     return this.http.get<User>(this.baseUrl + '/scanqr/' + id);
   }
 
+  CheckIn(user: User): Observable<{}> {
+    return this.http.post<{}>(this.baseUrl + "/checkin", user);
+  }
+
   // UpdateRSVP(rsvp: RSVP): Observable<ApiResponse> {
   //   return this.http.post<ApiResponse>(this.baseUrl + '/Update', rsvp);
   // }
