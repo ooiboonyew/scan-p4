@@ -34,7 +34,7 @@ export class CheckinComponent implements OnInit, AfterViewInit {
       this.userId = params.id;
     });
 
-    this.rSVPService.ScanQR(this.userId).subscribe(
+    this.rSVPService.Getuser(this.userId).subscribe(
       (data) => {
         this.appComponent.isLoading = false;
         this.user = data;

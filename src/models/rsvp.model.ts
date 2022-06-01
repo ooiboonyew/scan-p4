@@ -13,7 +13,7 @@ export class User {
   email: string;
   name: string;
   createdDate: object;
-  booths: Booth[];
+  userBooths: UserBooth[];
   guestAttend: number
   guestAvailable: number
   userAttend: number
@@ -22,10 +22,10 @@ export class User {
 
 export class UserBooth {
   id: string;
-  num: number;
+  boothNum: number;
   chancesTotal: number;
   chancesLeft: number;
-  status: number;
+  // status: number;
 }
 
 export class Booth {

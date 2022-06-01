@@ -55,13 +55,17 @@ rsvpApp.get("/rsvp/email/:rsvpId", async (req, res, next) => {
   }
 });
 
-rsvpApp.get("/rsvp/scanqr/:userId", async (req, res, next) => {
+rsvpApp.get("/rsvp/getuser/:userId", async (req, res, next) => {
   try {
     const userId = req.params.userId;
     console.log(userId);
     var user = await userModel.getUserById(userId);
 
     if (user.email) {
+      if (user.userBooths && user.userBooths.length > 0) {
+        user.userBooths.sort((a,b) => a.boothNum - b.boothNum); 
+      }
+
       return res.status(200).json(user);
     } else {
       return res.status(401).json("Record Not Found.");
@@ -152,7 +156,6 @@ rsvpApp.post("/rsvp/update", async (req, res, next) => {
     adeErrorHandler(error, req, res, next);
   }
 });
-
 
 rsvpApp.post("/rsvp/checkin", async (req, res, next) => {
   try {

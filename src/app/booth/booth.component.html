@@ -1,1 +1,88 @@
-<p>booth works!</p>
+<div class="row" style="padding-bottom: 15px">
+  <div class="col-12">
+    <div style="font-size: xx-large">Booth Interaction</div>
+  </div>
+</div>
+<div *ngIf="user && !userBooth">
+  <div>Remaining chances :</div>
+  <div
+    class="row"
+    *ngFor="let userBooth of user.userBooths; let i = index"
+    style="padding-bottom: 10px; padding-top: 10px"
+  >
+    <div
+      class="col-7"
+      style="align-self: center"
+      *ngIf="userBooth.chancesTotal > 0"
+    >
+      Booth {{ userBooth.boothNum }} : {{ userBooth.chancesLeft }}
+    </div>
+    <div class="col-5" *ngIf="userBooth.chancesTotal > 0">
+      <button
+        (click)="play(userBooth)"
+        style="background-color: skyblue; width: 100%; color: white"
+        class="btn"
+        *ngIf="userBooth.chancesLeft > 0"
+      >
+        Play
+      </button>
+    </div>
+  </div>
+</div>
+<div *ngIf="user && userBooth">
+  <div>Booth {{ userBooth.boothNum }}</div>
+  <div>Remaing Chances : {{ userBooth.chancesLeft }}</div>
+  <br />
+  <div style="border: solid 1px black; padding: 10px">
+    This will cost you 1 chance to participate!
+  </div>
+  <br />
+  <div>If confirm, please pass to booth staff to key in 4 digit code.</div>
+  <br />
+  <div style="text-align: center">
+    <input
+      type="number"
+      pattern="\d*"
+      maxlength="1"
+      [(ngModel)]="digit1"
+      class="txtDigit"
+      (keyup)="onDigitInput($event, $event.target.value)"
+    />
+    <input
+      type="number"
+      pattern="\d*"
+      maxlength="1"
+      [(ngModel)]="digit2"
+      class="txtDigit"
+      (keyup)="onDigitInput($event, $event.target.value)"
+    />
+    <input
+      type="number"
+      pattern="\d*"
+      maxlength="1"
+      [(ngModel)]="digit3"
+      class="txtDigit"
+      (keyup)="onDigitInput($event, $event.target.value)"
+    />
+    <input
+      type="number"
+      pattern="\d*"
+      maxlength="1"
+      [(ngModel)]="digit4"
+      class="txtDigit"
+      (keyup)="onDigitInput($event, $event.target.value)"
+    />
+  </div>
+  <div style="padding-bottom: 15px; padding-top: 40px; text-align: center">
+    <button
+      [routerLink]="['../scan-qr']"
+      class="btn btn-danger"
+      style="width: 150px; margin-right: 20px"
+    >
+      Cancel
+    </button>
+    <button class="btn btn-success" (click)="confirm()" style="width: 150px">
+      Confirm
+    </button>
+  </div>
+</div>

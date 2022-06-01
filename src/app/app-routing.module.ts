@@ -19,7 +19,7 @@ import { BoothSetupComponent } from './admin/booth-setup/booth-setup.component';
 import { CheckinComponent } from './admin/checkin/checkin.component';
 
 const routes: Routes = [
-  { path: '', component: GuestLoginComponent },
+  { path: '', component: MainComponent },
   { path: 'login', component: GuestLoginComponent },
   { path: 'event', component: LandingComponent },
   { path: 'event/agenda', component: AgendaComponent },

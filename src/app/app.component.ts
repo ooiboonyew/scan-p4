@@ -42,11 +42,16 @@ export class AppComponent implements OnInit {
       }
     }
 
+    console.log(this.location.path());
+
     if (this.location.path().startsWith("/event", 0)) {
       this.isEventPage = true;
     } else {
       this.isEventPage = false;
     }
+
+    console.log(this.isEventPage);
+
 
     if (this.isEventPage) {
       this.user = JSON.parse(sessionStorage.getItem("usertoken"));

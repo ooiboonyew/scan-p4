@@ -43,7 +43,7 @@ export class ScanQrComponent implements OnInit, AfterViewInit {
     }
     this.appComponent.isLoading = true;
 
-    this.rSVPService.ScanQR(resultString).subscribe(
+    this.rSVPService.Getuser(resultString).subscribe(
       (data) => {
         this.scanned = true;
         this.appComponent.isLoading = false;

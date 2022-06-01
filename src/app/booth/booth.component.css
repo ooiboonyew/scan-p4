@@ -1,0 +1,11 @@
+.txtDigit{
+    width: 35px;
+    height: 35px;
+    margin-left: 10px;
+    margin-right: 10px;
+    text-align: center; 
+    border: 1px solid black;
+}
+/* input, textarea {
+    transform: perspective(1px);
+} */

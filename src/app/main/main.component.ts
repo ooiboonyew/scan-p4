@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-main",
@@ -6,13 +7,22 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./main.component.scss"],
 })
 export class MainComponent implements OnInit {
-  constructor() {}
+  constructor(
+    private router: Router,
+  ) {}
 
-  public isMobileLayout = false;
+  // public isMobileLayout = false;
   
   ngOnInit() {
-    window.onresize = () => (this.isMobileLayout = window.innerWidth <= 576);
+    // window.onresize = () => (this.isMobileLayout = window.innerWidth <= 576);
   }
 
-  goPage() {}
+  goPage() {
+    window.location.href = '/event';
+  }
+
+  redirectTo(uri:string){
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+    this.router.navigate([uri]));
+ }
 }
