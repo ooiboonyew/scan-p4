@@ -17,40 +17,38 @@
                     <th mat-header-cell *matHeaderCellDef mat-sort-header><b>#</b></th>
                     <td mat-cell *matCellDef="let row">{{row.num}}</td>
                 </ng-container>
-                <ng-container matColumnDef="firstName">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header><b>First Name</b></th>
-                    <td mat-cell *matCellDef="let row">{{row.firstName}}</td>
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header><b>Name</b></th>
+                    <td mat-cell *matCellDef="let row">{{row.name}}</td>
                 </ng-container>
-                <ng-container matColumnDef="lastName">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header><b>Last Name</b></th>
-                    <td mat-cell *matCellDef="let row">{{row.lastName}}</td>
+                <ng-container matColumnDef="staffId">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header><b>Staff ID</b></th>
+                    <td mat-cell *matCellDef="let row">{{row.staffId}}</td>
                 </ng-container>
                 <ng-container matColumnDef="email">
-                    <th mat-header-cell *matHeaderCellDef><b>Email</b></th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header><b>Email</b></th>
                     <td mat-cell *matCellDef="let row">{{row.email}}</td>
                 </ng-container>
-                <ng-container matColumnDef="mobile">
-                    <th mat-header-cell *matHeaderCellDef><b>Mobile</b></th>
-                    <td mat-cell *matCellDef="let row">{{row.mobile}}</td>
+                <ng-container matColumnDef="userAttend">
+                    <th mat-header-cell *matHeaderCellDef><b>Attended</b></th>
+                    <td mat-cell *matCellDef="let row">{{row.userAttend == 1 ? "Yes" : "No"}}</td>
                 </ng-container>
-                <ng-container matColumnDef="country">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header><b>Country</b></th>
-                    <td mat-cell *matCellDef="let row">{{row.country}}</td>
+                <ng-container matColumnDef="guestAvailable">
+                    <th mat-header-cell *matHeaderCellDef><b>Acc Person</b></th>
+                    <td mat-cell *matCellDef="let row">{{row.guestAvailable}}</td>
                 </ng-container>
-                <ng-container matColumnDef="createdDate">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header><b>Registered Date</b></th>
-                    <td mat-cell *matCellDef="let row">{{row.createdDate ? (row.createdDate._seconds * 1000 | date: 'dd-MMM-yyyy hh:mma'): ''}}</td>
+                <ng-container matColumnDef="guestAttend">
+                    <th mat-header-cell *matHeaderCellDef><b>Acc Attended</b></th>
+                    <td mat-cell *matCellDef="let row">{{row.guestAttend}}</td>
                 </ng-container>
-                <ng-container matColumnDef="emailDate">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header><b>Email Date</b></th>
-                    <td mat-cell *matCellDef="let row">{{row.emailDate ? (row.emailDate._seconds * 1000 | date: 'dd-MMM-yyyy hh:mma') : ''}}</td>
+                <ng-container matColumnDef="guestAbsent">
+                    <th mat-header-cell *matHeaderCellDef><b>Acc Absent</b></th>
+                    <td mat-cell *matCellDef="let row">{{row.guestAvailable - row.guestAttend}}</td>
                 </ng-container>
+                
                 <ng-container matColumnDef="Edit">
                     <th mat-header-cell *matHeaderCellDef></th>
                     <td mat-cell *matCellDef="let row">
-                        <button mat-icon-button style="color: #6c757d" (click)="email(row)">
-                            <mat-icon>email</mat-icon>
-                        </button>
                         <button mat-icon-button style="color: #6c757d" (click)="edit(row)">
                             <mat-icon>edit</mat-icon>
                         </button>

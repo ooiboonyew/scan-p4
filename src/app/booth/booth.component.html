@@ -3,7 +3,46 @@
     <div style="font-size: xx-large">Booth Interaction</div>
   </div>
 </div>
-<div *ngIf="user && !userBooth">
+
+<div *ngIf="user && message">
+  <div class="row" style="padding-top: 40px">
+    <div class="col-1"></div>
+    <div
+      class="col-10 text-center"
+      style="border: solid black 1px; padding: 30px; font-size: large"
+    >
+      <img
+        *ngIf="message != 'Play Successfully.'"
+        style="padding-right: 15px"
+        width="50px"
+        src="../../assets/images/icon/error-svgrepo-com.svg"
+      />
+      <img
+        *ngIf="message == 'Play Successfully.'"
+        style="padding-right: 15px"
+        width="50px"
+        src="../../assets/images/icon/success-svgrepo-com.svg"
+      />
+      {{ message }}
+    </div>
+    <div class="col-1"></div>
+  </div>
+
+  <div class="row" style="padding-top: 60px">
+    <div class="col-12 text-center">
+      <button
+        style="background-color: skyblue; width: 150px; color: white"
+        class="btn"
+        (click)="done()"
+      >
+        Done
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- <div *ngIf="user && !userBooth"> -->
+<div *ngIf="user && !userBooth && !message ">
   <div>Remaining chances :</div>
   <div
     class="row"
@@ -29,7 +68,7 @@
     </div>
   </div>
 </div>
-<div *ngIf="user && userBooth">
+<div *ngIf="user && userBooth && !message">
   <div>Booth {{ userBooth.boothNum }}</div>
   <div>Remaing Chances : {{ userBooth.chancesLeft }}</div>
   <br />
@@ -40,48 +79,20 @@
   <div>If confirm, please pass to booth staff to key in 4 digit code.</div>
   <br />
   <div style="text-align: center">
-    <input
-      type="number"
-      pattern="\d*"
-      maxlength="1"
-      [(ngModel)]="digit1"
-      class="txtDigit"
-      (keyup)="onDigitInput($event, $event.target.value)"
-    />
-    <input
-      type="number"
-      pattern="\d*"
-      maxlength="1"
-      [(ngModel)]="digit2"
-      class="txtDigit"
-      (keyup)="onDigitInput($event, $event.target.value)"
-    />
-    <input
-      type="number"
-      pattern="\d*"
-      maxlength="1"
-      [(ngModel)]="digit3"
-      class="txtDigit"
-      (keyup)="onDigitInput($event, $event.target.value)"
-    />
-    <input
-      type="number"
-      pattern="\d*"
-      maxlength="1"
-      [(ngModel)]="digit4"
-      class="txtDigit"
-      (keyup)="onDigitInput($event, $event.target.value)"
-    />
+    <ng-otp-input
+      (onInputChange)="onOtpChange($event)"
+      [config]="{ length: 4, allowNumbersOnly: true }"
+    ></ng-otp-input>
   </div>
   <div style="padding-bottom: 15px; padding-top: 40px; text-align: center">
     <button
-      [routerLink]="['../scan-qr']"
+      (click)="cancel()"
       class="btn btn-danger"
-      style="width: 150px; margin-right: 20px"
+      style="width: 120px; margin-right: 20px"
     >
       Cancel
     </button>
-    <button class="btn btn-success" (click)="confirm()" style="width: 150px">
+    <button class="btn btn-success" (click)="confirm()" style="width: 120px">
       Confirm
     </button>
   </div>

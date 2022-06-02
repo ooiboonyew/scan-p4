@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { RSVP } from "../../../models/rsvp.model";
+import { User } from "../../../models/rsvp.model";
 import { RSVPService } from "../../../services/rsvp.service";
 import { AppComponent } from "src/app/app.component";
 import {
@@ -19,22 +19,20 @@ import { ExcelFunction } from "../../../common/excelfunction";
   styleUrls: ["./attendance.component.css"],
 })
 export class AttendanceComponent implements OnInit {
-  rsvps: RSVP[];
+  users: User[];
   selectedAll: boolean;
   datasource: any[];
-  totalselect: number = 100;
-  dataSource: MatTableDataSource<RSVP>;
-  selection: SelectionModel<RSVP> = new SelectionModel<RSVP>(true, []);
+  dataSource: MatTableDataSource<User>;
+  selection: SelectionModel<User> = new SelectionModel<User>(true, []);
   displayedColumns: string[] = [
     "num",
-    // "attending",
-    "firstName",
-    "lastName",
+    "name",
+    "staffId",
     "email",
-    "mobile",
-    "country",
-    "createdDate",
-    "emailDate",
+    "userAttend",
+    "guestAvailable",
+    "guestAttend",
+    "guestAbsent",
     "Edit",
   ];
   selectedfilter: string = "";
@@ -51,13 +49,13 @@ export class AttendanceComponent implements OnInit {
 
   ngOnInit() {
     setTimeout(() => (this.appComponent.isLoading = true), 0);
-    this.rSVPService.listRSVP().subscribe(
+    this.rSVPService.listUser().subscribe(
       (data) => {
         console.log(data);
         setTimeout(() => (this.appComponent.isLoading = false), 0);
-        this.rsvps = data;
-        console.log(this.rsvps);
-        this.dataSource = new MatTableDataSource<RSVP>(data);
+        this.users = data;
+        console.log(this.users);
+        this.dataSource = new MatTableDataSource<User>(data);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       },
@@ -70,16 +68,16 @@ export class AttendanceComponent implements OnInit {
 
   download() {
     this.appComponent.isLoading = true;
-    this.excelFunction.exportCustomHeaderAsExcelFile(this.rsvps, "rsvp");
+    // this.excelFunction.exportCustomHeaderAsExcelFile(this.users, "rsvp");
     this.appComponent.isLoading = false;
   }
 
-  edit(rsvp: RSVP) {
+  edit(user: User) {
     let dialogRef = this.dialog.open(DialogEditdonationComponent, {
       width: "60%",
       disableClose: true,
       data: {
-        rsvp: rsvp,
+        user: user,
       },
     });
 
@@ -91,21 +89,21 @@ export class AttendanceComponent implements OnInit {
     });
   }
 
-  email(rsvp: RSVP) {
-    if (confirm("Are you sure you want to send email to " + rsvp.email + "?")) {
-      this.appComponent.isLoading = true;
-      this.rSVPService.EmailRSVP(rsvp.id).subscribe(
-        (data) => {
-          this.appComponent.isLoading = false;
-          alert("Email Send Successfully.");
-          this.ngOnInit();
-        },
-        (err) => {
-          var errorstr = JSON.stringify(err.error);
-          alert(errorstr);
-          this.appComponent.isLoading = false;
-        }
-      );
-    }
-  }
+  // email(rsvp: RSVP) {
+  //   if (confirm("Are you sure you want to send email to " + rsvp.email + "?")) {
+  //     this.appComponent.isLoading = true;
+  //     this.rSVPService.EmailRSVP(rsvp.id).subscribe(
+  //       (data) => {
+  //         this.appComponent.isLoading = false;
+  //         alert("Email Send Successfully.");
+  //         this.ngOnInit();
+  //       },
+  //       (err) => {
+  //         var errorstr = JSON.stringify(err.error);
+  //         alert(errorstr);
+  //         this.appComponent.isLoading = false;
+  //       }
+  //     );
+  //   }
+  // }
 }

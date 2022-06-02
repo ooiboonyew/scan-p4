@@ -17,6 +17,12 @@ const rsvpModel = new RsvpModel();
 const UserModel = require("../models/UserModel");
 const userModel = new UserModel();
 
+const BoothModel = require("../models/BoothModel");
+const boothModel = new BoothModel();
+
+const UserBoothModel = require("../models/UserBoothModel");
+const userBoothModel = new UserBoothModel();
+
 // rsvpApp.use(verifyToken);
 rsvpApp.use(addResponseHeader);
 
@@ -55,6 +61,16 @@ rsvpApp.get("/rsvp/email/:rsvpId", async (req, res, next) => {
   }
 });
 
+rsvpApp.get("/rsvp/listusers", async (req, res, next) => {
+  try {
+    const result = await userModel.getUsers();
+
+    return res.status(200).json(result);
+  } catch (error) {
+    adeErrorHandler(error, req, res, next);
+  }
+});
+
 rsvpApp.get("/rsvp/getuser/:userId", async (req, res, next) => {
   try {
     const userId = req.params.userId;
@@ -63,7 +79,7 @@ rsvpApp.get("/rsvp/getuser/:userId", async (req, res, next) => {
 
     if (user.email) {
       if (user.userBooths && user.userBooths.length > 0) {
-        user.userBooths.sort((a,b) => a.boothNum - b.boothNum); 
+        user.userBooths.sort((a, b) => a.boothNum - b.boothNum);
       }
 
       return res.status(200).json(user);
@@ -163,6 +179,55 @@ rsvpApp.post("/rsvp/checkin", async (req, res, next) => {
     user.lastCheckInDate = new Date();
     console.log(user);
     const result = await userModel.update(user);
+    //send email
+    return res.status(200).json(result);
+  } catch (error) {
+    adeErrorHandler(error, req, res, next);
+  }
+});
+
+rsvpApp.post("/rsvp/playBooth", async (req, res, next) => {
+  try {
+    const playBoothRequest = req.body;
+
+    var user = await userModel.getUserById(playBoothRequest.userId);
+    var booth = (await boothModel.getBoothByNum(playBoothRequest.boothNum))[0];
+
+    console.log(booth);
+    if (!booth || booth.status == 0) {
+      return res
+        .status(405)
+        .json("Booth " + playBoothRequest.boothNum + " is closed.");
+    }
+
+    if (booth.secretDigit != playBoothRequest.secretDigit) {
+      return res
+        .status(405)
+        .json("Secret Key Incorrect for Booth " + booth.boothNum + ".");
+    }
+
+    var foundUserBooth = user.userBooths.find(
+      (x) => x.boothNum == booth.boothNum
+    );
+
+    if (!foundUserBooth || foundUserBooth.chancesLeft < 1) {
+      return res
+        .status(405)
+        .json("Not enough chance for Booth " + booth.boothNum + ".");
+    }
+
+    foundUserBooth.chancesLeft -= 1;
+    const userResult = await userModel.update(user);
+
+    var userBooth = {};
+    userBooth.userId = user.id;
+    userBooth.boothNum = booth.boothNum;
+    userBooth.chancesLeft = foundUserBooth.chancesLeft;
+    userBooth.status = 1;
+    userBooth.createdDate = new Date();
+    
+    const result = await userBoothModel.add(userBooth);
+
     //send email
     return res.status(200).json(result);
   } catch (error) {

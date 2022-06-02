@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { RSVPService } from "../../services/rsvp.service";
 import { AppComponent } from "src/app/app.component";
 import { User, UserBooth } from "src/models/rsvp.model";
+import { PlayBoothRequest } from "src/models/rsvp-request.model";
 
 @Component({
   selector: "app-booth",
@@ -11,20 +12,19 @@ import { User, UserBooth } from "src/models/rsvp.model";
 export class BoothComponent implements OnInit {
   user: User;
   userBooth: UserBooth;
-  digit1: number;
-  digit2: number;
-  digit3: number;
-  digit4: number;
+  secretDigit: string;
+  message: string;
 
   constructor(
     private rSVPService: RSVPService,
     private appComponent: AppComponent
   ) {}
   ngOnInit() {
+    this.message = "";
     this.rSVPService.Getuser(this.appComponent.user.id).subscribe(
       (data) => {
         this.user = data;
-        console.log(this.user);
+        this.userBooth = null;
       },
       (err) => {
         alert(err.error);
@@ -37,103 +37,55 @@ export class BoothComponent implements OnInit {
     console.log(userBooth);
   }
 
+  cancel() {
+    this.userBooth = null;
+  }
+
+  done() {
+    // window.location.href = '/event/booth';
+    this.appComponent.isLoading = true;
+
+    this.rSVPService.Getuser(this.appComponent.user.id).subscribe(
+      (data) => {
+        this.appComponent.isLoading = false;
+        this.user = data;
+        this.message = null;
+        this.userBooth = null;
+      },
+      (err) => {
+        this.appComponent.isLoading = false;
+        alert(err.error);
+      }
+    );
+  }
+
   confirm() {
     let cfm = confirm("Confirm Check-in ?");
 
-    console.log(this.digit1);
-
     if (cfm) {
-      // this.appComponent.isLoading = true;
-      // this.rSVPService.CheckIn(this.user).subscribe(
-      //   (data) => {
-      //     this.appComponent.isLoading = false;
-      //     alert("Check-in Successfully.");
-      //     // this.router.navigate(["admin/scan-qr"]);
-      //   },
-      //   (err) => {
-      //     var errorstr = JSON.stringify(err.error);
-      //     console.log(err.error);
-      //     alert(errorstr.replace(new RegExp('"', "g"), ""));
-      //     this.appComponent.isLoading = false;
-      //   }
-      // );
+      var playBoothRequest = new PlayBoothRequest();
+      playBoothRequest.userId = this.user.id;
+      playBoothRequest.boothNum = this.userBooth.boothNum;
+      playBoothRequest.secretDigit = this.secretDigit;
+
+      this.appComponent.isLoading = true;
+      this.rSVPService.PlayBooth(playBoothRequest).subscribe(
+        (data) => {
+          this.message = "Play Successfully.";
+          this.appComponent.isLoading = false;
+        },
+        (err) => {
+          var errorstr = JSON.stringify(err.error);
+          console.log(err.error);
+          this.message = errorstr.replace(new RegExp('"', "g"), "");
+          this.appComponent.isLoading = false;
+          console.log(this.userBooth);
+        }
+      );
     }
   }
 
-  keyPressNumbers(event) {
-
-    let element;
-    // if (event.code !== "Backspace")
-    //   element = event.srcElement.nextElementSibling;
-
-    // if (event.code === "Backspace")
-    //   element = event.srcElement.previousElementSibling;
-
-    // if (element == null) return;
-    // else element.focus();
-
-    var charCode = (event.which) ? event.which : event.keyCode;
-    // Only Numbers 0-9
-    if ((charCode < 48 || charCode > 57)) {
-      console.log("here 2");
-      event.preventDefault();
-      return false;
-    } else {
-      console.log("here");
-      element = event.srcElement.nextElementSibling;
-      element.focus();
-      return true;
-    }
-
-    
-
-
-
-  }
-
-  onDigitInput(event, value) {
-
-    // var charCode = (event.which) ? event.which : event.keyCode;
-
-    // console.log(charCode)
-    console.log(event);
-    console.log(value);
-
-    if(value > 9){
-      if(event.code == "digit1")
-      {
-        this.digit1 = event.code
-      }
-    }
-
-    let element;
-    if (event.code !== "Backspace")
-      element = event.srcElement.nextElementSibling;
-
-    if (event.code === "Backspace")
-      element = event.srcElement.previousElementSibling;
-
-    if (element == null) return;
-    else element.focus();
+  onOtpChange(otp) {
+    this.secretDigit = otp;
   }
 }
-
-//   onDigitInput(event) {
-//     let element;
-//     console.log(event);
-//     if (event.shiftKey && event.keyCode == 9) {
-//       console.log("here ok")
-//       element = event.srcElement.previousElementSibling;
-//     } else {
-//       console.log("here ok")
-
-//       if (event.code !== "Backspace")
-//         element = event.srcElement.nextElementSibling;
-
-//       if (event.code === "Backspace")
-//         element = event.srcElement.previousElementSibling;
-//     }
-//     if (element == null) return;
-//     else element.focus();
-//   }
-// }

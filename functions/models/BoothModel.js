@@ -1,17 +1,17 @@
 const MainModel = require("./MainModel");
 const _ = require("lodash");
 
-const USERS = "users";
+const BOOTHS = "booths";
 
-class UserModel extends MainModel {
+class BoothModel extends MainModel {
   constructor() {
     super();
   }
 
-  async getUsers() {
+  async getBooths() {
     const result = await this.db
-      .collection(USERS)
-      .orderBy("name", "asc")
+      .collection(BOOTHS)
+      .orderBy("createdDate", "asc")
       .get()
       .catch((firestoreError) => {
         throw firestoreError;
@@ -20,45 +20,45 @@ class UserModel extends MainModel {
     return this.toArray(result);
   }
 
-  async getUserById(id) {
+  async getBoothById(id) {
     try {
-      var user = await this.db.collection(USERS).doc(id).get();
-      const userData = user.data();
-      return { id, ...userData };
+      var booth = await this.db.collection(BOOTHS).doc(id).get();
+      const boothData = booth.data();
+      return { id, ...boothData };
     } catch (err) {
       throw err;
     }
   }
 
-  async getUserByEmail(email) {
+  async getBoothByNum(num) {
     const result = await this.db
-      .collection(USERS)
-      .where("email", "==", email)
+      .collection(BOOTHS)
+      .where("boothNum", "==", num)
       .get()
       .catch((firestoreError) => {
         throw firestoreError;
       });
 
-    const userList = this.toArray(result);
+    const boothList = this.toArray(result);
 
-    return userList;
+    return boothList;
   }
 
-  async checkUserEmail(email) {
+  async checkBoothEmail(email) {
     try {
-      let user, id;
+      let booth, id;
       await this.db
-        .collection(USERS)
+        .collection(BOOTHS)
         .where("email", "==", email)
         .get()
         .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
-            user = doc.data();
+            booth = doc.data();
             id = doc.id;
           });
         });
 
-      return { id, ...user };
+      return { id, ...booth };
     } catch (err) {
       throw err;
     }
@@ -66,7 +66,7 @@ class UserModel extends MainModel {
 
   async add(product) {
     const result = await this.db
-      .collection(USERS)
+      .collection(BOOTHS)
       .add(product)
       .catch((firestoreError) => {
         throw firestoreError;
@@ -78,7 +78,7 @@ class UserModel extends MainModel {
   async update(data) {
     try {
       const result = await this.db
-        .collection(USERS)
+        .collection(BOOTHS)
         .doc(data.id)
         .update(data)
         .catch((firestoreError) => {
@@ -93,7 +93,7 @@ class UserModel extends MainModel {
 
   async getSettingById(settingId) {
     const setting = await this.db
-      .collection(USERS)
+      .collection(BOOTHS)
       .doc(settingId)
       .get()
       .catch((firestoreError) => {
@@ -111,4 +111,4 @@ class UserModel extends MainModel {
   }
 }
 
-module.exports = UserModel;
+module.exports = BoothModel;

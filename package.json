@@ -42,6 +42,7 @@
     "jquery": "^3.5.0",
     "lodash": "^4.17.15",
     "ng-multiselect-dropdown": "^0.3.4",
+    "ng-otp-input": "^1.8.1",
     "ngx-soap": "^0.6.3",
     "rxjs": "^6.6.3",
     "sax": "^1.2.4",

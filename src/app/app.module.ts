@@ -8,6 +8,7 @@ import { MaterialModule } from './material.module';
 import { DatePipe } from '@angular/common';
 import { QRCodeModule } from 'angularx-qrcode';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { NgOtpInputModule } from  'ng-otp-input';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './admin/login/login.component';
@@ -69,7 +70,8 @@ import { CheckinComponent } from './admin/checkin/checkin.component';
     BrowserAnimationsModule,
     MaterialModule,
     QRCodeModule,
-    ZXingScannerModule
+    ZXingScannerModule,
+    NgOtpInputModule
   ],
   entryComponents: [
     DialogEditdonationComponent,

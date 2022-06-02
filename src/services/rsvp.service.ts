@@ -4,7 +4,7 @@ import { Observable } from "rxjs/index";
 import { ApiResponse } from "../models/api.response";
 import { environment } from "../environments/environment";
 import { RSVP, User } from "../models/rsvp.model";
-import { GuestLoginRequest } from "../models/rsvp-request.model";
+import { GuestLoginRequest, PlayBoothRequest  } from "../models/rsvp-request.model";
 
 @Injectable()
 export class RSVPService {
@@ -31,6 +31,13 @@ export class RSVPService {
   EmailRSVP(id: string): Observable<{}> {
     return this.http.get<ApiResponse>(this.baseUrl + '/email/' + id);
   }
+  
+  
+
+  listUser(): Observable<[]> {
+    return this.http.get<[]>(this.baseUrl +'/listusers');
+  }
+
 
   Getuser(id: string): Observable<User> {
     return this.http.get<User>(this.baseUrl + '/getuser/' + id);
@@ -39,6 +46,12 @@ export class RSVPService {
   CheckIn(user: User): Observable<{}> {
     return this.http.post<{}>(this.baseUrl + "/checkin", user);
   }
+
+  PlayBooth(playBoothRequest: PlayBoothRequest): Observable<{}> {
+    return this.http.post<{}>(this.baseUrl + "/playBooth", playBoothRequest);
+  }
+
+  
 
   // UpdateRSVP(rsvp: RSVP): Observable<ApiResponse> {
   //   return this.http.post<ApiResponse>(this.baseUrl + '/Update', rsvp);

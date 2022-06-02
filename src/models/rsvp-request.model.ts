@@ -14,3 +14,9 @@ export class ChangePasswordReq {
     newpassword: string;
     oldpassword: string;
 }
+
+export class PlayBoothRequest {
+    userId: string;
+    boothNum: number;
+    secretDigit: string;
+}

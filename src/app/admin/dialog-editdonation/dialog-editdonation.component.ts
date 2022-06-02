@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from "@angular/core";
 import { RSVPService } from "../../../services/rsvp.service";
-import { RSVP } from "../../../models/rsvp.model";
+import { RSVP, User } from "../../../models/rsvp.model";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import {
   FormControl,
@@ -17,7 +17,7 @@ import { CustomValidators } from "../../../common/validators";
   styleUrls: ["./dialog-editdonation.component.css"],
 })
 export class DialogEditdonationComponent implements OnInit {
-  rsvp: RSVP;
+  user: User;
   editrsvp: FormGroup;
   isLoading: boolean = false;
 
@@ -29,36 +29,31 @@ export class DialogEditdonationComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.rsvp = this.data.rsvp;
+    this.user = this.data.user;
 
     this.editrsvp = new FormGroup({
-      firstName: new FormControl(
-        { value: this.rsvp.firstName, disabled: false },
+      name: new FormControl(
+        { value: this.user.name, disabled: false },
         [
           Validators.required,
           Validators.maxLength(50),
           CustomValidators.letterAndNumberSpaceOnly,
         ]
       ),
-      lastName: new FormControl(
-        { value: this.rsvp.lastName, disabled: false },
+      staffId: new FormControl(
+        { value: this.user.staffId, disabled: false },
         [
           Validators.required,
           Validators.maxLength(50),
           CustomValidators.letterAndNumberSpaceOnly,
         ]
       ),
-      email: new FormControl({ value: this.rsvp.email, disabled: false }, [
+      email: new FormControl({ value: this.user.email, disabled: false }, [
         Validators.required,
         Validators.maxLength(50),
         Validators.email,
       ]),
-      mobile: new FormControl({ value: this.rsvp.mobile, disabled: false }, [
-        Validators.required,
-        Validators.maxLength(50),
-        CustomValidators.sgMobileOnly,
-      ]),
-      country: new FormControl({ value: this.rsvp.country, disabled: false }, [
+      userAttend: new FormControl({ value: this.user.userAttend.toString(), disabled: false }, [
         Validators.required,
         Validators.maxLength(50),
       ]),
@@ -85,7 +80,7 @@ export class DialogEditdonationComponent implements OnInit {
     // editrsvp.attending = Number(this.editrsvp.controls.attending.value);
     editrsvp.attending = 0;
 
-    editrsvp.id = this.rsvp.id;
+    editrsvp.id = this.user.id;
 
     this.rsvpService.UpdateRSVP(editrsvp).subscribe(
       (data) => {
