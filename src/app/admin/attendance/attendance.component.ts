@@ -19,6 +19,8 @@ import { ExcelFunction } from "../../../common/excelfunction";
   styleUrls: ["./attendance.component.css"],
 })
 export class AttendanceComponent implements OnInit {
+  filtertType: string;
+  filterText: string;
   users: User[];
   selectedAll: boolean;
   datasource: any[];
@@ -48,13 +50,13 @@ export class AttendanceComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.filtertType = "staffId";
     setTimeout(() => (this.appComponent.isLoading = true), 0);
     this.rSVPService.listUser().subscribe(
       (data) => {
-        console.log(data);
         setTimeout(() => (this.appComponent.isLoading = false), 0);
         this.users = data;
-        console.log(this.users);
+        console.log(data);
         this.dataSource = new MatTableDataSource<User>(data);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -66,24 +68,83 @@ export class AttendanceComponent implements OnInit {
     );
   }
 
+  filter() {
+    console.log(this.filterText);
+    this.appComponent.isLoading = true;
+
+    if (this.filterText == "") {
+      this.rSVPService.listUser().subscribe(
+        (data) => {
+          this.appComponent.isLoading = false;
+          this.users = data;
+          console.log(data);
+          this.dataSource = new MatTableDataSource<User>(data);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        },
+        (err) => {
+          this.appComponent.isLoading = false;
+          alert(err.error);
+        }
+      );
+    } else {
+      this.rSVPService.FilterUsers(this.filtertType, this.filterText).subscribe(
+        (data) => {
+          this.appComponent.isLoading = false;
+          this.users = data;
+          console.log(data);
+          this.dataSource = new MatTableDataSource<User>(data);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        },
+        (err) => {
+          this.appComponent.isLoading = false;
+          alert(err.error);
+        }
+      );
+    }
+  }
+
   download() {
     this.appComponent.isLoading = true;
-    // this.excelFunction.exportCustomHeaderAsExcelFile(this.users, "rsvp");
+    this.excelFunction.exportUserHeaderAsExcelFile(this.users, "rsvp");
     this.appComponent.isLoading = false;
+  }
+
+
+  add(){
+    let dialogRef = this.dialog.open(DialogEditdonationComponent, {
+      width: "80%",
+      // height: "90%",
+      disableClose: true,
+      data: {
+        user: {},
+        addScreen: true
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        alert("Guest Add Successfully.");
+        this.ngOnInit();
+      }
+    });
   }
 
   edit(user: User) {
     let dialogRef = this.dialog.open(DialogEditdonationComponent, {
-      width: "60%",
+      width: "80%",
+      // height: "90%",
       disableClose: true,
       data: {
+        addScreen: false,
         user: user,
       },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        alert("Rsvp Update Successfully.");
+        alert("Guest Update Successfully.");
         this.ngOnInit();
       }
     });

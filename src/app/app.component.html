@@ -11,14 +11,13 @@
     </button>
   </mat-toolbar>
   <div
-  style="padding: 10px"
-  [routerLink]="['/admin']"
-  *ngIf="router.url !== '/admin'"
->
-  <img width="30px" src="../assets/images/icon/home-svgrepo-com.svg" />
+    style="padding: 10px"
+    [routerLink]="['/admin']"
+    *ngIf="router.url !== '/admin'"
+  >
+    <img width="30px" src="../assets/images/icon/home-svgrepo-com.svg" />
+  </div>
 </div>
-</div>
-
 
 <div
   *ngIf="isEventPage && isUserLoggedIn"
@@ -61,7 +60,15 @@
       </span>
     </div>
   </div>
-  <div class="container">
-    <router-outlet></router-outlet>
+
+  <div *ngIf="isAdminPage">
+    <div class="container-fluid">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  <div *ngIf="!isAdminPage">
+    <div class="container">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>

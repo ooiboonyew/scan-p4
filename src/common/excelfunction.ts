@@ -4,12 +4,46 @@ import { DatePipe } from '@angular/common';
 
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 const EXCEL_EXTENSION = '.csv';
-import { RSVP } from "../models/rsvp.model";
+import { RSVP, User } from "../models/rsvp.model";
 
 export class ExcelFunction {
 
   public exportAsExcelFile(json: any[], excelFileName: string): void {
     const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
+    const wb: XLSX.WorkBook = { Sheets: { 'data': ws }, SheetNames: ['data'] };
+    const excelBuffer: any = XLSX.write(wb, { bookType: 'csv', type: 'array' });
+    this.saveExcelFile(excelBuffer, excelFileName);
+  }
+
+
+  public exportUserHeaderAsExcelFile(rsvps: User[], excelFileName: string): void {
+    var jsons = [];
+    var datePipe = new DatePipe('en-US');
+
+    rsvps.forEach(user => {
+      var json = {
+        "#": user.num,
+        "name": user.name,
+        "staffId": user.staffId,
+        "email": user.email,
+        "attended": user.userAttend == 1 ? "Yes": "No",
+        "acc_person": user.guestAvailable,
+        "acc_attended": user.guestAttend,
+        "acc_absent": user.guestAvailable - user.guestAttend,
+
+      };
+      jsons.push(json);
+    });
+
+    var Heading = [
+      ["#", "Name", "Staff ID", "email", "Attended", "Acc Person", "Acc Attended", "Acc Absent"],
+     // ["#", "Attending", "First Name", "Last Name", "E-mail", "Mobile", "Country", "Registered Date", "Email Date"],
+    ];
+
+    const ws = XLSX.utils.book_new();
+
+    XLSX.utils.sheet_add_aoa(ws, Heading);
+    XLSX.utils.sheet_add_json(ws, jsons, { origin: 'A2', skipHeader: true });
     const wb: XLSX.WorkBook = { Sheets: { 'data': ws }, SheetNames: ['data'] };
     const excelBuffer: any = XLSX.write(wb, { bookType: 'csv', type: 'array' });
     this.saveExcelFile(excelBuffer, excelFileName);

@@ -20,6 +20,60 @@ class UserModel extends MainModel {
     return this.toArray(result);
   }
 
+  async checkEmail(email) {
+    try {
+      let rsvp, id;
+      await this.db
+        .collection(USERS)
+        .where("email", "==", email)
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            rsvp = doc.data();
+            id = doc.id;
+          });
+        });
+
+      return { id, ...rsvp };
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async checkStaffId(staffId) {
+    try {
+      let rsvp, id;
+      await this.db
+        .collection(USERS)
+        .where("staffId", "==", staffId)
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            rsvp = doc.data();
+            id = doc.id;
+          });
+        });
+
+      return { id, ...rsvp };
+    } catch (err) {
+      throw err;
+    }
+  }
+
+
+  async filterUsers(filtertType, filterText) {
+    const result = await this.db
+      .collection(USERS)
+      .where(filtertType == "email" ? "email" : "staffId", "==", filterText)
+      // .orderBy(filtertType == "email" ? "email" : "staffId", "asc")
+      .get()
+      .catch((firestoreError) => {
+        throw firestoreError;
+      });
+
+    return this.toArray(result);
+  }
+
   async getUserById(id) {
     try {
       var user = await this.db.collection(USERS).doc(id).get();
@@ -64,10 +118,10 @@ class UserModel extends MainModel {
     }
   }
 
-  async add(product) {
+  async add(dat) {
     const result = await this.db
       .collection(USERS)
-      .add(product)
+      .add(dat)
       .catch((firestoreError) => {
         throw firestoreError;
       });

@@ -1,30 +1,32 @@
-<div class="row">
-  <div class="col-12">
-    <div style="font-size: xx-large">Scan QR</div>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div style="font-size: x-large">Scan QR</div>
+    </div>
   </div>
-</div>
-<br />
-<div *ngIf="!scanned">
-  <div class="row text-center">
-    <div class="col-12 col-md-9">
-      <zxing-scanner
-        class="small-video"
-        [previewFitMode]="'fill'"
-        (scanSuccess)="onCodeResult($event)"
-        [formats]="['QR_CODE', 'EAN_13', 'CODE_128', 'DATA_MATRIX']"
-      ></zxing-scanner>
-      <br />
-      <button
-      [routerLink]="['/admin']"
-      class="btn btn-danger"
-      style="width: 150px; margin-right: 20px"
-    >
-      Cancel
-    </button>
+  <br />
+  <div *ngIf="!scanned">
+    <div class="row text-center">
+      <div class="col-0 col-md-2"></div>
+      <div class="col-12 col-md-8">
+        <zxing-scanner
+          class="small-video"
+          [previewFitMode]="'fill'"
+          (scanSuccess)="onCodeResult($event)"
+          [formats]="['QR_CODE', 'EAN_13', 'CODE_128', 'DATA_MATRIX']"
+        ></zxing-scanner>
+        <br />
+        <button
+          [routerLink]="['/admin']"
+          class="btn btn-danger"
+          style="width: 150px; margin-right: 20px"
+        >
+          Cancel
+        </button>
+      </div>
     </div>
   </div>
 </div>
-
 
 <!-- <div *ngIf="scanned">
     <div *ngIf="errormsg">

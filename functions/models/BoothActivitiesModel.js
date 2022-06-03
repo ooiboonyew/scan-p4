@@ -1,7 +1,7 @@
 const MainModel = require("./MainModel");
 const _ = require("lodash");
 
-const USERBOOTHS = "userBooths";
+const BOOTHACTIVITIES = "boothActivities";
 
 class RsvpModel extends MainModel {
   constructor() {
@@ -10,7 +10,7 @@ class RsvpModel extends MainModel {
 
   async getUserBooths() {
     const result = await this.db
-      .collection(USERBOOTHS)
+      .collection(BOOTHACTIVITIES)
       .orderBy("createdDate", "asc")
       .get()
       .catch((firestoreError) => {
@@ -22,7 +22,7 @@ class RsvpModel extends MainModel {
 
   async add(userBooth) {
     const result = await this.db
-      .collection(USERBOOTHS)
+      .collection(BOOTHACTIVITIES)
       .add(userBooth)
       .catch((firestoreError) => {
         throw firestoreError;
@@ -31,12 +31,15 @@ class RsvpModel extends MainModel {
     return result.id;
   }
 
-  async update(data) {
+  async updateStatus(id, status) {
     try {
       const result = await this.db
-        .collection(USERBOOTHS)
-        .doc(data.id)
-        .update(data)
+        .collection(BOOTHACTIVITIES)
+        .doc(id)
+        .update({
+          status: status,
+          updatedAt: new Date()
+        })
         .catch((firestoreError) => {
           throw firestoreError;
         });
@@ -47,23 +50,32 @@ class RsvpModel extends MainModel {
     }
   }
 
-  async getSettingById(settingId) {
-    const setting = await this.db
-      .collection(USERBOOTHS)
-      .doc(settingId)
+  async getByUserId(userId) {
+    const result = await this.db
+      .collection(BOOTHACTIVITIES)
+      .where("userId", "==", userId)
       .get()
       .catch((firestoreError) => {
         throw firestoreError;
       });
 
-    if (!setting.exists) {
-      const error = new Error("Setting does not exist");
-      error.status = 404;
-      throw error;
-    }
+    const boothActivities = this.toArray(result);
 
-    const settingData = setting.data();
-    return { settingId, ...settingData };
+    return boothActivities;
+  }
+
+  async getByBoothNum(boothNum) {
+    const result = await this.db
+      .collection(BOOTHACTIVITIES)
+      .where("boothNum", "==", boothNum)
+      .get()
+      .catch((firestoreError) => {
+        throw firestoreError;
+      });
+
+    const boothActivities = this.toArray(result);
+
+    return boothActivities;
   }
 }
 

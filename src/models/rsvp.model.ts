@@ -6,22 +6,20 @@ export class Admin {
   isSuperAdmin: boolean;
 }
 
-
 export class User {
   id: string;
-  staffId: string
+  num: number;
+  staffId: string;
   email: string;
   name: string;
   createdDate: object;
   userBooths: UserBooth[];
-  guestAttend: number
-  guestAvailable: number
-  userAttend: number
+  guestAttend: number;
+  guestAvailable: number;
+  userAttend: number;
 }
 
-
 export class UserBooth {
-  id: string;
   boothNum: number;
   chancesTotal: number;
   chancesLeft: number;
@@ -30,8 +28,32 @@ export class UserBooth {
 
 export class Booth {
   id: string;
-  num: number;
-  secret: string;
+  boothNum: number;
+  secretDigit: string;
+}
+
+export class BoothActivities {
+  id: string;
+  boothNum: number;
+  userId: string;
+  chancesLeft: number;
+  status: number;
+  createdDate: object;
+}
+
+export class Summary {
+  totalUserAttended: number;
+  totalGuestAttended: number;
+  totalUser: number;
+  totalUserBooths: TotalUserBooth[];
+  sumTotalUserBooths: TotalUserBooth;
+}
+
+export class TotalUserBooth {
+  boothNum: number;
+  totalChances: number;
+  chancesLeft: number;
+  chancesUsed: number;
 }
 
 export class RSVP {

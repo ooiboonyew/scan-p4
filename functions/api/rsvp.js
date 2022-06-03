@@ -20,8 +20,8 @@ const userModel = new UserModel();
 const BoothModel = require("../models/BoothModel");
 const boothModel = new BoothModel();
 
-const UserBoothModel = require("../models/UserBoothModel");
-const userBoothModel = new UserBoothModel();
+const BoothActivitiesModel = require("../models/BoothActivitiesModel");
+const boothActivitiesModel = new BoothActivitiesModel();
 
 // rsvpApp.use(verifyToken);
 rsvpApp.use(addResponseHeader);
@@ -71,6 +71,21 @@ rsvpApp.get("/rsvp/listusers", async (req, res, next) => {
   }
 });
 
+rsvpApp.get(
+  "/rsvp/filterUsers/:filtertType/:filterText",
+  async (req, res, next) => {
+    try {
+      const filtertType = req.params.filtertType;
+      const filterText = req.params.filterText;
+      const result = await userModel.filterUsers(filtertType, filterText);
+
+      return res.status(200).json(result);
+    } catch (error) {
+      adeErrorHandler(error, req, res, next);
+    }
+  }
+);
+
 rsvpApp.get("/rsvp/getuser/:userId", async (req, res, next) => {
   try {
     const userId = req.params.userId;
@@ -78,9 +93,31 @@ rsvpApp.get("/rsvp/getuser/:userId", async (req, res, next) => {
     var user = await userModel.getUserById(userId);
 
     if (user.email) {
+      var booths = await boothModel.getBooths();
+
+      if (booths.length != user.userBooths.length) {
+        booths.forEach((booth) => {
+          var foundUserBooth = user.userBooths.find(
+            (x) => x.boothNum == booth.boothNum
+          );
+
+          if (!foundUserBooth) {
+            user.userBooths.push({
+              boothNum: booth.boothNum,
+              chancesLeft: 0,
+              chancesTotal: 0,
+            });
+          }
+        });
+        user.userBooths.sort((a, b) => a.boothNum - b.boothNum);
+        await userModel.update(user);
+      }
+
       if (user.userBooths && user.userBooths.length > 0) {
         user.userBooths.sort((a, b) => a.boothNum - b.boothNum);
       }
+
+      console.log(user);
 
       return res.status(200).json(user);
     } else {
@@ -92,6 +129,98 @@ rsvpApp.get("/rsvp/getuser/:userId", async (req, res, next) => {
   }
 });
 
+rsvpApp.get("/rsvp/summary", async (req, res, next) => {
+  try {
+    const result = await userModel.getUsers();
+
+    var totalUserAttended = result.filter((x) => x.userAttend == 1).length;
+    var totalGuestAttended = 0;
+
+    var totalUserBooths = [];
+
+    result.forEach((x) => {
+      totalGuestAttended += x.guestAttend;
+
+      if (x.userBooths && x.userBooths.length > 0) {
+        x.userBooths.forEach((y) => {
+          foundTotalUserBooths = totalUserBooths.find(
+            (z) => z.boothNum == y.boothNum
+          );
+
+          if (foundTotalUserBooths) {
+            foundTotalUserBooths.totalChances += y.chancesTotal;
+            foundTotalUserBooths.chancesLeft += y.chancesLeft;
+            foundTotalUserBooths.chancesUsed += y.chancesTotal - y.chancesLeft;
+          } else {
+            foundTotalUserBooths = {};
+            foundTotalUserBooths.boothNum = y.boothNum;
+            foundTotalUserBooths.totalChances = 0;
+            foundTotalUserBooths.chancesLeft = 0;
+            foundTotalUserBooths.chancesUsed = 0;
+            totalUserBooths.push(foundTotalUserBooths);
+          }
+
+          // if (!totalUserBooths[y.boothNum]) {
+          //   totalUserBooths[y.boothNum] = {};
+          // }
+
+          // totalUserBooths[y.boothNum].totalChances += y.chancesTotal;
+          // totalUserBooths[y.boothNum].chancesLeft += y.chancesLeft;
+          // totalUserBooths[y.boothNum].chancesUsed +=
+          //   y.chancesTotal - y.chancesLeft;
+        });
+      }
+    });
+
+    var summary = {};
+    summary.totalUserAttended = totalUserAttended;
+    summary.totalGuestAttended = totalGuestAttended;
+    summary.totalUser = result.length;
+    summary.totalUserBooths = totalUserBooths;
+
+    summary.sumTotalUserBooths = {
+      totalChances: 0,
+      chancesLeft: 0,
+      chancesUsed: 0,
+    };
+
+    totalUserBooths.forEach((x) => {
+      console.log(x.totalChances)
+      summary.sumTotalUserBooths.totalChances += x.totalChances;
+      summary.sumTotalUserBooths.chancesLeft += x.chancesLeft;
+      summary.sumTotalUserBooths.chancesUsed += x.chancesUsed;
+    });
+
+    console.log(summary);
+
+    return res.status(200).json(summary);
+  } catch (error) {
+    adeErrorHandler(error, req, res, next);
+  }
+});
+
+rsvpApp.get("/rsvp/GetEmptyUserBooth", async (req, res, next) => {
+  try {
+    var result = [];
+    var booths = await boothModel.getBooths();
+
+    if (booths.length > 0) {
+      booths.forEach((booth) => {
+        result.push({
+          boothNum: booth.boothNum,
+          chancesLeft: 0,
+          chancesTotal: 0,
+        });
+      });
+      result.sort((a, b) => a.boothNum - b.boothNum);
+    }
+
+    return res.status(200).json(result);
+  } catch (error) {
+    console.log(error);
+    adeErrorHandler(error, req, res, next);
+  }
+});
 rsvpApp.post("/rsvp/guestLogin", async (req, res, next) => {
   try {
     let email = req.body.email;
@@ -219,16 +348,89 @@ rsvpApp.post("/rsvp/playBooth", async (req, res, next) => {
     foundUserBooth.chancesLeft -= 1;
     const userResult = await userModel.update(user);
 
-    var userBooth = {};
-    userBooth.userId = user.id;
-    userBooth.boothNum = booth.boothNum;
-    userBooth.chancesLeft = foundUserBooth.chancesLeft;
-    userBooth.status = 1;
-    userBooth.createdDate = new Date();
-    
-    const result = await userBoothModel.add(userBooth);
+    var boothActivities = {};
+    boothActivities.userId = user.id;
+    boothActivities.boothNum = booth.boothNum;
+    boothActivities.chancesLeft = foundUserBooth.chancesLeft;
+    boothActivities.status = 1;
+    boothActivities.createdDate = new Date();
+
+    const result = await boothActivitiesModel.add(boothActivities);
 
     //send email
+    return res.status(200).json(result);
+  } catch (error) {
+    adeErrorHandler(error, req, res, next);
+  }
+});
+
+rsvpApp.get(
+  "/rsvp/getBoothActivitiesByUser/:userId",
+  async (req, res, next) => {
+    try {
+      const userId = req.params.userId;
+      var boothActivities = await boothActivitiesModel.getByUserId(userId);
+      return res.status(200).json(boothActivities);
+    } catch (error) {
+      console.log(error);
+      adeErrorHandler(error, req, res, next);
+    }
+  }
+);
+
+rsvpApp.get(
+  "/rsvp/getBoothActivitiesByBooth/:boothNum",
+  async (req, res, next) => {
+    try {
+      const boothNum = req.params.boothNum;
+      var boothActivities = await boothActivitiesModel.getByBoothNum(boothNum);
+      return res.status(200).json(boothActivities);
+    } catch (error) {
+      console.log(error);
+      adeErrorHandler(error, req, res, next);
+    }
+  }
+);
+
+rsvpApp.post("/rsvp/updateUser", async (req, res, next) => {
+  try {
+    const updateUserRequest = req.body;
+    console.log(updateUserRequest);
+    const result = await userModel.update(updateUserRequest.user);
+
+    for (const boothActivities of updateUserRequest.boothActivities) {
+      await boothActivitiesModel.updateStatus(
+        boothActivities.id,
+        boothActivities.status
+      );
+    }
+
+    return res.status(200).json(result);
+  } catch (error) {
+    adeErrorHandler(error, req, res, next);
+  }
+});
+
+rsvpApp.post("/rsvp/addeUser", async (req, res, next) => {
+  try {
+    const updateUserRequest = req.body;
+    console.log(updateUserRequest);
+
+    var existEmail = await userModel.checkEmail(updateUserRequest.user.email);
+
+    if (existEmail.id) {
+      return res.status(405).json("Add Failed. Email is already exist.");
+    }
+
+    var existStaff = await userModel.checkEmail(updateUserRequest.user.staffId);
+
+    if (existStaff.id) {
+      return res.status(405).json("Add Failed. Staff ID is already exist.");
+    }
+
+    updateUserRequest.user.createdDate = new Date();
+    const result = await userModel.add(updateUserRequest.user);
+
     return res.status(200).json(result);
   } catch (error) {
     adeErrorHandler(error, req, res, next);

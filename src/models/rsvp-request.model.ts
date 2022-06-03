@@ -1,3 +1,4 @@
+import { User, BoothActivities } from "./rsvp.model";
 
 export class LoginRequest {
     email: string;
@@ -19,4 +20,9 @@ export class PlayBoothRequest {
     userId: string;
     boothNum: number;
     secretDigit: string;
+}
+
+export class UpdateUserRequest{
+    user: User;
+    boothActivities: BoothActivities[];
 }

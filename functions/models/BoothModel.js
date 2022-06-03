@@ -11,7 +11,7 @@ class BoothModel extends MainModel {
   async getBooths() {
     const result = await this.db
       .collection(BOOTHS)
-      .orderBy("createdDate", "asc")
+      .orderBy("boothNum", "asc")
       .get()
       .catch((firestoreError) => {
         throw firestoreError;

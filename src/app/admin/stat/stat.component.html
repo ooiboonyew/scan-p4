@@ -1,1 +1,119 @@
-<p>stat works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-12 py-3">
+      <div style="font-size: x-large">Stat</div>
+    </div>
+    <div class="col-md-12" *ngIf="summary">
+      <div class="row" style="padding-top: 10px; padding-bottom: 30px">
+        <div class="col-4">Total Staff:</div>
+        <div class="col-4">
+          {{ summary.totalUser }}
+        </div>
+      </div>
+      <div class="row" style="padding-bottom: 10px">
+        <div class="col-4">Total Attended Staff:</div>
+        <div class="col-4">
+          {{ summary.totalUserAttended }}
+        </div>
+      </div>
+      <div class="row" style="padding-bottom: 10px">
+        <div class="col-4">Total Attended Acc Person:</div>
+        <div class="col-4">
+          {{ summary.totalGuestAttended }}
+        </div>
+      </div>
+      <div class="row" style="padding-bottom: 10px">
+        <div class="col-4">Total Attended (Staff + Acc Person):</div>
+        <div class="col-4">
+          {{ summary.totalUserAttended + summary.totalGuestAttended }}
+        </div>
+      </div>
+
+      <div class="row" style="padding-bottom: 10px">
+        <table class="table" style="margin-top: 20px; text-align: center">
+          <tr>
+            <td>Booth Number</td>
+            <td>Total Chances</td>
+            <td>Chances Used</td>
+            <td>Chances Left</td>
+          </tr>
+          <tr *ngFor="let userBooth of summary.totalUserBooths; let i = index">
+            <td>
+              {{ userBooth.boothNum }}
+            </td>
+            <td>
+              {{ userBooth.totalChances }}
+            </td>
+            <td>
+              {{ userBooth.chancesUsed }}
+            </td>
+            <td>
+              {{ userBooth.chancesLeft }}
+            </td>
+          </tr>
+          <tr style="font-weight: bold">
+            <td>Total</td>
+            <td>{{ summary.sumTotalUserBooths.totalChances }}</td>
+            <td>{{ summary.sumTotalUserBooths.chancesUsed }}</td>
+            <td>{{ summary.sumTotalUserBooths.chancesLeft }}</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- <div class="row" style="padding-bottom: 20px">
+            <div class="col-8">
+                Filter by <u style="padding-left:20px">Reg-status</u>
+            </div>
+        </div>
+        <div class="row" style="padding-bottom: 10px">
+            <div class="col-6">
+                Pre-reg (Attended/Absent/Total)
+            </div>
+            <div class="col-4">
+                {{rSVPSummary.totalPreRegAttend}}
+                / {{rSVPSummary.totalPreRegAbsent}}
+                / {{rSVPSummary.totalPreRegRecord}}
+            </div>
+        </div>
+        <div class="row" style="padding-bottom: 60px">
+            <div class="col-6">
+                Walk-in (Attended/Absent/Total)
+            </div>
+            <div class="col-4">
+                {{rSVPSummary.totalWalkInAttend}}
+                / {{rSVPSummary.totalWalkInAbsent}}
+                / {{rSVPSummary.totalWalkInRecord}}</div>
+        </div>
+        <div class="row" style="padding-bottom: 20px">
+            <div class="col-8">
+                Filter by <u style="padding-left:20px">Category</u>
+            </div>
+        </div>
+        <div class="row" style="padding-bottom: 10px" *ngFor="let cat of rSVPSummary.totalCategory">
+            <div class="col-6">
+                {{getCategory(cat.category).CategoryName}} (Attended/Absent/Total)
+            </div>
+            <div class="col-4">
+                {{cat.totalAttend}}
+                / {{cat.totalAbsent}}
+                / {{cat.totalRecord}}
+            </div>
+        </div>
+        <div class="row" style="padding-top:60px;padding-bottom: 20px">
+            <div class="col-8">
+                Filter by <u style="padding-left:20px">Session</u>
+            </div>
+        </div>
+        <div class="row" style="padding-bottom: 10px" *ngFor="let cat of rSVPSummary.totalSession">
+            <div class="col-6">
+                {{cat.session}} (Attended/Absent/Total)
+            </div>
+            <div class="col-4">
+                {{cat.totalAttend}}
+                / {{cat.totalAbsent}}
+                / {{cat.totalRecord}}
+            </div>
+        </div> -->
+    </div>
+  </div>
+</div>
