@@ -50,13 +50,12 @@ export class AttendanceComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.filtertType = "staffId";
+    this.filtertType = "name";
     setTimeout(() => (this.appComponent.isLoading = true), 0);
     this.rSVPService.listUser().subscribe(
       (data) => {
         setTimeout(() => (this.appComponent.isLoading = false), 0);
         this.users = data;
-        console.log(data);
         this.dataSource = new MatTableDataSource<User>(data);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -72,37 +71,93 @@ export class AttendanceComponent implements OnInit {
     console.log(this.filterText);
     this.appComponent.isLoading = true;
 
-    if (this.filterText == "") {
-      this.rSVPService.listUser().subscribe(
-        (data) => {
-          this.appComponent.isLoading = false;
+    this.rSVPService.listUser().subscribe(
+      (data) => {
+        this.appComponent.isLoading = false;
+
+        if (this.filterText == "") {
           this.users = data;
-          console.log(data);
-          this.dataSource = new MatTableDataSource<User>(data);
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
-        },
-        (err) => {
-          this.appComponent.isLoading = false;
-          alert(err.error);
+        } else {
+          if (this.filtertType == "name") {
+            this.users = data.filter(
+              (user: User) =>
+                user.name
+                  .toLocaleLowerCase()
+                  .indexOf(this.filterText.toLocaleLowerCase()) > -1
+            );
+          } else if (this.filtertType == "staffId") {
+            this.users = data.filter(
+              (user: User) =>
+                user.staffId
+                  .toLocaleLowerCase()
+                  .indexOf(this.filterText.toLocaleLowerCase()) > -1
+            );
+          } else {
+            this.users = data.filter(
+              (user: User) =>
+                user.email
+                  .toLocaleLowerCase()
+                  .indexOf(this.filterText.toLocaleLowerCase()) > -1
+            );
+          }
         }
-      );
-    } else {
-      this.rSVPService.FilterUsers(this.filtertType, this.filterText).subscribe(
-        (data) => {
-          this.appComponent.isLoading = false;
-          this.users = data;
-          console.log(data);
-          this.dataSource = new MatTableDataSource<User>(data);
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
-        },
-        (err) => {
-          this.appComponent.isLoading = false;
-          alert(err.error);
-        }
-      );
-    }
+
+        this.dataSource = new MatTableDataSource<User>(this.users);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      },
+      (err) => {
+        this.appComponent.isLoading = false;
+        alert(err.error);
+      }
+    );
+
+    //if (this.filterText == "") {
+      // this.rSVPService.listUser().subscribe(
+      //   (data) => {
+      //     this.appComponent.isLoading = false;
+      //     this.users = data;
+      //     console.log(data);
+      //     this.dataSource = new MatTableDataSource<User>(data);
+      //     this.dataSource.paginator = this.paginator;
+      //     this.dataSource.sort = this.sort;
+      //   },
+      //   (err) => {
+      //     this.appComponent.isLoading = false;
+      //     alert(err.error);
+      //   }
+      // );
+  //  } else {
+      // this.users == null;
+
+      // this.users = this.users.filter(
+      //   (user: User) =>
+      //     user.name
+      //       .toLocaleLowerCase()
+      //       .indexOf(this.filterText.toLocaleLowerCase()) > -1
+      //);
+
+      // console.log(this.users);
+      // this.dataSource = new MatTableDataSource<User>(this.users);
+      // this.dataSource.paginator = this.paginator;
+      // this.dataSource.sort = this.sort;
+
+      // this.appComponent.isLoading = false;
+      // this.rSVPService.FilterUsers(this.filtertType, this.filterText).subscribe(
+      //   (data) => {
+      //     this.appComponent.isLoading = false;
+      //     this.users = data;
+      //     console.log(data);
+      //     this.dataSource = new MatTableDataSource<User>(data);
+      //     this.dataSource.paginator = this.paginator;
+      //     this.dataSource.sort = this.sort;
+      //   },
+      //   (err) => {
+      //     this.appComponent.isLoading = false;
+      //     alert(err.error);
+      //   }
+      // );
+    // }
   }
 
   download() {
@@ -111,15 +166,14 @@ export class AttendanceComponent implements OnInit {
     this.appComponent.isLoading = false;
   }
 
-
-  add(){
+  add() {
     let dialogRef = this.dialog.open(DialogEditdonationComponent, {
       width: "80%",
       // height: "90%",
       disableClose: true,
       data: {
         user: {},
-        addScreen: true
+        addScreen: true,
       },
     });
 

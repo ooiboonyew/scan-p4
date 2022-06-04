@@ -77,7 +77,19 @@ rsvpApp.get(
     try {
       const filtertType = req.params.filtertType;
       const filterText = req.params.filterText;
-      const result = await userModel.filterUsers(filtertType, filterText);
+
+      console.log(filtertType);
+
+      var result = [];
+      if (filtertType == "name") {
+        result = await userModel.filterNamelUsers(filterText);
+      } else if (filtertType == "staffId") {
+        result = await userModel.filterStaffIdUsers(filterText);
+      } else {
+        result = await userModel.filterEmailUsers(filterText);
+      }
+
+      console.log(result);
 
       return res.status(200).json(result);
     } catch (error) {
@@ -85,6 +97,20 @@ rsvpApp.get(
     }
   }
 );
+
+// rsvpApp.get(
+//   "/rsvp/filterUsers/:filterText",
+//   async (req, res, next) => {
+//     try {
+//       const filterText = req.params.filterText;
+//       const result = await userModel.filterEmailUsers(filterText);
+
+//       return res.status(200).json(result);
+//     } catch (error) {
+//       adeErrorHandler(error, req, res, next);
+//     }
+//   }
+// );
 
 rsvpApp.get("/rsvp/getuser/:userId", async (req, res, next) => {
   try {
@@ -185,7 +211,7 @@ rsvpApp.get("/rsvp/summary", async (req, res, next) => {
     };
 
     totalUserBooths.forEach((x) => {
-      console.log(x.totalChances)
+      console.log(x.totalChances);
       summary.sumTotalUserBooths.totalChances += x.totalChances;
       summary.sumTotalUserBooths.chancesLeft += x.chancesLeft;
       summary.sumTotalUserBooths.chancesUsed += x.chancesUsed;
@@ -350,6 +376,9 @@ rsvpApp.post("/rsvp/playBooth", async (req, res, next) => {
 
     var boothActivities = {};
     boothActivities.userId = user.id;
+    boothActivities.name = user.name;
+    boothActivities.staffId = user.staffId;
+    boothActivities.email = user.email;
     boothActivities.boothNum = booth.boothNum;
     boothActivities.chancesLeft = foundUserBooth.chancesLeft;
     boothActivities.status = 1;
@@ -382,8 +411,9 @@ rsvpApp.get(
   "/rsvp/getBoothActivitiesByBooth/:boothNum",
   async (req, res, next) => {
     try {
-      const boothNum = req.params.boothNum;
+      const boothNum = Number(req.params.boothNum);
       var boothActivities = await boothActivitiesModel.getByBoothNum(boothNum);
+      console.log(boothActivities);
       return res.status(200).json(boothActivities);
     } catch (error) {
       console.log(error);
@@ -401,7 +431,7 @@ rsvpApp.post("/rsvp/updateUser", async (req, res, next) => {
     for (const boothActivities of updateUserRequest.boothActivities) {
       await boothActivitiesModel.updateStatus(
         boothActivities.id,
-        boothActivities.status
+        Number(boothActivities.status)
       );
     }
 
@@ -411,7 +441,7 @@ rsvpApp.post("/rsvp/updateUser", async (req, res, next) => {
   }
 });
 
-rsvpApp.post("/rsvp/addeUser", async (req, res, next) => {
+rsvpApp.post("/rsvp/addUser", async (req, res, next) => {
   try {
     const updateUserRequest = req.body;
     console.log(updateUserRequest);
@@ -430,6 +460,52 @@ rsvpApp.post("/rsvp/addeUser", async (req, res, next) => {
 
     updateUserRequest.user.createdDate = new Date();
     const result = await userModel.add(updateUserRequest.user);
+
+    return res.status(200).json(result);
+  } catch (error) {
+    adeErrorHandler(error, req, res, next);
+  }
+});
+
+rsvpApp.get("/rsvp/listBooth", async (req, res, next) => {
+  try {
+    const result = await boothModel.getBooths();
+
+    return res.status(200).json(result);
+  } catch (error) {
+    adeErrorHandler(error, req, res, next);
+  }
+});
+
+rsvpApp.post("/rsvp/updateBooth", async (req, res, next) => {
+  try {
+    const updateBoothRequest = req.body;
+    const result = await boothModel.update(updateBoothRequest.booth);
+
+    for (const boothActivities of updateBoothRequest.boothActivities) {
+      await boothActivitiesModel.updateStatus(
+        boothActivities.id,
+        Number(boothActivities.status)
+      );
+    }
+
+    return res.status(200).json(result);
+  } catch (error) {
+    adeErrorHandler(error, req, res, next);
+  }
+});
+
+rsvpApp.post("/rsvp/addBooth", async (req, res, next) => {
+  try {
+    const booth = req.body;
+    var exist = await boothModel.checkBoothNum(booth.boothNum);
+
+    if (exist.id) {
+      return res.status(405).json("Add Failed. Booth Number is already exist.");
+    }
+
+    booth.createdDate = new Date();
+    const result = await boothModel.add(booth);
 
     return res.status(200).json(result);
   } catch (error) {

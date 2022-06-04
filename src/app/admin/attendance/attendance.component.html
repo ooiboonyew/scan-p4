@@ -10,10 +10,16 @@
             style="width: 120px; text-align: center"
             [(ngModel)]="filtertType"
           >
+            <option value="name">Name</option>
             <option value="staffId">Staff ID</option>
             <option value="email">Email</option>
           </select>
-          <input type="text" class="form-control" [(ngModel)]="filterText" />
+          <input
+            type="text"
+            placeholder="Filter Text"
+            class="form-control"
+            [(ngModel)]="filterText"
+          />
           <button
             class="btn btn-info btn-sm"
             style="width: 80px"
@@ -41,13 +47,13 @@
           Import
         </button>
         <button
-        style="margin-left: 15px"
-        class="btn btn-success btn-sm float-right"
-        (click)="add()"
-      >
-        <mat-icon inline="true">add</mat-icon>
-        Add
-      </button>
+          style="margin-left: 15px"
+          class="btn btn-success btn-sm float-right"
+          (click)="add()"
+        >
+          <mat-icon inline="true">add</mat-icon>
+          Add
+        </button>
       </div>
     </div>
     <div style="padding-top: 20px">

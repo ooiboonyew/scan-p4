@@ -44,12 +44,12 @@ class BoothModel extends MainModel {
     return boothList;
   }
 
-  async checkBoothEmail(email) {
+  async checkBoothNum(num) {
     try {
       let booth, id;
       await this.db
         .collection(BOOTHS)
-        .where("email", "==", email)
+        .where("boothNum", "==", num)
         .get()
         .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
@@ -64,10 +64,10 @@ class BoothModel extends MainModel {
     }
   }
 
-  async add(product) {
+  async add(booth) {
     const result = await this.db
       .collection(BOOTHS)
-      .add(product)
+      .add(booth)
       .catch((firestoreError) => {
         throw firestoreError;
       });

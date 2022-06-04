@@ -60,7 +60,7 @@ export class BoothComponent implements OnInit {
   }
 
   confirm() {
-    let cfm = confirm("Confirm Check-in ?");
+    let cfm = confirm("Confirm Play Booth?");
 
     if (cfm) {
       var playBoothRequest = new PlayBoothRequest();

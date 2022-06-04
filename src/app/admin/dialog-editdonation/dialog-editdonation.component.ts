@@ -99,14 +99,24 @@ export class DialogEditdonationComponent implements OnInit {
       ),
       guestAvailable: new FormControl(
         {
-          value: this.addScreen ? 0 : this.user.guestAvailable,
+          value: this.addScreen ? "" : this.user.guestAvailable,
           disabled: false,
         },
-        [Validators.required, CustomValidators.numberOnly, Validators.min(0)]
+        [
+          Validators.required,
+          CustomValidators.numberOnly,
+          Validators.min(0),
+          Validators.max(4),
+        ]
       ),
       guestAttend: new FormControl(
-        { value: this.addScreen ? 0 : this.user.guestAttend, disabled: false },
-        [Validators.required, CustomValidators.numberOnly, Validators.min(0)]
+        { value: this.addScreen ? "" : this.user.guestAttend, disabled: false },
+        [
+          Validators.required,
+          CustomValidators.numberOnly,
+          Validators.min(0),
+          Validators.max(4),
+        ]
       ),
     });
   }
@@ -160,8 +170,6 @@ export class DialogEditdonationComponent implements OnInit {
       return;
     }
 
-    this.isLoading = true;
-
     console.log(this.user.userBooths);
 
     var editUser = new User();
@@ -173,9 +181,19 @@ export class DialogEditdonationComponent implements OnInit {
     editUser.guestAvailable = Number(
       this.editrsvp.controls.guestAvailable.value
     );
+
+    if (editUser.guestAttend > editUser.guestAvailable) {
+      alert("Acc Attended cannot more than Acc Person.");
+      return;
+    }
+
+    this.isLoading = true;
+
     editUser.userBooths = this.user.userBooths;
 
-    editUser.id = this.user.id;
+    if (!this.addScreen) {
+      editUser.id = this.user.id;
+    }
     var updateUserRequest = new UpdateUserRequest();
     updateUserRequest.user = editUser;
     updateUserRequest.boothActivities = this.changedBoothActivities;

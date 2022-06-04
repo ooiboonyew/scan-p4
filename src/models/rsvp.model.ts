@@ -30,12 +30,16 @@ export class Booth {
   id: string;
   boothNum: number;
   secretDigit: string;
+  status: number;
 }
 
 export class BoothActivities {
   id: string;
   boothNum: number;
   userId: string;
+  name: string;
+  staffId: string;
+  email: string;
   chancesLeft: number;
   status: number;
   createdDate: object;

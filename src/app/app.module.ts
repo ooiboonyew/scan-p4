@@ -22,6 +22,8 @@ import { AccountComponent } from './admin/account/account.component';
 import { LandingComponent } from './landing/landing.component';
 import { RegisteredComponent } from './registered/registered.component';
 import { DialogEditdonationComponent } from './admin/dialog-editdonation/dialog-editdonation.component';
+import { DialogEditboothComponent } from './admin/dialog-editbooth/dialog-editboothcomponent';
+
 
 import { ExcelFunction } from 'src/common/excelfunction';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
@@ -47,6 +49,7 @@ import { CheckinComponent } from './admin/checkin/checkin.component';
     LandingComponent,
     RegisteredComponent,
     DialogEditdonationComponent,
+    DialogEditboothComponent,
     MainComponent,
     AgendaComponent,
     FloorplanComponent,
@@ -75,6 +78,7 @@ import { CheckinComponent } from './admin/checkin/checkin.component';
   ],
   entryComponents: [
     DialogEditdonationComponent,
+    DialogEditboothComponent
   ],
   providers: [DatePipe, RSVPService, AdminService, ExcelFunction],
   bootstrap: [AppComponent]

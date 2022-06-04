@@ -60,12 +60,13 @@ class UserModel extends MainModel {
     }
   }
 
-
-  async filterUsers(filtertType, filterText) {
+  async filterNamelUsers(filterText) {
+    var strFilter = String(filterText);
     const result = await this.db
       .collection(USERS)
-      .where(filtertType == "email" ? "email" : "staffId", "==", filterText)
-      // .orderBy(filtertType == "email" ? "email" : "staffId", "asc")
+      .where("name", ">=", strFilter.toUpperCase())
+      .where("name", "<=", strFilter.toLowerCase() + "\uf8ff")
+      .orderBy("name", "asc")
       .get()
       .catch((firestoreError) => {
         throw firestoreError;
@@ -73,6 +74,47 @@ class UserModel extends MainModel {
 
     return this.toArray(result);
   }
+
+  async filterEmailUsers(filterText) {
+    const result = await this.db
+      .collection(USERS)
+      .where("email", ">=", filterText)
+      .where("email", "<", filterText + "z")
+      .orderBy("email", "asc")
+      .get()
+      .catch((firestoreError) => {
+        throw firestoreError;
+      });
+
+    return this.toArray(result);
+  }
+
+  async filterStaffIdUsers(filterText) {
+    const result = await this.db
+      .collection(USERS)
+      .where("staffId", ">=", filterText)
+      .where("staffId", "<", filterText + "z")
+      .orderBy("staffId", "asc")
+      .get()
+      .catch((firestoreError) => {
+        throw firestoreError;
+      });
+
+    return this.toArray(result);
+  }
+
+  // async filterUsers(filtertType, filterText) {
+  //   const result = await this.db
+  //     .collection(USERS)
+  //     .where(filtertType == "email" ? "email" : "staffId", "==", filterText)
+  //     // .orderBy(filtertType == "email" ? "email" : "staffId", "asc")
+  //     .get()
+  //     .catch((firestoreError) => {
+  //       throw firestoreError;
+  //     });
+
+  //   return this.toArray(result);
+  // }
 
   async getUserById(id) {
     try {

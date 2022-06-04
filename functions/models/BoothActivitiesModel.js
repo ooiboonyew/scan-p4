@@ -54,6 +54,7 @@ class RsvpModel extends MainModel {
     const result = await this.db
       .collection(BOOTHACTIVITIES)
       .where("userId", "==", userId)
+      .orderBy("createdDate", "asc")
       .get()
       .catch((firestoreError) => {
         throw firestoreError;
@@ -68,6 +69,7 @@ class RsvpModel extends MainModel {
     const result = await this.db
       .collection(BOOTHACTIVITIES)
       .where("boothNum", "==", boothNum)
+      .orderBy("createdDate", "asc")
       .get()
       .catch((firestoreError) => {
         throw firestoreError;

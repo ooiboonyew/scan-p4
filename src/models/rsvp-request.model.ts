@@ -1,4 +1,4 @@
-import { User, BoothActivities } from "./rsvp.model";
+import { User, BoothActivities, Booth } from "./rsvp.model";
 
 export class LoginRequest {
     email: string;
@@ -24,5 +24,10 @@ export class PlayBoothRequest {
 
 export class UpdateUserRequest{
     user: User;
+    boothActivities: BoothActivities[];
+}
+
+export class UpdateBoothRequest{
+    booth: Booth;
     boothActivities: BoothActivities[];
 }

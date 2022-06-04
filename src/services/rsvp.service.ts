@@ -3,10 +3,11 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs/index";
 import { ApiResponse } from "../models/api.response";
 import { environment } from "../environments/environment";
-import { RSVP, Summary, User } from "../models/rsvp.model";
+import { Booth, RSVP, Summary, User } from "../models/rsvp.model";
 import {
   GuestLoginRequest,
   PlayBoothRequest,
+  UpdateBoothRequest,
   UpdateUserRequest,
 } from "../models/rsvp-request.model";
 
@@ -43,7 +44,7 @@ export class RSVPService {
     return this.http.get<[]>(this.baseUrl + "/getBoothActivitiesByUser/" + id);
   }
 
-  GetBoothActivitiesByBooth(id: string): Observable<[]> {
+  GetBoothActivitiesByBooth(id: number): Observable<[]> {
     return this.http.get<[]>(this.baseUrl + "/getBoothActivitiesByBooth/" + id);
   }
 
@@ -52,6 +53,7 @@ export class RSVPService {
       this.baseUrl + "/filterUsers/" + filtertType + "/" + filterText
     );
   }
+  
 
   listUser(): Observable<[]> {
     return this.http.get<[]>(this.baseUrl + "/listusers");
@@ -74,11 +76,23 @@ export class RSVPService {
   }
 
   addUser(updateUserRequest: UpdateUserRequest): Observable<{}> {
-    return this.http.post<{}>(this.baseUrl + "/addeUser", updateUserRequest);
+    return this.http.post<{}>(this.baseUrl + "/addUser", updateUserRequest);
   }
 
   Summary(): Observable<Summary> {
     return this.http.get<Summary>(this.baseUrl + "/summary");
+  }
+
+  ListBooth(): Observable<[]> {
+    return this.http.get<[]>(this.baseUrl + "/listBooth");
+  }
+
+  UpdateBooth(updateBoothRequest: UpdateBoothRequest): Observable<{}> {
+    return this.http.post<{}>(this.baseUrl + "/updateBooth", updateBoothRequest);
+  }
+
+  AddBooth(booth: Booth): Observable<{}> {
+    return this.http.post<{}>(this.baseUrl + "/addBooth", booth);
   }
 
   // UpdateRSVP(rsvp: RSVP): Observable<ApiResponse> {
