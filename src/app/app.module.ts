@@ -38,6 +38,7 @@ import { ScanQrComponent } from './admin/scan-qr/scan-qr.component';
 import { StatComponent } from './admin/stat/stat.component';
 import { BoothSetupComponent } from './admin/booth-setup/booth-setup.component';
 import { CheckinComponent } from './admin/checkin/checkin.component';
+import { DialogUploaddonationComponent } from './admin/dialog-uploaddonation/dialog-uploaddonation.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { CheckinComponent } from './admin/checkin/checkin.component';
     ScanQrComponent,
     StatComponent,
     BoothSetupComponent,
-    CheckinComponent
+    CheckinComponent,
+    DialogUploaddonationComponent
   ],
   imports: [
     NgMultiSelectDropDownModule.forRoot(),
@@ -78,7 +80,8 @@ import { CheckinComponent } from './admin/checkin/checkin.component';
   ],
   entryComponents: [
     DialogEditdonationComponent,
-    DialogEditboothComponent
+    DialogEditboothComponent,
+    DialogUploaddonationComponent
   ],
   providers: [DatePipe, RSVPService, AdminService, ExcelFunction],
   bootstrap: [AppComponent]

@@ -71,6 +71,10 @@ export class RSVPService {
     return this.http.post<{}>(this.baseUrl + "/playBooth", playBoothRequest);
   }
 
+  ImportRSVP(formdata: FormData): Observable<{}> {
+    return this.http.post<{}>(this.baseUrl + '/Import', formdata);
+  }
+
   updateUser(updateUserRequest: UpdateUserRequest): Observable<{}> {
     return this.http.post<{}>(this.baseUrl + "/updateUser", updateUserRequest);
   }

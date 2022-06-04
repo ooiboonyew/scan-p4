@@ -24,13 +24,12 @@ export class CustomValidators {
             var splited = file.split('.');
             var extension = splited[splited.length-1].toLowerCase();
 
-            if ("xlsx" !== extension.toLowerCase()) {
+            if ("csv" !== extension.toLowerCase()) {
                 return {
                     invalidfiletype: true
                 };
             }
         }
-
     }
 
     static email(control: AbstractControl): { [key: string]: boolean } {

@@ -3,13 +3,14 @@
   "version": "0.0.0",
   "scripts": {
     "generate": "cd src && cd app && ng g component home --module app",
-    "generate-admin": "cd src && cd app/admin && ng g component checkin --module app",
+    "generate-admin": "cd src && cd app/admin && ng g component dialog-uploaddonation --module app",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --prod --configuration=production",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
+    "dev": "ng serve",
     "dev-back": "cd functions && firebase emulators:start --only functions",
     "deploy": "npm run build && firebase deploy",
     "deploy-back": "firebase deploy --only functions"

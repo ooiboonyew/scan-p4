@@ -21,6 +21,7 @@ const BoothModel = require("../models/BoothModel");
 const boothModel = new BoothModel();
 
 const BoothActivitiesModel = require("../models/BoothActivitiesModel");
+const { data } = require("jquery");
 const boothActivitiesModel = new BoothActivitiesModel();
 
 // rsvpApp.use(verifyToken);
@@ -247,6 +248,21 @@ rsvpApp.get("/rsvp/GetEmptyUserBooth", async (req, res, next) => {
     adeErrorHandler(error, req, res, next);
   }
 });
+
+
+rsvpApp.post("/rsvp/import", async (req, res, next) => {
+  try {    
+    
+    let data = Uint8Array.from(req.body);
+    console.log(data);
+    // const result = await userModel.getUsers();
+
+    return res.status(200).json();
+  } catch (error) {
+    adeErrorHandler(error, req, res, next);
+  }
+});
+
 rsvpApp.post("/rsvp/guestLogin", async (req, res, next) => {
   try {
     let email = req.body.email;

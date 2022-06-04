@@ -11,6 +11,7 @@ import {
 } from "@angular/material";
 import { SelectionModel } from "@angular/cdk/collections";
 import { DialogEditdonationComponent } from "../dialog-editdonation/dialog-editdonation.component";
+import { DialogUploaddonationComponent } from "../dialog-uploaddonation/dialog-uploaddonation.component";
 import { ExcelFunction } from "../../../common/excelfunction";
 
 @Component({
@@ -158,6 +159,20 @@ export class AttendanceComponent implements OnInit {
       //   }
       // );
     // }
+  }
+
+  import() {
+    let dialogRef = this.dialog.open(DialogUploaddonationComponent, {
+      width: '60%',
+      disableClose: true,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        alert("Import Successfully.")
+        this.ngOnInit();
+      }
+    });
   }
 
   download() {
