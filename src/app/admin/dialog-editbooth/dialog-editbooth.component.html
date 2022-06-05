@@ -69,6 +69,32 @@
         </div>
       </mat-tab>
       <mat-tab label="Booth Activties">
+        <div class="" style="margin-top: 40px">
+          <div class="col-9 input-group">
+            <select
+              style="width: 120px; text-align: center"
+              [(ngModel)]="filtertType"
+            >
+              <option value="name">Name</option>
+              <option value="staffId">Staff ID</option>
+              <option value="email">Email</option>
+            </select>
+            <input
+              type="text"
+              placeholder="Filter Text"
+              class="form-control"
+              [(ngModel)]="filterText"
+            />
+            <button
+              class="btn btn-info btn-sm"
+              style="width: 80px"
+              (click)="filter()"
+            >
+              Filter
+            </button>
+          </div>
+        </div>
+
         <table class="table" style="margin-top: 20px; text-align: center">
           <tr>
             <td>Play Time</td>

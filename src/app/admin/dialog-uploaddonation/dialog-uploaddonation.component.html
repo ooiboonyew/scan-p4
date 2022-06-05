@@ -1,25 +1,46 @@
 <div class="loading-shade" *ngIf="isLoading">
-    <div class="col s12" style="display: flex; justify-content: center; align-items: center; margin-top: 10px;">
-        <span>
-            <mat-spinner [diameter]="32" mode="indeterminate"></mat-spinner>
-        </span>
-    </div>
+  <div
+    class="col s12"
+    style="
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 10px;
+    "
+  >
+    <span>
+      <mat-spinner [diameter]="32" mode="indeterminate"></mat-spinner>
+    </span>
+  </div>
 </div>
 <form [formGroup]="uploadrsvp" (ngSubmit)="onSubmit()">
-    <h1 mat-dialog-title class="mattitle">Import User</h1>
-    <div mat-dialog-content class="matbody">
-        <div class="row" style="margin-bottom:10px">
-            <div class="col-12">
-                <div class="form-group">
-                    <input formControlName="file" type="file" required class="form-control-file border" (change)="onFileChange($event)">
-                    <mat-error *ngIf="isRequired">This field is required.</mat-error>
-                    <mat-error *ngIf="uploadrsvp.controls.file.hasError('invalidfiletype')">This field only support csv file type.</mat-error>
-                </div>
-            </div>
+  <h1 mat-dialog-title class="mattitle">Import Guest</h1>
+  <div mat-dialog-content class="matbody">
+    <div class="row" style="margin-bottom: 10px">
+      <div class="col-12">
+        <div class="form-group">
+          <input
+            formControlName="file"
+            type="file"
+            required
+            class="form-control-file border"
+            (change)="onFileChange($event)"
+          />
+          <mat-error *ngIf="isRequired">This field is required.</mat-error>
+          <mat-error
+            *ngIf="uploadrsvp.controls.file.hasError('invalidfiletype')"
+            >This field only support csv file type.</mat-error
+          >
+          <br />
+          <i>Note: Record with same Staff ID will be overwrite.</i>
         </div>
+      </div>
     </div>
-    <mat-dialog-actions align="center">
-        <button type="submit" class="btn btn-info mr-1">Import</button>
-        <button mat-dialog-close type="button" class="btn cancel-button">Close</button>
-    </mat-dialog-actions>
+  </div>
+  <mat-dialog-actions align="center">
+    <button type="submit" class="btn btn-info mr-1">Import</button>
+    <button mat-dialog-close type="button" class="btn cancel-button">
+      Close
+    </button>
+  </mat-dialog-actions>
 </form>

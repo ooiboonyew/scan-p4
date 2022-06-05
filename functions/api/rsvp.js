@@ -1,3 +1,4 @@
+const CSVToJSON = require("csvtojson");
 const functions = require("firebase-functions");
 const {
   verifyToken,
@@ -249,15 +250,102 @@ rsvpApp.get("/rsvp/GetEmptyUserBooth", async (req, res, next) => {
   }
 });
 
+function isNumeric(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
 
 rsvpApp.post("/rsvp/import", async (req, res, next) => {
-  try {    
-    
-    let data = Uint8Array.from(req.body);
-    console.log(data);
-    // const result = await userModel.getUsers();
+  try {
+    var data = req.body.toString("utf8");
+    data = data.substring(data.indexOf("text/csv") + 8);
+    let csv = data.split("---")[0];
+    const csvData = await CSVToJSON().fromString(csv.trim());
+    console.log(csvData);
 
-    return res.status(200).json();
+    for (const user of csvData) {
+      // var existEmail = await userModel.checkEmail(user.email);
+
+      // if (existEmail.id) {
+      //   continue;
+      // }
+
+      // var existStaff = await userModel.checkEmail(user.staffId);
+
+      // if (existStaff.id) {
+      //   continue;
+      // }
+
+      var userData = {
+        email: user.email,
+        createdDate: new Date(),
+        name: user.name,
+        staffId: user.staffId,
+        userAttend: 0,
+        guestAttend: 0,
+        userBooths: [],
+      };
+
+      var userBooths = [];
+      var userBooth = {};
+      var totalChance = 0;
+
+      for (var key in user) {
+        if (key.startsWith("boothchance")) {
+          var splitKey = key.split("boothchance");
+          var keyvalue = user[key];
+
+          if (isNumeric(keyvalue)) {
+            userBooth = {
+              boothNum: Number(splitKey[1]),
+              chancesLeft: Number(keyvalue),
+              chancesTotal: Number(keyvalue),
+            };
+
+            totalChance += userBooth.chancesTotal;
+          } else {
+            userBooth = {
+              boothNum: Number(splitKey[1]),
+              chancesLeft: 0,
+              chancesTotal: 0,
+            };
+          }
+          userBooths.push(userBooth);
+        }
+
+        userData.userBooths = userBooths;
+
+        if (totalChance > 0) {
+          if (totalChance > 4) {
+            userData.userAvailable = 1;
+            userData.guestAvailable = 3;
+          } else if (totalChance == 1) {
+            userData.userAvailable = 1;
+            userData.guestAvailable = 0;
+          } else {
+            userData.userAvailable = 1;
+            userData.guestAvailable = totalChance - 1;
+          }
+        } else {
+          userData.userAvailable = 0;
+          userData.guestAvailable = 0;
+        }
+      }
+
+      var existStaff = await userModel.checkStaffId(userData.staffId);
+
+      // console.log(JSON.stringify(userData));
+
+      if (existStaff.id) {
+        console.log("her", existStaff);
+        userData.id = existStaff.id;
+
+        const result = await userModel.update(userData);
+      } else {
+        const result = await userModel.add(userData);
+      }
+    }
+
+    return res.status(200).json("success");
   } catch (error) {
     adeErrorHandler(error, req, res, next);
   }

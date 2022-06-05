@@ -25,6 +25,8 @@ export class DialogEditboothComponent implements OnInit {
   isLoading: boolean = false;
   selectedTab: number;
   addScreen: boolean;
+  filtertType: string;
+  filterText: string;
 
   constructor(
     private rsvpService: RSVPService,
@@ -34,6 +36,7 @@ export class DialogEditboothComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.filtertType = "name";
     this.addScreen = this.data.addScreen;
     this.booth = this.data.booth;
     this.changedBoothActivities = [];
@@ -88,6 +91,49 @@ export class DialogEditboothComponent implements OnInit {
         [Validators.required, Validators.maxLength(50)]
       ),
     });
+  }
+
+  filter() {
+    console.log(this.filterText);
+    this.isLoading = true;
+
+    this.rsvpService.GetBoothActivitiesByBooth(this.data.booth.boothNum)
+    .subscribe(
+      (data) => {
+        this.isLoading = false;
+
+        if (this.filterText == "") {
+          this.boothActivities = data;
+        } else {
+          if (this.filtertType == "name") {
+            this.boothActivities = data.filter(
+              (user: User) =>
+                user.name
+                  .toLocaleLowerCase()
+                  .indexOf(this.filterText.toLocaleLowerCase()) > -1
+            );
+          } else if (this.filtertType == "staffId") {
+            this.boothActivities = data.filter(
+              (user: User) =>
+                user.staffId
+                  .toLocaleLowerCase()
+                  .indexOf(this.filterText.toLocaleLowerCase()) > -1
+            );
+          } else {
+            this.boothActivities = data.filter(
+              (user: User) =>
+                user.email
+                  .toLocaleLowerCase()
+                  .indexOf(this.filterText.toLocaleLowerCase()) > -1
+            );
+          }
+        }
+      },
+      (err) => {
+        this.isLoading = false;
+        alert(err.error);
+      }
+    );
   }
 
 

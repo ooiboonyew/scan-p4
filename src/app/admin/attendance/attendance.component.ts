@@ -32,13 +32,13 @@ export class AttendanceComponent implements OnInit {
     "name",
     "staffId",
     "email",
+    "userAvailable",
     "userAttend",
     "guestAvailable",
     "guestAttend",
     "guestAbsent",
     "Edit",
   ];
-  selectedfilter: string = "";
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;

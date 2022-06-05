@@ -16,6 +16,7 @@ export class User {
   userBooths: UserBooth[];
   guestAttend: number;
   guestAvailable: number;
+  userAvailable: number;
   userAttend: number;
 }
 

@@ -90,6 +90,13 @@ export class DialogEditdonationComponent implements OnInit {
         { value: this.addScreen ? "" : this.user.email, disabled: false },
         [Validators.required, Validators.maxLength(50), Validators.email]
       ),
+      userAvailable: new FormControl(
+        {
+          value: this.addScreen ? "0" : this.user.userAvailable.toString(),
+          disabled: false,
+        },
+        [Validators.required, Validators.maxLength(50)]
+      ),
       userAttend: new FormControl(
         {
           value: this.addScreen ? "0" : this.user.userAttend.toString(),
@@ -176,6 +183,7 @@ export class DialogEditdonationComponent implements OnInit {
     editUser.name = this.editrsvp.controls.name.value;
     editUser.email = this.editrsvp.controls.email.value;
     editUser.staffId = this.editrsvp.controls.staffId.value;
+    editUser.userAvailable = Number(this.editrsvp.controls.userAvailable.value);
     editUser.userAttend = Number(this.editrsvp.controls.userAttend.value);
     editUser.guestAttend = Number(this.editrsvp.controls.guestAttend.value);
     editUser.guestAvailable = Number(
@@ -184,6 +192,11 @@ export class DialogEditdonationComponent implements OnInit {
 
     if (editUser.guestAttend > editUser.guestAvailable) {
       alert("Acc Attended cannot more than Acc Person.");
+      return;
+    }
+
+    if (editUser.userAttend > editUser.userAvailable) {
+      alert("Please set user available to YES, if you want set User Attended.");
       return;
     }
 

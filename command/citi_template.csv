@@ -1,0 +1,4 @@
+﻿name,staffId,email,boothchance1,boothchance2,boothchance3
+test1,id1,email1@gmail.com,0,0,0
+test2,id2,email2@gmail.com,1,0,6
+test3,id3,email3@gmail.com,1,1,1

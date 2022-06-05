@@ -5,26 +5,26 @@
     </div>
     <div class="col-md-12" *ngIf="summary">
       <div class="row" style="padding-top: 10px; padding-bottom: 30px">
-        <div class="col-4">Total Staff:</div>
-        <div class="col-4">
+        <div class="col-9 col-md-4">Total Staff:</div>
+        <div class="col-3 col-md-4">
           {{ summary.totalUser }}
         </div>
       </div>
       <div class="row" style="padding-bottom: 10px">
-        <div class="col-4">Total Attended Staff:</div>
-        <div class="col-4">
+        <div class="col-9 col-md-4">Total Attended Staff:</div>
+        <div class="col-3 col-md-4">
           {{ summary.totalUserAttended }}
         </div>
       </div>
       <div class="row" style="padding-bottom: 10px">
-        <div class="col-4">Total Attended Acc Person:</div>
-        <div class="col-4">
+        <div class="col-9 col-md-4">Total Attended Acc Person:</div>
+        <div class="col-3 col-md-4">
           {{ summary.totalGuestAttended }}
         </div>
       </div>
       <div class="row" style="padding-bottom: 10px">
-        <div class="col-4">Total Attended (Staff + Acc Person):</div>
-        <div class="col-4">
+        <div class="col-9 col-md-4">Total Attended (Staff + Acc Person):</div>
+        <div class="col-3 col-md-4">
           {{ summary.totalUserAttended + summary.totalGuestAttended }}
         </div>
       </div>
