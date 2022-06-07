@@ -39,6 +39,7 @@ import { StatComponent } from './admin/stat/stat.component';
 import { BoothSetupComponent } from './admin/booth-setup/booth-setup.component';
 import { CheckinComponent } from './admin/checkin/checkin.component';
 import { DialogUploaddonationComponent } from './admin/dialog-uploaddonation/dialog-uploaddonation.component';
+import { DonationComponent } from './donation/donation.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { DialogUploaddonationComponent } from './admin/dialog-uploaddonation/dia
     StatComponent,
     BoothSetupComponent,
     CheckinComponent,
-    DialogUploaddonationComponent
+    DialogUploaddonationComponent,
+    DonationComponent
   ],
   imports: [
     NgMultiSelectDropDownModule.forRoot(),

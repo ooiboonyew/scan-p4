@@ -1,0 +1,33 @@
+<div class="row" style="padding-bottom: 15px">
+  <div class="col-12">
+    <div style="font-size: xx-large">Donation</div>
+  </div>
+</div>
+<!-- <div *ngIf="user && !userBooth"> -->
+<div style="padding-bottom: 20px">
+  <p>
+    Need extra chances? Every donation of SGDXX will let you earn 1 extra
+    chance!
+    <br />
+    <i style="font-size: small"
+      >(Please show the donation receipt to booth master to exchange
+      phyiscal ticket)</i
+    >
+  </p>
+</div>
+  <div *ngFor="let booth of booths; let i = index">
+    <div class="row" style="padding-bottom: 10px; padding-top: 10px">
+      <div class="col-7" style="align-self: center">
+        Booth {{ booth.boothName }}
+      </div>
+      <div class="col-5">
+        <a
+          href="{{booth.boothLink}}" target="_blank"
+          style="background-color: #73bad7; width: 100%; color: white"
+          class="btn"
+        >
+          Donate
+      </a>
+      </div>
+    </div>
+  </div>

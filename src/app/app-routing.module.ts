@@ -17,6 +17,7 @@ import { ScanQrComponent } from './admin/scan-qr/scan-qr.component';
 import { StatComponent } from './admin/stat/stat.component';
 import { BoothSetupComponent } from './admin/booth-setup/booth-setup.component';
 import { CheckinComponent } from './admin/checkin/checkin.component';
+import { DonationComponent } from './donation/donation.component';
 
 const routes: Routes = [
   { path: '', component: MainComponent },
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'event/floor-plan', component: FloorplanComponent },
   { path: 'event/booth', component: BoothComponent },
   { path: 'event/my-qr', component: MyqrComponent },
+  { path: 'event/donation', component: DonationComponent },
   // { path: 'admin', component: LoginComponent },
   { path: 'admin/login', component: LoginComponent },
   { path: 'admin/account', component: AccountComponent },

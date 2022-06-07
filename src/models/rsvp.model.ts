@@ -22,6 +22,7 @@ export class User {
 
 export class UserBooth {
   boothNum: number;
+  boothName: string;
   chancesTotal: number;
   chancesLeft: number;
   // status: number;

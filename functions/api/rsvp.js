@@ -122,23 +122,23 @@ rsvpApp.get("/rsvp/getuser/:userId", async (req, res, next) => {
     if (user.email) {
       var booths = await boothModel.getBooths();
 
-      if (booths.length != user.userBooths.length) {
-        booths.forEach((booth) => {
-          var foundUserBooth = user.userBooths.find(
-            (x) => x.boothNum == booth.boothNum
-          );
+      booths.forEach((booth) => {
+        var foundUserBooth = user.userBooths.find(
+          (x) => x.boothNum == booth.boothNum
+        );
 
-          if (!foundUserBooth) {
-            user.userBooths.push({
-              boothNum: booth.boothNum,
-              chancesLeft: 0,
-              chancesTotal: 0,
-            });
-          }
-        });
-        user.userBooths.sort((a, b) => a.boothNum - b.boothNum);
-        await userModel.update(user);
-      }
+        if (!foundUserBooth) {
+          user.userBooths.push({
+            boothNum: booth.boothNum,
+            chancesLeft: 0,
+            chancesTotal: 0,
+          });
+        }else{
+          foundUserBooth.boothName = booth.boothName;
+        }
+      });
+      user.userBooths.sort((a, b) => a.boothNum - b.boothNum);
+      await userModel.update(user);
 
       if (user.userBooths && user.userBooths.length > 0) {
         user.userBooths.sort((a, b) => a.boothNum - b.boothNum);

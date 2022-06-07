@@ -31,7 +31,7 @@
   <div class="row" style="padding-top: 60px">
     <div class="col-12 text-center">
       <button
-        style="background-color: skyblue; width: 150px; color: white"
+        style="background-color: #73bad7; width: 150px; color: white"
         class="btn"
         (click)="done()"
       >
@@ -47,16 +47,13 @@
   <div *ngFor="let userBooth of user.userBooths; let i = index">
     <div *ngIf="userBooth.chancesTotal > 0">
       <div class="row" style="padding-bottom: 10px; padding-top: 10px">
-        <div
-          class="col-7"
-          style="align-self: center"
-        >
-          Booth {{ userBooth.boothName }} : {{ userBooth.chancesLeft }}
+        <div class="col-7" style="align-self: center">
+          {{ userBooth.boothName }} : {{ userBooth.chancesLeft }}
         </div>
         <div class="col-5">
           <button
             (click)="play(userBooth)"
-            style="background-color: skyblue; width: 100%; color: white"
+            style="background-color: #73bad7; width: 100%; color: white"
             class="btn"
             *ngIf="userBooth.chancesLeft > 0"
           >
@@ -66,7 +63,38 @@
       </div>
     </div>
   </div>
+  <div class="row" style="padding-top: 40px">
+    <div class="col-12">
+      <p>
+        Need extra chances? Every donation of SGDXX will let you earn 1 extra
+        chance!
+        <br />
+        <i style="font-size: small"
+          >(Please show the donation receipt to booth master to exchange
+          phyiscal ticket)</i
+        >
+      </p>
+    </div>
+  </div>
+  <div class="row text-center" style="padding-top: 10px">
+    <div class="col-12">
+      <button
+        [routerLink]="['../donation']"
+        style="
+          background-color: white;
+          width: 100%;
+          color: black;
+          border: solid 2px #73bad7;
+          height: 60px;
+        "
+        class="btn"
+      >
+        Donate Now
+      </button>
+    </div>
+  </div>
 </div>
+
 <div *ngIf="user && userBooth && !message">
   <div>Booth {{ userBooth.boothNum }}</div>
   <div>Remaing Chances : {{ userBooth.chancesLeft }}</div>
