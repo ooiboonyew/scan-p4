@@ -99,6 +99,7 @@ export class DialogEditboothComponent implements OnInit {
         [
           Validators.required,
           Validators.maxLength(50),
+          CustomValidators.url,
         ]
       ),
       status: new FormControl(

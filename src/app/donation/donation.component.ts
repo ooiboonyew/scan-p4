@@ -33,11 +33,7 @@ export class DonationComponent implements OnInit {
 
   donate(url) {
     console.log(url);
-    const new_url = this.router.serializeUrl(
-      this.router.createUrlTree([url])
-    );
 
-    console.log(new_url);
-    window.open(new_url, "_blank");
+    window.open(url, "_blank");
   }
 }

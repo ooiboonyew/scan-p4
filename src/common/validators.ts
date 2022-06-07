@@ -85,6 +85,16 @@ export class CustomValidators {
         }
     }
 
+    static url(control: AbstractControl): { [key: string]: boolean } {
+        if (!control.value || control.value === '') {
+            return;
+        }
+        let regEx = new RegExp('^https?://');
+        if (!regEx.test(control.value)) {
+            return { url: true }
+        }
+    }
+
     static sgMobileOnly(control: AbstractControl): { [key: string]: boolean } {
         // let regEx = new RegExp(/^\+65/);
 

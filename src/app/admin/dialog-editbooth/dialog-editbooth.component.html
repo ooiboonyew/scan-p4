@@ -25,7 +25,7 @@
             <mat-form-field style="width: 100%">
               <input
                 matInput
-                placeholder="Booth Number*"
+                placeholder="Booth Number"
                 type="text"
                 maxlength="50"
                 required
@@ -41,7 +41,7 @@
             <mat-form-field style="width: 100%">
               <input
                 matInput
-                placeholder="Name*"
+                placeholder="Name"
                 type="text"
                 maxlength="50"
                 required
@@ -59,7 +59,7 @@
             <mat-form-field style="width: 100%">
               <input
                 matInput
-                placeholder="Secret Digit*"
+                placeholder="Secret Digit"
                 type="text"
                 maxlength="4"
                 required
@@ -79,18 +79,22 @@
             <mat-form-field style="width: 100%">
               <input
                 matInput
-                placeholder="Link*"
+                placeholder="Link"
                 type="text"
                 maxlength="50"
                 required
                 formControlName="boothLink"
               />
+              <mat-error
+              *ngIf="editrsvp.controls.boothLink.hasError('url')"
+              >Must be url Format start with 'https://'.</mat-error
+            >
             </mat-form-field>
           </div>
           <div class="col-12">
             <mat-form-field style="width: 100%">
-              <mat-label>Status*</mat-label>
-              <mat-select formControlName="status">
+              <mat-label>Status</mat-label>
+              <mat-select formControlName="status" required>
                 <mat-option value="1">Open</mat-option>
                 <mat-option value="0">Closed</mat-option>
               </mat-select>
