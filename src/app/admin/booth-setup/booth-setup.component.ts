@@ -28,7 +28,9 @@ export class BoothSetupComponent implements OnInit {
   selection: SelectionModel<Booth> = new SelectionModel<Booth>(true, []);
   displayedColumns: string[] = [
     "boothNum",
+    "boothName",
     "secretDigit",
+    "boothLink",
     "status",
     "Edit",
   ];

@@ -10,7 +10,11 @@ import {
 } from "@angular/forms";
 import { DatePipe } from "@angular/common";
 import { CustomValidators } from "../../../common/validators";
-import { UpdateBoothRequest, UpdateUserRequest } from "src/models/rsvp-request.model";
+import {
+  UpdateBoothRequest,
+  UpdateUserRequest,
+} from "src/models/rsvp-request.model";
+import { ConstantPool } from "@angular/compiler";
 
 @Component({
   selector: "app-dialog-editbooth",
@@ -26,7 +30,7 @@ export class DialogEditboothComponent implements OnInit {
   selectedTab: number;
   addScreen: boolean;
   filtertType: string;
-  filterText: string;
+  // filterText: string = "";
 
   constructor(
     private rsvpService: RSVPService,
@@ -36,14 +40,13 @@ export class DialogEditboothComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.filtertType = "name";
+    this.filtertType = "staffId";
     this.addScreen = this.data.addScreen;
     this.booth = this.data.booth;
     this.changedBoothActivities = [];
     //only user booth update.
 
     if (!this.addScreen) {
-      console.log("here");
       this.rsvpService
         .GetBoothActivitiesByBooth(this.data.booth.boothNum)
         .subscribe(
@@ -71,6 +74,14 @@ export class DialogEditboothComponent implements OnInit {
           CustomValidators.numberOnly,
         ]
       ),
+      boothName: new FormControl(
+        { value: this.addScreen ? "" : this.booth.boothName, disabled: false },
+        [
+          Validators.required,
+          Validators.maxLength(50),
+          CustomValidators.letterAndNumberSpaceOnly,
+        ]
+      ),
       secretDigit: new FormControl(
         {
           value: this.addScreen ? "" : this.booth.secretDigit,
@@ -83,6 +94,13 @@ export class DialogEditboothComponent implements OnInit {
           Validators.maxLength(4),
         ]
       ),
+      boothLink: new FormControl(
+        { value: this.addScreen ? "" : this.booth.boothLink, disabled: false },
+        [
+          Validators.required,
+          Validators.maxLength(50),
+        ]
+      ),
       status: new FormControl(
         {
           value: this.addScreen ? "0" : this.booth.status.toString(),
@@ -93,50 +111,52 @@ export class DialogEditboothComponent implements OnInit {
     });
   }
 
-  filter() {
-    console.log(this.filterText);
-    this.isLoading = true;
-
-    this.rsvpService.GetBoothActivitiesByBooth(this.data.booth.boothNum)
-    .subscribe(
-      (data) => {
-        this.isLoading = false;
-
-        if (this.filterText == "") {
-          this.boothActivities = data;
-        } else {
-          if (this.filtertType == "name") {
-            this.boothActivities = data.filter(
-              (user: User) =>
-                user.name
-                  .toLocaleLowerCase()
-                  .indexOf(this.filterText.toLocaleLowerCase()) > -1
-            );
-          } else if (this.filtertType == "staffId") {
-            this.boothActivities = data.filter(
-              (user: User) =>
-                user.staffId
-                  .toLocaleLowerCase()
-                  .indexOf(this.filterText.toLocaleLowerCase()) > -1
-            );
-          } else {
-            this.boothActivities = data.filter(
-              (user: User) =>
-                user.email
-                  .toLocaleLowerCase()
-                  .indexOf(this.filterText.toLocaleLowerCase()) > -1
-            );
-          }
-        }
-      },
-      (err) => {
-        this.isLoading = false;
-        alert(err.error);
-      }
-    );
+  reset(filterText, filtertType) {
+    filterText.value = "";
+    filtertType.selectedIndex = 0;
+    this.ngOnInit();
   }
 
-
+  filter(filterText, filtertType) {
+    this.isLoading = true;
+    this.rsvpService
+      .GetBoothActivitiesByBooth(this.data.booth.boothNum)
+      .subscribe(
+        (data) => {
+          this.isLoading = false;
+          if (filterText == "") {
+            this.boothActivities = data;
+          } else {
+            if (filtertType == "name") {
+              this.boothActivities = data.filter(
+                (user: User) =>
+                  user.name
+                    .toLocaleLowerCase()
+                    .indexOf(filterText.toLocaleLowerCase()) > -1
+              );
+            } else if (filtertType == "staffId") {
+              this.boothActivities = data.filter(
+                (user: User) =>
+                  user.staffId
+                    .toLocaleLowerCase()
+                    .indexOf(filterText.toLocaleLowerCase()) > -1
+              );
+            } else {
+              this.boothActivities = data.filter(
+                (user: User) =>
+                  user.email
+                    .toLocaleLowerCase()
+                    .indexOf(filterText.toLocaleLowerCase()) > -1
+              );
+            }
+          }
+        },
+        (err) => {
+          this.isLoading = false;
+          alert(err.error);
+        }
+      );
+  }
 
   changeBooth(id, status) {
     var boothActivitiesFound = this.boothActivities.find((x) => x.id == id);
@@ -153,7 +173,9 @@ export class DialogEditboothComponent implements OnInit {
 
     var editBooth = new Booth();
     editBooth.boothNum = this.editrsvp.controls.boothNum.value;
+    editBooth.boothName = this.editrsvp.controls.boothName.value;
     editBooth.secretDigit = this.editrsvp.controls.secretDigit.value;
+    editBooth.boothLink = this.editrsvp.controls.boothLink.value;
     editBooth.status = Number(this.editrsvp.controls.status.value);
 
     this.isLoading = true;
@@ -161,7 +183,7 @@ export class DialogEditboothComponent implements OnInit {
     if (!this.addScreen) {
       editBooth.id = this.booth.id;
     }
-    
+
     var updateBoothRequest = new UpdateBoothRequest();
     updateBoothRequest.booth = editBooth;
     updateBoothRequest.boothActivities = this.changedBoothActivities;

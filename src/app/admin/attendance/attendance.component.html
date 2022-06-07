@@ -4,7 +4,7 @@
       <div class="col-12 py-3">
         <div style="font-size: x-large">Guest List</div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-7">
         <div class="input-group">
           <select
             style="width: 120px; text-align: center"
@@ -27,9 +27,17 @@
           >
             Filter
           </button>
+          <button
+            type="button"
+            class="btn btn-warning btn-sm"
+            style="width: 80px; margin-left: 10px"
+            (click)="reset()"
+          >
+            Reset
+          </button>
         </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-5">
         <button
           style="margin-left: 15px"
           class="btn btn-secondary btn-sm float-right"
@@ -43,7 +51,7 @@
           class="btn btn-warning btn-sm float-right"
           (click)="import()"
         >
-          <mat-icon inline="true" >publish</mat-icon>
+          <mat-icon inline="true">publish</mat-icon>
           Import
         </button>
         <button
@@ -99,19 +107,28 @@
           </ng-container>
           <ng-container matColumnDef="guestAvailable">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>
-              <b>Acc Person</b>
+              <b
+                >Acc <br />
+                Person</b
+              >
             </th>
             <td mat-cell *matCellDef="let row">{{ row.guestAvailable }}</td>
           </ng-container>
           <ng-container matColumnDef="guestAttend">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>
-              <b>Acc Attended</b>
+              <b
+                >Acc <br />
+                Attended</b
+              >
             </th>
             <td mat-cell *matCellDef="let row">{{ row.guestAttend }}</td>
           </ng-container>
           <ng-container matColumnDef="guestAbsent">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>
-              <b>Acc Absent</b>
+              <b
+                >Acc <br />
+                Absent</b
+              >
             </th>
             <td mat-cell *matCellDef="let row">
               {{ row.guestAvailable - row.guestAttend }}
@@ -127,6 +144,14 @@
                 (click)="edit(row)"
               >
                 <mat-icon>edit</mat-icon>
+              </button>
+              <button
+                *ngIf="row.userAvailable == 1 && !row.userAttend"
+                style="margin-left: 10px"
+                class="btn btn-success btn-sm"
+                (click)="attend(row)"
+              >
+                Attend
               </button>
             </td>
           </ng-container>

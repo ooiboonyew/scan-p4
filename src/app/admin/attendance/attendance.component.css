@@ -8,10 +8,12 @@
         width: 100%;
     }
 
-    .mat-column-Edit {
+    td.mat-cell:last-of-type{
+        padding-right: 5px;
+    }
+    
+    /* .mat-column-Edit {
         width: 2%;
         text-align: right;
-        /* flex: none;
-        width: 2%; */
-    }
+    } */
    

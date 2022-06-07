@@ -42,29 +42,28 @@
 </div>
 
 <!-- <div *ngIf="user && !userBooth"> -->
-<div *ngIf="user && !userBooth && !message ">
+<div *ngIf="user && !userBooth && !message">
   <div>Remaining chances :</div>
-  <div
-    class="row"
-    *ngFor="let userBooth of user.userBooths; let i = index"
-    style="padding-bottom: 10px; padding-top: 10px"
-  >
-    <div
-      class="col-7"
-      style="align-self: center"
-      *ngIf="userBooth.chancesTotal > 0"
-    >
-      Booth {{ userBooth.boothNum }} : {{ userBooth.chancesLeft }}
-    </div>
-    <div class="col-5" *ngIf="userBooth.chancesTotal > 0">
-      <button
-        (click)="play(userBooth)"
-        style="background-color: skyblue; width: 100%; color: white"
-        class="btn"
-        *ngIf="userBooth.chancesLeft > 0"
-      >
-        Play
-      </button>
+  <div *ngFor="let userBooth of user.userBooths; let i = index">
+    <div *ngIf="userBooth.chancesTotal > 0">
+      <div class="row" style="padding-bottom: 10px; padding-top: 10px">
+        <div
+          class="col-7"
+          style="align-self: center"
+        >
+          Booth {{ userBooth.boothName }} : {{ userBooth.chancesLeft }}
+        </div>
+        <div class="col-5">
+          <button
+            (click)="play(userBooth)"
+            style="background-color: skyblue; width: 100%; color: white"
+            class="btn"
+            *ngIf="userBooth.chancesLeft > 0"
+          >
+            Play
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>

@@ -22,7 +22,6 @@ const BoothModel = require("../models/BoothModel");
 const boothModel = new BoothModel();
 
 const BoothActivitiesModel = require("../models/BoothActivitiesModel");
-const { data } = require("jquery");
 const boothActivitiesModel = new BoothActivitiesModel();
 
 // rsvpApp.use(verifyToken);
@@ -556,11 +555,11 @@ rsvpApp.post("/rsvp/addUser", async (req, res, next) => {
       return res.status(405).json("Add Failed. Email is already exist.");
     }
 
-    var existStaff = await userModel.checkEmail(updateUserRequest.user.staffId);
+    // var existStaff = await userModel.checkEmail(updateUserRequest.user.staffId);
 
-    if (existStaff.id) {
-      return res.status(405).json("Add Failed. Staff ID is already exist.");
-    }
+    // if (existStaff.id) {
+    //   return res.status(405).json("Add Failed. Staff ID is already exist.");
+    // }
 
     updateUserRequest.user.createdDate = new Date();
     const result = await userModel.add(updateUserRequest.user);

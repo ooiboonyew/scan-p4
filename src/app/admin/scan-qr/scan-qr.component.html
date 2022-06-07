@@ -11,7 +11,7 @@
       <div class="col-12 col-md-8">
         <zxing-scanner
           class="small-video"
-          [previewFitMode]="'fill'"
+          [previewFitMode]="cover"
           (scanSuccess)="onCodeResult($event)"
           [formats]="['QR_CODE', 'EAN_13', 'CODE_128', 'DATA_MATRIX']"
         ></zxing-scanner>

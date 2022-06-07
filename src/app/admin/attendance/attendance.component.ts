@@ -13,6 +13,7 @@ import { SelectionModel } from "@angular/cdk/collections";
 import { DialogEditdonationComponent } from "../dialog-editdonation/dialog-editdonation.component";
 import { DialogUploaddonationComponent } from "../dialog-uploaddonation/dialog-uploaddonation.component";
 import { ExcelFunction } from "../../../common/excelfunction";
+import { UpdateUserRequest } from "src/models/rsvp-request.model";
 
 @Component({
   selector: "app-attendance",
@@ -68,6 +69,12 @@ export class AttendanceComponent implements OnInit {
     );
   }
 
+  reset() {
+    this.filterText = "";
+    this.filtertType = "name";
+    this.ngOnInit();
+  }
+
   filter() {
     console.log(this.filterText);
     this.appComponent.isLoading = true;
@@ -114,62 +121,62 @@ export class AttendanceComponent implements OnInit {
     );
 
     //if (this.filterText == "") {
-      // this.rSVPService.listUser().subscribe(
-      //   (data) => {
-      //     this.appComponent.isLoading = false;
-      //     this.users = data;
-      //     console.log(data);
-      //     this.dataSource = new MatTableDataSource<User>(data);
-      //     this.dataSource.paginator = this.paginator;
-      //     this.dataSource.sort = this.sort;
-      //   },
-      //   (err) => {
-      //     this.appComponent.isLoading = false;
-      //     alert(err.error);
-      //   }
-      // );
-  //  } else {
-      // this.users == null;
+    // this.rSVPService.listUser().subscribe(
+    //   (data) => {
+    //     this.appComponent.isLoading = false;
+    //     this.users = data;
+    //     console.log(data);
+    //     this.dataSource = new MatTableDataSource<User>(data);
+    //     this.dataSource.paginator = this.paginator;
+    //     this.dataSource.sort = this.sort;
+    //   },
+    //   (err) => {
+    //     this.appComponent.isLoading = false;
+    //     alert(err.error);
+    //   }
+    // );
+    //  } else {
+    // this.users == null;
 
-      // this.users = this.users.filter(
-      //   (user: User) =>
-      //     user.name
-      //       .toLocaleLowerCase()
-      //       .indexOf(this.filterText.toLocaleLowerCase()) > -1
-      //);
+    // this.users = this.users.filter(
+    //   (user: User) =>
+    //     user.name
+    //       .toLocaleLowerCase()
+    //       .indexOf(this.filterText.toLocaleLowerCase()) > -1
+    //);
 
-      // console.log(this.users);
-      // this.dataSource = new MatTableDataSource<User>(this.users);
-      // this.dataSource.paginator = this.paginator;
-      // this.dataSource.sort = this.sort;
+    // console.log(this.users);
+    // this.dataSource = new MatTableDataSource<User>(this.users);
+    // this.dataSource.paginator = this.paginator;
+    // this.dataSource.sort = this.sort;
 
-      // this.appComponent.isLoading = false;
-      // this.rSVPService.FilterUsers(this.filtertType, this.filterText).subscribe(
-      //   (data) => {
-      //     this.appComponent.isLoading = false;
-      //     this.users = data;
-      //     console.log(data);
-      //     this.dataSource = new MatTableDataSource<User>(data);
-      //     this.dataSource.paginator = this.paginator;
-      //     this.dataSource.sort = this.sort;
-      //   },
-      //   (err) => {
-      //     this.appComponent.isLoading = false;
-      //     alert(err.error);
-      //   }
-      // );
+    // this.appComponent.isLoading = false;
+    // this.rSVPService.FilterUsers(this.filtertType, this.filterText).subscribe(
+    //   (data) => {
+    //     this.appComponent.isLoading = false;
+    //     this.users = data;
+    //     console.log(data);
+    //     this.dataSource = new MatTableDataSource<User>(data);
+    //     this.dataSource.paginator = this.paginator;
+    //     this.dataSource.sort = this.sort;
+    //   },
+    //   (err) => {
+    //     this.appComponent.isLoading = false;
+    //     alert(err.error);
+    //   }
+    // );
     // }
   }
 
   import() {
     let dialogRef = this.dialog.open(DialogUploaddonationComponent, {
-      width: '60%',
+      width: "60%",
       disableClose: true,
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        alert("Import Successfully.")
+        alert("Import Successfully.");
         this.ngOnInit();
       }
     });
@@ -198,6 +205,25 @@ export class AttendanceComponent implements OnInit {
         this.ngOnInit();
       }
     });
+  }
+
+  attend(user: User) {
+    var updateUserRequest = new UpdateUserRequest();
+    user.userAttend = 1;
+    updateUserRequest.user = user;
+    updateUserRequest.boothActivities = [];
+
+    this.rSVPService.updateUser(updateUserRequest).subscribe(
+      (data) => {
+         this.appComponent.isLoading = false;
+        // this.dialogRef.close(this.editrsvp);
+      },
+      (err) => {
+        var errorstr = JSON.stringify(err.error);
+        alert(errorstr.replace(new RegExp('"', "g"), ""));
+        this.appComponent.isLoading = false;
+      }
+    );
   }
 
   edit(user: User) {

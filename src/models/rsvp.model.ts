@@ -30,7 +30,9 @@ export class UserBooth {
 export class Booth {
   id: string;
   boothNum: number;
+  boothName: string;
   secretDigit: string;
+  boothLink: string;
   status: number;
 }
 
