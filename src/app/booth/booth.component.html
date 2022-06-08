@@ -43,24 +43,29 @@
 
 <!-- <div *ngIf="user && !userBooth"> -->
 <div *ngIf="user && !userBooth && !message">
-  <div>Remaining chances :</div>
+  <!-- <div>Remaining chances :</div> -->
   <div *ngFor="let userBooth of user.userBooths; let i = index">
     <div *ngIf="userBooth.chancesTotal > 0">
-      <div class="row" style="padding-bottom: 10px; padding-top: 10px">
-        <div class="col-7" style="align-self: center">
-          {{ userBooth.boothName }} : {{ userBooth.chancesLeft }}
+      <div class="row" style="padding-bottom: 10px; padding-top: 10px; font-size: small;">
+        <div class="col-12">
+         {{ userBooth.boothName }}
+          <br />
         </div>
-        <div class="col-5">
+        <div class="col-6"  style="align-self: center;padding-top: 10px;">
+          Remaining Chances : {{ userBooth.chancesLeft }}
+        </div>
+        <div class="col-6" style="align-self: center;padding-top: 10px;">
           <button
             (click)="play(userBooth)"
             style="background-color: #73bad7; width: 100%; color: white"
-            class="btn"
+            class="btn btn-sm"
             *ngIf="userBooth.chancesLeft > 0"
           >
             Play
           </button>
         </div>
       </div>
+      <hr />
     </div>
   </div>
   <div class="row" style="padding-top: 40px">
@@ -96,8 +101,8 @@
 </div>
 
 <div *ngIf="user && userBooth && !message">
-  <div>Booth {{ userBooth.boothNum }}</div>
-  <div>Remaing Chances : {{ userBooth.chancesLeft }}</div>
+  <div>{{ userBooth.boothName }}</div>
+  <div style="padding-top:10px">Remaing Chances : {{ userBooth.chancesLeft }}</div>
   <br />
   <div style="border: solid 1px black; padding: 10px">
     This will cost you 1 chance to participate!

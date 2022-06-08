@@ -14,6 +14,7 @@ import { DialogEditdonationComponent } from "../dialog-editdonation/dialog-editd
 import { DialogUploaddonationComponent } from "../dialog-uploaddonation/dialog-uploaddonation.component";
 import { ExcelFunction } from "../../../common/excelfunction";
 import { UpdateUserRequest } from "src/models/rsvp-request.model";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-attendance",
@@ -45,6 +46,7 @@ export class AttendanceComponent implements OnInit {
   @ViewChild(MatSort, { static: false }) sort: MatSort;
 
   constructor(
+    private router: Router,
     private rSVPService: RSVPService,
     public dialog: MatDialog,
     private excelFunction: ExcelFunction,
@@ -208,22 +210,26 @@ export class AttendanceComponent implements OnInit {
   }
 
   attend(user: User) {
-    var updateUserRequest = new UpdateUserRequest();
-    user.userAttend = 1;
-    updateUserRequest.user = user;
-    updateUserRequest.boothActivities = [];
+    this.router.navigate(["admin/checkin"], {
+      queryParams: { id: user.id },
+    });
 
-    this.rSVPService.updateUser(updateUserRequest).subscribe(
-      (data) => {
-         this.appComponent.isLoading = false;
-        // this.dialogRef.close(this.editrsvp);
-      },
-      (err) => {
-        var errorstr = JSON.stringify(err.error);
-        alert(errorstr.replace(new RegExp('"', "g"), ""));
-        this.appComponent.isLoading = false;
-      }
-    );
+    // var updateUserRequest = new UpdateUserRequest();
+    // user.userAttend = 1;
+    // updateUserRequest.user = user;
+    // updateUserRequest.boothActivities = [];
+
+    // this.rSVPService.updateUser(updateUserRequest).subscribe(
+    //   (data) => {
+    //      this.appComponent.isLoading = false;
+    //     // this.dialogRef.close(this.editrsvp);
+    //   },
+    //   (err) => {
+    //     var errorstr = JSON.stringify(err.error);
+    //     alert(errorstr.replace(new RegExp('"', "g"), ""));
+    //     this.appComponent.isLoading = false;
+    //   }
+    // );
   }
 
   edit(user: User) {

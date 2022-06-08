@@ -4,7 +4,7 @@
   "scripts": {
     "generate": "cd src && cd app && ng g component donation --module app",
     "generate-admin": "cd src && cd app/admin && ng g component dialog-uploaddonation --module app",
-    "ng": "ng",
+    "ng": "ng update",
     "start": "ng serve",
     "build": "ng build --prod --configuration=production",
     "test": "ng test",

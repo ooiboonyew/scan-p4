@@ -10,6 +10,8 @@
       <div class="col-0 col-md-2"></div>
       <div class="col-12 col-md-8">
         <zxing-scanner
+        [previewFitMode]="'fill'"
+
           (scanSuccess)="onCodeResult($event)"
           [formats]="['QR_CODE', 'EAN_13', 'CODE_128', 'DATA_MATRIX']"
         ></zxing-scanner>
