@@ -33,7 +33,7 @@ export class GuestLoginComponent implements OnInit, AfterViewInit {
           Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"),
         ],
       ],
-      staffId: ["", Validators.required],
+      // staffId: ["", Validators.required],
     });
   }
 
@@ -48,7 +48,7 @@ export class GuestLoginComponent implements OnInit, AfterViewInit {
 
     var loginRequest = new GuestLoginRequest();
     loginRequest.email = this.loginForm.controls.email.value;
-    loginRequest.staffId = this.loginForm.controls.staffId.value;
+    // loginRequest.staffId = this.loginForm.controls.staffId.value;
 
     //temp
     // this.appComponent.isLoading = false;

@@ -78,19 +78,15 @@ rsvpApp.get(
     try {
       const filtertType = req.params.filtertType;
       const filterText = req.params.filterText;
-
-      console.log(filtertType);
-
       var result = [];
-      if (filtertType == "name") {
-        result = await userModel.filterNamelUsers(filterText);
-      } else if (filtertType == "staffId") {
-        result = await userModel.filterStaffIdUsers(filterText);
-      } else {
-        result = await userModel.filterEmailUsers(filterText);
-      }
-
-      console.log(result);
+      // if (filtertType == "name") {
+      //   result = await userModel.filterNamelUsers(filterText);
+      // } else if (filtertType == "staffId") {
+      //   result = await userModel.filterStaffIdUsers(filterText);
+      // } else {
+      //   result = await userModel.filterEmailUsers(filterText);
+      // }
+      result = await userModel.filterEmailUsers(filterText);
 
       return res.status(200).json(result);
     } catch (error) {
@@ -277,8 +273,8 @@ rsvpApp.post("/rsvp/import", async (req, res, next) => {
       var userData = {
         email: user.email,
         createdDate: new Date(),
-        name: user.name,
-        staffId: user.staffId,
+        // name: user.name,
+        // staffId: user.staffId,
         userAttend: 0,
         guestAttend: 0,
         userBooths: [],
@@ -330,14 +326,13 @@ rsvpApp.post("/rsvp/import", async (req, res, next) => {
         }
       }
 
-      var existStaff = await userModel.checkStaffId(userData.staffId);
+      // var existStaff = await userModel.checkStaffId(userData.staffId);
+      var existStaff = await userModel.checkEmail(userData.email);
 
       // console.log(JSON.stringify(userData));
 
       if (existStaff.id) {
-        console.log("her", existStaff);
         userData.id = existStaff.id;
-
         const result = await userModel.update(userData);
       } else {
         const result = await userModel.add(userData);
@@ -353,19 +348,19 @@ rsvpApp.post("/rsvp/import", async (req, res, next) => {
 rsvpApp.post("/rsvp/guestLogin", async (req, res, next) => {
   try {
     let email = req.body.email;
-    let staffId = req.body.staffId;
+    // let staffId = req.body.staffId;
 
     var users = await userModel.getUserByEmail(email);
 
     if (
       users &&
       users.length > 0 &&
-      email == users[0].email &&
-      staffId == users[0].staffId
+      email == users[0].email 
+      // && staffId == users[0].staffId
     ) {
       return res.status(200).json(users[0]);
     } else {
-      return res.status(401).json("Invalid Email or Staff ID");
+      return res.status(401).json("Invalid Email");
     }
   } catch (error) {
     adeErrorHandler(error, req, res, next);
@@ -479,8 +474,8 @@ rsvpApp.post("/rsvp/playBooth", async (req, res, next) => {
 
     var boothActivities = {};
     boothActivities.userId = user.id;
-    boothActivities.name = user.name;
-    boothActivities.staffId = user.staffId;
+    // boothActivities.name = user.name;
+    // boothActivities.staffId = user.staffId;
     boothActivities.email = user.email;
     boothActivities.boothNum = booth.boothNum;
     boothActivities.chancesLeft = foundUserBooth.chancesLeft;

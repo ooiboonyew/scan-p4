@@ -23,8 +23,8 @@ export class ExcelFunction {
     rsvps.forEach(user => {
       var json = {
         "#": user.num,
-        "name": user.name,
-        "staffId": user.staffId,
+        // "name": user.name,
+        // "staffId": user.staffId,
         "email": user.email,
         "available": user.userAvailable == 1 ? "Yes": "No",
         "attended": user.userAttend == 1 ? "Yes": "No",
@@ -37,7 +37,7 @@ export class ExcelFunction {
     });
 
     var Heading = [
-      ["#", "Name", "Staff ID", "Email","Available", "Attended", "Acc Person", "Acc Attended", "Acc Absent"],
+      ["#", "Email","Available", "Attended", "Acc Person", "Acc Attended", "Acc Absent"],
      // ["#", "Attending", "First Name", "Last Name", "E-mail", "Mobile", "Country", "Registered Date", "Email Date"],
     ];
 

@@ -70,43 +70,43 @@ export class DialogEditdonationComponent implements OnInit {
 
     // this.user = this.data.user;
     this.editrsvp = new FormGroup({
-      name: new FormControl(
-        { value: this.addScreen ? "" : this.user.name, disabled: false },
-        [
-          Validators.required,
-          Validators.maxLength(50),
-          CustomValidators.letterAndNumberSpaceOnly,
-        ]
-      ),
-      staffId: new FormControl(
-        { value: this.addScreen ? "" : this.user.staffId, disabled: false },
-        [
-          Validators.required,
-          Validators.maxLength(50),
-          CustomValidators.letterAndNumberSpaceOnly,
-        ]
-      ),
+      // name: new FormControl(
+      //   { value: this.addScreen ? "" : this.user.name, disabled: false },
+      //   [
+      //     Validators.required,
+      //     Validators.maxLength(50),
+      //     CustomValidators.letterAndNumberSpaceOnly,
+      //   ]
+      // ),
+      // staffId: new FormControl(
+      //   { value: this.addScreen ? "" : this.user.staffId, disabled: false },
+      //   [
+      //     Validators.required,
+      //     Validators.maxLength(50),
+      //     CustomValidators.letterAndNumberSpaceOnly,
+      //   ]
+      // ),
       email: new FormControl(
         { value: this.addScreen ? "" : this.user.email, disabled: false },
         [Validators.required, Validators.maxLength(50), Validators.email]
       ),
       userAvailable: new FormControl(
         {
-          value: this.addScreen ? "0" : this.user.userAvailable.toString(),
+          value: this.addScreen ? "1" : this.user.userAvailable.toString(),
           disabled: false,
         },
         [Validators.required, Validators.maxLength(50)]
       ),
       userAttend: new FormControl(
         {
-          value: this.addScreen ? "0" : this.user.userAttend.toString(),
+          value: this.addScreen ? "1" : this.user.userAttend.toString(),
           disabled: false,
         },
         [Validators.required, Validators.maxLength(50)]
       ),
       guestAvailable: new FormControl(
         {
-          value: this.addScreen ? "" : this.user.guestAvailable,
+          value: this.addScreen ? "0" : this.user.guestAvailable,
           disabled: false,
         },
         [
@@ -117,7 +117,7 @@ export class DialogEditdonationComponent implements OnInit {
         ]
       ),
       guestAttend: new FormControl(
-        { value: this.addScreen ? "" : this.user.guestAttend, disabled: false },
+        { value: this.addScreen ? "0" : this.user.guestAttend, disabled: false },
         [
           Validators.required,
           CustomValidators.numberOnly,
@@ -180,9 +180,9 @@ export class DialogEditdonationComponent implements OnInit {
     console.log(this.user.userBooths);
 
     var editUser = new User();
-    editUser.name = this.editrsvp.controls.name.value;
+    // editUser.name = this.editrsvp.controls.name.value;
     editUser.email = this.editrsvp.controls.email.value;
-    editUser.staffId = this.editrsvp.controls.staffId.value;
+    // editUser.staffId = this.editrsvp.controls.staffId.value;
     editUser.userAvailable = Number(this.editrsvp.controls.userAvailable.value);
     editUser.userAttend = Number(this.editrsvp.controls.userAttend.value);
     editUser.guestAttend = Number(this.editrsvp.controls.guestAttend.value);

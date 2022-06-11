@@ -31,8 +31,8 @@ export class AttendanceComponent implements OnInit {
   selection: SelectionModel<User> = new SelectionModel<User>(true, []);
   displayedColumns: string[] = [
     "num",
-    "name",
-    "staffId",
+    // "name",
+    // "staffId",
     "email",
     "userAvailable",
     "userAttend",
@@ -88,28 +88,34 @@ export class AttendanceComponent implements OnInit {
         if (this.filterText == "") {
           this.users = data;
         } else {
-          if (this.filtertType == "name") {
-            this.users = data.filter(
-              (user: User) =>
-                user.name
-                  .toLocaleLowerCase()
-                  .indexOf(this.filterText.toLocaleLowerCase()) > -1
-            );
-          } else if (this.filtertType == "staffId") {
-            this.users = data.filter(
-              (user: User) =>
-                user.staffId
-                  .toLocaleLowerCase()
-                  .indexOf(this.filterText.toLocaleLowerCase()) > -1
-            );
-          } else {
-            this.users = data.filter(
-              (user: User) =>
-                user.email
-                  .toLocaleLowerCase()
-                  .indexOf(this.filterText.toLocaleLowerCase()) > -1
-            );
-          }
+          this.users = data.filter(
+            (user: User) =>
+              user.email
+                .toLocaleLowerCase()
+                .indexOf(this.filterText.toLocaleLowerCase()) > -1
+          );
+          // if (this.filtertType == "name") {
+          //   this.users = data.filter(
+          //     (user: User) =>
+          //       user.name
+          //         .toLocaleLowerCase()
+          //         .indexOf(this.filterText.toLocaleLowerCase()) > -1
+          //   );
+          // } else if (this.filtertType == "staffId") {
+          //   this.users = data.filter(
+          //     (user: User) =>
+          //       user.staffId
+          //         .toLocaleLowerCase()
+          //         .indexOf(this.filterText.toLocaleLowerCase()) > -1
+          //   );
+          // } else {
+          //   this.users = data.filter(
+          //     (user: User) =>
+          //       user.email
+          //         .toLocaleLowerCase()
+          //         .indexOf(this.filterText.toLocaleLowerCase()) > -1
+          //   );
+          // }
         }
 
         this.dataSource = new MatTableDataSource<User>(this.users);

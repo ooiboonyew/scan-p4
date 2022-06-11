@@ -6,17 +6,17 @@
       </div>
       <div class="col-md-7">
         <div class="input-group">
-          <select
+          <!-- <select
             style="width: 120px; text-align: center"
             [(ngModel)]="filtertType"
           >
             <option value="name">Name</option>
             <option value="staffId">Staff ID</option>
             <option value="email">Email</option>
-          </select>
+          </select> -->
           <input
             type="text"
-            placeholder="Filter Text"
+            placeholder="Filter Email"
             class="form-control"
             [(ngModel)]="filterText"
           />
@@ -71,18 +71,18 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header><b>#</b></th>
             <td mat-cell *matCellDef="let row">{{ row.num }}</td>
           </ng-container>
-          <ng-container matColumnDef="name">
+          <!-- <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>
               <b>Name</b>
             </th>
             <td mat-cell *matCellDef="let row">{{ row.name }}</td>
-          </ng-container>
-          <ng-container matColumnDef="staffId">
+          </ng-container> -->
+          <!-- <ng-container matColumnDef="staffId">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>
               <b>Staff ID</b>
             </th>
             <td mat-cell *matCellDef="let row">{{ row.staffId }}</td>
-          </ng-container>
+          </ng-container> -->
           <ng-container matColumnDef="email">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>
               <b>Email</b>

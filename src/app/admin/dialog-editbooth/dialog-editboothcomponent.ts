@@ -29,7 +29,7 @@ export class DialogEditboothComponent implements OnInit {
   isLoading: boolean = false;
   selectedTab: number;
   addScreen: boolean;
-  filtertType: string;
+  // filtertType: string;
   // filterText: string = "";
 
   constructor(
@@ -40,7 +40,7 @@ export class DialogEditboothComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.filtertType = "staffId";
+    // this.filtertType = "email";
     this.addScreen = this.data.addScreen;
     this.booth = this.data.booth;
     this.changedBoothActivities = [];
@@ -96,11 +96,7 @@ export class DialogEditboothComponent implements OnInit {
       ),
       boothLink: new FormControl(
         { value: this.addScreen ? "" : this.booth.boothLink, disabled: false },
-        [
-          Validators.required,
-          Validators.maxLength(50),
-          CustomValidators.url,
-        ]
+        [Validators.required, Validators.maxLength(50), CustomValidators.url]
       ),
       status: new FormControl(
         {
@@ -112,13 +108,13 @@ export class DialogEditboothComponent implements OnInit {
     });
   }
 
-  reset(filterText, filtertType) {
+  reset(filterText) {
     filterText.value = "";
-    filtertType.selectedIndex = 0;
+    // filtertType.selectedIndex = 0;
     this.ngOnInit();
   }
 
-  filter(filterText, filtertType) {
+  filter(filterText) {
     this.isLoading = true;
     this.rsvpService
       .GetBoothActivitiesByBooth(this.data.booth.boothNum)
@@ -128,28 +124,34 @@ export class DialogEditboothComponent implements OnInit {
           if (filterText == "") {
             this.boothActivities = data;
           } else {
-            if (filtertType == "name") {
-              this.boothActivities = data.filter(
-                (user: User) =>
-                  user.name
-                    .toLocaleLowerCase()
-                    .indexOf(filterText.toLocaleLowerCase()) > -1
-              );
-            } else if (filtertType == "staffId") {
-              this.boothActivities = data.filter(
-                (user: User) =>
-                  user.staffId
-                    .toLocaleLowerCase()
-                    .indexOf(filterText.toLocaleLowerCase()) > -1
-              );
-            } else {
-              this.boothActivities = data.filter(
-                (user: User) =>
-                  user.email
-                    .toLocaleLowerCase()
-                    .indexOf(filterText.toLocaleLowerCase()) > -1
-              );
-            }
+            this.boothActivities = data.filter(
+              (user: User) =>
+                user.email
+                  .toLocaleLowerCase()
+                  .indexOf(filterText.toLocaleLowerCase()) > -1
+            );
+            // if (filtertType == "name") {
+            //   this.boothActivities = data.filter(
+            //     (user: User) =>
+            //       user.name
+            //         .toLocaleLowerCase()
+            //         .indexOf(filterText.toLocaleLowerCase()) > -1
+            //   );
+            // } else if (filtertType == "staffId") {
+            //   this.boothActivities = data.filter(
+            //     (user: User) =>
+            //       user.staffId
+            //         .toLocaleLowerCase()
+            //         .indexOf(filterText.toLocaleLowerCase()) > -1
+            //   );
+            // } else {
+            //   this.boothActivities = data.filter(
+            //     (user: User) =>
+            //       user.email
+            //         .toLocaleLowerCase()
+            //         .indexOf(filterText.toLocaleLowerCase()) > -1
+            //   );
+            // }
           }
         },
         (err) => {

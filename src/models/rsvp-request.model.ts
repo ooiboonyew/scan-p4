@@ -7,7 +7,7 @@ export class LoginRequest {
 
 export class GuestLoginRequest {
     email: string;
-    staffId: string;
+    // staffId: string;
 }
 
 export class ChangePasswordReq {

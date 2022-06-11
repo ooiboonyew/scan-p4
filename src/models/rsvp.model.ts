@@ -9,9 +9,9 @@ export class Admin {
 export class User {
   id: string;
   num: number;
-  staffId: string;
+  // staffId: string;
+  // name: string;
   email: string;
-  name: string;
   createdDate: object;
   userBooths: UserBooth[];
   guestAttend: number;
