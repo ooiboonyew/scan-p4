@@ -30,7 +30,7 @@ const routes: Routes = [
   { path: 'event/donation', component: DonationComponent },
   // { path: 'admin', component: LoginComponent },
   { path: 'admin/login', component: LoginComponent },
-  { path: 'admin/account', component: AccountComponent },
+  // { path: 'admin/account', component: AccountComponent },
   { path: 'admin', component: HomeComponent },
   { path: 'admin/guest-list', component: AttendanceComponent },
   { path: 'admin/scan-qr', component: ScanQrComponent },
