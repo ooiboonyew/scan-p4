@@ -113,64 +113,39 @@
           </div>
           <div class="col-12">
             <mat-form-field style="width: 100%">
-              <mat-label>Acc Attended</mat-label>
+              <mat-label>Total Chances</mat-label>
               <input
                 matInput
-                placeholder="Acc Attended*"
+                placeholder="Total Chances*"
                 type="number"
                 min="0"
                 required
-                formControlName="guestAttend"
+                formControlName="chancesTotal"
               />
               <mat-error
-                *ngIf="editrsvp.controls.guestAttend.hasError('numberOnly')"
+                *ngIf="editrsvp.controls.chancesTotal.hasError('numberOnly')"
                 >Only number is allowed.</mat-error
               >
+            </mat-form-field>
+          </div>
+          <div class="col-12">
+            <mat-form-field style="width: 100%">
+              <mat-label>Chances Left</mat-label>
+              <input
+                matInput
+                placeholder="Chances Left*"
+                type="number"
+                min="0"
+                required
+                formControlName="chancesLeft"
+              />
               <mat-error
-              *ngIf="editrsvp.controls.guestAttend.hasError('max')"
-              >max is 4 only.</mat-error
-            >
+                *ngIf="editrsvp.controls.chancesLeft.hasError('numberOnly')"
+                >Only number is allowed.</mat-error
+              >
             </mat-form-field>
           </div>
         </div>
-      </mat-tab>
-      <mat-tab label="Booth Chances">
-        <table class="table" style="margin-top: 20px; text-align: center">
-          <tr>
-            <td>Booth Number</td>
-            <td>Total Chances</td>
-            <td>Chances Left</td>
-          </tr>
-          <tr *ngFor="let userBooth of user.userBooths; let i = index">
-            <td>
-              {{ userBooth.boothNum }}
-            </td>
-            <td>
-              <input
-                type="number"
-                class="form-control text-center"
-                style="width: 150px; display: inherit"
-                min="0"
-                (change)="
-                  changeChancesTotal(userBooth.boothNum, $event.target.value)
-                "
-                value="{{ userBooth.chancesTotal }}"
-              />
-            </td>
-            <td>
-              <input
-                type="number"
-                class="form-control text-center"
-                style="width: 150px; display: inherit"
-                min="0"
-                (change)="
-                  changeChancesLeft(userBooth.boothNum, $event.target.value)
-                "
-                value="{{ userBooth.chancesLeft }}"
-              />
-            </td>
-          </tr>
-        </table>
       </mat-tab>
       <mat-tab label="Booth Activties">
         <table class="table" style="margin-top: 20px; text-align: center">

@@ -1,2 +1,2 @@
-ng serve -o
+ng serve -o --prod
 pause

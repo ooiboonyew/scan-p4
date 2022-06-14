@@ -42,31 +42,32 @@
 </div>
 
 <!-- <div *ngIf="user && !userBooth"> -->
-<div *ngIf="user && !userBooth && !message">
-  <!-- <div>Remaining chances :</div> -->
-  <div *ngFor="let userBooth of user.userBooths; let i = index">
-    <div *ngIf="userBooth.chancesTotal > 0">
-      <div class="row" style="padding-bottom: 10px; padding-top: 10px; font-size: small;">
-        <div class="col-12">
-         {{ userBooth.boothName }}
-          <br />
-        </div>
-        <div class="col-6"  style="align-self: center;padding-top: 10px;">
-          Remaining Chances : {{ userBooth.chancesLeft }}
-        </div>
-        <div class="col-6" style="align-self: center;padding-top: 10px;">
-          <button
-            (click)="play(userBooth)"
-            style="background-color: #73bad7; width: 100%; color: white"
-            class="btn btn-sm"
-            *ngIf="userBooth.chancesLeft > 0"
-          >
-            Play
-          </button>
-        </div>
+<div *ngIf="user && !selectedBooth && !message">
+  <div>
+    Remaining chances :
+    <span style="color: green">{{ user.chancesLeft }} </span>
+  </div>
+  <br />
+  <div *ngFor="let booth of booths; let i = index">
+    <div
+      class="row"
+      style="padding-bottom: 10px; padding-top: 10px; font-size: small"
+    >
+      <div class="col-8">
+        {{ booth.boothName }}
       </div>
-      <hr />
+      <div class="col-4" style="align-self: center">
+        <button
+          (click)="play(booth)"
+          style="background-color: #73bad7; width: 100%; color: white"
+          class="btn btn-sm"
+          *ngIf="user.chancesLeft > 0"
+        >
+          Play
+        </button>
+      </div>
     </div>
+    <hr />
   </div>
   <div class="row" style="padding-top: 40px">
     <div class="col-12 .offset-0 col-md-9 offset-md-2">
@@ -100,9 +101,11 @@
   </div>
 </div>
 
-<div *ngIf="user && userBooth && !message">
-  <div>{{ userBooth.boothName }}</div>
-  <div style="padding-top:10px">Remaing Chances : {{ userBooth.chancesLeft }}</div>
+<div *ngIf="selectedBooth && !message">
+  <div>{{ selectedBooth.boothName }}</div>
+  <div style="padding-top: 10px">
+    Remaing Chances : <span style="color: green">{{ user.chancesLeft }} </span>
+  </div>
   <br />
   <div style="border: solid 1px black; padding: 10px">
     This will cost you 1 chance to participate!

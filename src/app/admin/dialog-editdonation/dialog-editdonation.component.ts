@@ -40,15 +40,6 @@ export class DialogEditdonationComponent implements OnInit {
     //only user booth update.
 
     if (!this.addScreen) {
-      this.rsvpService.Getuser(this.data.user.id).subscribe(
-        (data) => {
-          this.user.userBooths = data.userBooths;
-        },
-        (err) => {
-          alert(err.error);
-        }
-      );
-
       this.rsvpService.GetBoothActivitiesByUser(this.data.user.id).subscribe(
         (data) => {
           this.boothActivities = data;
@@ -58,14 +49,6 @@ export class DialogEditdonationComponent implements OnInit {
         }
       );
     } else {
-      this.rsvpService.GetEmptyUserBooth().subscribe(
-        (data) => {
-          this.user.userBooths = data;
-        },
-        (err) => {
-          alert(err.error);
-        }
-      );
     }
 
     // this.user = this.data.user;
@@ -125,42 +108,58 @@ export class DialogEditdonationComponent implements OnInit {
           Validators.max(4),
         ]
       ),
+      chancesTotal: new FormControl(
+        { value: this.addScreen ? "0" : this.user.chancesTotal, disabled: false },
+        [
+          Validators.required,
+          CustomValidators.numberOnly,
+          Validators.min(0),
+        ]
+      ),
+      chancesLeft: new FormControl(
+        { value: this.addScreen ? "0" : this.user.chancesLeft, disabled: false },
+        [
+          Validators.required,
+          CustomValidators.numberOnly,
+          Validators.min(0),
+        ]
+      )
     });
   }
 
-  changeChancesTotal(boothNum, chancesTotal) {
-    if (!chancesTotal) {
-      alert("Please Enter Valid Chances Total");
-    }
+  // changeChancesTotal(boothNum, chancesTotal) {
+  //   if (!chancesTotal) {
+  //     alert("Please Enter Valid Chances Total");
+  //   }
 
-    var numChancesTotal = Number(chancesTotal);
-    if (numChancesTotal < 0) {
-      numChancesTotal = 0;
-    }
+  //   var numChancesTotal = Number(chancesTotal);
+  //   if (numChancesTotal < 0) {
+  //     numChancesTotal = 0;
+  //   }
 
-    console.log(numChancesTotal);
+  //   console.log(numChancesTotal);
 
-    var userboothFound = this.user.userBooths.find(
-      (x) => x.boothNum == boothNum
-    );
-    userboothFound.chancesTotal = numChancesTotal;
-  }
+  //   var userboothFound = this.user.userBooths.find(
+  //     (x) => x.boothNum == boothNum
+  //   );
+  //   userboothFound.chancesTotal = numChancesTotal;
+  // }
 
-  changeChancesLeft(boothNum, chancesLeft) {
-    if (!chancesLeft) {
-      alert("Please Enter Valid Chances Total");
-    }
+  // changeChancesLeft(boothNum, chancesLeft) {
+  //   if (!chancesLeft) {
+  //     alert("Please Enter Valid Chances Total");
+  //   }
 
-    var numChancesLeft = Number(chancesLeft);
-    if (numChancesLeft < 0) {
-      numChancesLeft = 0;
-    }
+  //   var numChancesLeft = Number(chancesLeft);
+  //   if (numChancesLeft < 0) {
+  //     numChancesLeft = 0;
+  //   }
 
-    var userboothFound = this.user.userBooths.find(
-      (x) => x.boothNum == boothNum
-    );
-    userboothFound.chancesLeft = numChancesLeft;
-  }
+  //   var userboothFound = this.user.userBooths.find(
+  //     (x) => x.boothNum == boothNum
+  //   );
+  //   userboothFound.chancesLeft = numChancesLeft;
+  // }
 
   changeBooth(id, status) {
     var boothActivitiesFound = this.boothActivities.find((x) => x.id == id);
@@ -177,18 +176,20 @@ export class DialogEditdonationComponent implements OnInit {
       return;
     }
 
-    console.log(this.user.userBooths);
-
     var editUser = new User();
     // editUser.name = this.editrsvp.controls.name.value;
     editUser.email = this.editrsvp.controls.email.value;
     // editUser.staffId = this.editrsvp.controls.staffId.value;
     editUser.userAvailable = Number(this.editrsvp.controls.userAvailable.value);
     editUser.userAttend = Number(this.editrsvp.controls.userAttend.value);
-    editUser.guestAttend = Number(this.editrsvp.controls.guestAttend.value);
+    editUser.guestAttend = Number(this.editrsvp.controls.guestAttend.value);   
     editUser.guestAvailable = Number(
       this.editrsvp.controls.guestAvailable.value
     );
+
+    editUser.chancesLeft = Number(this.editrsvp.controls.chancesLeft.value);
+    editUser.chancesTotal = Number(this.editrsvp.controls.chancesTotal.value);
+
 
     if (editUser.guestAttend > editUser.guestAvailable) {
       alert("Acc Attended cannot more than Acc Person.");
@@ -200,10 +201,12 @@ export class DialogEditdonationComponent implements OnInit {
       return;
     }
 
+    if (editUser.chancesLeft > editUser.chancesTotal) {
+      alert("Chances Left cannot more than Total Chances.");
+      return;
+    }
+
     this.isLoading = true;
-
-    editUser.userBooths = this.user.userBooths;
-
     if (!this.addScreen) {
       editUser.id = this.user.id;
     }

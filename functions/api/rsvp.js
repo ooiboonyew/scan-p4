@@ -23,6 +23,7 @@ const boothModel = new BoothModel();
 
 const BoothActivitiesModel = require("../models/BoothActivitiesModel");
 const boothActivitiesModel = new BoothActivitiesModel();
+const _ = require("lodash");
 
 // rsvpApp.use(verifyToken);
 rsvpApp.use(addResponseHeader);
@@ -116,32 +117,6 @@ rsvpApp.get("/rsvp/getuser/:userId", async (req, res, next) => {
     var user = await userModel.getUserById(userId);
 
     if (user.email) {
-      var booths = await boothModel.getBooths();
-
-      booths.forEach((booth) => {
-        var foundUserBooth = user.userBooths.find(
-          (x) => x.boothNum == booth.boothNum
-        );
-
-        if (!foundUserBooth) {
-          user.userBooths.push({
-            boothNum: booth.boothNum,
-            chancesLeft: 0,
-            chancesTotal: 0,
-          });
-        }else{
-          foundUserBooth.boothName = booth.boothName;
-        }
-      });
-      user.userBooths.sort((a, b) => a.boothNum - b.boothNum);
-      await userModel.update(user);
-
-      if (user.userBooths && user.userBooths.length > 0) {
-        user.userBooths.sort((a, b) => a.boothNum - b.boothNum);
-      }
-
-      console.log(user);
-
       return res.status(200).json(user);
     } else {
       return res.status(401).json("Record Not Found.");
@@ -159,88 +134,39 @@ rsvpApp.get("/rsvp/summary", async (req, res, next) => {
     var totalUserAttended = result.filter((x) => x.userAttend == 1).length;
     var totalGuestAttended = 0;
 
-    var totalUserBooths = [];
+    var totalBoothActivies = [];
 
-    result.forEach((x) => {
-      totalGuestAttended += x.guestAttend;
+    var boothActivies = await boothActivitiesModel.getBoothActivities();
 
-      if (x.userBooths && x.userBooths.length > 0) {
-        x.userBooths.forEach((y) => {
-          foundTotalUserBooths = totalUserBooths.find(
-            (z) => z.boothNum == y.boothNum
-          );
+    // var grouped = boothActivies.groupBy(({ boothNum }) => boothNum);
 
-          if (foundTotalUserBooths) {
-            foundTotalUserBooths.totalChances += y.chancesTotal;
-            foundTotalUserBooths.chancesLeft += y.chancesLeft;
-            foundTotalUserBooths.chancesUsed += y.chancesTotal - y.chancesLeft;
-          } else {
-            foundTotalUserBooths = {};
-            foundTotalUserBooths.boothNum = y.boothNum;
-            foundTotalUserBooths.totalChances = 0;
-            foundTotalUserBooths.chancesLeft = 0;
-            foundTotalUserBooths.chancesUsed = 0;
-            totalUserBooths.push(foundTotalUserBooths);
-          }
-
-          // if (!totalUserBooths[y.boothNum]) {
-          //   totalUserBooths[y.boothNum] = {};
-          // }
-
-          // totalUserBooths[y.boothNum].totalChances += y.chancesTotal;
-          // totalUserBooths[y.boothNum].chancesLeft += y.chancesLeft;
-          // totalUserBooths[y.boothNum].chancesUsed +=
-          //   y.chancesTotal - y.chancesLeft;
-        });
+    totalBoothActivies = _.map(
+      _.groupBy(boothActivies, (x) => x.boothNum),
+      (vals, key) => {
+        return { boothNum: Number(key), chancesUsed: vals.length };
       }
-    });
+    );
+
+    console.log(totalBoothActivies);
 
     var summary = {};
     summary.totalUserAttended = totalUserAttended;
     summary.totalGuestAttended = totalGuestAttended;
     summary.totalUser = result.length;
-    summary.totalUserBooths = totalUserBooths;
+    summary.totalBoothActivies = totalBoothActivies;
 
-    summary.sumTotalUserBooths = {
-      totalChances: 0,
-      chancesLeft: 0,
+    summary.sumTotalBoothActivies = {
       chancesUsed: 0,
     };
 
-    totalUserBooths.forEach((x) => {
-      console.log(x.totalChances);
-      summary.sumTotalUserBooths.totalChances += x.totalChances;
-      summary.sumTotalUserBooths.chancesLeft += x.chancesLeft;
-      summary.sumTotalUserBooths.chancesUsed += x.chancesUsed;
+    totalBoothActivies.forEach((x) => {
+      console.log(x);
+      summary.sumTotalBoothActivies.chancesUsed += x.chancesUsed;
     });
 
-    console.log(summary);
 
     return res.status(200).json(summary);
   } catch (error) {
-    adeErrorHandler(error, req, res, next);
-  }
-});
-
-rsvpApp.get("/rsvp/GetEmptyUserBooth", async (req, res, next) => {
-  try {
-    var result = [];
-    var booths = await boothModel.getBooths();
-
-    if (booths.length > 0) {
-      booths.forEach((booth) => {
-        result.push({
-          boothNum: booth.boothNum,
-          chancesLeft: 0,
-          chancesTotal: 0,
-        });
-      });
-      result.sort((a, b) => a.boothNum - b.boothNum);
-    }
-
-    return res.status(200).json(result);
-  } catch (error) {
-    console.log(error);
     adeErrorHandler(error, req, res, next);
   }
 });
@@ -258,72 +184,29 @@ rsvpApp.post("/rsvp/import", async (req, res, next) => {
     console.log(csvData);
 
     for (const user of csvData) {
-      // var existEmail = await userModel.checkEmail(user.email);
-
-      // if (existEmail.id) {
-      //   continue;
-      // }
-
-      // var existStaff = await userModel.checkEmail(user.staffId);
-
-      // if (existStaff.id) {
-      //   continue;
-      // }
-
       var userData = {
         email: user.email,
         createdDate: new Date(),
-        // name: user.name,
-        // staffId: user.staffId,
         userAttend: 0,
         guestAttend: 0,
-        userBooths: [],
+        chancesTotal: user.chancesTotal,
+        chancesLeft: user.chancesTotal,
       };
 
-      var userBooths = [];
-      var userBooth = {};
-      var totalChance = 0;
-
-      for (var key in user) {
-        if (key.startsWith("boothchance")) {
-          var splitKey = key.split("boothchance");
-          var keyvalue = user[key];
-
-          if (isNumeric(keyvalue)) {
-            userBooth = {
-              boothNum: Number(splitKey[1]),
-              chancesLeft: Number(keyvalue),
-              chancesTotal: Number(keyvalue),
-            };
-
-            totalChance += userBooth.chancesTotal;
-          } else {
-            userBooth = {
-              boothNum: Number(splitKey[1]),
-              chancesLeft: 0,
-              chancesTotal: 0,
-            };
-          }
-          userBooths.push(userBooth);
-        }
-
-        userData.userBooths = userBooths;
-
-        if (totalChance > 0) {
-          if (totalChance > 4) {
-            userData.userAvailable = 1;
-            userData.guestAvailable = 3;
-          } else if (totalChance == 1) {
-            userData.userAvailable = 1;
-            userData.guestAvailable = 0;
-          } else {
-            userData.userAvailable = 1;
-            userData.guestAvailable = totalChance - 1;
-          }
-        } else {
-          userData.userAvailable = 0;
+      if (userData.chancesTotal > 0) {
+        if (userData.chancesTotal > 4) {
+          userData.userAvailable = 1;
+          userData.guestAvailable = 3;
+        } else if (userData.chancesTotal == 1) {
+          userData.userAvailable = 1;
           userData.guestAvailable = 0;
+        } else {
+          userData.userAvailable = 1;
+          userData.guestAvailable = userData.chancesTotal - 1;
         }
+      } else {
+        userData.userAvailable = 0;
+        userData.guestAvailable = 0;
       }
 
       // var existStaff = await userModel.checkStaffId(userData.staffId);
@@ -355,7 +238,7 @@ rsvpApp.post("/rsvp/guestLogin", async (req, res, next) => {
     if (
       users &&
       users.length > 0 &&
-      email == users[0].email 
+      email == users[0].email
       // && staffId == users[0].staffId
     ) {
       return res.status(200).json(users[0]);
@@ -459,17 +342,13 @@ rsvpApp.post("/rsvp/playBooth", async (req, res, next) => {
         .json("Secret Key Incorrect for Booth " + booth.boothNum + ".");
     }
 
-    var foundUserBooth = user.userBooths.find(
-      (x) => x.boothNum == booth.boothNum
-    );
-
-    if (!foundUserBooth || foundUserBooth.chancesLeft < 1) {
+    if (user.chancesLeft < 1) {
       return res
         .status(405)
         .json("Not enough chance for Booth " + booth.boothNum + ".");
     }
 
-    foundUserBooth.chancesLeft -= 1;
+    user.chancesLeft -= 1;
     const userResult = await userModel.update(user);
 
     var boothActivities = {};
@@ -478,7 +357,7 @@ rsvpApp.post("/rsvp/playBooth", async (req, res, next) => {
     // boothActivities.staffId = user.staffId;
     boothActivities.email = user.email;
     boothActivities.boothNum = booth.boothNum;
-    boothActivities.chancesLeft = foundUserBooth.chancesLeft;
+    boothActivities.chancesLeft = user.chancesLeft;
     boothActivities.status = 1;
     boothActivities.createdDate = new Date();
 

@@ -9,23 +9,14 @@ export class Admin {
 export class User {
   id: string;
   num: number;
-  // staffId: string;
-  // name: string;
   email: string;
   createdDate: object;
-  userBooths: UserBooth[];
   guestAttend: number;
   guestAvailable: number;
   userAvailable: number;
   userAttend: number;
-}
-
-export class UserBooth {
-  boothNum: number;
-  boothName: string;
   chancesTotal: number;
   chancesLeft: number;
-  // status: number;
 }
 
 export class Booth {
@@ -53,8 +44,14 @@ export class Summary {
   totalUserAttended: number;
   totalGuestAttended: number;
   totalUser: number;
-  totalUserBooths: TotalUserBooth[];
-  sumTotalUserBooths: TotalUserBooth;
+  totalBoothActivies: totalBoothActivity[];
+  sumTotalBoothActivies: totalBoothActivity;
+}
+
+
+export class totalBoothActivity {
+  boothNum: number;
+  chancesUsed: number;
 }
 
 export class TotalUserBooth {

@@ -8,9 +8,10 @@ class RsvpModel extends MainModel {
     super();
   }
 
-  async getUserBooths() {
+  async getBoothActivities() {
     const result = await this.db
       .collection(BOOTHACTIVITIES)
+      .where("status", "==", 1)
       .orderBy("createdDate", "asc")
       .get()
       .catch((firestoreError) => {

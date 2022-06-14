@@ -36,10 +36,6 @@ export class RSVPService {
     return this.http.get<ApiResponse>(this.baseUrl + "/email/" + id);
   }
 
-  GetEmptyUserBooth(): Observable<[]> {
-    return this.http.get<[]>(this.baseUrl + "/GetEmptyUserBooth");
-  }
-
   GetBoothActivitiesByUser(id: string): Observable<[]> {
     return this.http.get<[]>(this.baseUrl + "/getBoothActivitiesByUser/" + id);
   }
