@@ -33,29 +33,19 @@
         <table class="table" style="margin-top: 20px; text-align: center">
           <tr>
             <td>Booth Number</td>
-            <td>Total Chances</td>
             <td>Chances Used</td>
-            <td>Chances Left</td>
           </tr>
-          <tr *ngFor="let userBooth of summary.totalUserBooths; let i = index">
+          <tr *ngFor="let userBooth of summary.totalBoothActivies; let i = index">
             <td>
               {{ userBooth.boothNum }}
             </td>
             <td>
-              {{ userBooth.totalChances }}
-            </td>
-            <td>
               {{ userBooth.chancesUsed }}
-            </td>
-            <td>
-              {{ userBooth.chancesLeft }}
             </td>
           </tr>
           <tr style="font-weight: bold">
             <td>Total</td>
-            <td>{{ summary.sumTotalUserBooths.totalChances }}</td>
-            <td>{{ summary.sumTotalUserBooths.chancesUsed }}</td>
-            <td>{{ summary.sumTotalUserBooths.chancesLeft }}</td>
+            <td>{{ summary.sumTotalBoothActivies.chancesUsed }}</td>
           </tr>
         </table>
       </div>

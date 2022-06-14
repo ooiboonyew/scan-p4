@@ -39,6 +39,8 @@ export class AttendanceComponent implements OnInit {
     "guestAvailable",
     "guestAttend",
     "guestAbsent",
+    "chancesTotal",
+    "chancesLeft",
     "Edit",
   ];
 

@@ -134,7 +134,28 @@
               {{ row.guestAvailable - row.guestAttend }}
             </td>
           </ng-container>
-
+          <ng-container matColumnDef="chancesTotal">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              <b
+                >Total <br />
+                Chances</b
+              >
+            </th>
+            <td mat-cell *matCellDef="let row">
+              {{ row.chancesTotal }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="chancesLeft">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              <b
+                >Chances <br />
+                Left</b
+              >
+            </th>
+            <td mat-cell *matCellDef="let row">
+              {{ row.chancesLeft }}
+            </td>
+          </ng-container>
           <ng-container matColumnDef="Edit">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let row">
