@@ -333,19 +333,19 @@ rsvpApp.post("/rsvp/playBooth", async (req, res, next) => {
     if (!booth || booth.status == 0) {
       return res
         .status(405)
-        .json("Booth " + playBoothRequest.boothNum + " is closed.");
+        .json(playBoothRequest.boothName + " is closed.");
     }
 
     if (booth.secretDigit != playBoothRequest.secretDigit) {
       return res
         .status(405)
-        .json("Secret Key Incorrect for Booth " + booth.boothNum + ".");
+        .json("Secret Key Incorrect for " + booth.boothName + ".");
     }
 
     if (user.chancesLeft < 1) {
       return res
         .status(405)
-        .json("Not enough chance for Booth " + booth.boothNum + ".");
+        .json("Not enough chance for " + booth.boothName + ".");
     }
 
     user.chancesLeft -= 1;

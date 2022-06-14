@@ -1,7 +1,19 @@
-<div class="mainbackground3">
-  <!-- <div class="mainbackground3" onclick="location.href='https://us06web.zoom.us/meeting/register/tZMoce2oqT8tGNd0Ar4EhLujWGDWMo8gqXJk'"> -->
-</div>
 <div>
+  <div class="mainbackground3" [routerLink]="['/login']"></div>
+  
+  <div>
+  <div style="text-align: center">
+    <button
+      (click)="goPage()"
+      class="btn"
+      style="background-color: #73bad7; width: 150px; color: white"
+      >
+      Let's Go
+    </button>
+  </div>
+</div>
+
+<!-- <div>
   <button
   (click)="goPage()"
     class="btn btn-danger"
@@ -9,7 +21,7 @@
   >
     Let's Go
   </button>
-</div>
+</div> -->
 <!-- <div>
   <input
     *ngIf="!isMobileLayout"

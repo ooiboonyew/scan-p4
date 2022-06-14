@@ -66,15 +66,16 @@ export class GuestLoginComponent implements OnInit, AfterViewInit {
 
     this.rsvpService.guestLogin(loginRequest).subscribe(
       (data) => {
-        this.appComponent.isLoading = false;
         console.log(data);
         this.appComponent.user = data;
         sessionStorage.setItem(
           "usertoken",
           JSON.stringify(this.appComponent.user)
         );
-        this.appComponent.isUserLoggedIn = true;
-        this.router.navigate(["event"]);
+        this.appComponent.isEventPage =true;
+        window.location.href = '/event';
+        // this.appComponent.isLoading = false;
+
       },
       (err) => {
         this.appComponent.isLoading = false;

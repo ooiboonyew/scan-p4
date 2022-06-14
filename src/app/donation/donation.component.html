@@ -1,3 +1,4 @@
+<div class="container">
 <div class="row" style="padding-bottom: 15px">
   <div class="col-12">
     <div style="font-size: xx-large">Donation</div>
@@ -18,7 +19,7 @@
   <div *ngFor="let booth of booths; let i = index">
     <div class="row" style="padding-bottom: 10px; padding-top: 10px">
       <div class="col-7" style="align-self: center">
-        Booth {{ booth.boothName }}
+        {{ booth.boothName }}
       </div>
       <div class="col-5">
         <button
@@ -32,3 +33,4 @@
     </div>
     <hr />
   </div>
+  </div> 

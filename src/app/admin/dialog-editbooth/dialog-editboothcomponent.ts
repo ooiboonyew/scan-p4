@@ -66,7 +66,7 @@ export class DialogEditboothComponent implements OnInit {
       boothNum: new FormControl(
         {
           value: this.addScreen ? "" : this.booth.boothNum,
-          disabled: this.addScreen ? false : true,
+          disabled: this.addScreen ? false : false,
         },
         [
           Validators.required,
@@ -79,7 +79,6 @@ export class DialogEditboothComponent implements OnInit {
         [
           Validators.required,
           Validators.maxLength(50),
-          CustomValidators.letterAndNumberSpaceOnly,
         ]
       ),
       secretDigit: new FormControl(
@@ -96,11 +95,11 @@ export class DialogEditboothComponent implements OnInit {
       ),
       boothLink: new FormControl(
         { value: this.addScreen ? "" : this.booth.boothLink, disabled: false },
-        [Validators.required, Validators.maxLength(50), CustomValidators.url]
+        [Validators.required, Validators.maxLength(500), CustomValidators.url]
       ),
       status: new FormControl(
         {
-          value: this.addScreen ? "0" : this.booth.status.toString(),
+          value: this.addScreen ? "1" : this.booth.status.toString(),
           disabled: false,
         },
         [Validators.required, Validators.maxLength(50)]
@@ -175,7 +174,7 @@ export class DialogEditboothComponent implements OnInit {
     }
 
     var editBooth = new Booth();
-    editBooth.boothNum = this.editrsvp.controls.boothNum.value;
+    editBooth.boothNum = Number(this.editrsvp.controls.boothNum.value);
     editBooth.boothName = this.editrsvp.controls.boothName.value;
     editBooth.secretDigit = this.editrsvp.controls.secretDigit.value;
     editBooth.boothLink = this.editrsvp.controls.boothLink.value;
