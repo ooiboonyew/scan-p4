@@ -1,2 +1,2 @@
-git checkout main2-sumChance && git pull
+git pull
 pause
