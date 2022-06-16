@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  Service_URL: 'http://localhost:6001/citi-webapp/asia-southeast1/rsvp'
+  //Service_URL: 'http://localhost:6001/citi-webapp/asia-southeast1/rsvp'
+  Service_URL: 'http://localhost:6001/gcdfamilyday/asia-southeast1/rsvp'
 };
 
 /*

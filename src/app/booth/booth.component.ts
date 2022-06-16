@@ -23,12 +23,15 @@ export class BoothComponent implements OnInit {
   ngOnInit() {
     this.message = "";
     this.selectedBooth = null;
+    setTimeout(() => (this.appComponent.isLoading = true), 0);
     this.rSVPService.Getuser(this.appComponent.user.id).subscribe(
       (data) => {
         this.user = data;
 
         this.rSVPService.ListBooth().subscribe(
           (data) => {
+            setTimeout(() => (this.appComponent.isLoading = false), 0);
+
             this.booths = data;
             this.booths = this.booths.filter(x => x.status == 1);
           },
@@ -38,6 +41,7 @@ export class BoothComponent implements OnInit {
         );
       },
       (err) => {
+        setTimeout(() => (this.appComponent.isLoading = false), 0);
         alert(err.error);
       }
     );

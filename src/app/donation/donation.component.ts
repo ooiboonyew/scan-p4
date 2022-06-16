@@ -20,12 +20,17 @@ export class DonationComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    setTimeout(() => (this.appComponent.isLoading = true), 0);
+
     this.rSVPService.ListBooth().subscribe(
       (data) => {
+        setTimeout(() => (this.appComponent.isLoading = false), 0);
+
         console.log(data);
         this.booths = data;
       },
       (err) => {
+        setTimeout(() => (this.appComponent.isLoading = false), 0);
         alert(err.error);
       }
     );
