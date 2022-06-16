@@ -132,7 +132,12 @@ rsvpApp.get("/rsvp/summary", async (req, res, next) => {
     const result = await userModel.getUsers();
 
     var totalUserAttended = result.filter((x) => x.userAttend == 1).length;
-    var totalGuestAttended = 0;
+    var totalGuestAttended =0;
+
+    result.forEach(x => {
+      totalGuestAttended += x.guestAttend;
+    });
+
 
     var totalBoothActivies = [];
 
@@ -189,8 +194,8 @@ rsvpApp.post("/rsvp/import", async (req, res, next) => {
         createdDate: new Date(),
         userAttend: 0,
         guestAttend: 0,
-        chancesTotal: user.chancesTotal,
-        chancesLeft: user.chancesTotal,
+        chancesTotal: Number(user.chancesTotal),
+        chancesLeft: Number(user.chancesTotal),
       };
 
       if (userData.chancesTotal > 0) {

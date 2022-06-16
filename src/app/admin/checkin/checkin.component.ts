@@ -13,7 +13,8 @@ import { Router } from "@angular/router";
 export class CheckinComponent implements OnInit, AfterViewInit {
   userId: string;
   user: User;
-  numOfGuest:Array<any> = [];
+  numOfGuest: Array<any> = [];
+  fromGuestList: boolean;
 
   constructor(
     private router: Router,
@@ -23,7 +24,7 @@ export class CheckinComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit() {
-    this.numOfGuest = Array.from({length:3},(v,k)=>k);
+    this.numOfGuest = Array.from({ length: 3 }, (v, k) => k);
     //this.appComponent.ngOnInit();
   }
 
@@ -32,6 +33,7 @@ export class CheckinComponent implements OnInit, AfterViewInit {
 
     this.route.queryParams.subscribe((params) => {
       this.userId = params.id;
+      this.fromGuestList = params.guestlist;
     });
 
     this.rSVPService.Getuser(this.userId).subscribe(
@@ -73,6 +75,14 @@ export class CheckinComponent implements OnInit, AfterViewInit {
     }
   }
 
+  cancel() {
+    if (this.fromGuestList) {
+      this.router.navigate(["admin/guest-list"]);
+    } else {
+      this.router.navigate(["admin/scan-qr"]);
+    }
+  }
+
   confirm() {
     let cfm = confirm("Confirm Check-in ?");
 
@@ -84,7 +94,12 @@ export class CheckinComponent implements OnInit, AfterViewInit {
         (data) => {
           this.appComponent.isLoading = false;
           alert("Check-in Successfully.");
-          this.router.navigate(["admin/scan-qr"]);
+
+          if (this.fromGuestList) {
+            this.router.navigate(["admin/guest-list"]);
+          } else {
+            this.router.navigate(["admin/scan-qr"]);
+          }
         },
         (err) => {
           var errorstr = JSON.stringify(err.error);

@@ -96,7 +96,7 @@ export class DialogEditdonationComponent implements OnInit {
           Validators.required,
           CustomValidators.numberOnly,
           Validators.min(0),
-          Validators.max(4),
+          // Validators.max(4),
         ]
       ),
       guestAttend: new FormControl(
@@ -105,7 +105,7 @@ export class DialogEditdonationComponent implements OnInit {
           Validators.required,
           CustomValidators.numberOnly,
           Validators.min(0),
-          Validators.max(4),
+          // Validators.max(4),
         ]
       ),
       chancesTotal: new FormControl(

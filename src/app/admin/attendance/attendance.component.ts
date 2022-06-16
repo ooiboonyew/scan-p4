@@ -219,7 +219,8 @@ export class AttendanceComponent implements OnInit {
 
   attend(user: User) {
     this.router.navigate(["admin/checkin"], {
-      queryParams: { id: user.id },
+      queryParams: { id: user.id, guestlist: true },
+      
     });
 
     // var updateUserRequest = new UpdateUserRequest();
