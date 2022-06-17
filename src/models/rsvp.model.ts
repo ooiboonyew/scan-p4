@@ -17,6 +17,7 @@ export class User {
   userAttend: number;
   chancesTotal: number;
   chancesLeft: number;
+  lastCheckInDate: object;
 }
 
 export class Booth {

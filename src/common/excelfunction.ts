@@ -33,13 +33,14 @@ export class ExcelFunction {
         "acc_absent": user.guestAvailable - user.guestAttend,
         "chancesTotal": user.chancesTotal,
         "chancesLeft": user.chancesLeft,
-
+        "createdDate":  user.createdDate ? new Date(JSON.parse(JSON.stringify(user.createdDate))._seconds * 1000).toLocaleString() : "",
+        "lastCheckInDate":  user.lastCheckInDate ? new Date(JSON.parse(JSON.stringify(user.lastCheckInDate))._seconds * 1000).toLocaleString() : ""
       };
       jsons.push(json);
     });
 
     var Heading = [
-      ["#", "Email","Available", "Attended", "Acc Person", "Acc Attended", "Acc Absent","Total Chances","Chances Left"],
+      ["#", "Email","Available", "Attended", "Acc Person", "Acc Attended", "Acc Absent","Total Chances","Chances Left","Created Date","Check In Date"],
      // ["#", "Attending", "First Name", "Last Name", "E-mail", "Mobile", "Country", "Registered Date", "Email Date"],
     ];
 
