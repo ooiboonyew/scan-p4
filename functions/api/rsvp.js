@@ -24,6 +24,7 @@ const boothModel = new BoothModel();
 const BoothActivitiesModel = require("../models/BoothActivitiesModel");
 const boothActivitiesModel = new BoothActivitiesModel();
 const _ = require("lodash");
+const converter = require("json-2-csv");
 
 // rsvpApp.use(verifyToken);
 rsvpApp.use(addResponseHeader);
@@ -39,9 +40,47 @@ rsvpApp.get("/", async (req, res, next) => {
 
 rsvpApp.get("/rsvp", async (req, res, next) => {
   try {
-    const result = await rsvpModel.getRSVP();
+    const result = await boothActivitiesModel.getBoothActivities();
 
-    return res.status(200).json(result);
+    var simply = [];
+    result.forEach((x) =>
+      simply.push({
+        num: x.num,
+        email: x.email,
+        boothNum: x.boothNum,
+        status: x.status == 1 ? "Completed" : "Cancelled",
+        createdDate: new Date(
+          JSON.parse(JSON.stringify(x.createdDate))._seconds * 1000
+        ).toLocaleString(),
+        chancesLeft: x.chancesLeft,
+      })
+    );
+
+    let json2csvCallback = function (err, csv) {
+      if (err) throw err;
+      res.attachment("booth_activitites.csv");
+      res.send(csv);
+      return res.status(200);
+    };
+
+    converter.json2csv(simply, json2csvCallback);
+
+    // converter.json2csv(simply, (err, csv) => {
+    //   if (err) {
+    //     throw err;
+    //   }
+    //   res.setHeader('Content-Type', 'text/csv');
+    //   res.attachment("booth_activitites.csv");
+    //   res.status(200).send(csv);
+    //   // print CSV string
+    //   return res.status(200).json(simply);
+
+    //   Response.Clear();
+    //   Response.ContentType = "application/CSV";
+    //   Response.AddHeader("content-disposition", "attachment; filename=\"" + filename + ".csv\"");
+    //   Response.Write(t.ToString());
+    //   Response.End();
+    // });
   } catch (error) {
     adeErrorHandler(error, req, res, next);
   }
@@ -132,12 +171,11 @@ rsvpApp.get("/rsvp/summary", async (req, res, next) => {
     const result = await userModel.getUsers();
 
     var totalUserAttended = result.filter((x) => x.userAttend == 1).length;
-    var totalGuestAttended =0;
+    var totalGuestAttended = 0;
 
-    result.forEach(x => {
+    result.forEach((x) => {
       totalGuestAttended += x.guestAttend;
     });
-
 
     var totalBoothActivies = [];
 
@@ -168,7 +206,6 @@ rsvpApp.get("/rsvp/summary", async (req, res, next) => {
       console.log(x);
       summary.sumTotalBoothActivies.chancesUsed += x.chancesUsed;
     });
-
 
     return res.status(200).json(summary);
   } catch (error) {
@@ -336,9 +373,7 @@ rsvpApp.post("/rsvp/playBooth", async (req, res, next) => {
 
     console.log(booth);
     if (!booth || booth.status == 0) {
-      return res
-        .status(405)
-        .json(playBoothRequest.boothName + " is closed.");
+      return res.status(405).json(playBoothRequest.boothName + " is closed.");
     }
 
     if (booth.secretDigit != playBoothRequest.secretDigit) {
