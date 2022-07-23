@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import { Location } from "@angular/common";
-import { Admin, User } from "src/models/rsvp.model";
+import { Admin, Setting, User } from "src/models/rsvp.model";
 import { MatSidenav } from "@angular/material";
 import { environment } from "../environments/environment";
+import { RSVPService } from "../services/rsvp.service";
+import { interval } from "rxjs";
 
 @Component({
   selector: "app-root",
@@ -16,6 +18,7 @@ export class AppComponent implements OnInit {
   isAdminPage: boolean = false;
   isAdminLoggedIn: boolean = false;
   admin: Admin;
+  setting: Setting;
 
   isEventPage: boolean = false;
   user: User;
@@ -23,7 +26,11 @@ export class AppComponent implements OnInit {
 
   @ViewChild("sidenav", { static: false }) sidenav: MatSidenav;
 
-  constructor(public router: Router, private location: Location) {}
+  constructor(
+    public router: Router,
+    private rsvpService: RSVPService,
+    private location: Location
+  ) {}
 
   ngOnInit() {
     if (this.location.path().startsWith("/admin", 0)) {
@@ -52,7 +59,6 @@ export class AppComponent implements OnInit {
 
     console.log(this.isEventPage);
 
-
     if (this.isEventPage) {
       this.user = JSON.parse(sessionStorage.getItem("usertoken"));
 
@@ -65,6 +71,34 @@ export class AppComponent implements OnInit {
       } else {
         this.isUserLoggedIn = true;
       }
+
+      this.rsvpService.getSetting("setting").subscribe(
+        (data) => {
+          // setTimeout(() => (this.isLoading = false), 0);
+          this.setting = data;
+          console.log(this.setting);
+        },
+        (err) => {
+          // setTimeout(() => (this.isLoading = false), 0);
+          alert(err.error);
+        }
+      );
+
+      const myInterval = interval(20000);
+      myInterval.subscribe(() => {
+        // setTimeout(() => (this.isLoading = true), 0);
+        this.rsvpService.getSetting("setting").subscribe(
+          (data) => {
+            // setTimeout(() => (this.isLoading = false), 0);
+            this.setting = data;
+            console.log(this.setting);
+          },
+          (err) => {
+            // setTimeout(() => (this.isLoading = false), 0);
+            alert(err.error);
+          }
+        );
+      });
     }
   }
 

@@ -20,6 +20,13 @@ export class User {
   lastCheckInDate: object;
 }
 
+export class Setting {
+  annoucement: string;
+  showLuckyDrawPage: boolean;
+  showPhotoPage: boolean;
+  showVotingPage: boolean;
+}
+
 export class Booth {
   id: string;
   boothNum: number;
@@ -48,7 +55,6 @@ export class Summary {
   totalBoothActivies: totalBoothActivity[];
   sumTotalBoothActivies: totalBoothActivity;
 }
-
 
 export class totalBoothActivity {
   boothNum: number;

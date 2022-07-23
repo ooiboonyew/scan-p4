@@ -1,35 +1,63 @@
-<div class="container">  
-  <div class="row">
-    <div class="col-12 item" [routerLink]="['agenda']" >
+<div class="container">
+  <!-- <div class="col-12" [routerLink]="['agenda']" >
       <img
         width="50px"
         src="../../assets/images/icon/untitled.svg+xml.png"
       />
       Agenda
+    </div> -->
+  <div class="row" [routerLink]="['floor-plan']">
+    <div class="col-3 text-right">
+      <img width="50px" src="../../assets/images/icon/untitled.svg+xml-2.png" />
     </div>
-    <div class="col-12 item" [routerLink]="['floor-plan']" >
+    <div class="col-9 pl-0 alignCenter">Floor Plan</div>
+  </div>
+  <div class="row item" [routerLink]="['floor-plan']">
+    <div class="col-3 text-right">
+      <img width="50px" src="../../assets/images/icon/untitled.svg+xml-2.png" />
+    </div>
+    <div class="col-9 pl-0 alignCenter">
+      Virtual Guide to Experience zones and Tour Locations
+    </div>
+  </div>
+  <div class="row item" [routerLink]="['floor-plan']">
+    <div class="col-3 text-right">
+      <img width="50px" src="../../assets/images/icon/untitled.svg+xml-2.png" />
+    </div>
+    <div class="col-9 pl-0 alignCenter">Lucky Draw Quiz</div>
+  </div>
+  <div class="row item" [routerLink]="['floor-plan']">
+    <div class="col-3 text-right">
+      <img width="50px" src="../../assets/images/icon/untitled.svg+xml-2.png" />
+    </div>
+    <div class="col-9 pl-0 alignCenter">
+      Sustinability at UBS
+    </div>
+  </div>
+  <div class="row item" [routerLink]="['floor-plan']">
+    <div class="col-3 text-right">
+      <img width="50px" src="../../assets/images/icon/untitled.svg+xml-2.png" />
+    </div>
+    <div class="col-9 pl-0 alignCenter">
+      Photo Gallery
+    </div>
+  </div>
+  <div class="row item" [routerLink]="['floor-plan']">
+    <div class="col-3 text-right">
+      <img width="50px" src="../../assets/images/icon/untitled.svg+xml-2.png" />
+    </div>
+    <div class="col-9 pl-0 alignCenter">
+      Donation Partner
+    </div>
+  </div>
+  <div class="row item" [routerLink]="['my-qr']">
+    <div class="col-3 text-right">
       <img
         width="50px"
-        src="../../assets/images/icon/untitled.svg+xml-2.png"
+        src="../../assets/images/icon/qr-code-svgrepo-com.svg"
       />
-      Floor Plan
     </div>
-    <div class="col-12 item" [routerLink]="['booth']">
-        <img
-          width="50px"
-          src="../../assets/images/icon/store-svgrepo-com.svg"
-        />
-        Booth Activities
-      </div>
-      <div class="col-12 item" [routerLink]="['my-qr']">
-        <img
-          width="50px"
-          src="../../assets/images/icon/qr-code-svgrepo-com.svg"
-        />
-        My QR
-      </div>
+    <div class="col-9 pl-0 alignCenter">My QR</div>
   </div>
-  <footer style="text-align:center;padding-top:20px">
-    Version 1.1.2
-  </footer>
-  </div>  
+  <footer style="text-align: center; padding-top: 20px">Version 1.1.2</footer>
+</div>

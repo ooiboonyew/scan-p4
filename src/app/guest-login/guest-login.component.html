@@ -1,4 +1,4 @@
-<img src="../assets/images/Citi_Wellness_Banner_600x200.jpg" width="100%" />
+<img src="../../assets/images/UBS - Optimus - App 051219 - Mashead.png" width="100%" style="border: solid 1px #B21807" />
 <div class="container">
   <div class="row">
   <div class="col-1 col-md-3 ">
@@ -12,7 +12,17 @@
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" ngNativeValidate>
           <div class="form-group">
             <input
-              placeholder="email"
+              placeholder="Staff name"
+              id="name"
+              class="form-control myinput"
+              minlength="3"
+              formControlName="name"
+              required
+            />
+          </div> 
+          <div class="form-group">
+            <input
+              placeholder="Staff email"
               type="email"
               id="email"
               class="form-control myinput"
@@ -35,7 +45,7 @@
             <button
               type="submit"
               class="btn"
-              style="width: 100%; background-color: #73BAD7; color: white;height: 50px;"
+              style="width: 100%; background-color: #B21807; color: white;height: 50px;"
             >
               Enter
             </button>

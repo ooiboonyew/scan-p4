@@ -3,7 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs/index";
 import { ApiResponse } from "../models/api.response";
 import { environment } from "../environments/environment";
-import { Booth, RSVP, Summary, User } from "../models/rsvp.model";
+import { Booth, RSVP, Summary, User, Setting } from "../models/rsvp.model";
 import {
   GuestLoginRequest,
   PlayBoothRequest,
@@ -22,6 +22,10 @@ export class RSVPService {
 
   listRSVP(): Observable<[]> {
     return this.http.get<[]>(this.baseUrl);
+  }
+
+  getSetting(id: string): Observable<Setting> {
+    return this.http.get<Setting>(this.baseUrl + "/getSetting/" + id);
   }
 
   AddRSVP(rsvp: RSVP): Observable<{}> {

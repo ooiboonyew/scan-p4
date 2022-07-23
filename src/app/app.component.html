@@ -19,20 +19,31 @@
   </div>
 </div>
 
-<div
-  *ngIf="isEventPage && isUserLoggedIn"
-  style="border-bottom: 1px solid black; margin-bottom: 20px"
->
-<img src="../assets/images/Citi_Wellness_Banner_600x200.jpg" width="100%" />
+<div *ngIf="isEventPage && isUserLoggedIn">
+  <img
+    src="../assets/images/UBS - Optimus - App 051219 - Mashead.png"
+    width="100%"
+  />
 
-  <mat-toolbar class="mat-user-toolbar">
+  <!-- <mat-toolbar class="mat-user-toolbar">
     <small>Hi {{ user.email }}</small>
     <span class="example-spacer"></span>
     <button mat-button (click)="logoutuser()">
       <mat-icon>exit_to_app</mat-icon>
       Logout
     </button>
-  </mat-toolbar>
+  </mat-toolbar> -->
+  <marquee
+    style="
+      border-bottom: 1px solid black;
+      border-top: 1px solid black;
+      padding: 10px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    "
+  >
+    {{setting ? setting.annoucement: ""}}
+  </marquee>
   <div
     style="padding: 10px"
     [routerLink]="['/event']"
@@ -57,7 +68,7 @@
         <mat-spinner
           [diameter]="50"
           mode="indeterminate"
-          color="#73BAD7"
+          color="#B21807"
         ></mat-spinner>
       </span>
     </div>

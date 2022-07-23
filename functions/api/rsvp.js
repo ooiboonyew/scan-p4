@@ -23,6 +23,10 @@ const boothModel = new BoothModel();
 
 const BoothActivitiesModel = require("../models/BoothActivitiesModel");
 const boothActivitiesModel = new BoothActivitiesModel();
+
+const SettingModel = require("../models/SettingModel");
+const settingModel = new SettingModel();
+
 const _ = require("lodash");
 const converter = require("json-2-csv");
 
@@ -106,6 +110,17 @@ rsvpApp.get("/rsvp/listusers", async (req, res, next) => {
   try {
     const result = await userModel.getUsers();
 
+    return res.status(200).json(result);
+  } catch (error) {
+    adeErrorHandler(error, req, res, next);
+  }
+});
+
+rsvpApp.get("/rsvp/getSetting/:id", async (req, res, next) => {
+  try {
+    const id = req.params.id;
+
+    const result = await settingModel.getById(id);
     return res.status(200).json(result);
   } catch (error) {
     adeErrorHandler(error, req, res, next);
@@ -272,6 +287,7 @@ rsvpApp.post("/rsvp/import", async (req, res, next) => {
 
 rsvpApp.post("/rsvp/guestLogin", async (req, res, next) => {
   try {
+    console.log("jere");
     let email = req.body.email;
     // let staffId = req.body.staffId;
 

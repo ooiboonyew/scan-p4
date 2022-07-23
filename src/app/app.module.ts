@@ -40,6 +40,9 @@ import { BoothSetupComponent } from './admin/booth-setup/booth-setup.component';
 import { CheckinComponent } from './admin/checkin/checkin.component';
 import { DialogUploaddonationComponent } from './admin/dialog-uploaddonation/dialog-uploaddonation.component';
 import { DonationComponent } from './donation/donation.component';
+import { QuizComponent } from './quiz/quiz.component';
+import { PhotoComponent } from './photo/photo.component';
+import { VotingComponent } from './voting/voting.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +67,10 @@ import { DonationComponent } from './donation/donation.component';
     BoothSetupComponent,
     CheckinComponent,
     DialogUploaddonationComponent,
-    DonationComponent
+    DonationComponent,
+    QuizComponent,
+    PhotoComponent,
+    VotingComponent
   ],
   imports: [
     NgMultiSelectDropDownModule.forRoot(),
