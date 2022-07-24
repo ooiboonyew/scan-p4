@@ -18,6 +18,8 @@ import { StatComponent } from './admin/stat/stat.component';
 import { BoothSetupComponent } from './admin/booth-setup/booth-setup.component';
 import { CheckinComponent } from './admin/checkin/checkin.component';
 import { DonationComponent } from './donation/donation.component';
+import { QuizComponent } from './quiz/quiz.component';
+import { GuideComponent } from './guide/guide.component';
 
 const routes: Routes = [
   { path: '', component: MainComponent },
@@ -25,9 +27,12 @@ const routes: Routes = [
   { path: 'event', component: LandingComponent },
   { path: 'event/agenda', component: AgendaComponent },
   { path: 'event/floor-plan', component: FloorplanComponent },
-  { path: 'event/booth', component: BoothComponent },
+  // { path: 'event/booth', component: BoothComponent },
   { path: 'event/my-qr', component: MyqrComponent },
   { path: 'event/donation', component: DonationComponent },
+  { path: 'event/quiz', component: QuizComponent },
+  { path: 'event/guide', component: GuideComponent },
+
   // { path: 'admin', component: LoginComponent },
   { path: 'admin/login', component: LoginComponent },
   // { path: 'admin/account', component: AccountComponent },

@@ -43,6 +43,7 @@ import { DonationComponent } from './donation/donation.component';
 import { QuizComponent } from './quiz/quiz.component';
 import { PhotoComponent } from './photo/photo.component';
 import { VotingComponent } from './voting/voting.component';
+import { GuideComponent } from './guide/guide.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { VotingComponent } from './voting/voting.component';
     DonationComponent,
     QuizComponent,
     PhotoComponent,
-    VotingComponent
+    VotingComponent,
+    GuideComponent
   ],
   imports: [
     NgMultiSelectDropDownModule.forRoot(),

@@ -1,1 +1,143 @@
-<p>quiz works!</p>
+<div class="container">
+  <div class="row" style="padding-bottom: 15px">
+    <div class="col-12">
+      <div style="font-size: x-large">Lucky Draw Quiz</div>
+    </div>
+  </div>
+  <div>
+    <form [formGroup]="addrsvp" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-12">
+          1. What’s the name of the artist who created our wall murals?
+        </div>
+        <div class="col-12" style="padding-top: 10px">
+          <div class="form-group mainTable">
+            <div style="background-color: #e60100; color: white">
+                <input
+                class="radioButton"
+                type="radio"
+                value="1"
+                formControlName="quiz1"
+                style="margin-right: 5px"
+              />
+              Andy Warhol
+            </div>
+            <div>
+              <input
+                class="radioButton"
+                type="radio"
+                value="2"
+                formControlName="quiz1"
+                style="margin-right: 5px"
+              />
+              Didier Jaba Mathieu
+            </div>
+            <div>
+              <input
+                class="radioButton"
+                type="radio"
+                value="3"
+                formControlName="quiz1"
+                style="margin-right: 5px"
+              />
+              Pablo Picasso
+            </div>
+            <div>
+              <input
+                class="radioButton"
+                type="radio"
+                value="4"
+                formControlName="quiz1"
+                style="margin-right: 5px"
+              />
+              John M Armleder
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row pt-3">
+        <div class="col-12">
+          2. What are the facilities found on Level 3 of 9PR?<br />
+          (Select all that apply)
+        </div>
+        <div class="col-12">
+          <img width="100%" src="../../assets/images/quiz2.png" />
+        </div>
+        <div class="col-12" style="padding-top: 10px">
+          <div class="form-group mainTable">
+            <div>
+              <input
+                class="radioButton"
+                type="checkbox"
+                value="1"
+                formControlName="quiz2"
+                style="margin-right: 5px"
+              />
+              Gym
+            </div>
+            <div>
+              <input
+                class="radioButton"
+                type="checkbox"
+                value="2"
+                formControlName="quiz2"
+                style="margin-right: 5px"
+              />
+              Medical Clinic
+            </div>
+            <div>
+              <input
+                class="radioButton"
+                type="checkbox"
+                value="3"
+                formControlName="quiz2"
+                style="margin-right: 5px"
+              />
+              Mother’s Room
+            </div>
+            <div>
+              <input
+                class="radioButton"
+                type="checkbox"
+                value="4"
+                formControlName="quiz2"
+                style="margin-right: 5px"
+              />
+              Family Room
+            </div>
+            <div style="background-color: #e60100; color: white">
+              <input
+                class="radioButton"
+                type="checkbox"
+                value="5"
+                formControlName="quiz2"
+                style="margin-right: 5px"
+              />
+              Shower Room
+            </div>
+            <div>
+              <input
+                class="radioButton"
+                type="checkbox"
+                value="6"
+                formControlName="quiz2"
+                style="margin-right: 5px"
+              />
+              Recreation Zone
+            </div>
+            <div style="background-color: #e60100; color: white">
+              <input
+                class="radioButton"
+                type="checkbox"
+                value="7"
+                formControlName="quiz2"
+                style="margin-right: 5px"
+              />
+              Meditation/Multi-Faith Room
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
