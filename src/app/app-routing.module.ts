@@ -20,6 +20,7 @@ import { CheckinComponent } from './admin/checkin/checkin.component';
 import { DonationComponent } from './donation/donation.component';
 import { QuizComponent } from './quiz/quiz.component';
 import { GuideComponent } from './guide/guide.component';
+import { VotingComponent } from './voting/voting.component';
 
 const routes: Routes = [
   { path: '', component: MainComponent },
@@ -32,6 +33,7 @@ const routes: Routes = [
   { path: 'event/donation', component: DonationComponent },
   { path: 'event/quiz', component: QuizComponent },
   { path: 'event/guide', component: GuideComponent },
+  { path: 'event/voting', component: VotingComponent },
 
   // { path: 'admin', component: LoginComponent },
   { path: 'admin/login', component: LoginComponent },

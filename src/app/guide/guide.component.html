@@ -22,8 +22,8 @@
       </button>
     </div>
   </div>
-  <div class="row"  style="padding-top: 10px" *ngIf="displayGuide == 1">
-    <div class="col-9" style="align-self:end">EVOLVE (L5)</div>
+  <div class="row" style="padding-top: 15px" *ngIf="displayGuide == 1">
+    <div class="col-9" style="align-self: end">EVOLVE (L5)</div>
     <div class="col-3 text-right">
       <button
         type="button"
@@ -70,7 +70,7 @@
       </p>
     </div>
   </div>
-  <div class="row" style="padding-top: 15px" *ngIf="displayGuide == 0">
+  <div class="row" style="padding-top: 20px" *ngIf="displayGuide == 0">
     <div class="col-12">Cyber Fusion Centre (L5)</div>
     <div class="col-12" style="padding-top: 10px">
       <img width="100%" src="../../assets/images/v2-0.jpeg" (click)="go(2)" />
@@ -86,8 +86,8 @@
       </button>
     </div>
   </div>
-  <div class="row"  style="padding-top: 10px" *ngIf="displayGuide == 2">
-    <div class="col-9" style="align-self:end">Cyber Fusion Centre (L5)</div>
+  <div class="row" style="padding-top: 15px" *ngIf="displayGuide == 2">
+    <div class="col-9" style="align-self: end">Cyber Fusion Centre (L5)</div>
     <div class="col-3 text-right">
       <button
         type="button"
@@ -103,14 +103,306 @@
     </div>
     <div class="col-12" style="padding-top: 20px">
       <p>
-        The <b>Cyber Fusion Centre </b>in Singapore is the first of its kind in UBS globally!
+        The <b>Cyber Fusion Centre </b>in Singapore is the first of its kind in
+        UBS globally!
       </p>
       <p>
-        The Cyber Fusion Centre is where UBS protects and secures information and cyber security for our clients and staff.
+        The Cyber Fusion Centre is where UBS protects and secures information
+        and cyber security for our clients and staff.
       </p>
       <p>
-        This is also where data privacy experts develop the next generation of cybersecurity to engage with the ever-present cybersecurity and data privacy threats. 
+        This is also where data privacy experts develop the next generation of
+        cybersecurity to engage with the ever-present cybersecurity and data
+        privacy threats.
       </p>
+    </div>
+  </div>
+  <div class="row" style="padding-top: 20px" *ngIf="displayGuide == 0">
+    <div class="col-12">Staff recreational and wellness zone (L3)</div>
+    <div class="col-12" style="padding-top: 10px">
+      <img width="100%" src="../../assets/images/v3-0.jpeg" (click)="go(3)" />
+    </div>
+    <div class="col-12 text-center">
+      <button
+        type="button"
+        class="btn btn-link"
+        style="color: black"
+        (click)="go(2)"
+      >
+        Tap here to find out more
+      </button>
+    </div>
+  </div>
+  <div class="row" style="padding-top: 15px" *ngIf="displayGuide == 3">
+    <div class="col-9" style="align-self: end">
+      Staff recreational and wellness zone (L3)
+    </div>
+    <div class="col-3 text-right">
+      <button
+        type="button"
+        class="btn btn-sm btn-danger"
+        style="color: white; background-color: #e60100; width: 100%"
+        (click)="back()"
+      >
+        Back
+      </button>
+    </div>
+    <div class="col-12" style="padding-top: 10px">
+      <img width="100%" src="../../assets/images/v3-0.jpeg" />
+    </div>
+    <div class="col-12" style="padding-top: 20px">
+      <p>
+        As an employer of choice, Level 3 at 9 Penang Road is entirely dedicated
+        to <b>integrating wellness into our workplace experience.</b> UBS looks
+        at our employees’ <b>well-being on an all-encompassing scale</b> of
+        their health, mental, emotional wellness. We accommodate our employee’s
+        daily activities with a
+        <b>variety of spaces that support their work-life balance</b>.
+      </p>
+      <p>
+        <b><u>Family-friendly & Recreation Zone</u></b
+        ><br />
+        A safe space for our employees to bring in their children into the
+        office on days that family responsibilities have to be integrated into
+        their workday due to one-off reasons that cannot be avoided. This will
+        also be used as an area for staff recreation.
+      </p>
+      <p>
+        <b><u>Mothers’ room</u></b
+        ><br />
+        A safe space with full privacy and comfort for our employees who are
+        mothers
+      </p>
+      <p>
+        <b><u>In-house clinic</u></b
+        ><br />
+        A fully-equipped medical clinic that will also offer physiotherapy
+        sessions for UBS Singapore employees
+      </p>
+      <p>
+        <b><u>Meditation and multi-faith room</u></b
+        ><br />
+        A quiet space for employees who need silent time during a workday.
+      </p>
+    </div>
+  </div>
+  <div class="row" style="padding-top: 20px" *ngIf="displayGuide == 0">
+    <div class="col-12">UBS Studio (L3)</div>
+    <div class="col-12" style="padding-top: 10px">
+      <img width="100%" src="../../assets/images/v4-0.jpeg" (click)="go(4)" />
+    </div>
+    <div class="col-12 text-center">
+      <button
+        type="button"
+        class="btn btn-link"
+        style="color: black"
+        (click)="go(2)"
+      >
+        Tap here to find out more
+      </button>
+    </div>
+  </div>
+  <div class="row" style="padding-top: 15px" *ngIf="displayGuide == 4">
+    <div class="col-9" style="align-self: end">UBS Studio (L3)</div>
+    <div class="col-3 text-right">
+      <button
+        type="button"
+        class="btn btn-sm btn-danger"
+        style="color: white; background-color: #e60100; width: 100%"
+        (click)="back()"
+      >
+        Back
+      </button>
+    </div>
+    <div class="col-12" style="padding-top: 10px">
+      <img width="100%" src="../../assets/images/v4-0.jpeg" />
+    </div>
+    <div class="col-12" style="padding-top: 20px">
+      <p>
+        The <b>UBS STUDIO</b> is the hub for in-house virtual, in-person and
+        hybrid production in 9PR and the region.
+      </p>
+      <p>
+        Fully equipped with state-of-the-art multimedia technology, our
+        production capabilities consist of a green screen environment,
+        full-height LED, broadcast-ready camera and audio technology, to serve
+        the firm and our media-savvy clients.
+      </p>
+      <p>
+        Making connections is at the heart of what we do. The UBS Studio
+        delivers first-rate livestreams and on-demand video content as we build
+        bridges between our clients and our global network as we share inspiring
+        stories, valuable knowledge and expert advice.
+      </p>
+    </div>
+  </div>
+  <div class="row" style="padding-top: 20px" *ngIf="displayGuide == 0">
+    <div class="col-12">Gym (L3)</div>
+    <div class="col-12" style="padding-top: 10px">
+      <img width="100%" src="../../assets/images/v5-0.jpeg" (click)="go(5)" />
+    </div>
+    <div class="col-12 text-center">
+      <button
+        type="button"
+        class="btn btn-link"
+        style="color: black"
+        (click)="go(2)"
+      >
+        Tap here to find out more
+      </button>
+    </div>
+  </div>
+  <div class="row" style="padding-top: 15px" *ngIf="displayGuide == 5">
+    <div class="col-9" style="align-self: end">Gym (L3)</div>
+    <div class="col-3 text-right">
+      <button
+        type="button"
+        class="btn btn-sm btn-danger"
+        style="color: white; background-color: #e60100; width: 100%"
+        (click)="back()"
+      >
+        Back
+      </button>
+    </div>
+    <div class="col-12" style="padding-top: 10px">
+      <img width="100%" src="../../assets/images/v5-0.jpeg" />
+    </div>
+    <div class="col-12" style="padding-top: 20px">
+      <p>
+        <b><u>In-house gym </u></b><br />
+        The gym is fully equipped with cardio and strength training equipment,
+        as well as studios for group fitness and wellness classes open for all
+        UBS employees.
+      </p>
+    </div>
+  </div>
+  <div class="row" style="padding-top: 20px" *ngIf="displayGuide == 0">
+    <div class="col-12">Client floor Art Tour (L6)</div>
+    <div class="col-12" style="padding-top: 10px">
+      <img width="100%" src="../../assets/images/v6-0.jpeg" (click)="go(6)" />
+    </div>
+    <div class="col-12 text-center">
+      <button
+        type="button"
+        class="btn btn-link"
+        style="color: black"
+        (click)="go(1)"
+      >
+        Tap here to find out more
+      </button>
+    </div>
+  </div>
+  <div class="row" style="padding-top: 15px" *ngIf="displayGuide == 6">
+    <div class="col-9" style="align-self: end">Client floor Art Tour (L6)</div>
+    <div class="col-3 text-right">
+      <button
+        type="button"
+        class="btn btn-sm btn-danger"
+        style="color: white; background-color: #e60100; width: 100%"
+        (click)="back()"
+      >
+        Back
+      </button>
+    </div>
+    <div class="col-12" style="padding-top: 10px">
+      <img width="100%" src="../../assets/images/v6-0.jpeg" />
+    </div>
+    <div class="col-12" style="padding-top: 10px">
+      <img width="100%" src="../../assets/images/v6-1.jpeg" />
+    </div>
+    <div class="col-12" style="padding-top: 10px">
+      <img width="100%" src="../../assets/images/v6-2.jpeg" />
+    </div>
+    <div class="col-12" style="padding-top: 20px">
+      <p>
+        At 9 Penang Road, we have carefully planned a client journey that will
+        <b>bring the best of UBS to our clients.</b> Starting from their arrival
+        at the concierge where our
+        <b>dedicated client service associates</b> will seamlessly escort
+        clients to our client floor to meet their CAs. Our client floor
+        showcases reputable <b>art pieces</b>, a total of
+        <b
+          >22 varying types of meeting and dining rooms and elegant client
+          lounge areas.</b
+        >
+      </p>
+      <p>
+        UBS has been an
+        <b>active contemporary art collector since the 1960s</b>, the vast
+        majority of these works are displayed in UBS offices globally. Artworks
+        from 1974 to today are on display in UBS Singapore office, it showcases
+        diverse mediums, reflecting UBS’s strong passion for contemporary art.
+        Similarly, the collection actively lends works to major art museums and
+        cultural institutions for public exhibitions.
+      </p>
+    </div>
+  </div>
+  <div class="row" style="padding-top: 20px" *ngIf="displayGuide == 0">
+    <div class="col-12">UBS University (L4)</div>
+    <div class="col-12" style="padding-top: 10px">
+      <img width="100%" src="../../assets/images/v7-0.jpeg" (click)="go(7)" />
+    </div>
+    <div class="col-12 text-center">
+      <button
+        type="button"
+        class="btn btn-link"
+        style="color: black"
+        (click)="go(2)"
+      >
+        Tap here to find out more
+      </button>
+    </div>
+  </div>
+  <div class="row" style="padding-top: 15px" *ngIf="displayGuide == 7">
+    <div class="col-9" style="align-self: end">UBS University (L4)</div>
+    <div class="col-3 text-right">
+      <button
+        type="button"
+        class="btn btn-sm btn-danger"
+        style="color: white; background-color: #e60100; width: 100%"
+        (click)="back()"
+      >
+        Back
+      </button>
+    </div>
+    <div class="col-12" style="padding-top: 10px">
+      <img width="100%" src="../../assets/images/v7-0.jpeg" />
+    </div>
+    <div class="col-12" style="padding-top: 20px">
+      <p>
+        <b>The UBS University</b> in Singapore is APAC’s regional headquarters
+        for learning and development for our employees in this region.
+        Previously housed at the Command House, it now occupies an entire floor
+        at 9 Penang Road, a reflection of our commitment to talent development.
+      </p>
+
+      <ul>
+        <li style="padding-bottom: 10px">
+          The new state-of-the art campus offers an in-house space with advanced
+          technology to help us
+          <b>drive a continuous learning culture</b>
+        </li>
+        <li style="padding-bottom: 10px">
+          The move to house UBS University under the same roof offers greater
+          <b>convenience and accessibility to our employees</b>
+        </li>
+        <li style="padding-bottom: 10px">
+          Featuring flexible and fluid spaces – there are two multi-function
+          rooms with collapsible divisors that can
+          <b>accommodate large scale events</b>, creating a more interactive and
+          engaging learning environment
+        </li>
+        <li style="padding-bottom: 10px">
+          One of the main highlights is the Lego wall with chalk board walls.
+          This space allows employees to use the colorful Lego bricks and chalk
+          markers for team
+          <b>brainstorming and ideation, letting your creativity run wild</b>
+        </li>
+        <li>
+          Within the space, there is also a TEDx Screen that features an array
+          of curated content that provides an <b>alternative medium</b> for learning
+        </li>
+      </ul>
     </div>
   </div>
 </div>

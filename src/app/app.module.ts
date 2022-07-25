@@ -72,7 +72,7 @@ import { GuideComponent } from './guide/guide.component';
     QuizComponent,
     PhotoComponent,
     VotingComponent,
-    GuideComponent
+    GuideComponent,
   ],
   imports: [
     NgMultiSelectDropDownModule.forRoot(),

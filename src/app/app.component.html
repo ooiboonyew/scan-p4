@@ -54,7 +54,7 @@
 
 </div>
 
-<div class="main-content">
+<div class="main-content d-flex flex-column" style="min-height: 70vh !important;">
   <div class="loading-shade" *ngIf="isLoading">
     <div
       class="col s12"
@@ -85,4 +85,13 @@
       <router-outlet></router-outlet>
     </div>
   </div>
+</div>
+<div *ngIf="isEventPage">
+  <footer class="mt-auto">
+    <div class="container" style="padding-top: 25px">
+      <div class="row">
+        Disclaimer footer URL
+      </div>
+    </div>
+  </footer>
 </div>
