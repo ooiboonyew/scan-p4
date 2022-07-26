@@ -44,6 +44,8 @@ import { QuizComponent } from './quiz/quiz.component';
 import { PhotoComponent } from './photo/photo.component';
 import { VotingComponent } from './voting/voting.component';
 import { GuideComponent } from './guide/guide.component';
+import { PhotoVendorComponent } from './photo-vendor/photo-vendor.component';
+import { PhotoUBSComponent } from './photo-ubs/photo-ubs.component';
 
 @NgModule({
   declarations: [
@@ -73,6 +75,8 @@ import { GuideComponent } from './guide/guide.component';
     PhotoComponent,
     VotingComponent,
     GuideComponent,
+    PhotoVendorComponent,
+    PhotoUBSComponent,
   ],
   imports: [
     NgMultiSelectDropDownModule.forRoot(),

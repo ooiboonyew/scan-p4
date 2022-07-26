@@ -2,7 +2,7 @@
   "name": "bds-web",
   "version": "0.0.0",
   "scripts": {
-    "generate": "cd src && cd app && ng g component guide --module app",
+    "generate": "cd src && cd app && ng g component photoUBS --module app",
     "generate-admin": "cd src && cd app/admin && ng g component dialog-uploaddonation --module app",
     "ng": "ng update",
     "start": "ng serve",

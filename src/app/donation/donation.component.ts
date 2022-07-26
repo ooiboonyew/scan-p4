@@ -11,7 +11,7 @@ import { Router } from "@angular/router";
   styleUrls: ["./donation.component.css"],
 })
 export class DonationComponent implements OnInit {
-  booths: Booth[];
+  // booths: Booth[];
 
   constructor(
     private router: Router,
@@ -20,25 +20,22 @@ export class DonationComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    setTimeout(() => (this.appComponent.isLoading = true), 0);
+    //setTimeout(() => (this.appComponent.isLoading = true), 0);
 
-    this.rSVPService.ListBooth().subscribe(
-      (data) => {
-        setTimeout(() => (this.appComponent.isLoading = false), 0);
-
-        console.log(data);
-        this.booths = data;
-      },
-      (err) => {
-        setTimeout(() => (this.appComponent.isLoading = false), 0);
-        alert(err.error);
-      }
-    );
+    // this.rSVPService.ListBooth().subscribe(
+    //   (data) => {
+    //     setTimeout(() => (this.appComponent.isLoading = false), 0);
+    //     console.log(data);
+    //     this.booths = data;
+    //   },
+    //   (err) => {
+    //     setTimeout(() => (this.appComponent.isLoading = false), 0);
+    //     alert(err.error);
+    //   }
+    // );
   }
 
-  donate(url) {
-    console.log(url);
-
-    window.open(url, "_blank");
+  donate() {
+    window.open("https://www.ubs.com", "_blank");
   }
 }

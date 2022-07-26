@@ -21,6 +21,9 @@ import { DonationComponent } from './donation/donation.component';
 import { QuizComponent } from './quiz/quiz.component';
 import { GuideComponent } from './guide/guide.component';
 import { VotingComponent } from './voting/voting.component';
+import { PhotoComponent } from './photo/photo.component';
+import { PhotoVendorComponent } from './photo-vendor/photo-vendor.component';
+import { PhotoUBSComponent } from './photo-ubs/photo-ubs.component';
 
 const routes: Routes = [
   { path: '', component: MainComponent },
@@ -34,6 +37,9 @@ const routes: Routes = [
   { path: 'event/quiz', component: QuizComponent },
   { path: 'event/guide', component: GuideComponent },
   { path: 'event/voting', component: VotingComponent },
+  { path: 'event/photo', component: PhotoComponent },
+  { path: 'event/photo-vendor', component: PhotoVendorComponent },
+  { path: 'event/photo-ubs', component: PhotoUBSComponent },
 
   // { path: 'admin', component: LoginComponent },
   { path: 'admin/login', component: LoginComponent },

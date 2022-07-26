@@ -1,1 +1,41 @@
-<p>photo works!</p>
+<div class="container">
+  <div class="row" style="padding-bottom: 10px">
+    <div class="col-12">
+      <div style="font-size: x-large">Photo Gallery</div>
+    </div>
+  </div>
+  <div class="row text-center" style="padding-top: 55px">
+    <div class="col-12">
+      <button
+        [routerLink]="['../photo-vendor']"
+        class="btn"
+        style="
+          border: #e60100 solid 1px;
+          background-color: white;
+          width: 250px;
+          color: black;
+          margin-bottom: 10px;
+        "
+      >
+        Photo Booth from Vendor
+      </button>
+    </div>
+  </div>
+  <div class="row text-center" style="padding-top: 25px">
+    <div class="col-12">
+      <button
+        [routerLink]="['../photo-ubs']"
+        class="btn"
+        style="
+          border: #e60100 solid 1px;
+          background-color: white;
+          width: 250px;
+          color: black;
+          margin-bottom: 10px;
+        "
+      >
+        UBS Photography
+      </button>
+    </div>
+  </div>
+</div>
