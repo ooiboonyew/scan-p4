@@ -71,12 +71,15 @@ export class TotalUserBooth {
 export class RSVP {
   id: string;
   num: number;
-  firstName: string;
-  lastName: string;
+  name: string;
   email: string;
   mobile: string;
-  country: string;
-  attending: number;
+  attending: string;
+  dietary: string;
+  otherDieraty: string;
+  dataProdection: string;
+  covidStatus: string;
+  parking: string;
   createdDate: object;
   emailDate: object;
 }

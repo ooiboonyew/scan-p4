@@ -61,20 +61,22 @@ export class ExcelFunction {
       var json = {
         "#": rsvp.num,
         // "attending": rsvp.attending == 0 ? "Physical" : "Virtual",
-        "firstName": rsvp.firstName,
-        "lastName": rsvp.lastName,
+        "name": rsvp.name,
+        "attending": rsvp.attending,
         "email": rsvp.email,
         "mobile": rsvp.mobile,
-        "country": rsvp.country,
+        "dataProdection": rsvp.dataProdection,
+        "dietary": rsvp.dietary,
+        "otherDieraty": rsvp.otherDieraty,
+        "covidStatus": rsvp.covidStatus,
+        "parking": rsvp.parking,
         "createdDate": rsvp.createdDate ? new Date(JSON.parse(JSON.stringify(rsvp.createdDate))._seconds * 1000).toLocaleString() : "",
-        "emailDate":  rsvp.emailDate ? new Date(JSON.parse(JSON.stringify(rsvp.emailDate))._seconds * 1000).toLocaleString() : ""
-
       };
       jsons.push(json);
     });
 
     var Heading = [
-      ["#", "First Name", "Last Name", "E-mail", "Mobile", "Country", "Registered Date", "Email Date"],
+      ["#", "Name", "Attending", "E-mail", "Data Prodection", "Dietary", "Other Dieraty","Vaccination Status","Parking","Registered Date", "Email Date"],
      // ["#", "Attending", "First Name", "Last Name", "E-mail", "Mobile", "Country", "Registered Date", "Email Date"],
     ];
 

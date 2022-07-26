@@ -332,23 +332,23 @@ rsvpApp.post("/rsvp/add", async (req, res, next) => {
     rsvp.createdDate = new Date();
     rsvp.email = rsvp.email.toLowerCase();
 
-    var existingRSVP = await rsvpModel.checkRSVPEmail(rsvp.email);
+    // var existingRSVP = await rsvpModel.checkRSVPEmail(rsvp.email);
 
-    if (existingRSVP.id) {
-      return res
-        .status(405)
-        .json(
-          "Our record shows that you have already registered for this event. For assistance, please write to hhglobalevents@gmail.com."
-        );
-    }
+    // if (existingRSVP.id) {
+    //   return res
+    //     .status(405)
+    //     .json(
+    //       "Our record shows that you have already registered for this event."
+    //     );
+    // }
 
     const resultId = await rsvpModel.add(rsvp);
     rsvp.id = resultId;
-    var result = await EmailNotification.sendRsvpEmail(rsvp);
-    rsvp.emailDate = new Date();
-    var updatedRsvp = await rsvpModel.update(rsvp);
+    // var result = await EmailNotification.sendRsvpEmail(rsvp);
+    // rsvp.emailDate = new Date();
+    // var updatedRsvp = await rsvpModel.update(rsvp);
 
-    return res.status(200).json(result);
+    return res.status(200).json(resultId);
   } catch (error) {
     adeErrorHandler(error, req, res, next);
   }

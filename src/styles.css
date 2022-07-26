@@ -2,13 +2,13 @@
 /* @import '~src/assets/scss/_variables'; */
 
 html, body { height: 100%; }
-body { margin: 0; height: 100%; font-family: "font-regular" }
+body { margin: 0; height: 100%;  }
 
-@font-face {
+/* @font-face {
     font-family: "Font-Regular";
     src: url("./assets/fonts/Frutiger45-Light.TTF") format("truetype");
   }
   
 .font-regular {
     font-family: "Font-Regular", sans-serif;
-}
+} */

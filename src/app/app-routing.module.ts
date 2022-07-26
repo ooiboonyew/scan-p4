@@ -26,21 +26,9 @@ import { PhotoVendorComponent } from './photo-vendor/photo-vendor.component';
 import { PhotoUBSComponent } from './photo-ubs/photo-ubs.component';
 
 const routes: Routes = [
-  { path: '', component: MainComponent },
-  { path: 'login', component: GuestLoginComponent },
-  { path: 'event', component: LandingComponent },
-  { path: 'event/agenda', component: AgendaComponent },
-  { path: 'event/floor-plan', component: FloorplanComponent },
-  // { path: 'event/booth', component: BoothComponent },
-  { path: 'event/my-qr', component: MyqrComponent },
-  { path: 'event/donation', component: DonationComponent },
-  { path: 'event/quiz', component: QuizComponent },
-  { path: 'event/zone', component: GuideComponent },
-  { path: 'event/sustainability', component: VotingComponent },
-  { path: 'event/photo', component: PhotoComponent },
-  { path: 'event/photo-vendor', component: PhotoVendorComponent },
-  { path: 'event/photo-ubs', component: PhotoUBSComponent },
-
+  { path: '', component: LandingComponent },
+  // { path: 'login', component: GuestLoginComponent },
+  { path: 'registration', component: LandingComponent },
   // { path: 'admin', component: LoginComponent },
   { path: 'admin/login', component: LoginComponent },
   // { path: 'admin/account', component: AccountComponent },

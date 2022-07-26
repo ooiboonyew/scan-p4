@@ -1,63 +1,451 @@
-<div class="container">
-  <!-- <div class="col-12" [routerLink]="['agenda']" >
+<div class="" style="padding-bottom: 20px">
+  <form [formGroup]="addrsvp" (ngSubmit)="onSubmit()">
+    <!-- <div class="" style="padding-bottom: 20px">
       <img
-        width="50px"
-        src="../../assets/images/icon/untitled.svg+xml.png"
+        width="100%"
+        src="../../assets/images/Citi_Wellness_Banner_600x200.jpg"
       />
-      Agenda
     </div> -->
-  <div class="row" [routerLink]="['floor-plan']">
-    <div class="col-3 text-right">
-      <img width="50px" src="../../assets/images/icons/floor plan.png" />
+    <div class="container">
+      <div
+        class="row"
+        style="padding-bottom: 20px; padding-top: 20px; font-size: x-large"
+      >
+        <div class="col-12">REGISTRATION</div>
+      </div>
+      <div class="row" style="padding-bottom: 10px">
+        <div class="col-12">
+          <div class="form-group">
+            <input
+              type="text"
+              formControlName="name"
+              maxlength="100"
+              class="form-control"
+              placeholder="Name*"
+            />
+            <div
+              class="box arrow-top"
+              *ngIf="isSubmitted && addrsvp.controls.name.hasError('required')"
+            >
+              Name is required.
+            </div>
+            <div
+              class="box arrow-top"
+              *ngIf="
+                isSubmitted &&
+                addrsvp.controls.name.hasError('letterAndNumberSpaceOnly')
+              "
+            >
+              Please Key in alphanumeric only.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="padding-bottom: 10px; padding-left: 10px">
+        <div class="col-12">
+          <b>I will be attending MOE’s Schools WPS on 14 Sep.</b>
+        </div>
+        <div class="col-12" style="padding-top: 5px">
+          <div class="form-group mainTable">
+            <span style="padding-right: 20px">
+              <input
+                (change)="changeRB($event)"
+                class="radioButton"
+                type="radio"
+                value="Yes"
+                formControlName="attending"
+                style="margin-right: 5px"
+              />
+              Yes
+            </span>
+            <span>
+              <input
+                (change)="changeRB($event)"
+                class="radioButton"
+                type="radio"
+                value="No"
+                formControlName="attending"
+                style="margin-right: 5px"
+              />
+              No
+            </span>
+          </div>
+          <div
+            class="box arrow-top"
+            *ngIf="
+              isSubmitted && addrsvp.controls.attending.hasError('required')
+            "
+          >
+            Attending is required.
+          </div>
+        </div>
+      </div>
+      <div *ngIf="isAttending">
+        <div class="row" style="padding-bottom: 10px">
+          <div class="col-12">
+            <div class="form-group">
+              <input
+                type="text"
+                formControlName="email"
+                maxlength="100"
+                class="form-control"
+                placeholder="Email*"
+              />
+              <div
+                class="box arrow-top"
+                *ngIf="
+                  isSubmitted && addrsvp.controls.email.hasError('required')
+                "
+              >
+                Email is required.
+              </div>
+              <div
+                class="box arrow-top"
+                *ngIf="
+                  isSubmitted &&
+                  !addrsvp.controls.email.hasError('required') &&
+                  addrsvp.controls.email.hasError('email')
+                "
+              >
+                Please Key in email format.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="padding-bottom: 10px">
+          <div class="col-12">
+            <div class="form-group">
+              <input
+                type="text"
+                formControlName="mobile"
+                class="form-control"
+                maxlength="8"
+                placeholder="Mobile Number* (E.g. 87654321)"
+              />
+              <div
+                class="box arrow-top"
+                *ngIf="
+                  isSubmitted && addrsvp.controls.mobile.hasError('required')
+                "
+              >
+                Mobile Number is required.
+              </div>
+              <div
+                class="box arrow-top"
+                *ngIf="
+                  isSubmitted &&
+                  !addrsvp.controls.mobile.hasError('required') &&
+                  addrsvp.controls.mobile.hasError('sgMobileOnly')
+                "
+              >
+                Please Key in mobile format (E.g. 87654321).
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="padding-bottom: 10px; padding-left: 10px">
+          <div class="col-12">
+            <b>Personal Data Protection</b>
+          </div>
+          <!-- <div class="col-12" style="padding-top: 5px">
+            I consent to receive information on MOE’s Schools Work Plan Seminar
+            from MOE organising team, including the appointed third-party vendor
+          </div> -->
+          <div class="col-12" style="padding-top: 5px">
+            <div class="form-group mainTable">
+              <div>
+                <input
+                  (change)="CheckDataProdection($event)"
+                  class="radioButton"
+                  type="checkbox"
+                  [value]="Test"
+                  formControlName="dataProdection"
+                  style="margin-right: 5px"
+                />
+                I consent to receive information on MOE’s Schools Work Plan
+                Seminar from MOE organising team, including the appointed
+                third-party vendor
+              </div>
+            </div>
+            <div
+              class="box arrow-top"
+              *ngIf="
+                isSubmitted &&
+                addrsvp.controls.dataProdection.hasError('required')
+              "
+            >
+              Peronal Data Protection is required.
+            </div>
+          </div>
+        </div>
+        <div class="row" style="padding-bottom: 10px; padding-left: 10px">
+          <div class="col-12">
+            <b>Dietary Requirements</b>
+          </div>
+          <div class="col-12" style="padding-top: 5px">
+            Food served will be halal, with no beef.
+          </div>
+          <div class="col-12" style="padding-top: 5px">
+            <div class="mainTable">
+              <span style="padding-right: 20px">
+                <input
+                  (click)="CheckIsOtherDieraty($event)"
+                  class="radioButton"
+                  type="radio"
+                  value="NIL"
+                  formControlName="dietary"
+                  style="margin-right: 5px"
+                />
+                NIL
+              </span>
+              <span style="padding-right: 20px">
+                <input
+                  (click)="CheckIsOtherDieraty($event)"
+                  class="radioButton"
+                  type="radio"
+                  value="Vegetarian"
+                  formControlName="dietary"
+                  style="margin-right: 5px"
+                />
+                Vegetarian
+              </span>
+              <span>
+                <input
+                  (click)="CheckIsOtherDieraty($event)"
+                  class="radioButton"
+                  type="radio"
+                  value="Others"
+                  formControlName="dietary"
+                  style="margin-right: 5px"
+                />
+                Others
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="padding-bottom: 10px">
+          <div class="col-12">
+            <div class="form-group">
+              <input
+                type="text"
+                formControlName="otherDieraty"
+                maxlength="100"
+                class="form-control"
+                placeholder="Others, please specify"
+              />
+              <div
+                class="box arrow-top"
+                *ngIf="
+                  isSubmitted && addrsvp.controls.dietary.hasError('required')
+                "
+              >
+                Dietary is required.
+              </div>
+              <div
+                class="box arrow-top"
+                *ngIf="
+                  isSubmitted &&
+                  addrsvp.controls.otherDieraty.hasError('required')
+                "
+              >
+                Others Dietary is required.
+              </div>
+              <div
+                class="box arrow-top"
+                *ngIf="
+                  isSubmitted &&
+                  addrsvp.controls.otherDieraty.hasError(
+                    'letterAndNumberSpaceOnly'
+                  )
+                "
+              >
+                Please Key in alphanumeric only.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="padding-bottom: 10px; padding-left: 10px">
+          <div class="col-12">
+            <b>My COVID-19 vaccination status is: </b>
+          </div>
+          <div class="col-12" style="padding-top: 5px">
+            Vaccinated-differentiated SMMs are to be implemented for MOE’s
+            Schools WPS, and all attendees’ vaccination status will be verified
+            via TraceTogether Token or TraceTogether App. Please refer to
+            <a
+              href="https://www.moh.gov.sg/covid-19/vaccination/faqs---booster-doses"
+              target="_blank"
+              >https://www.moh.gov.sg/covid-19/vaccination/faqs---booster-doses</a
+            >
+            for more details
+          </div>
+          <div class="col-12" style="padding-top: 10px">
+            <div class="form-group mainTable">
+              <div class="" style="padding-right: 20px">
+                <table>
+                  <tr style="padding-bottom: 15px">
+                    <td style="vertical-align: top">
+                      <input
+                        class="radioButton"
+                        type="radio"
+                        value="Fully Vaccinated"
+                        formControlName="covidStatus"
+                        style="margin-right: 5px"
+                      />
+                    </td>
+                    <td style="padding-bottom: 5px">
+                      I am fully vaccinated (i.e. Completed the COVID-19 primary
+                      vaccination series and received the booster dose,
+                      recovered from COVID-19 in Singapore and have completed
+                      vaccination regime including boosters)
+                    </td>
+                  </tr>
+                  <tr style="padding-bottom: 15px">
+                    <td style="vertical-align: top">
+                      <input
+                        class="radioButton"
+                        type="radio"
+                        value="Recovered From Covid"
+                        formControlName="covidStatus"
+                        style="margin-right: 5px"
+                      />
+                    </td>
+                    <td style="padding-bottom: 5px">
+                      I am unvaccinated/partially vaccinated AND have recovered
+                      from COVID-19 in Singapore within 180 days starting from
+                      the day of first local positive PCR test result / positive
+                      ART result obtained at approved test providers / positive
+                      serology test result attributable to infection and not
+                      past vaccination
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="vertical-align: top">
+                      <input
+                        class="radioButton"
+                        type="radio"
+                        value="Certified Medically"
+                        formControlName="covidStatus"
+                        style="margin-right: 5px"
+                      />
+                    </td>
+                    <td style="padding-bottom: 5px">
+                      I am certified to be medically ineligible for all
+                      vaccinations under the National Vaccination Programme
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="vertical-align: top">
+                      <input
+                        class="radioButton"
+                        type="radio"
+                        value="Not Vaccinated"
+                        formControlName="covidStatus"
+                        style="margin-right: 5px"
+                      />
+                    </td>
+                    <td>I am not vaccinated/partially vaccinated.</td>
+                  </tr>
+                </table>
+                <div
+                  class="box arrow-top"
+                  *ngIf="
+                    isSubmitted &&
+                    addrsvp.controls.covidStatus.hasError('required')
+                  "
+                >
+                  Vaccination status is required.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="padding-bottom: 10px; padding-left: 10px">
+          <div class="col-12">
+            <b>I will require a parking coupon for Singapore EXPO.</b>
+          </div>
+          <div class="col-12" style="padding-top: 5px">
+            <div class="form-group mainTable">
+              <span style="padding-right: 20px">
+                <input
+                  class="radioButton"
+                  type="radio"
+                  value="Yes"
+                  formControlName="parking"
+                  style="margin-right: 5px"
+                />
+                Yes
+              </span>
+              <span>
+                <input
+                  class="radioButton"
+                  type="radio"
+                  value="No"
+                  formControlName="parking"
+                  style="margin-right: 5px"
+                />
+                No
+              </span>
+            </div>
+            <div
+              class="box arrow-top"
+              *ngIf="
+                isSubmitted && addrsvp.controls.parking.hasError('required')
+              "
+            >
+              Parking coupon is required.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="padding-top: 20px">
+        <div
+          class="col-12 text-right"
+          style="
+            font-size: small;
+            color: #c74a4a;
+            font-family: font-medium;
+            padding-bottom: 10px;
+          "
+        >
+          <b>{{ errorMessage }}</b>
+        </div>
+        <div
+          class="col-12 col-md-9"
+          style="font-size: small; padding-bottom: 10px"
+        >
+          Thank you and see you at MOE’s Schools WPS soon!
+        </div>
+
+        <div class="col-12 col-md-3 rsvpButton">
+          <!-- <button
+            (click)="back()"
+            style="
+              margin-right: 10px;
+              border-radius: 20px;
+              background-color: white;
+              border-color: #b3b3b3;
+              color: black;
+              width: 150px;
+            "
+            class="btn btn-info"
+          >
+            Back
+          </button> -->
+          <button
+            type="submit"
+            style="
+              border-radius: 20px;
+              background-color: #0d6efd;
+              border-color: #0d6efd;
+              width: 150px;
+            "
+            class="btn btn-info"
+          >
+            Submit
+          </button>
+        </div>
+      </div>
     </div>
-    <div class="col-9 pl-0 alignCenter">Floor Plan</div>
-  </div>
-  <div class="row item" [routerLink]="['zone']">
-    <div class="col-3 text-right">
-      <img width="50px" src="../../assets/images/icons/zone.png" />
-    </div>
-    <div class="col-9 pl-0 alignCenter">
-      Virtual Guide to Experience zones and Tour Locations
-    </div>
-  </div>
-  <div class="row item" [routerLink]="['quiz']">
-    <div class="col-3 text-right">
-      <img width="50px" src="../../assets/images/icons/quiz2.png" />
-    </div>
-    <div class="col-9 pl-0 alignCenter">Lucky Draw Quiz</div>
-  </div>
-  <div class="row item" [routerLink]="['sustainability']">
-    <div class="col-3 text-right">
-      <img width="50px" src="../../assets/images/icons/sustainable.png" />
-    </div>
-    <div class="col-9 pl-0 alignCenter">
-      Sustinability at UBS
-    </div>
-  </div>
-  <div class="row item" [routerLink]="['photo']">
-    <div class="col-3 text-right">
-      <img width="50px" src="../../assets/images/icons/stack-of-photos.png" />
-    </div>
-    <div class="col-9 pl-0 alignCenter">
-      Photo Gallery
-    </div>
-  </div>
-  <div class="row item" [routerLink]="['donation']">
-    <div class="col-3 text-right">
-      <img width="50px" src="../../assets/images/icons/welfare.png" />
-    </div>
-    <div class="col-9 pl-0 alignCenter">
-      Donation Partner
-    </div>
-  </div>
-  <div class="row item" [routerLink]="['my-qr']">
-    <div class="col-3 text-right">
-      <img
-        width="50px"
-        src="../../assets/images/icons/qr-code-scan.png"
-      />
-    </div>
-    <div class="col-9 pl-0 alignCenter">My QR</div>
-  </div>
-  <!-- <footer style="text-align: center; padding-top: 20px">Version 1.1.2</footer> -->
+  </form>
 </div>

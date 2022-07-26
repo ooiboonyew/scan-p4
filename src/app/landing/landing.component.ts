@@ -25,6 +25,7 @@ export class LandingComponent implements OnInit {
   isSubmitted: boolean;
   selectedItems = [];
   dropdownSettings: IDropdownSettings;
+  isAttending: boolean = false;
 
   constructor(
     private rsvpService: RSVPService,
@@ -36,34 +37,88 @@ export class LandingComponent implements OnInit {
     this.isSubmitted = false;
 
     this.addrsvp = new FormGroup({
-      firstName: new FormControl({ value: "", disabled: false }, [
+      name: new FormControl({ value: "", disabled: false }, [
         Validators.required,
         Validators.maxLength(50),
         CustomValidators.letterAndNumberSpaceOnly,
       ]),
-      lastName: new FormControl({ value: "", disabled: false }, [
+      attending: new FormControl({ value: "", disabled: false }, [
         Validators.required,
-        Validators.maxLength(50),
+      ]),
+      email: new FormControl({ value: "", disabled: false }, []),
+      mobile: new FormControl({ value: "", disabled: false }, []),
+      dietary: new FormControl({ value: "", disabled: false }, [
+        // Validators.required,
+      ]),
+      otherDieraty: new FormControl({ value: "", disabled: true }, [
+        Validators.maxLength(100),
         CustomValidators.letterAndNumberSpaceOnly,
       ]),
-      email: new FormControl({ value: "", disabled: false }, [
+      dataProdection: new FormControl({ value: "", disabled: false }, [
+        // Validators.required,
+      ]),
+      covidStatus: new FormControl({ value: "", disabled: false }, [
+        // Validators.required,
+      ]),
+      parking: new FormControl({ value: "", disabled: false }, [
+        // Validators.required,
+      ]),
+    });
+  }
+
+  changeRB(e) {
+    if (e.target.value == "Yes") {
+      this.isAttending = true;
+      this.addrsvp.controls.dietary.setValidators([Validators.required]);
+      this.addrsvp.controls.dataProdection.setValidators([Validators.required]);
+      this.addrsvp.controls.covidStatus.setValidators([Validators.required]);
+      this.addrsvp.controls.parking.setValidators([Validators.required]);
+      this.addrsvp.controls.email.setValidators([
         Validators.required,
         Validators.maxLength(50),
         Validators.email,
-      ]),
-      mobile: new FormControl({ value: "", disabled: false }, [
+      ]);
+      this.addrsvp.controls.mobile.setValidators([
         Validators.required,
-        Validators.maxLength(50),
+        Validators.maxLength(8),
         CustomValidators.sgMobileOnly,
-      ]),
-      country: new FormControl({ value: "", disabled: false }, [
+      ]);
+    } else {
+      this.isAttending = false;
+      this.addrsvp.controls.dietary.setValue("");
+      this.addrsvp.controls.dataProdection.setValue("");
+      this.addrsvp.controls.parking.setValue("");
+      this.addrsvp.controls.covidStatus.setValue("");
+      this.addrsvp.controls.email.setValue("");
+      this.addrsvp.controls.mobile.setValue("");
+    }
+  }
+
+  CheckDataProdection(e) {
+    // console.log(this.addrsvp.controls.dataProdection.value);
+
+    // console.log(e);
+    // console.log(e.target.checked);
+    if (e.target.checked == false) {
+      this.addrsvp.controls.dataProdection.setValue("");
+      console.log(this.addrsvp.controls.dataProdection.value);
+    }
+  }
+
+  CheckIsOtherDieraty(e) {
+    console.log(e.target.value);
+    if (e.target.value != "Others") {
+      this.addrsvp.controls.otherDieraty.disable();
+      this.addrsvp.controls.otherDieraty.setValue("");
+    } else {
+      this.addrsvp.controls.otherDieraty.setValidators([
         Validators.required,
-        Validators.maxLength(50),
-      ]),
-      // attending: new FormControl({ value: "", disabled: false }, [
-      //   Validators.required,
-      // ]),
-    });
+        Validators.maxLength(100),
+        CustomValidators.letterAndNumberSpaceOnly,
+      ]);
+      this.addrsvp.controls.otherDieraty.enable();
+    }
+    // this.disableControl(e);
   }
 
   onSubmit() {
@@ -74,13 +129,14 @@ export class LandingComponent implements OnInit {
     }
 
     var rsvp = new RSVP();
-    rsvp.firstName = this.addrsvp.controls.firstName.value;
-    rsvp.lastName = this.addrsvp.controls.lastName.value;
+    rsvp.name = this.addrsvp.controls.name.value;
+    rsvp.attending = this.addrsvp.controls.attending.value;
     rsvp.email = this.addrsvp.controls.email.value;
-    rsvp.mobile = this.addrsvp.controls.mobile.value;
-    rsvp.country = this.addrsvp.controls.country.value;
-    // rsvp.attending = Number(this.addrsvp.controls.attending.value);
-    rsvp.attending = 0;
+    rsvp.dietary = this.addrsvp.controls.dietary.value;
+    rsvp.otherDieraty = this.addrsvp.controls.otherDieraty.value;
+    rsvp.covidStatus = this.addrsvp.controls.covidStatus.value;
+    rsvp.dataProdection = this.addrsvp.controls.dataProdection.value;
+    rsvp.parking = this.addrsvp.controls.parking.value;
 
     console.log(rsvp);
     this.appComponent.isLoading = true;

@@ -72,33 +72,17 @@ export class AppComponent implements OnInit {
         this.isUserLoggedIn = true;
       }
 
-      this.rsvpService.getSetting("setting").subscribe(
-        (data) => {
-          // setTimeout(() => (this.isLoading = false), 0);
-          this.setting = data;
-          console.log(this.setting);
-        },
-        (err) => {
-          // setTimeout(() => (this.isLoading = false), 0);
-          alert(err.error);
-        }
-      );
-
-      const myInterval = interval(20000);
-      myInterval.subscribe(() => {
-        // setTimeout(() => (this.isLoading = true), 0);
-        this.rsvpService.getSetting("setting").subscribe(
-          (data) => {
-            // setTimeout(() => (this.isLoading = false), 0);
-            this.setting = data;
-            console.log(this.setting);
-          },
-          (err) => {
-            // setTimeout(() => (this.isLoading = false), 0);
-            alert(err.error);
-          }
-        );
-      });
+      // this.rsvpService.getSetting("setting").subscribe(
+      //   (data) => {
+      //     // setTimeout(() => (this.isLoading = false), 0);
+      //     this.setting = data;
+      //     console.log(this.setting);
+      //   },
+      //   (err) => {
+      //     // setTimeout(() => (this.isLoading = false), 0);
+      //     alert(err.error);
+      //   }
+      // );
     }
   }
 
