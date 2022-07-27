@@ -95,7 +95,7 @@ rsvpApp.get("/rsvp/email/:rsvpId", async (req, res, next) => {
     const rsvpId = req.params.rsvpId;
     console.log(rsvpId);
     var rsvp = await rsvpModel.getRSVPById(rsvpId);
-    var emailresult = await EmailNotification.sendRsvpEmail(rsvp);
+    // var emailresult = await EmailNotification.sendRsvpEmail(rsvp);
     rsvp.emailDate = new Date();
     var updatedRsvp = await rsvpModel.update(rsvp);
 

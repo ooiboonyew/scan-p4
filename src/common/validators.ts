@@ -97,10 +97,7 @@ export class CustomValidators {
 
     static sgMobileOnly(control: AbstractControl): { [key: string]: boolean } {
         //let regEx = new RegExp(/^\+65/);
-
-
-
-        let regEx = new RegExp(/^[8-9]{8,}$/);
+        let regEx = new RegExp(/^[8-9]\d{7}$/);
 
         //let regEx = new RegExp(/^[0-9 ()+-]+$/);
         if (!regEx.test(control.value)) {

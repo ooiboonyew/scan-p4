@@ -43,6 +43,180 @@
       </div>
       <div class="row" style="padding-bottom: 10px; padding-left: 10px">
         <div class="col-12">
+          <b>I am from</b>
+        </div>
+        <div class="col-12" style="padding-top: 5px">
+          <div class="form-group mainTable">
+            <div>
+              <input
+                (change)="changeFrom($event)"
+                class="radioButton"
+                type="radio"
+                value="Schools"
+                formControlName="from"
+                style="margin-right: 5px"
+              />
+              Schools
+            </div>
+            <div>
+              <input
+                (change)="changeFrom($event)"
+                class="radioButton"
+                type="radio"
+                value="SPED"
+                formControlName="from"
+                style="margin-right: 5px"
+              />
+              SPED schools
+            </div>
+            <div>
+              <input
+                (change)="changeFrom($event)"
+                class="radioButton"
+                type="radio"
+                value="HQ"
+                formControlName="from"
+                style="margin-right: 5px"
+              />
+              HQ (e.g. independent branches, LEP, Specialist, Master Teacher,
+              Advisors)
+            </div>
+            <div>
+              <input
+                (change)="changeFrom($event)"
+                class="radioButton"
+                type="radio"
+                value="Seconded"
+                formControlName="from"
+                style="margin-right: 5px"
+              />
+              Seconded staff to external organisations
+            </div>
+            <div>
+              <input
+                (change)="changeFrom($event)"
+                class="radioButton"
+                type="radio"
+                value="SEAB"
+                formControlName="from"
+                style="margin-right: 5px"
+              />
+              SEAB / MOE Language Centre
+            </div>
+            <div>
+              <input
+                (change)="changeFrom($event)"
+                class="radioButton"
+                type="radio"
+                value="NIE"
+                formControlName="from"
+                style="margin-right: 5px"
+              />
+              NIE / NIEC
+            </div>
+            <div>
+              <input
+                (change)="changeFrom($event)"
+                class="radioButton"
+                type="radio"
+                value="Teacher"
+                formControlName="from"
+                style="margin-right: 5px"
+              />
+              Teachers’ Union
+            </div>
+            <div>
+              <input
+                (change)="changeFrom($event)"
+                class="radioButton"
+                type="radio"
+                value="Others"
+                formControlName="from"
+                style="margin-right: 5px"
+              />
+              Others, please specify
+              <input
+                style="display: inline !important; width: 60%"
+                type="text"
+                formControlName="otherFrom"
+                maxlength="100"
+                class="form-control"
+                placeholder="Others, please specify"
+              />
+            </div>
+          </div>
+          <div
+            class="box arrow-top"
+            *ngIf="isSubmitted && addrsvp.controls.from.hasError('required')"
+          >
+            From is required.
+          </div>
+          <div
+            class="box arrow-top"
+            *ngIf="
+              isSubmitted && addrsvp.controls.otherFrom.hasError('required')
+            "
+          >
+            Others From is required.
+          </div>
+          <div
+            class="box arrow-top"
+            *ngIf="
+              isSubmitted &&
+              addrsvp.controls.otherFrom.hasError('letterAndNumberSpaceOnly')
+            "
+          >
+            Please Key in alphanumeric only.
+          </div>
+        </div>
+      </div>
+      <div class="row" *ngIf="from == 'Schools'" style="padding-bottom: 10px; padding-left: 10px">
+        <div class="col-12">
+          <b>Designation</b>
+        </div>
+        <div class="col-12" style="padding-top: 5px">
+          <div class="form-group mainTable">
+            <div>
+              <input
+                class="radioButton"
+                type="radio"
+                value="Principal"
+                formControlName="schoolDesignation"
+                style="margin-right: 5px"
+              />
+              Principal
+            </div>
+            <div>
+              <input
+                class="radioButton"
+                type="radio"
+                value="Academic"
+                formControlName="schoolDesignation"
+                style="margin-right: 5px"
+              />
+              Vice Principal (Academic)
+            </div>
+            <div>
+              <input
+                class="radioButton"
+                type="radio"
+                value="Admin"
+                formControlName="schoolDesignation"
+                style="margin-right: 5px"
+              />
+              Vice Principal (Admin)
+            </div>
+          </div>
+          <div
+            class="box arrow-top"
+            *ngIf="isSubmitted && addrsvp.controls.schoolDesignation.hasError('required')"
+          >
+          Designation is required.
+          </div>
+        </div>
+      </div>
+      <div class="row" style="padding-bottom: 10px; padding-left: 10px">
+        <div class="col-12">
           <b>I will be attending MOE’s Schools WPS on 14 Sep.</b>
         </div>
         <div class="col-12" style="padding-top: 5px">

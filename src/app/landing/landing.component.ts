@@ -26,6 +26,7 @@ export class LandingComponent implements OnInit {
   selectedItems = [];
   dropdownSettings: IDropdownSettings;
   isAttending: boolean = false;
+  from: string;
 
   constructor(
     private rsvpService: RSVPService,
@@ -40,6 +41,14 @@ export class LandingComponent implements OnInit {
       name: new FormControl({ value: "", disabled: false }, [
         Validators.required,
         Validators.maxLength(50),
+        CustomValidators.letterAndNumberSpaceOnly,
+      ]),
+      from: new FormControl({ value: "", disabled: false }, [
+        Validators.required,
+      ]),
+      schoolDesignation: new FormControl({ value: "", disabled: false }, []),
+      otherFrom: new FormControl({ value: "", disabled: true }, [
+        Validators.maxLength(100),
         CustomValidators.letterAndNumberSpaceOnly,
       ]),
       attending: new FormControl({ value: "", disabled: false }, [
@@ -102,6 +111,18 @@ export class LandingComponent implements OnInit {
     if (e.target.checked == false) {
       this.addrsvp.controls.dataProdection.setValue("");
       console.log(this.addrsvp.controls.dataProdection.value);
+    }
+  }
+
+  changeFrom(e) {
+    this.from = e.target.value;
+    if (e.target.value == "Schools") {
+      this.addrsvp.controls.schoolDesignation.setValidators([
+        Validators.required,
+      ]);
+    } else {
+      this.addrsvp.controls.schoolDesignation.setValidators([]);
+      this.addrsvp.controls.schoolDesignation.setValue("");
     }
   }
 
