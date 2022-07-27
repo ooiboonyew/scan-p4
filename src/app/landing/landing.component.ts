@@ -26,7 +26,9 @@ export class LandingComponent implements OnInit {
   selectedItems = [];
   dropdownSettings: IDropdownSettings;
   isAttending: boolean = false;
-  from: string;
+  from: string = "";
+  zone: string = "";
+  cluster: string = "";
 
   constructor(
     private rsvpService: RSVPService,
@@ -47,6 +49,11 @@ export class LandingComponent implements OnInit {
         Validators.required,
       ]),
       schoolDesignation: new FormControl({ value: "", disabled: false }, []),
+      zone: new FormControl({ value: "", disabled: false }, []),
+      cluster: new FormControl({ value: "", disabled: false }, []),
+      school: new FormControl({ value: "", disabled: false }, []),
+      division: new FormControl({ value: "", disabled: false }, []),
+
       otherFrom: new FormControl({ value: "", disabled: true }, [
         Validators.maxLength(100),
         CustomValidators.letterAndNumberSpaceOnly,
@@ -120,10 +127,42 @@ export class LandingComponent implements OnInit {
       this.addrsvp.controls.schoolDesignation.setValidators([
         Validators.required,
       ]);
+      this.addrsvp.controls.zone.setValidators([Validators.required]);
     } else {
       this.addrsvp.controls.schoolDesignation.setValidators([]);
       this.addrsvp.controls.schoolDesignation.setValue("");
+      this.zone = "";
+      this.addrsvp.controls.zone.setValidators([]);
+      this.addrsvp.controls.zone.setValue("");
+      this.addrsvp.controls.cluster.setValidators([]);
+      this.cluster = "";
+      this.addrsvp.controls.cluster.setValue("");
+      this.addrsvp.controls.school.setValidators([]);
+      this.addrsvp.controls.school.setValue("");
     }
+
+    if (e.target.value == "SPED") {
+      this.addrsvp.controls.school.setValidators([Validators.required]);
+    } else {
+      this.addrsvp.controls.school.setValidators([]);
+    }
+
+
+    if (e.target.value == "HQ") {
+      this.addrsvp.controls.division.setValidators([Validators.required]);
+    } else {
+      this.addrsvp.controls.division.setValidators([]);
+    }
+  }
+
+  changeZone(e) {
+    this.zone = e.target.value;
+    this.addrsvp.controls.cluster.setValidators([Validators.required]);
+  }
+
+  changeCluster(e) {
+    this.cluster = e.target.value;
+    this.addrsvp.controls.school.setValidators([Validators.required]);
   }
 
   CheckIsOtherDieraty(e) {

@@ -50,7 +50,6 @@
             <div>
               <input
                 (change)="changeFrom($event)"
-                class="radioButton"
                 type="radio"
                 value="Schools"
                 formControlName="from"
@@ -61,7 +60,6 @@
             <div>
               <input
                 (change)="changeFrom($event)"
-                class="radioButton"
                 type="radio"
                 value="SPED"
                 formControlName="from"
@@ -72,7 +70,6 @@
             <div>
               <input
                 (change)="changeFrom($event)"
-                class="radioButton"
                 type="radio"
                 value="HQ"
                 formControlName="from"
@@ -84,7 +81,6 @@
             <div>
               <input
                 (change)="changeFrom($event)"
-                class="radioButton"
                 type="radio"
                 value="Seconded"
                 formControlName="from"
@@ -95,7 +91,6 @@
             <div>
               <input
                 (change)="changeFrom($event)"
-                class="radioButton"
                 type="radio"
                 value="SEAB"
                 formControlName="from"
@@ -106,7 +101,6 @@
             <div>
               <input
                 (change)="changeFrom($event)"
-                class="radioButton"
                 type="radio"
                 value="NIE"
                 formControlName="from"
@@ -117,7 +111,6 @@
             <div>
               <input
                 (change)="changeFrom($event)"
-                class="radioButton"
                 type="radio"
                 value="Teacher"
                 formControlName="from"
@@ -128,7 +121,6 @@
             <div>
               <input
                 (change)="changeFrom($event)"
-                class="radioButton"
                 type="radio"
                 value="Others"
                 formControlName="from"
@@ -170,7 +162,11 @@
           </div>
         </div>
       </div>
-      <div class="row" *ngIf="from == 'Schools'" style="padding-bottom: 10px; padding-left: 10px">
+      <div
+        class="row"
+        *ngIf="from == 'Schools'"
+        style="padding-bottom: 10px; padding-left: 10px"
+      >
         <div class="col-12">
           <b>Designation</b>
         </div>
@@ -178,7 +174,6 @@
           <div class="form-group mainTable">
             <div>
               <input
-                class="radioButton"
                 type="radio"
                 value="Principal"
                 formControlName="schoolDesignation"
@@ -188,7 +183,6 @@
             </div>
             <div>
               <input
-                class="radioButton"
                 type="radio"
                 value="Academic"
                 formControlName="schoolDesignation"
@@ -198,7 +192,6 @@
             </div>
             <div>
               <input
-                class="radioButton"
                 type="radio"
                 value="Admin"
                 formControlName="schoolDesignation"
@@ -209,12 +202,288 @@
           </div>
           <div
             class="box arrow-top"
-            *ngIf="isSubmitted && addrsvp.controls.schoolDesignation.hasError('required')"
+            *ngIf="
+              isSubmitted &&
+              addrsvp.controls.schoolDesignation.hasError('required')
+            "
           >
-          Designation is required.
+            Designation is required.
           </div>
         </div>
       </div>
+      <div
+        class="row"
+        *ngIf="from == 'Schools'"
+        style="padding-bottom: 10px; padding-left: 10px"
+      >
+        <div class="col-12">
+          <b>Zone</b>
+        </div>
+        <div class="col-12" style="padding-top: 5px">
+          <div class="form-group mainTable">
+            <div>
+              <input
+                (change)="changeZone($event)"
+                type="radio"
+                value="North"
+                formControlName="zone"
+                style="margin-right: 5px"
+              />
+              North
+            </div>
+            <div>
+              <input
+                (change)="changeZone($event)"
+                type="radio"
+                value="South"
+                formControlName="zone"
+                style="margin-right: 5px"
+              />
+              South
+            </div>
+            <div>
+              <input
+                (change)="changeZone($event)"
+                type="radio"
+                value="East"
+                formControlName="zone"
+                style="margin-right: 5px"
+              />
+              East
+            </div>
+            <div>
+              <input
+                (change)="changeZone($event)"
+                type="radio"
+                value="West"
+                formControlName="zone"
+                style="margin-right: 5px"
+              />
+              West
+            </div>
+          </div>
+          <div
+            class="box arrow-top"
+            *ngIf="isSubmitted && addrsvp.controls.zone.hasError('required')"
+          >
+            Zone is required.
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="row"
+        *ngIf="zone !== ''"
+        style="padding-bottom: 10px; padding-left: 10px"
+      >
+        <div class="col-12">
+          <b>Cluster</b>
+        </div>
+        <div class="col-12" style="padding-top: 5px">
+          <div class="form-group mainTable">
+            <div *ngIf="zone == 'North'">
+              <input
+                (change)="changeCluster($event)"
+                type="radio"
+                value="N1"
+                formControlName="cluster"
+                style="margin-right: 5px"
+              />
+              N1
+            </div>
+            <div *ngIf="zone == 'North'">
+              <input
+                (change)="changeCluster($event)"
+                type="radio"
+                value="N2"
+                formControlName="cluster"
+                style="margin-right: 5px"
+              />
+              N2
+            </div>
+            <div *ngIf="zone == 'North'">
+              <input
+                (change)="changeCluster($event)"
+                type="radio"
+                value="N3"
+                formControlName="cluster"
+                style="margin-right: 5px"
+              />
+              N3
+            </div>
+            <div *ngIf="zone == 'South'">
+              <input
+                (change)="changeCluster($event)"
+                type="radio"
+                value="S1"
+                formControlName="cluster"
+                style="margin-right: 5px"
+              />
+              S1
+            </div>
+            <div *ngIf="zone == 'South'">
+              <input
+                (change)="changeCluster($event)"
+                type="radio"
+                value="S2"
+                formControlName="cluster"
+                style="margin-right: 5px"
+              />
+              S2
+            </div>
+          </div>
+          <div
+            class="box arrow-top"
+            *ngIf="isSubmitted && addrsvp.controls.cluster.hasError('required')"
+          >
+            cluster is required.
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="row"
+        *ngIf="cluster !== ''"
+        style="padding-bottom: 10px; padding-left: 10px"
+      >
+        <div class="col-12">
+          <b>Schools</b>
+        </div>
+        <div class="col-12" style="padding-top: 5px">
+          <div class="form-group mainTable">
+            <div *ngIf="cluster == 'N1'">
+              <input
+                type="radio"
+                value="Bowen Sec"
+                formControlName="school"
+                style="margin-right: 5px"
+              />
+              Bowen Sec
+            </div>
+            <div *ngIf="cluster == 'N1'">
+              <input
+                type="radio"
+                value="CHIJ St Joseph's Convent"
+                formControlName="school"
+                style="margin-right: 5px"
+              />
+              CHIJ St Joseph's Convent
+            </div>
+            <div *ngIf="cluster == 'N2'">
+              <input
+                type="radio"
+                value="Ahmad Ibrahim Pr"
+                formControlName="school"
+                style="margin-right: 5px"
+              />
+              Ahmad Ibrahim Pr
+            </div>
+            <div *ngIf="cluster == 'N2'">
+              <input
+                type="radio"
+                value="Chongfu School"
+                formControlName="school"
+                style="margin-right: 5px"
+              />
+              Chongfu School
+            </div>
+            <div *ngIf="cluster == 'N3'">
+              <input
+                type="radio"
+                value="Anchor Green Pr"
+                formControlName="school"
+                style="margin-right: 5px"
+              />
+              Anchor Green Pr
+            </div>
+          </div>
+          <div
+            class="box arrow-top"
+            *ngIf="isSubmitted && addrsvp.controls.school.hasError('required')"
+          >
+            School is required.
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="row"
+        *ngIf="from == 'SPED'"
+        style="padding-bottom: 10px; padding-left: 10px"
+      >
+        <div class="col-12">
+          <b>Schools</b>
+        </div>
+        <div class="col-12" style="padding-top: 5px">
+          <div class="form-group mainTable">
+            <div>
+              <input
+                type="radio"
+                value="APSN Chaoyang School"
+                formControlName="school"
+                style="margin-right: 5px"
+              />
+              APSN Chaoyang School
+            </div>
+            <div>
+              <input
+                type="radio"
+                value="APSN Delta Senior School"
+                formControlName="school"
+                style="margin-right: 5px"
+              />
+              APSN Delta Senior School
+            </div>
+          </div>
+          <div
+            class="box arrow-top"
+            *ngIf="isSubmitted && addrsvp.controls.school.hasError('required')"
+          >
+            School is required.
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="row"
+        *ngIf="from == 'HQ'"
+        style="padding-bottom: 10px; padding-left: 10px"
+      >
+        <div class="col-12">
+          <b>Division/Group/Unit</b>
+        </div>
+        <div class="col-12" style="padding-top: 5px">
+          <div class="form-group mainTable">
+            <div>
+              <input
+                type="radio"
+                value="AST"
+                formControlName="division"
+                style="margin-right: 5px"
+              />
+              AST
+            </div>
+            <div>
+              <input
+                type="radio"
+                value="CEG"
+                formControlName="division"
+                style="margin-right: 5px"
+              />
+              CEG
+            </div>
+          </div>
+          <div
+            class="box arrow-top"
+            *ngIf="
+              isSubmitted && addrsvp.controls.division.hasError('required')
+            "
+          >
+            School is required.
+          </div>
+        </div>
+      </div>
+
       <div class="row" style="padding-bottom: 10px; padding-left: 10px">
         <div class="col-12">
           <b>I will be attending MOE’s Schools WPS on 14 Sep.</b>
@@ -224,7 +493,6 @@
             <span style="padding-right: 20px">
               <input
                 (change)="changeRB($event)"
-                class="radioButton"
                 type="radio"
                 value="Yes"
                 formControlName="attending"
@@ -235,7 +503,6 @@
             <span>
               <input
                 (change)="changeRB($event)"
-                class="radioButton"
                 type="radio"
                 value="No"
                 formControlName="attending"
@@ -330,7 +597,6 @@
               <div>
                 <input
                   (change)="CheckDataProdection($event)"
-                  class="radioButton"
                   type="checkbox"
                   [value]="Test"
                   formControlName="dataProdection"
@@ -361,81 +627,73 @@
           </div>
           <div class="col-12" style="padding-top: 5px">
             <div class="mainTable">
-              <span style="padding-right: 20px">
+              <div>
                 <input
                   (click)="CheckIsOtherDieraty($event)"
-                  class="radioButton"
                   type="radio"
                   value="NIL"
                   formControlName="dietary"
                   style="margin-right: 5px"
                 />
                 NIL
-              </span>
-              <span style="padding-right: 20px">
+              </div>
+              <div>
                 <input
                   (click)="CheckIsOtherDieraty($event)"
-                  class="radioButton"
                   type="radio"
                   value="Vegetarian"
                   formControlName="dietary"
                   style="margin-right: 5px"
                 />
                 Vegetarian
-              </span>
-              <span>
+              </div>
+              <div>
                 <input
                   (click)="CheckIsOtherDieraty($event)"
-                  class="radioButton"
                   type="radio"
                   value="Others"
                   formControlName="dietary"
                   style="margin-right: 5px"
                 />
-                Others
-              </span>
-            </div>
-          </div>
-        </div>
-        <div class="row" style="padding-bottom: 10px">
-          <div class="col-12">
-            <div class="form-group">
-              <input
+                Others, please specify
+                <input
+                style="display: inline !important; width: 60%"
                 type="text"
-                formControlName="otherDieraty"
+                formControlName="otherFrom"
                 maxlength="100"
                 class="form-control"
                 placeholder="Others, please specify"
               />
-              <div
-                class="box arrow-top"
-                *ngIf="
-                  isSubmitted && addrsvp.controls.dietary.hasError('required')
-                "
-              >
-                Dietary is required.
-              </div>
-              <div
-                class="box arrow-top"
-                *ngIf="
-                  isSubmitted &&
-                  addrsvp.controls.otherDieraty.hasError('required')
-                "
-              >
-                Others Dietary is required.
-              </div>
-              <div
-                class="box arrow-top"
-                *ngIf="
-                  isSubmitted &&
-                  addrsvp.controls.otherDieraty.hasError(
-                    'letterAndNumberSpaceOnly'
-                  )
-                "
-              >
-                Please Key in alphanumeric only.
               </div>
             </div>
+            <div
+            class="box arrow-top"
+            *ngIf="
+              isSubmitted && addrsvp.controls.dietary.hasError('required')
+            "
+          >
+            Dietary is required.
+          </div>
+          <div
+            class="box arrow-top"
+            *ngIf="
+              isSubmitted &&
+              addrsvp.controls.otherDieraty.hasError('required')
+            "
+          >
+            Others Dietary is required.
+          </div>
+          <div
+            class="box arrow-top"
+            *ngIf="
+              isSubmitted &&
+              addrsvp.controls.otherDieraty.hasError(
+                'letterAndNumberSpaceOnly'
+              )
+            "
+          >
+            Please Key in alphanumeric only.
+          </div>
           </div>
         </div>
         <div class="row" style="padding-bottom: 10px; padding-left: 10px">
@@ -460,7 +718,6 @@
                   <tr style="padding-bottom: 15px">
                     <td style="vertical-align: top">
                       <input
-                        class="radioButton"
                         type="radio"
                         value="Fully Vaccinated"
                         formControlName="covidStatus"
@@ -477,7 +734,6 @@
                   <tr style="padding-bottom: 15px">
                     <td style="vertical-align: top">
                       <input
-                        class="radioButton"
                         type="radio"
                         value="Recovered From Covid"
                         formControlName="covidStatus"
@@ -496,7 +752,6 @@
                   <tr>
                     <td style="vertical-align: top">
                       <input
-                        class="radioButton"
                         type="radio"
                         value="Certified Medically"
                         formControlName="covidStatus"
@@ -511,7 +766,6 @@
                   <tr>
                     <td style="vertical-align: top">
                       <input
-                        class="radioButton"
                         type="radio"
                         value="Not Vaccinated"
                         formControlName="covidStatus"
@@ -542,7 +796,6 @@
             <div class="form-group mainTable">
               <span style="padding-right: 20px">
                 <input
-                  class="radioButton"
                   type="radio"
                   value="Yes"
                   formControlName="parking"
@@ -552,7 +805,6 @@
               </span>
               <span>
                 <input
-                  class="radioButton"
                   type="radio"
                   value="No"
                   formControlName="parking"
