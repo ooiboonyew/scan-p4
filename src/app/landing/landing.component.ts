@@ -29,7 +29,8 @@ export class LandingComponent implements OnInit {
   from: string = "";
   zone: string = "";
   cluster: string = "";
-
+  errorMessage: string = "";
+  
   constructor(
     private rsvpService: RSVPService,
     private router: Router,
