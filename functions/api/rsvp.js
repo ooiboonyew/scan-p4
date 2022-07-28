@@ -35,8 +35,20 @@ rsvpApp.use(addResponseHeader);
 
 rsvpApp.get("/", async (req, res, next) => {
   try {
+
+    //https://wtools.io/convert-list-to-json-array
+    var inputs = ["Bowen Sec ","CHIJ St Joseph's Convent ","Eunoia JC ","North Vista Pr","North Vista Sec ","Orchid Park Sec ","Palm View Pr ","Rivervale Pr ","Rosyth School ","Sembawang Sec ","Seng Kang Pr ","Seng Kang Sec ","Xinmin Pr ","Xinmin Sec "];
+    var cluster = 'N1';
+    var str = "";
+    
+    inputs.forEach(input => {
+      input = input.trim();
+      str += `<div *ngIf="cluster == '${cluster}'"><input type="radio" value="${input}" formControlName="school" style="margin-right: 5px"/> ${input}</div>`
+    });
+
+    console.log(str);
     // const result = await rsvpModel.getRSVP();
-    return res.status(200).json("Ok");
+    return res.status(200).json(str)
   } catch (error) {
     adeErrorHandler(error, req, res, next);
   }

@@ -369,6 +369,132 @@
               />
               CHIJ St Joseph's Convent
             </div>
+            <div *ngIf="cluster == 'N1'">
+              <input
+                type="radio"
+                value="Eunoia JC"
+                formControlName="school"
+                style="margin-right: 5px"
+              />
+              Eunoia JC
+            </div>
+            <div *ngIf="cluster == 'N1'">
+              <input
+                type="radio"
+                value="North Vista Pr"
+                formControlName="school"
+                style="margin-right: 5px"
+              />
+              North Vista Pr
+            </div>
+            <div *ngIf="cluster == 'N1'">
+              <input
+                type="radio"
+                value="North Vista Sec"
+                formControlName="school"
+                style="margin-right: 5px"
+              />
+              North Vista Sec
+            </div>
+            <div *ngIf="cluster == 'N1'">
+              <input
+                type="radio"
+                value="Orchid Park Sec"
+                formControlName="school"
+                style="margin-right: 5px"
+              />
+              Orchid Park Sec
+            </div>
+            <div *ngIf="cluster == 'N1'">
+              <input
+                type="radio"
+                value="Palm View Pr"
+                formControlName="school"
+                style="margin-right: 5px"
+              />
+              Palm View Pr
+            </div>
+            <div *ngIf="cluster == 'N1'">
+              <input
+                type="radio"
+                value="Rivervale Pr"
+                formControlName="school"
+                style="margin-right: 5px"
+              />
+              Rivervale Pr
+            </div>
+            <div *ngIf="cluster == 'N1'">
+              <input
+                type="radio"
+                value="Rosyth School"
+                formControlName="school"
+                style="margin-right: 5px"
+              />
+              Rosyth School
+            </div>
+            <div *ngIf="cluster == 'N1'">
+              <input
+                type="radio"
+                value="Sembawang Sec"
+                formControlName="school"
+                style="margin-right: 5px"
+              />
+              Sembawang Sec
+            </div>
+            <div *ngIf="cluster == 'N1'">
+              <input
+                type="radio"
+                value="Seng Kang Pr"
+                formControlName="school"
+                style="margin-right: 5px"
+              />
+              Seng Kang Pr
+            </div>
+            <div *ngIf="cluster == 'N1'">
+              <input
+                type="radio"
+                value="Seng Kang Sec"
+                formControlName="school"
+                style="margin-right: 5px"
+              />
+              Seng Kang Sec
+            </div>
+            <div *ngIf="cluster == 'N1'">
+              <input
+                type="radio"
+                value="Xinmin Pr"
+                formControlName="school"
+                style="margin-right: 5px"
+              />
+              Xinmin Pr
+            </div>
+            <div *ngIf="cluster == 'N1'">
+              <input
+                type="radio"
+                value="Xinmin Sec"
+                formControlName="school"
+                style="margin-right: 5px"
+              />
+              Xinmin Sec
+            </div>
+            <!-- <div *ngIf="cluster == 'N1'">
+              <input
+                type="radio"
+                value="Bowen Sec"
+                formControlName="school"
+                style="margin-right: 5px"
+              />
+              Bowen Sec
+            </div>
+            <div *ngIf="cluster == 'N1'">
+              <input
+                type="radio"
+                value="CHIJ St Joseph's Convent"
+                formControlName="school"
+                style="margin-right: 5px"
+              />
+              CHIJ St Joseph's Convent
+            </div> -->
             <div *ngIf="cluster == 'N2'">
               <input
                 type="radio"
@@ -657,43 +783,43 @@
                 />
                 Others, please specify
                 <input
-                style="display: inline !important; width: 60%"
-                type="text"
-                formControlName="otherFrom"
-                maxlength="100"
-                class="form-control"
-                placeholder="Others, please specify"
-              />
+                  style="display: inline !important; width: 60%"
+                  type="text"
+                  formControlName="otherFrom"
+                  maxlength="100"
+                  class="form-control"
+                  placeholder="Others, please specify"
+                />
               </div>
             </div>
             <div
-            class="box arrow-top"
-            *ngIf="
-              isSubmitted && addrsvp.controls.dietary.hasError('required')
-            "
-          >
-            Dietary is required.
-          </div>
-          <div
-            class="box arrow-top"
-            *ngIf="
-              isSubmitted &&
-              addrsvp.controls.otherDieraty.hasError('required')
-            "
-          >
-            Others Dietary is required.
-          </div>
-          <div
-            class="box arrow-top"
-            *ngIf="
-              isSubmitted &&
-              addrsvp.controls.otherDieraty.hasError(
-                'letterAndNumberSpaceOnly'
-              )
-            "
-          >
-            Please Key in alphanumeric only.
-          </div>
+              class="box arrow-top"
+              *ngIf="
+                isSubmitted && addrsvp.controls.dietary.hasError('required')
+              "
+            >
+              Dietary is required.
+            </div>
+            <div
+              class="box arrow-top"
+              *ngIf="
+                isSubmitted &&
+                addrsvp.controls.otherDieraty.hasError('required')
+              "
+            >
+              Others Dietary is required.
+            </div>
+            <div
+              class="box arrow-top"
+              *ngIf="
+                isSubmitted &&
+                addrsvp.controls.otherDieraty.hasError(
+                  'letterAndNumberSpaceOnly'
+                )
+              "
+            >
+              Please Key in alphanumeric only.
+            </div>
           </div>
         </div>
         <div class="row" style="padding-bottom: 10px; padding-left: 10px">
