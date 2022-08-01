@@ -77,6 +77,10 @@ export class LandingComponent implements OnInit {
       covidStatus: new FormControl({ value: "", disabled: false }, [
         // Validators.required,
       ]),
+      otherCovidStatus: new FormControl({ value: "", disabled: true }, [
+        Validators.maxLength(100),
+        CustomValidators.letterAndNumberSpaceOnly,
+      ]),
       parking: new FormControl({ value: "", disabled: false }, [
         // Validators.required,
       ]),
@@ -180,6 +184,23 @@ export class LandingComponent implements OnInit {
       this.addrsvp.controls.otherDieraty.enable();
     }
     // this.disableControl(e);
+  }
+
+  CheckisOtherCovidStatus(e){
+    if (e.target.value != "Others") {
+      this.addrsvp.controls.otherCovidStatus.disable();
+      this.addrsvp.controls.otherCovidStatus.setValue("");
+    } else {
+      this.addrsvp.controls.otherCovidStatus.setValidators([
+        Validators.required,
+        Validators.maxLength(100),
+        CustomValidators.letterAndNumberSpaceOnly,
+      ]);
+      this.addrsvp.controls.otherCovidStatus.enable();
+    }
+
+
+
   }
 
   onSubmit() {

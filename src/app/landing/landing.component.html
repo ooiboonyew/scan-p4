@@ -3,10 +3,16 @@
     <!-- <div class="" style="padding-bottom: 20px">
       <img
         width="100%"
-        src="../../assets/images/Citi_Wellness_Banner_600x200.jpg"
+        src="../../assets/images/Mail Banner.png"
       />
     </div> -->
     <div class="container">
+      <div class="row" style="padding-bottom: 20px">
+        <img
+          width="100%"
+          src="../../assets/images/Mail Banner.png"
+        />
+      </div>
       <div
         class="row"
         style="padding-bottom: 20px; padding-top: 20px; font-size: x-large"
@@ -834,12 +840,12 @@
           </div>
           <div class="col-12" style="padding-top: 5px">
             Vaccinated-differentiated SMMs are to be implemented for MOE’s
-            Schools WPS, and all attendees’ vaccination status will be verified
-            via TraceTogether Token or TraceTogether App. Please refer to
+            Schools WPS, and attendees’ vaccination status may be verified via
+            TraceTogether Token or TraceTogether App. Please refer to
             <a
-              href="https://www.moh.gov.sg/covid-19/vaccination/faqs---booster-doses"
+              href="https://www.moh.gov.sg/covid-19/vaccination"
               target="_blank"
-              >https://www.moh.gov.sg/covid-19/vaccination/faqs---booster-doses</a
+              >https://www.moh.gov.sg/covid-19/vaccination</a
             >
             for more details
           </div>
@@ -850,6 +856,7 @@
                   <tr style="padding-bottom: 15px">
                     <td style="vertical-align: top">
                       <input
+                        (click)="CheckisOtherCovidStatus($event)"
                         type="radio"
                         value="Fully Vaccinated"
                         formControlName="covidStatus"
@@ -857,54 +864,46 @@
                       />
                     </td>
                     <td style="padding-bottom: 5px">
-                      I am fully vaccinated (i.e. Completed the COVID-19 primary
-                      vaccination series and received the booster dose,
-                      recovered from COVID-19 in Singapore and have completed
-                      vaccination regime including boosters)
+                      Fully vaccinated (i.e. Completed the COVID-19 primary
+                      vaccination series and received the booster dose)
                     </td>
                   </tr>
                   <tr style="padding-bottom: 15px">
                     <td style="vertical-align: top">
                       <input
+                        (click)="CheckisOtherCovidStatus($event)"
                         type="radio"
-                        value="Recovered From Covid"
+                        value="Medically Vaccinations"
                         formControlName="covidStatus"
                         style="margin-right: 5px"
                       />
                     </td>
                     <td style="padding-bottom: 5px">
-                      I am unvaccinated/partially vaccinated AND have recovered
-                      from COVID-19 in Singapore within 180 days starting from
-                      the day of first local positive PCR test result / positive
-                      ART result obtained at approved test providers / positive
-                      serology test result attributable to infection and not
-                      past vaccination
+                      Medically ineligible for all vaccinations under the
+                      National Vaccination Programme
                     </td>
                   </tr>
                   <tr>
                     <td style="vertical-align: top">
                       <input
+                        (click)="CheckisOtherCovidStatus($event)"
                         type="radio"
-                        value="Certified Medically"
+                        value="Others"
                         formControlName="covidStatus"
                         style="margin-right: 5px"
                       />
                     </td>
-                    <td style="padding-bottom: 5px">
-                      I am certified to be medically ineligible for all
-                      vaccinations under the National Vaccination Programme
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style="vertical-align: top">
+                    <td>
+                      Others, please specify
                       <input
-                        type="radio"
-                        value="Not Vaccinated"
-                        formControlName="covidStatus"
-                        style="margin-right: 5px"
+                        style="display: inline !important; width: 60%"
+                        type="text"
+                        formControlName="otherCovidStatus"
+                        maxlength="100"
+                        class="form-control"
+                        placeholder="Others, please specify"
                       />
                     </td>
-                    <td>I am not vaccinated/partially vaccinated.</td>
                   </tr>
                 </table>
                 <div
