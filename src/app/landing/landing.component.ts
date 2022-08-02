@@ -30,7 +30,7 @@ export class LandingComponent implements OnInit {
   zone: string = "";
   cluster: string = "";
   errorMessage: string = "";
-  
+
   constructor(
     private rsvpService: RSVPService,
     private router: Router,
@@ -49,12 +49,16 @@ export class LandingComponent implements OnInit {
       from: new FormControl({ value: "", disabled: false }, [
         Validators.required,
       ]),
-      schoolDesignation: new FormControl({ value: "", disabled: false }, []),
+      designation: new FormControl({ value: "", disabled: false }, []),
+      organisation: new FormControl({ value: "", disabled: false }, []),
       zone: new FormControl({ value: "", disabled: false }, []),
       cluster: new FormControl({ value: "", disabled: false }, []),
       school: new FormControl({ value: "", disabled: false }, []),
       division: new FormControl({ value: "", disabled: false }, []),
-
+      otherDivision: new FormControl({ value: "", disabled: true }, [
+        Validators.maxLength(100),
+        CustomValidators.letterAndNumberSpaceOnly,
+      ]),
       otherFrom: new FormControl({ value: "", disabled: true }, [
         Validators.maxLength(100),
         CustomValidators.letterAndNumberSpaceOnly,
@@ -129,13 +133,11 @@ export class LandingComponent implements OnInit {
   changeFrom(e) {
     this.from = e.target.value;
     if (e.target.value == "Schools") {
-      this.addrsvp.controls.schoolDesignation.setValidators([
-        Validators.required,
-      ]);
+      this.addrsvp.controls.designation.setValidators([Validators.required]);
       this.addrsvp.controls.zone.setValidators([Validators.required]);
     } else {
-      this.addrsvp.controls.schoolDesignation.setValidators([]);
-      this.addrsvp.controls.schoolDesignation.setValue("");
+      this.addrsvp.controls.designation.setValidators([]);
+      this.addrsvp.controls.designation.setValue("");
       this.zone = "";
       this.addrsvp.controls.zone.setValidators([]);
       this.addrsvp.controls.zone.setValue("");
@@ -152,11 +154,72 @@ export class LandingComponent implements OnInit {
       this.addrsvp.controls.school.setValidators([]);
     }
 
-
     if (e.target.value == "HQ") {
       this.addrsvp.controls.division.setValidators([Validators.required]);
+      this.addrsvp.controls.designation.setValidators([
+        Validators.required,
+        Validators.maxLength(100),
+        CustomValidators.letterAndNumberSpaceOnly,
+      ]);
     } else {
       this.addrsvp.controls.division.setValidators([]);
+
+      if (e.target.value == "SPED") {
+        this.addrsvp.controls.designation.setValidators([]);
+      }
+    }
+
+    if (e.target.value == "Seconded") {
+      this.addrsvp.controls.organisation.setValidators([
+        Validators.required,
+        Validators.maxLength(100),
+        CustomValidators.letterAndNumberSpaceOnly,
+      ]);
+      this.addrsvp.controls.designation.setValidators([
+        Validators.required,
+        Validators.maxLength(100),
+        CustomValidators.letterAndNumberSpaceOnly,
+      ]);
+    } else {
+      this.addrsvp.controls.organisation.setValidators([]);
+      if (e.target.value == "SPED") {
+        this.addrsvp.controls.designation.setValidators([]);
+      }
+    }
+
+    if (e.target.value == "SEAB") {
+      this.addrsvp.controls.designation.setValidators([
+        Validators.required,
+        Validators.maxLength(100),
+        CustomValidators.letterAndNumberSpaceOnly,
+      ]);
+    } else {
+      if (e.target.value == "SPED") {
+        this.addrsvp.controls.designation.setValidators([]);
+      }
+    }
+
+    //*ngIf="from == 'HQ'|| from == 'Seconded' || from == 'SEAB' || from == 'Others'"
+
+    if (e.target.value != "Others") {
+      this.addrsvp.controls.otherFrom.disable();
+      this.addrsvp.controls.otherFrom.setValue("");
+
+      if (e.target.value == "SPED") {
+        this.addrsvp.controls.designation.setValidators([]);
+      }
+    } else {
+      this.addrsvp.controls.otherFrom.setValidators([
+        Validators.required,
+        Validators.maxLength(100),
+        CustomValidators.letterAndNumberSpaceOnly,
+      ]);
+      this.addrsvp.controls.otherFrom.enable();
+      this.addrsvp.controls.designation.setValidators([
+        Validators.required,
+        Validators.maxLength(100),
+        CustomValidators.letterAndNumberSpaceOnly,
+      ]);
     }
   }
 
@@ -186,7 +249,7 @@ export class LandingComponent implements OnInit {
     // this.disableControl(e);
   }
 
-  CheckisOtherCovidStatus(e){
+  CheckisOtherCovidStatus(e) {
     if (e.target.value != "Others") {
       this.addrsvp.controls.otherCovidStatus.disable();
       this.addrsvp.controls.otherCovidStatus.setValue("");
@@ -198,9 +261,20 @@ export class LandingComponent implements OnInit {
       ]);
       this.addrsvp.controls.otherCovidStatus.enable();
     }
+  }
 
-
-
+  CheckIsOtherDivision(e) {
+    if (e.target.value != "Others") {
+      this.addrsvp.controls.otherDivision.disable();
+      this.addrsvp.controls.otherDivision.setValue("");
+    } else {
+      this.addrsvp.controls.otherDivision.setValidators([
+        Validators.required,
+        Validators.maxLength(100),
+        CustomValidators.letterAndNumberSpaceOnly,
+      ]);
+      this.addrsvp.controls.otherDivision.enable();
+    }
   }
 
   onSubmit() {

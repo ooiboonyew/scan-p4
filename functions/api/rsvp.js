@@ -37,13 +37,16 @@ rsvpApp.get("/", async (req, res, next) => {
   try {
 
     //https://wtools.io/convert-list-to-json-array
-    var inputs = ["Bowen Sec ","CHIJ St Joseph's Convent ","Eunoia JC ","North Vista Pr","North Vista Sec ","Orchid Park Sec ","Palm View Pr ","Rivervale Pr ","Rosyth School ","Sembawang Sec ","Seng Kang Pr ","Seng Kang Sec ","Xinmin Pr ","Xinmin Sec "];
-    var cluster = 'N1';
+    //var inputs = 
+    var inputs = ["AST","CEG","CPDD1","CPDD2","CPO","ELIS","ETD","FPD","HSCD","HSLD","IAB","IFSD","ITD","LSB","PESTA","RMID","SD","SDCD1","SDCD2","SEND","SPSD","STAR","Others"]
+    var cluster = 'W7';
     var str = "";
     
+
     inputs.forEach(input => {
       input = input.trim();
-      str += `<div *ngIf="cluster == '${cluster}'"><input type="radio" value="${input}" formControlName="school" style="margin-right: 5px"/> ${input}</div>`
+      // str += `<div *ngIf="cluster == '${cluster}'"><input type="radio" value="${input}" formControlName="school" style="margin-right: 5px"/> ${input}</div>`
+      str += `<div><input type="radio" value="${input}" (click)="CheckIsOtherDivision($event)" formControlName="division" style="margin-right: 5px"/> ${input}</div>`
     });
 
     console.log(str);
