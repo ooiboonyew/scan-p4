@@ -26,9 +26,11 @@ import { PhotoVendorComponent } from './photo-vendor/photo-vendor.component';
 import { PhotoUBSComponent } from './photo-ubs/photo-ubs.component';
 
 const routes: Routes = [
-  { path: '', component: MainComponent },
+  { path: '', component: LandingComponent },
   // { path: 'login', component: GuestLoginComponent },
   { path: 'registration', component: LandingComponent },
+  { path: 'registered', component: RegisteredComponent },
+
   // { path: 'admin', component: LoginComponent },
   { path: 'admin/login', component: LoginComponent },
   // { path: 'admin/account', component: AccountComponent },

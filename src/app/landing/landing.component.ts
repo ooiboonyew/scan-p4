@@ -50,6 +50,10 @@ export class LandingComponent implements OnInit {
         Validators.required,
       ]),
       designation: new FormControl({ value: "", disabled: false }, []),
+      otherDesignation: new FormControl({ value: "", disabled: true }, [
+        Validators.maxLength(100),
+        CustomValidators.letterAndNumberSpaceOnly,
+      ]),
       organisation: new FormControl({ value: "", disabled: false }, []),
       zone: new FormControl({ value: "", disabled: false }, []),
       cluster: new FormControl({ value: "", disabled: false }, []),
@@ -92,8 +96,22 @@ export class LandingComponent implements OnInit {
   }
 
   changeRB(e) {
+    console.log(e.target.value);
     if (e.target.value == "Yes") {
       this.isAttending = true;
+      this.addrsvp.controls.dietary.setValue("");
+      this.addrsvp.controls.dataProdection.setValue("");
+      this.addrsvp.controls.parking.setValue("");
+      this.addrsvp.controls.covidStatus.setValue("");
+      this.addrsvp.controls.email.setValue("");
+      this.addrsvp.controls.mobile.setValue("");
+      this.addrsvp.controls.otherDieraty.setValue("");
+      this.addrsvp.controls.otherCovidStatus.setValue("");
+
+      this.addrsvp.controls.otherDieraty.setValidators([]);
+      this.addrsvp.controls.otherCovidStatus.setValidators([]);
+
+
       this.addrsvp.controls.dietary.setValidators([Validators.required]);
       this.addrsvp.controls.dataProdection.setValidators([Validators.required]);
       this.addrsvp.controls.covidStatus.setValidators([Validators.required]);
@@ -110,12 +128,24 @@ export class LandingComponent implements OnInit {
       ]);
     } else {
       this.isAttending = false;
+
+
+      this.addrsvp.controls.dietary.setValidators([]);
+      this.addrsvp.controls.dataProdection.setValidators([]);
+      this.addrsvp.controls.parking.setValidators([]);
+      this.addrsvp.controls.covidStatus.setValidators([]);
+      this.addrsvp.controls.email.setValidators([]);
+      this.addrsvp.controls.mobile.setValidators([]);
+      this.addrsvp.controls.otherDieraty.setValidators([]);
+      this.addrsvp.controls.otherCovidStatus.setValidators([]);
       this.addrsvp.controls.dietary.setValue("");
       this.addrsvp.controls.dataProdection.setValue("");
       this.addrsvp.controls.parking.setValue("");
       this.addrsvp.controls.covidStatus.setValue("");
       this.addrsvp.controls.email.setValue("");
       this.addrsvp.controls.mobile.setValue("");
+      this.addrsvp.controls.otherDieraty.setValue("");
+      this.addrsvp.controls.otherCovidStatus.setValue("");
     }
   }
 
@@ -133,11 +163,18 @@ export class LandingComponent implements OnInit {
   changeFrom(e) {
     this.from = e.target.value;
     if (e.target.value == "Schools") {
+      this.addrsvp.controls.designation.setValue("");
+      this.addrsvp.controls.zone.setValue("");
+      this.addrsvp.controls.cluster.setValue("");
+      this.addrsvp.controls.school.setValue("");
+
       this.addrsvp.controls.designation.setValidators([Validators.required]);
       this.addrsvp.controls.zone.setValidators([Validators.required]);
     } else {
-      this.addrsvp.controls.designation.setValidators([]);
-      this.addrsvp.controls.designation.setValue("");
+      if (e.target.value == "SPED") {
+        this.addrsvp.controls.designation.setValidators([]);
+        this.addrsvp.controls.designation.setValue("");
+      }
       this.zone = "";
       this.addrsvp.controls.zone.setValidators([]);
       this.addrsvp.controls.zone.setValue("");
@@ -149,12 +186,17 @@ export class LandingComponent implements OnInit {
     }
 
     if (e.target.value == "SPED") {
+      this.addrsvp.controls.school.setValue("");
       this.addrsvp.controls.school.setValidators([Validators.required]);
     } else {
       this.addrsvp.controls.school.setValidators([]);
     }
 
     if (e.target.value == "HQ") {
+      this.addrsvp.controls.division.enable();
+
+
+      this.addrsvp.controls.designation.setValue("");
       this.addrsvp.controls.division.setValidators([Validators.required]);
       this.addrsvp.controls.designation.setValidators([
         Validators.required,
@@ -162,14 +204,18 @@ export class LandingComponent implements OnInit {
         CustomValidators.letterAndNumberSpaceOnly,
       ]);
     } else {
+      this.addrsvp.controls.division.disable();
+      this.addrsvp.controls.division.setValue("");
       this.addrsvp.controls.division.setValidators([]);
+      this.addrsvp.controls.designation.setValue("");
 
       if (e.target.value == "SPED") {
         this.addrsvp.controls.designation.setValidators([]);
       }
     }
 
-    if (e.target.value == "Seconded") {
+    if (e.target.value == "Seconded" ) {
+      this.addrsvp.controls.organisation.enable();
       this.addrsvp.controls.organisation.setValidators([
         Validators.required,
         Validators.maxLength(100),
@@ -181,19 +227,26 @@ export class LandingComponent implements OnInit {
         CustomValidators.letterAndNumberSpaceOnly,
       ]);
     } else {
+      this.addrsvp.controls.organisation.disable();
+      this.addrsvp.controls.organisation.setValue("");
       this.addrsvp.controls.organisation.setValidators([]);
+      this.addrsvp.controls.designation.setValue("");
+
       if (e.target.value == "SPED") {
         this.addrsvp.controls.designation.setValidators([]);
       }
     }
 
-    if (e.target.value == "SEAB") {
+    if (e.target.value == "SEAB"|| e.target.value == "Teacher" || e.target.value == "NIE") {
+      this.addrsvp.controls.designation.setValue("");
       this.addrsvp.controls.designation.setValidators([
         Validators.required,
         Validators.maxLength(100),
         CustomValidators.letterAndNumberSpaceOnly,
       ]);
     } else {
+      this.addrsvp.controls.designation.setValue("");
+
       if (e.target.value == "SPED") {
         this.addrsvp.controls.designation.setValidators([]);
       }
@@ -209,6 +262,9 @@ export class LandingComponent implements OnInit {
         this.addrsvp.controls.designation.setValidators([]);
       }
     } else {
+      this.addrsvp.controls.otherFrom.setValue("");
+      this.addrsvp.controls.designation.setValue("");
+
       this.addrsvp.controls.otherFrom.setValidators([
         Validators.required,
         Validators.maxLength(100),
@@ -277,8 +333,24 @@ export class LandingComponent implements OnInit {
     }
   }
 
+  CheckIsOtherDesignation(e) {
+    if (e.target.value != "Others") {
+      this.addrsvp.controls.otherDesignation.disable();
+      this.addrsvp.controls.otherDesignation.setValue("");
+    } else {
+      this.addrsvp.controls.otherDesignation.setValidators([
+        Validators.required,
+        Validators.maxLength(100),
+        CustomValidators.letterAndNumberSpaceOnly,
+      ]);
+      this.addrsvp.controls.otherDesignation.enable();
+    }
+  }
+
   onSubmit() {
     this.isSubmitted = true;
+
+    console.log(this.addrsvp);
 
     if (this.addrsvp.invalid) {
       return;
@@ -291,8 +363,19 @@ export class LandingComponent implements OnInit {
     rsvp.dietary = this.addrsvp.controls.dietary.value;
     rsvp.otherDieraty = this.addrsvp.controls.otherDieraty.value;
     rsvp.covidStatus = this.addrsvp.controls.covidStatus.value;
+    rsvp.otherCovidStatus =  this.addrsvp.controls.otherCovidStatus.value;
     rsvp.dataProdection = this.addrsvp.controls.dataProdection.value;
     rsvp.parking = this.addrsvp.controls.parking.value;
+    rsvp.school = this.addrsvp.controls.school.value;
+    rsvp.division = this.addrsvp.controls.division.value;
+    rsvp.from = this.addrsvp.controls.from.value;
+    rsvp.designation = this.addrsvp.controls.designation.value;
+    rsvp.otherDesignation = this.addrsvp.controls.otherDesignation.value;
+    rsvp.organisation = this.addrsvp.controls.organisation.value;
+    rsvp.zone = this.addrsvp.controls.zone.value;
+    rsvp.cluster = this.addrsvp.controls.cluster.value;
+    rsvp.otherDivision = this.addrsvp.controls.otherDivision.value;
+    rsvp.otherFrom = this.addrsvp.controls.otherFrom.value;
 
     console.log(rsvp);
     this.appComponent.isLoading = true;

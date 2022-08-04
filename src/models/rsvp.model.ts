@@ -72,6 +72,16 @@ export class RSVP {
   id: string;
   num: number;
   name: string;
+  division: string;
+  from: string;
+  designation: string;
+  otherDesignation: string;
+  organisation: string;
+  zone: string;
+  school: string;
+  cluster: string;
+  otherDivision: string;
+  otherFrom: string;
   email: string;
   mobile: string;
   attending: string;
@@ -79,6 +89,7 @@ export class RSVP {
   otherDieraty: string;
   dataProdection: string;
   covidStatus: string;
+  otherCovidStatus: string;
   parking: string;
   createdDate: object;
   emailDate: object;

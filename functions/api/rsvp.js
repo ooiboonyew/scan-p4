@@ -38,15 +38,15 @@ rsvpApp.get("/", async (req, res, next) => {
 
     //https://wtools.io/convert-list-to-json-array
     //var inputs = 
-    var inputs = ["AST","CEG","CPDD1","CPDD2","CPO","ELIS","ETD","FPD","HSCD","HSLD","IAB","IFSD","ITD","LSB","PESTA","RMID","SD","SDCD1","SDCD2","SEND","SPSD","STAR","Others"]
-    var cluster = 'W7';
+    var inputs = ["Admiralty Sec ","Canberra Pr ","Christ Church Sec ","Fuchun Pr ","Fuchun Sec ","Huamin Pr","Innova Pri ","North View Pr","Northbrooks Sec ","Riverside Pr","Si Ling Pr ","Wellington Pr","Woodgrove Sec ","Woodlands Pr ","Woodlands Ring Sec ","Yishun Innova JC "]
+    var cluster = 'N7';
     var str = "";
     
 
     inputs.forEach(input => {
       input = input.trim();
-      // str += `<div *ngIf="cluster == '${cluster}'"><input type="radio" value="${input}" formControlName="school" style="margin-right: 5px"/> ${input}</div>`
-      str += `<div><input type="radio" value="${input}" (click)="CheckIsOtherDivision($event)" formControlName="division" style="margin-right: 5px"/> ${input}</div>`
+       str += `<div *ngIf="cluster == '${cluster}'"><input type="radio" value="${input}" formControlName="school" style="margin-right: 5px"/> ${input}</div>`
+      // str += `<div><input type="radio" value="${input}" (click)="CheckIsOtherDivision($event)" formControlName="division" style="margin-right: 5px"/> ${input}</div>`
     });
 
     console.log(str);
@@ -345,6 +345,8 @@ rsvpApp.post("/rsvp/add", async (req, res, next) => {
   try {
     const rsvp = req.body;
     rsvp.createdDate = new Date();
+
+ 
     rsvp.email = rsvp.email.toLowerCase();
 
     // var existingRSVP = await rsvpModel.checkRSVPEmail(rsvp.email);
@@ -359,10 +361,13 @@ rsvpApp.post("/rsvp/add", async (req, res, next) => {
 
     const resultId = await rsvpModel.add(rsvp);
     rsvp.id = resultId;
-    // var result = await EmailNotification.sendRsvpEmail(rsvp);
-    // rsvp.emailDate = new Date();
-    // var updatedRsvp = await rsvpModel.update(rsvp);
-
+    if(rsvp.attending && rsvp.email){
+      console.log("here 2");
+      var result = await EmailNotification.sendRsvpEmail(rsvp);
+      rsvp.emailDate = new Date();
+      var updatedRsvp = await rsvpModel.update(rsvp);  
+    }
+  
     return res.status(200).json(resultId);
   } catch (error) {
     adeErrorHandler(error, req, res, next);
