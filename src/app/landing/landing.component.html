@@ -4185,6 +4185,19 @@
             >
               Others Division is required.
             </div>
+            <div
+              class="box arrow-top"
+              *ngIf="
+                isSubmitted &&
+                addrsvp.controls.otherDivision.hasError(
+                  'letterAndNumberSpaceOnly'
+                )
+              "
+            >
+              Please Key in alphanumeric only.
+            </div>
+
+
           </div>
         </div>
       </div>
@@ -4684,6 +4697,26 @@
                 >
                   Vaccination status is required.
                 </div>
+                <div
+                class="box arrow-top"
+                *ngIf="
+                  isSubmitted &&
+                  addrsvp.controls.otherCovidStatus.hasError('required')
+                "
+              >
+                Other Vaccination status is required.
+              </div>
+              <div
+              class="box arrow-top"
+              *ngIf="
+                isSubmitted &&
+                addrsvp.controls.otherCovidStatus.hasError(
+                  'letterAndNumberSpaceOnly'
+                )
+              "
+            >
+              Please Key in alphanumeric only.
+            </div>
               </div>
             </div>
           </div>

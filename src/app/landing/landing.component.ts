@@ -360,6 +360,7 @@ export class LandingComponent implements OnInit {
     rsvp.name = this.addrsvp.controls.name.value;
     rsvp.attending = this.addrsvp.controls.attending.value;
     rsvp.email = this.addrsvp.controls.email.value;
+    rsvp.mobile = this.addrsvp.controls.mobile.value;
     rsvp.dietary = this.addrsvp.controls.dietary.value;
     rsvp.otherDieraty = this.addrsvp.controls.otherDieraty.value;
     rsvp.covidStatus = this.addrsvp.controls.covidStatus.value;

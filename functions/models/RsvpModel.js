@@ -50,6 +50,26 @@ class RsvpModel extends MainModel {
     }
   }
 
+  async checkRSVPMobile(mobile) {
+    try {
+      let rsvp, id;
+      await this.db
+        .collection(RSVP)
+        .where("mobile", "==", mobile)
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            rsvp = doc.data();
+            id = doc.id;
+          });
+        });
+
+      return { id, ...rsvp };
+    } catch (err) {
+      throw err;
+    }
+  }
+
   async add(product) {
     const result = await this.db
       .collection(RSVP)

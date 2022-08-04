@@ -35,34 +35,56 @@ rsvpApp.use(addResponseHeader);
 
 rsvpApp.get("/", async (req, res, next) => {
   try {
-
     //https://wtools.io/convert-list-to-json-array
-    //var inputs = 
+    //var inputs =
     //var inputs = ["Admiralty Sec ","Canberra Pr ","Christ Church Sec ","Fuchun Pr ","Fuchun Sec ","Huamin Pr","Innova Pri ","North View Pr","Northbrooks Sec ","Riverside Pr","Si Ling Pr ","Wellington Pr","Woodgrove Sec ","Woodlands Pr ","Woodlands Ring Sec ","Yishun Innova JC "]
-    var inputs = ["APSN Chaoyang School","APSN Delta Senior School","APSN Katong School","APSN Tanglin School","AWWA School @ Bedok","AWWA School @ Napiri","Canossian School","Cerebral Palsy Alliance Singapore School","Eden School 1","Eden School 2","Grace Orchard School","Lighthouse School","Metta School","MINDS Fernvale Gardens School","MINDS Lee Kong Chian Gardens School","MINDS Towner Gardens School","MINDS Woodlands Gardens School","Pathlight School","RC Admiral Hill School","RC Margaret Drive School","RC Yishun Park School","St Andrew's Autism School","St. Andrew's Mission School"]
-    var cluster = 'N7';
+    var inputs = [
+      "APSN Chaoyang School",
+      "APSN Delta Senior School",
+      "APSN Katong School",
+      "APSN Tanglin School",
+      "AWWA School @ Bedok",
+      "AWWA School @ Napiri",
+      "Canossian School",
+      "Cerebral Palsy Alliance Singapore School",
+      "Eden School 1",
+      "Eden School 2",
+      "Grace Orchard School",
+      "Lighthouse School",
+      "Metta School",
+      "MINDS Fernvale Gardens School",
+      "MINDS Lee Kong Chian Gardens School",
+      "MINDS Towner Gardens School",
+      "MINDS Woodlands Gardens School",
+      "Pathlight School",
+      "RC Admiral Hill School",
+      "RC Margaret Drive School",
+      "RC Yishun Park School",
+      "St Andrew's Autism School",
+      "St. Andrew's Mission School",
+    ];
+    var cluster = "N7";
     var str = "";
-    
 
-  //   <div>
-  //   <input
-  //     type="radio"
-  //     value="Bukit Batok Sec"
-  //     formControlName="school"
-  //     style="margin-right: 5px"
-  //   />
-  //   Bukit Batok Sec
-  // </div>
+    //   <div>
+    //   <input
+    //     type="radio"
+    //     value="Bukit Batok Sec"
+    //     formControlName="school"
+    //     style="margin-right: 5px"
+    //   />
+    //   Bukit Batok Sec
+    // </div>
 
-    inputs.forEach(input => {
+    inputs.forEach((input) => {
       input = input.trim();
       // str += `<div *ngIf="cluster == '${cluster}'"><input type="radio" value="${input}" formControlName="school" style="margin-right: 5px"/> ${input}</div>`
-       str += `<div><input type="radio" value="${input}" formControlName="school" style="margin-right: 5px"/> ${input}</div>`
+      str += `<div><input type="radio" value="${input}" formControlName="school" style="margin-right: 5px"/> ${input}</div>`;
     });
 
     console.log(str);
     // const result = await rsvpModel.getRSVP();
-    return res.status(200).json(str)
+    return res.status(200).json(str);
   } catch (error) {
     adeErrorHandler(error, req, res, next);
   }
@@ -356,29 +378,41 @@ rsvpApp.post("/rsvp/add", async (req, res, next) => {
   try {
     const rsvp = req.body;
     rsvp.createdDate = new Date();
-
- 
     rsvp.email = rsvp.email.toLowerCase();
 
-    // var existingRSVP = await rsvpModel.checkRSVPEmail(rsvp.email);
+    if (rsvp.attending && rsvp.email) {
+      var existingRSVP = await rsvpModel.checkRSVPEmail(rsvp.email);
 
-    // if (existingRSVP.id) {
-    //   return res
-    //     .status(405)
-    //     .json(
-    //       "Our record shows that you have already registered for this event."
-    //     );
-    // }
+      if (existingRSVP.id) {
+        return res
+          .status(405)
+          .json(
+            "Your email shows that you have already registered for this event."
+          );
+      }
+    }
+
+    if (rsvp.attending && rsvp.mobile) {
+      var existingRSVP = await rsvpModel.checkRSVPMobile(rsvp.mobile);
+
+      if (existingRSVP.id) {
+        return res
+          .status(405)
+          .json(
+            "Your Mobile Number shows that you have already registered for this event."
+          );
+      }
+    }
 
     const resultId = await rsvpModel.add(rsvp);
     rsvp.id = resultId;
-    if(rsvp.attending && rsvp.email){
+    if (rsvp.attending && rsvp.email) {
       console.log("here 2");
       var result = await EmailNotification.sendRsvpEmail(rsvp);
       rsvp.emailDate = new Date();
-      var updatedRsvp = await rsvpModel.update(rsvp);  
+      var updatedRsvp = await rsvpModel.update(rsvp);
     }
-  
+
     return res.status(200).json(resultId);
   } catch (error) {
     adeErrorHandler(error, req, res, next);

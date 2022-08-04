@@ -91,7 +91,7 @@ export class CustomValidators {
         }
         let regEx = new RegExp(/^[A-Za-z0-9 '/]+$/);
         if (!regEx.test(control.value)) {
-            return { letterAndNumberSpaceOnly: true }
+            return { letterAndNumberSpaceforNameOnly: true }
         }
     }
 
