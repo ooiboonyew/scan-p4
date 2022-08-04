@@ -44,14 +44,14 @@ export class LandingComponent implements OnInit {
       name: new FormControl({ value: "", disabled: false }, [
         Validators.required,
         Validators.maxLength(50),
-        CustomValidators.letterAndNumberSpaceOnly,
+        CustomValidators.letterAndNumberSpaceforNameOnly,
       ]),
       from: new FormControl({ value: "", disabled: false }, [
         Validators.required,
       ]),
       designation: new FormControl({ value: "", disabled: false }, []),
       otherDesignation: new FormControl({ value: "", disabled: true }, [
-        Validators.maxLength(100),
+        Validators.maxLength(50),
         CustomValidators.letterAndNumberSpaceOnly,
       ]),
       organisation: new FormControl({ value: "", disabled: false }, []),
@@ -60,11 +60,11 @@ export class LandingComponent implements OnInit {
       school: new FormControl({ value: "", disabled: false }, []),
       division: new FormControl({ value: "", disabled: false }, []),
       otherDivision: new FormControl({ value: "", disabled: true }, [
-        Validators.maxLength(100),
+        Validators.maxLength(50),
         CustomValidators.letterAndNumberSpaceOnly,
       ]),
       otherFrom: new FormControl({ value: "", disabled: true }, [
-        Validators.maxLength(100),
+        Validators.maxLength(50),
         CustomValidators.letterAndNumberSpaceOnly,
       ]),
       attending: new FormControl({ value: "", disabled: false }, [
@@ -76,7 +76,7 @@ export class LandingComponent implements OnInit {
         // Validators.required,
       ]),
       otherDieraty: new FormControl({ value: "", disabled: true }, [
-        Validators.maxLength(100),
+        Validators.maxLength(50),
         CustomValidators.letterAndNumberSpaceOnly,
       ]),
       dataProdection: new FormControl({ value: "", disabled: false }, [
@@ -86,7 +86,7 @@ export class LandingComponent implements OnInit {
         // Validators.required,
       ]),
       otherCovidStatus: new FormControl({ value: "", disabled: true }, [
-        Validators.maxLength(100),
+        Validators.maxLength(50),
         CustomValidators.letterAndNumberSpaceOnly,
       ]),
       parking: new FormControl({ value: "", disabled: false }, [
@@ -200,7 +200,7 @@ export class LandingComponent implements OnInit {
       this.addrsvp.controls.division.setValidators([Validators.required]);
       this.addrsvp.controls.designation.setValidators([
         Validators.required,
-        Validators.maxLength(100),
+        Validators.maxLength(50),
         CustomValidators.letterAndNumberSpaceOnly,
       ]);
     } else {
@@ -218,12 +218,12 @@ export class LandingComponent implements OnInit {
       this.addrsvp.controls.organisation.enable();
       this.addrsvp.controls.organisation.setValidators([
         Validators.required,
-        Validators.maxLength(100),
+        Validators.maxLength(50),
         CustomValidators.letterAndNumberSpaceOnly,
       ]);
       this.addrsvp.controls.designation.setValidators([
         Validators.required,
-        Validators.maxLength(100),
+        Validators.maxLength(50),
         CustomValidators.letterAndNumberSpaceOnly,
       ]);
     } else {
@@ -241,7 +241,7 @@ export class LandingComponent implements OnInit {
       this.addrsvp.controls.designation.setValue("");
       this.addrsvp.controls.designation.setValidators([
         Validators.required,
-        Validators.maxLength(100),
+        Validators.maxLength(50),
         CustomValidators.letterAndNumberSpaceOnly,
       ]);
     } else {
@@ -267,13 +267,13 @@ export class LandingComponent implements OnInit {
 
       this.addrsvp.controls.otherFrom.setValidators([
         Validators.required,
-        Validators.maxLength(100),
+        Validators.maxLength(50),
         CustomValidators.letterAndNumberSpaceOnly,
       ]);
       this.addrsvp.controls.otherFrom.enable();
       this.addrsvp.controls.designation.setValidators([
         Validators.required,
-        Validators.maxLength(100),
+        Validators.maxLength(50),
         CustomValidators.letterAndNumberSpaceOnly,
       ]);
     }
@@ -297,7 +297,7 @@ export class LandingComponent implements OnInit {
     } else {
       this.addrsvp.controls.otherDieraty.setValidators([
         Validators.required,
-        Validators.maxLength(100),
+        Validators.maxLength(50),
         CustomValidators.letterAndNumberSpaceOnly,
       ]);
       this.addrsvp.controls.otherDieraty.enable();
@@ -312,7 +312,7 @@ export class LandingComponent implements OnInit {
     } else {
       this.addrsvp.controls.otherCovidStatus.setValidators([
         Validators.required,
-        Validators.maxLength(100),
+        Validators.maxLength(50),
         CustomValidators.letterAndNumberSpaceOnly,
       ]);
       this.addrsvp.controls.otherCovidStatus.enable();
@@ -326,7 +326,7 @@ export class LandingComponent implements OnInit {
     } else {
       this.addrsvp.controls.otherDivision.setValidators([
         Validators.required,
-        Validators.maxLength(100),
+        Validators.maxLength(50),
         CustomValidators.letterAndNumberSpaceOnly,
       ]);
       this.addrsvp.controls.otherDivision.enable();
@@ -340,7 +340,7 @@ export class LandingComponent implements OnInit {
     } else {
       this.addrsvp.controls.otherDesignation.setValidators([
         Validators.required,
-        Validators.maxLength(100),
+        Validators.maxLength(50),
         CustomValidators.letterAndNumberSpaceOnly,
       ]);
       this.addrsvp.controls.otherDesignation.enable();

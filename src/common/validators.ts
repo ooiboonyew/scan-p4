@@ -85,6 +85,16 @@ export class CustomValidators {
         }
     }
 
+    static letterAndNumberSpaceforNameOnly(control: AbstractControl): { [key: string]: boolean } {
+        if (!control.value || control.value === '') {
+            return;
+        }
+        let regEx = new RegExp(/^[A-Za-z0-9 '/]+$/);
+        if (!regEx.test(control.value)) {
+            return { letterAndNumberSpaceOnly: true }
+        }
+    }
+
     static url(control: AbstractControl): { [key: string]: boolean } {
         if (!control.value || control.value === '') {
             return;

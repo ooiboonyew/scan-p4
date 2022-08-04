@@ -18,12 +18,14 @@
           <b>Invitation to MOE’s Schools Work Plan Seminar 2022</b>
         </div>
       </div>
-      <div class="row" style="padding-bottom: 40px;">
+      <div class="row" style="padding-bottom: 40px">
         <div class="col-12">
-          Dear colleagues, We are pleased to invite you to MOE’s Schools Work
-          Plan Seminar 2022 on 14 Sep (Wed) at Singapore EXPO. Please confirm
-          your availability by filling in the form below. Should you have
-          further queries, please contact us at <a href="mailto:MOE_WPS@moe.gov.sg"> MOE_WPS@moe.gov.sg</a>.
+          Dear colleagues,<br />
+          We are pleased to invite you to MOE’s Schools Work Plan Seminar 2022
+          on 14 Sep (Wed) at Singapore EXPO.<br />
+          Please confirm your availability by filling in the form below.<br />
+          Should you have further queries, please contact us at
+          <a href="mailto:MOE_WPS@moe.gov.sg"> MOE_WPS@moe.gov.sg</a>.
         </div>
       </div>
 
@@ -33,7 +35,7 @@
             <input
               type="text"
               formControlName="name"
-              maxlength="100"
+              maxlength="50"
               class="form-control"
               placeholder="Name*"
             />
@@ -47,7 +49,7 @@
               class="box arrow-top"
               *ngIf="
                 isSubmitted &&
-                addrsvp.controls.name.hasError('letterAndNumberSpaceOnly')
+                addrsvp.controls.name.hasError('letterAndNumberSpaceforNameOnly')
               "
             >
               Please Key in alphanumeric only.
@@ -145,7 +147,7 @@
                 style="display: inline !important; width: 60%"
                 type="text"
                 formControlName="otherFrom"
-                maxlength="100"
+                maxlength="50"
                 class="form-control"
                 placeholder="Others, please specify"
               />
@@ -2169,114 +2171,6 @@
               />
               Whitley Sec
             </div>
-            <div *ngIf="cluster == 'S7'">
-              <input
-                type="radio"
-                value="Ai Tong School"
-                formControlName="school"
-                style="margin-right: 5px"
-              />
-              Ai Tong School
-            </div>
-            <div *ngIf="cluster == 'S7'">
-              <input
-                type="radio"
-                value="Deyi Sec"
-                formControlName="school"
-                style="margin-right: 5px"
-              />
-              Deyi Sec
-            </div>
-            <div *ngIf="cluster == 'S7'">
-              <input
-                type="radio"
-                value="Guangyang Pr"
-                formControlName="school"
-                style="margin-right: 5px"
-              />
-              Guangyang Pr
-            </div>
-            <div *ngIf="cluster == 'S7'">
-              <input
-                type="radio"
-                value="Guangyang Sec"
-                formControlName="school"
-                style="margin-right: 5px"
-              />
-              Guangyang Sec
-            </div>
-            <div *ngIf="cluster == 'S7'">
-              <input
-                type="radio"
-                value="Kuo Chuan Presbyterian Pr"
-                formControlName="school"
-                style="margin-right: 5px"
-              />
-              Kuo Chuan Presbyterian Pr
-            </div>
-            <div *ngIf="cluster == 'S7'">
-              <input
-                type="radio"
-                value="Kuo Chuan Presbyterian Sec"
-                formControlName="school"
-                style="margin-right: 5px"
-              />
-              Kuo Chuan Presbyterian Sec
-            </div>
-            <div *ngIf="cluster == 'S7'">
-              <input
-                type="radio"
-                value="Peirce Sec"
-                formControlName="school"
-                style="margin-right: 5px"
-              />
-              Peirce Sec
-            </div>
-            <div *ngIf="cluster == 'S7'">
-              <input
-                type="radio"
-                value="Raffles Girls’ School"
-                formControlName="school"
-                style="margin-right: 5px"
-              />
-              Raffles Girls’ School
-            </div>
-            <div *ngIf="cluster == 'S7'">
-              <input
-                type="radio"
-                value="Raffles Institution"
-                formControlName="school"
-                style="margin-right: 5px"
-              />
-              Raffles Institution
-            </div>
-            <div *ngIf="cluster == 'S7'">
-              <input
-                type="radio"
-                value="Teck Ghee Pr"
-                formControlName="school"
-                style="margin-right: 5px"
-              />
-              Teck Ghee Pr
-            </div>
-            <div *ngIf="cluster == 'S7'">
-              <input
-                type="radio"
-                value="Townsville Pr"
-                formControlName="school"
-                style="margin-right: 5px"
-              />
-              Townsville Pr
-            </div>
-            <div *ngIf="cluster == 'S7'">
-              <input
-                type="radio"
-                value="Whitley Sec"
-                formControlName="school"
-                style="margin-right: 5px"
-              />
-              Whitley Sec
-            </div>
             <div *ngIf="cluster == 'E1'">
               <input
                 type="radio"
@@ -3812,110 +3706,209 @@
             <div>
               <input
                 type="radio"
-                value="Bukit Batok Sec"
+                value="APSN Chaoyang School"
                 formControlName="school"
                 style="margin-right: 5px"
               />
-              Bukit Batok Sec
+              APSN Chaoyang School
             </div>
             <div>
               <input
                 type="radio"
-                value="Bukit Timah Pr"
+                value="APSN Delta Senior School"
                 formControlName="school"
                 style="margin-right: 5px"
               />
-              Bukit Timah Pr
+              APSN Delta Senior School
             </div>
             <div>
               <input
                 type="radio"
-                value="Commonwealth Sec"
+                value="APSN Katong School"
                 formControlName="school"
                 style="margin-right: 5px"
               />
-              Commonwealth Sec
+              APSN Katong School
             </div>
             <div>
               <input
                 type="radio"
-                value="Fuhua Pr"
+                value="APSN Tanglin School"
                 formControlName="school"
                 style="margin-right: 5px"
               />
-              Fuhua Pr
+              APSN Tanglin School
             </div>
             <div>
               <input
                 type="radio"
-                value="Fuhua Sec"
+                value="AWWA School @ Bedok"
                 formControlName="school"
                 style="margin-right: 5px"
               />
-              Fuhua Sec
+              AWWA School @ Bedok
             </div>
             <div>
               <input
                 type="radio"
-                value="Lakeside Pr"
+                value="AWWA School @ Napiri"
                 formControlName="school"
                 style="margin-right: 5px"
               />
-              Lakeside Pr
+              AWWA School @ Napiri
             </div>
             <div>
               <input
                 type="radio"
-                value="Millennia Institute"
+                value="Canossian School"
                 formControlName="school"
                 style="margin-right: 5px"
               />
-              Millennia Institute
+              Canossian School
             </div>
             <div>
               <input
                 type="radio"
-                value="Princess Elizabeth Pr"
+                value="Cerebral Palsy Alliance Singapore School"
                 formControlName="school"
                 style="margin-right: 5px"
               />
-              Princess Elizabeth Pr
+              Cerebral Palsy Alliance Singapore School
             </div>
             <div>
               <input
                 type="radio"
-                value="River Valley High School"
+                value="Eden School 1"
                 formControlName="school"
                 style="margin-right: 5px"
               />
-              River Valley High School
+              Eden School 1
             </div>
             <div>
               <input
                 type="radio"
-                value="Rulang Pr"
+                value="Eden School 2"
                 formControlName="school"
                 style="margin-right: 5px"
               />
-              Rulang Pr
+              Eden School 2
             </div>
             <div>
               <input
                 type="radio"
-                value="Shuqun Pr"
+                value="Grace Orchard School"
                 formControlName="school"
                 style="margin-right: 5px"
               />
-              Shuqun Pr
+              Grace Orchard School
             </div>
             <div>
               <input
                 type="radio"
-                value="Yuhua Sec"
+                value="Lighthouse School"
                 formControlName="school"
                 style="margin-right: 5px"
               />
-              Yuhua Sec
+              Lighthouse School
+            </div>
+            <div>
+              <input
+                type="radio"
+                value="Metta School"
+                formControlName="school"
+                style="margin-right: 5px"
+              />
+              Metta School
+            </div>
+            <div>
+              <input
+                type="radio"
+                value="MINDS Fernvale Gardens School"
+                formControlName="school"
+                style="margin-right: 5px"
+              />
+              MINDS Fernvale Gardens School
+            </div>
+            <div>
+              <input
+                type="radio"
+                value="MINDS Lee Kong Chian Gardens School"
+                formControlName="school"
+                style="margin-right: 5px"
+              />
+              MINDS Lee Kong Chian Gardens School
+            </div>
+            <div>
+              <input
+                type="radio"
+                value="MINDS Towner Gardens School"
+                formControlName="school"
+                style="margin-right: 5px"
+              />
+              MINDS Towner Gardens School
+            </div>
+            <div>
+              <input
+                type="radio"
+                value="MINDS Woodlands Gardens School"
+                formControlName="school"
+                style="margin-right: 5px"
+              />
+              MINDS Woodlands Gardens School
+            </div>
+            <div>
+              <input
+                type="radio"
+                value="Pathlight School"
+                formControlName="school"
+                style="margin-right: 5px"
+              />
+              Pathlight School
+            </div>
+            <div>
+              <input
+                type="radio"
+                value="RC Admiral Hill School"
+                formControlName="school"
+                style="margin-right: 5px"
+              />
+              RC Admiral Hill School
+            </div>
+            <div>
+              <input
+                type="radio"
+                value="RC Margaret Drive School"
+                formControlName="school"
+                style="margin-right: 5px"
+              />
+              RC Margaret Drive School
+            </div>
+            <div>
+              <input
+                type="radio"
+                value="RC Yishun Park School"
+                formControlName="school"
+                style="margin-right: 5px"
+              />
+              RC Yishun Park School
+            </div>
+            <div>
+              <input
+                type="radio"
+                value="St Andrew's Autism School"
+                formControlName="school"
+                style="margin-right: 5px"
+              />
+              St Andrew's Autism School
+            </div>
+            <div>
+              <input
+                type="radio"
+                value="St. Andrew's Mission School"
+                formControlName="school"
+                style="margin-right: 5px"
+              />
+              St. Andrew's Mission School
             </div>
           </div>
           <div
@@ -4170,7 +4163,7 @@
                 style="display: inline !important; width: 60%"
                 type="text"
                 formControlName="otherDivision"
-                maxlength="100"
+                maxlength="50"
                 class="form-control"
                 placeholder="Others, please specify"
               />
@@ -4205,7 +4198,7 @@
             <input
               type="text"
               formControlName="organisation"
-              maxlength="100"
+              maxlength="50"
               class="form-control"
               placeholder="Organisation*"
             />
@@ -4247,7 +4240,7 @@
             <input
               type="text"
               formControlName="designation"
-              maxlength="100"
+              maxlength="50"
               class="form-control"
               placeholder="Designation* (Please indicate your designation in full, without the acronyms.)"
             />
@@ -4316,7 +4309,7 @@
                 style="display: inline !important; width: 60%"
                 type="text"
                 formControlName="otherDesignation"
-                maxlength="100"
+                maxlength="50"
                 class="form-control"
                 placeholder="Others, please specify"
               />
@@ -4436,7 +4429,7 @@
               <input
                 type="text"
                 formControlName="email"
-                maxlength="100"
+                maxlength="50"
                 class="form-control"
                 placeholder="Email*"
               />
@@ -4574,7 +4567,7 @@
                   style="display: inline !important; width: 60%"
                   type="text"
                   formControlName="otherDieraty"
-                  maxlength="100"
+                  maxlength="50"
                   class="form-control"
                   placeholder="Others, please specify"
                 />
@@ -4617,7 +4610,7 @@
           <div class="col-12" style="padding-top: 5px">
             Vaccinated-differentiated SMMs are to be implemented for MOE’s
             Schools WPS, and attendees’ vaccination status may be verified via
-            TraceTogether Token or TraceTogether App. Please refer to
+            TraceTogether Token or TraceTogether App. <br /> Please refer to
             <a
               href="https://www.moh.gov.sg/covid-19/vaccination"
               target="_blank"
@@ -4675,7 +4668,7 @@
                         style="display: inline !important; width: 60%"
                         type="text"
                         formControlName="otherCovidStatus"
-                        maxlength="100"
+                        maxlength="50"
                         class="form-control"
                         placeholder="Others, please specify"
                       />

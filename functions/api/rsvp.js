@@ -38,15 +38,26 @@ rsvpApp.get("/", async (req, res, next) => {
 
     //https://wtools.io/convert-list-to-json-array
     //var inputs = 
-    var inputs = ["Admiralty Sec ","Canberra Pr ","Christ Church Sec ","Fuchun Pr ","Fuchun Sec ","Huamin Pr","Innova Pri ","North View Pr","Northbrooks Sec ","Riverside Pr","Si Ling Pr ","Wellington Pr","Woodgrove Sec ","Woodlands Pr ","Woodlands Ring Sec ","Yishun Innova JC "]
+    //var inputs = ["Admiralty Sec ","Canberra Pr ","Christ Church Sec ","Fuchun Pr ","Fuchun Sec ","Huamin Pr","Innova Pri ","North View Pr","Northbrooks Sec ","Riverside Pr","Si Ling Pr ","Wellington Pr","Woodgrove Sec ","Woodlands Pr ","Woodlands Ring Sec ","Yishun Innova JC "]
+    var inputs = ["APSN Chaoyang School","APSN Delta Senior School","APSN Katong School","APSN Tanglin School","AWWA School @ Bedok","AWWA School @ Napiri","Canossian School","Cerebral Palsy Alliance Singapore School","Eden School 1","Eden School 2","Grace Orchard School","Lighthouse School","Metta School","MINDS Fernvale Gardens School","MINDS Lee Kong Chian Gardens School","MINDS Towner Gardens School","MINDS Woodlands Gardens School","Pathlight School","RC Admiral Hill School","RC Margaret Drive School","RC Yishun Park School","St Andrew's Autism School","St. Andrew's Mission School"]
     var cluster = 'N7';
     var str = "";
     
 
+  //   <div>
+  //   <input
+  //     type="radio"
+  //     value="Bukit Batok Sec"
+  //     formControlName="school"
+  //     style="margin-right: 5px"
+  //   />
+  //   Bukit Batok Sec
+  // </div>
+
     inputs.forEach(input => {
       input = input.trim();
-       str += `<div *ngIf="cluster == '${cluster}'"><input type="radio" value="${input}" formControlName="school" style="margin-right: 5px"/> ${input}</div>`
-      // str += `<div><input type="radio" value="${input}" (click)="CheckIsOtherDivision($event)" formControlName="division" style="margin-right: 5px"/> ${input}</div>`
+      // str += `<div *ngIf="cluster == '${cluster}'"><input type="radio" value="${input}" formControlName="school" style="margin-right: 5px"/> ${input}</div>`
+       str += `<div><input type="radio" value="${input}" formControlName="school" style="margin-right: 5px"/> ${input}</div>`
     });
 
     console.log(str);
