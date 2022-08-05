@@ -49,7 +49,9 @@
               class="box arrow-top"
               *ngIf="
                 isSubmitted &&
-                addrsvp.controls.name.hasError('letterAndNumberSpaceforNameOnly')
+                addrsvp.controls.name.hasError(
+                  'letterAndNumberSpaceforNameOnly'
+                )
               "
             >
               Please Key in alphanumeric only.
@@ -190,6 +192,7 @@
           <div class="form-group mainTable">
             <div>
               <input
+                (click)="CheckIsOtherDesignation($event)"
                 type="radio"
                 value="Principal"
                 formControlName="designation"
@@ -199,6 +202,7 @@
             </div>
             <div>
               <input
+                (click)="CheckIsOtherDesignation($event)"
                 type="radio"
                 value="Academic"
                 formControlName="designation"
@@ -208,12 +212,31 @@
             </div>
             <div>
               <input
+                (click)="CheckIsOtherDesignation($event)"
                 type="radio"
                 value="Admin"
                 formControlName="designation"
                 style="margin-right: 5px"
               />
               Vice Principal (Admin)
+            </div>
+            <div>
+              <input
+                (click)="CheckIsOtherDesignation($event)"
+                type="radio"
+                value="Others"
+                formControlName="designation"
+                style="margin-right: 5px"
+              />
+              Others, please specify
+              <input
+                style="display: inline !important; width: 60%"
+                type="text"
+                formControlName="otherDesignation"
+                maxlength="50"
+                class="form-control"
+                placeholder="Others, please specify"
+              />
             </div>
           </div>
           <div
@@ -224,6 +247,26 @@
           >
             Designation is required.
           </div>
+          <div
+          class="box arrow-top"
+          *ngIf="
+            isSubmitted &&
+            addrsvp.controls.otherDesignation.hasError('required')
+          "
+        >
+          Others Designation is required.
+        </div>
+        <div
+          class="box arrow-top"
+          *ngIf="
+            isSubmitted &&
+            addrsvp.controls.otherDesignation.hasError(
+              'letterAndNumberSpaceOnly'
+            )
+          "
+        >
+          Please Key in alphanumeric only.
+        </div>
         </div>
       </div>
       <div
@@ -4196,8 +4239,6 @@
             >
               Please Key in alphanumeric only.
             </div>
-
-
           </div>
         </div>
       </div>
@@ -4255,7 +4296,7 @@
               formControlName="designation"
               maxlength="50"
               class="form-control"
-              placeholder="Designation* (Please indicate your designation in full, without the acronyms.)"
+              placeholder="Designation* (in full, without acronyms.)"
             />
             <div
               class="box arrow-top"
@@ -4623,7 +4664,8 @@
           <div class="col-12" style="padding-top: 5px">
             Vaccinated-differentiated SMMs are to be implemented for MOE’s
             Schools WPS, and attendees’ vaccination status may be verified via
-            TraceTogether Token or TraceTogether App. <br /> Please refer to
+            TraceTogether Token or TraceTogether App. <br />
+            Please refer to
             <a
               href="https://www.moh.gov.sg/covid-19/vaccination"
               target="_blank"
@@ -4698,25 +4740,25 @@
                   Vaccination status is required.
                 </div>
                 <div
-                class="box arrow-top"
-                *ngIf="
-                  isSubmitted &&
-                  addrsvp.controls.otherCovidStatus.hasError('required')
-                "
-              >
-                Other Vaccination status is required.
-              </div>
-              <div
-              class="box arrow-top"
-              *ngIf="
-                isSubmitted &&
-                addrsvp.controls.otherCovidStatus.hasError(
-                  'letterAndNumberSpaceOnly'
-                )
-              "
-            >
-              Please Key in alphanumeric only.
-            </div>
+                  class="box arrow-top"
+                  *ngIf="
+                    isSubmitted &&
+                    addrsvp.controls.otherCovidStatus.hasError('required')
+                  "
+                >
+                  Other Vaccination status is required.
+                </div>
+                <div
+                  class="box arrow-top"
+                  *ngIf="
+                    isSubmitted &&
+                    addrsvp.controls.otherCovidStatus.hasError(
+                      'letterAndNumberSpaceOnly'
+                    )
+                  "
+                >
+                  Please Key in alphanumeric only.
+                </div>
               </div>
             </div>
           </div>

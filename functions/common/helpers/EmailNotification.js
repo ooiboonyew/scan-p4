@@ -22,7 +22,7 @@ async function sendRsvpEmail(rsvp) {
   const to = rsvp.email;
 
   var subject =
-    "Confirmation of RSVP to MOE’s Schools Work Plan Seminar (WPS) 2022";
+    "[Draft] Confirmation of RSVP to MOE’s Schools Work Plan Seminar (WPS) 2022";
 
   var message = `
   <html>
