@@ -36,7 +36,7 @@ p {font-family: Arial; font-size:12px;line-height: 1.6}
 </head>
 <body>
 <div class="main">
-<img class="banner" src="https://moe-wps.web.app/assets/images/Mail%20Banner.png" >
+<img class="banner" src="https://moe-wps.web.app/assets/images/Mail%20Banner.jpg" >
 <p>Dear Colleagues,</p><br />
 <p>Thank you for your RSVP to MOE’s Schools Work Plan Seminar (WPS) 2022.</p>
 <p>More event details with allocated zone and table no. will be sent to you via SMS nearer to the event date.</p>

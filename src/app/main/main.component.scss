@@ -1,16 +1,10 @@
 
 .mainbackground3 {
   width: 100%;
-  // border: 1px solid #e60100;
-  // padding-top: 80px;
-  // padding-bottom: 30px;
-  content: url("../../assets/images/PC\ Webpage.png");
+  content: url("../../assets/images/Banner\ Header_Desktop\ \(002\).jpg");
 
   @media (max-width: 575px) {
-    content: url("../../assets/images/MOBILE.png");
-    // content: url("../../assets/images/landing/mobile/mobile_full_414.png");
-    // background-image: url("../../assets/images/landing/mobile/mobile_full_414.png");
-
+    content: url("../../assets/images/Banner\ Header_Mobile.jpg");
   }
 }
 
