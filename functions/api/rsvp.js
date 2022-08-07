@@ -35,6 +35,9 @@ rsvpApp.use(addResponseHeader);
 
 rsvpApp.get("/", async (req, res, next) => {
   try {
+    // var rsvp = await rsvpModel.getRSVPById("yFyq4jj5fkAHioLEMnFR")
+    // var result = await EmailNotification.sendRsvpEmail(rsvp);
+
     //https://wtools.io/convert-list-to-json-array
     //var inputs =
     //var inputs = ["Admiralty Sec ","Canberra Pr ","Christ Church Sec ","Fuchun Pr ","Fuchun Sec ","Huamin Pr","Innova Pri ","North View Pr","Northbrooks Sec ","Riverside Pr","Si Ling Pr ","Wellington Pr","Woodgrove Sec ","Woodlands Pr ","Woodlands Ring Sec ","Yishun Innova JC "]
