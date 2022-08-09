@@ -26,8 +26,8 @@
           We are pleased to invite you to MOE’s Schools Work Plan Seminar 2022
           on 14 Sep (Wed) at Singapore EXPO.<br />
           Please confirm your availability by filling in the form below.<br />
-          Should you have further queries, please contact us at
-          <a href="mailto:MOE_WPS@moe.gov.sg"> MOE_WPS@moe.gov.sg</a>.
+          <!-- Should you have further queries, please contact us at
+          <a href="mailto:MOE_WPS@moe.gov.sg"> MOE_WPS@moe.gov.sg</a>. -->
         </div>
       </div>
 
@@ -39,13 +39,13 @@
               formControlName="name"
               maxlength="50"
               class="form-control"
-              placeholder="Name*"
+              placeholder="Full Name*"
             />
             <div
               class="box arrow-top"
               *ngIf="isSubmitted && addrsvp.controls.name.hasError('required')"
             >
-              Name is required.
+              Full Name is required.
             </div>
             <div
               class="box arrow-top"
@@ -98,7 +98,7 @@
               HQ (e.g. independent branches, LEP, Specialist, Master Teacher,
               Advisors)
             </div>
-            <div>
+            <!-- <div>
               <input
                 (change)="changeFrom($event)"
                 type="radio"
@@ -107,7 +107,7 @@
                 style="margin-right: 5px"
               />
               Seconded staff to external organisations
-            </div>
+            </div> -->
             <div>
               <input
                 (change)="changeFrom($event)"
@@ -146,14 +146,14 @@
                 formControlName="from"
                 style="margin-right: 5px"
               />
-              Others, please specify
+              Others, please specify (Organisation)
               <input
-                style="display: inline !important; width: 60%"
+                style="display: inline !important; width: 70%"
                 type="text"
                 formControlName="otherFrom"
                 maxlength="50"
                 class="form-control"
-                placeholder="Others, please specify"
+                placeholder="Others"
               />
             </div>
           </div>
@@ -232,12 +232,12 @@
               />
               Others, please specify
               <input
-                style="display: inline !important; width: 60%"
+                style="display: inline !important; width: 70%"
                 type="text"
                 formControlName="otherDesignation"
                 maxlength="50"
                 class="form-control"
-                placeholder="Others, please specify"
+                placeholder="Others"
               />
             </div>
           </div>
@@ -1355,11 +1355,11 @@
             <div *ngIf="cluster == 'N7'">
               <input
                 type="radio"
-                value="Innova Pri"
+                value="Innova Pr"
                 formControlName="school"
                 style="margin-right: 5px"
               />
-              Innova Pri
+              Innova Pr
             </div>
             <div *ngIf="cluster == 'N7'">
               <input
@@ -3506,11 +3506,11 @@
             <div *ngIf="cluster == 'W6'">
               <input
                 type="radio"
-                value="Assumption Eng Sec"
+                value="Assumption English School"
                 formControlName="school"
                 style="margin-right: 5px"
               />
-              Assumption Eng Sec
+              Assumption English School
             </div>
             <div *ngIf="cluster == 'W6'">
               <input
@@ -4205,12 +4205,12 @@
               />
               Others
               <input
-                style="display: inline !important; width: 60%"
+                style="display: inline !important; width: 70%"
                 type="text"
                 formControlName="otherDivision"
                 maxlength="50"
                 class="form-control"
-                placeholder="Others, please specify"
+                placeholder="Others"
               />
             </div>
             <div
@@ -4362,12 +4362,12 @@
               />
               Others, please specify
               <input
-                style="display: inline !important; width: 60%"
+                style="display: inline !important; width: 70%"
                 type="text"
                 formControlName="otherDesignation"
                 maxlength="50"
                 class="form-control"
-                placeholder="Others, please specify"
+                placeholder="Others"
               />
             </div>
           </div>
@@ -4620,12 +4620,12 @@
                 />
                 Others, please specify
                 <input
-                  style="display: inline !important; width: 60%"
+                  style="display: inline !important; width: 70%"
                   type="text"
                   formControlName="otherDieraty"
                   maxlength="50"
                   class="form-control"
-                  placeholder="Others, please specify"
+                  placeholder="Others"
                 />
               </div>
             </div>
@@ -4722,12 +4722,12 @@
                     <td>
                       Others, please specify
                       <input
-                        style="display: inline !important; width: 60%"
+                        style="display: inline !important; width: 70%"
                         type="text"
                         formControlName="otherCovidStatus"
                         maxlength="50"
                         class="form-control"
-                        placeholder="Others, please specify"
+                        placeholder="Others"
                       />
                     </td>
                   </tr>
@@ -4813,12 +4813,12 @@
         >
           <b>{{ errorMessage }}</b>
         </div>
-        <div
+        <!-- <div
           class="col-12 col-md-9"
           style="font-size: small; padding-bottom: 10px"
         >
           Thank you and see you at MOE’s Schools WPS soon!
-        </div>
+        </div> -->
 
         <div class="col-12 col-md-3 rsvpButton">
           <!-- <button

@@ -1,4 +1,5 @@
 var nodemailer = require("nodemailer");
+var path = require("path");
 
 var transporter = nodemailer.createTransport({
   // service: "gmail",
@@ -22,7 +23,7 @@ async function sendRsvpEmail(rsvp) {
   const to = rsvp.email;
 
   var subject =
-    "[Draft] Confirmation of RSVP to MOE’s Schools Work Plan Seminar (WPS) 2022";
+    "Confirmation of RSVP to MOE’s Schools Work Plan Seminar (WPS) 2022";
 
   var message = `
   <html>
@@ -36,10 +37,10 @@ p {font-family: Arial; font-size:12px;line-height: 1.6}
 </head>
 <body>
 <div class="main">
-<img class="banner" alt="web_image" width="100%" src="https://moe-wps.web.app/assets/images/Mail%20Banner.jpg" >
+<img class="banner" alt="web_image" width="100%" src="cid:edm-web" /> 
 <p>Dear Colleagues,</p><br />
 <p>Thank you for your RSVP to MOE’s Schools Work Plan Seminar (WPS) 2022.</p>
-<p>More event details with allocated zone and table no. will be sent to you via SMS nearer to the event date.</p>
+<p>More details will be shared via your registered email and SMS closer to the event date.</p>
 <p>For enquiries, please contact <a href="mailto:MOE_WPS@moe.gov.sg"> MOE_WPS@moe.gov.sg</a>.</p>
 <p>We look forward seeing you at the event!</p><br />
 <p>Thank you.</p>
@@ -49,11 +50,23 @@ p {font-family: Arial; font-size:12px;line-height: 1.6}
 </html>
 `;
 
+  var imagePath = path.join(
+    __dirname,
+    "../../images/Mail Banner.jpg"
+  ); // In this line, Give the full path of image.
+
   var mailOptions = {
     from: from,
     to: to,
     subject: subject,
     html: message,
+    attachments: [
+      {
+        filename: "Mail Banner.jpg",
+        path: imagePath,
+        cid: "edm-web", //same cid value as in the html img src
+      },
+    ],
   };
 
   return await transporter.sendMail(mailOptions);
