@@ -41,7 +41,7 @@ p {font-family: Arial; font-size:12px;line-height: 1.6}
 <p>Dear Colleagues,</p><br />
 <p>Thank you for your RSVP to MOE’s Schools Work Plan Seminar (WPS) 2022.</p>
 <p>More details will be shared via your registered email and SMS closer to the event date.</p>
-<p>For enquiries, please contact <a href="mailto:MOE_WPS@moe.gov.sg"> MOE_WPS@moe.gov.sg</a>.</p>
+<p>For enquiries, please contact <a href="mailto:SchoolsWPS2022@sgrsvp.com"> SchoolsWPS2022@sgrsvp.com</a>.</p>
 <p>We look forward seeing you at the event!</p><br />
 <p>Thank you.</p>
 <p>MOE WPS Team</p>
