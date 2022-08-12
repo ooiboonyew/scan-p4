@@ -38,11 +38,11 @@ p {font-family: Arial; font-size:12px;line-height: 1.6}
 <body>
 <div class="main">
 <img class="banner" alt="web_image" width="100%" src="cid:edm-web" /> 
-<p>Dear Colleagues,</p><br />
+<p>Dear Colleague,</p><br />
 <p>Thank you for your RSVP to MOE’s Schools Work Plan Seminar (WPS) 2022.</p>
 <p>More details will be shared via your registered email and SMS closer to the event date.</p>
 <p>For enquiries, please contact <a href="mailto:SchoolsWPS2022@sgrsvp.com"> SchoolsWPS2022@sgrsvp.com</a>.</p>
-<p>We look forward seeing you at the event!</p><br />
+<p>We look forward to seeing you at the event!</p><br />
 <p>Thank you.</p>
 <p>MOE WPS Team</p>
 </div>

@@ -8,9 +8,7 @@
     </div> -->
     <div class="container">
       <div class="row" style="padding-bottom: 20px">
-        <div class="banner">
-        
-        </div>
+        <div class="banner"></div>
       </div>
       <div
         class="row"
@@ -250,25 +248,25 @@
             Designation is required.
           </div>
           <div
-          class="box arrow-top"
-          *ngIf="
-            isSubmitted &&
-            addrsvp.controls.otherDesignation.hasError('required')
-          "
-        >
-          Others Designation is required.
-        </div>
-        <div
-          class="box arrow-top"
-          *ngIf="
-            isSubmitted &&
-            addrsvp.controls.otherDesignation.hasError(
-              'letterAndNumberSpaceOnly'
-            )
-          "
-        >
-          Please Key in alphanumeric only.
-        </div>
+            class="box arrow-top"
+            *ngIf="
+              isSubmitted &&
+              addrsvp.controls.otherDesignation.hasError('required')
+            "
+          >
+            Others Designation is required.
+          </div>
+          <div
+            class="box arrow-top"
+            *ngIf="
+              isSubmitted &&
+              addrsvp.controls.otherDesignation.hasError(
+                'letterAndNumberSpaceOnly'
+              )
+            "
+          >
+            Please Key in alphanumeric only.
+          </div>
         </div>
       </div>
       <div
@@ -1400,6 +1398,15 @@
             <div *ngIf="cluster == 'N7'">
               <input
                 type="radio"
+                value="Singapore International School (Hong Kong)"
+                formControlName="school"
+                style="margin-right: 5px"
+              />
+              Singapore International School (Hong Kong)
+            </div>
+            <div *ngIf="cluster == 'N7'">
+              <input
+                type="radio"
                 value="Wellington Pr"
                 formControlName="school"
                 style="margin-right: 5px"
@@ -1670,20 +1677,20 @@
             <div *ngIf="cluster == 'S3'">
               <input
                 type="radio"
-                value="Anglo-Chinese (Barker Road) Sec"
+                value="ACS (Barker Road)"
                 formControlName="school"
                 style="margin-right: 5px"
               />
-              Anglo-Chinese (Barker Road) Sec
+              ACS (Barker Road)
             </div>
             <div *ngIf="cluster == 'S3'">
               <input
                 type="radio"
-                value="Anglo-Chinese Pr"
+                value="ACS (Primary)"
                 formControlName="school"
                 style="margin-right: 5px"
               />
-              Anglo-Chinese Pr
+              ACS (Primary)
             </div>
             <div *ngIf="cluster == 'S3'">
               <input
@@ -1697,20 +1704,20 @@
             <div *ngIf="cluster == 'S3'">
               <input
                 type="radio"
-                value="CHIJ (Toa Payoh) Pr"
+                value="CHIJ Pr (Toa Payoh)"
                 formControlName="school"
                 style="margin-right: 5px"
               />
-              CHIJ (Toa Payoh) Pr
+              CHIJ Pr (Toa Payoh)
             </div>
             <div *ngIf="cluster == 'S3'">
               <input
                 type="radio"
-                value="CHIJ (Toa Payoh) Sec"
+                value="CHIJ Sec (Toa Payoh)"
                 formControlName="school"
                 style="margin-right: 5px"
               />
-              CHIJ (Toa Payoh) Sec
+              CHIJ Sec (Toa Payoh)
             </div>
             <div *ngIf="cluster == 'S3'">
               <input
@@ -1895,11 +1902,11 @@
             <div *ngIf="cluster == 'S5'">
               <input
                 type="radio"
-                value="Anglo-Chinese Junior"
+                value="ACS (Junior)"
                 formControlName="school"
                 style="margin-right: 5px"
               />
-              Anglo-Chinese Junior
+              ACS (Junior)
             </div>
             <div *ngIf="cluster == 'S5'">
               <input
@@ -2948,11 +2955,11 @@
             <div *ngIf="cluster == 'E7'">
               <input
                 type="radio"
-                value="St Stephen’s Pr"
+                value="St Stephen’s School"
                 formControlName="school"
                 style="margin-right: 5px"
               />
-              St Stephen’s Pr
+              St Stephen’s School
             </div>
             <div *ngIf="cluster == 'E7'">
               <input

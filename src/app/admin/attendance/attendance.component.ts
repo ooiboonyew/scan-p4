@@ -31,16 +31,14 @@ export class AttendanceComponent implements OnInit {
   selection: SelectionModel<User> = new SelectionModel<User>(true, []);
   displayedColumns: string[] = [
     "num",
-    // "name",
-    // "staffId",
+    "name",
+    "from",
+    "attending",
     "email",
-    "userAvailable",
-    "userAttend",
-    "guestAvailable",
-    "guestAttend",
-    "guestAbsent",
-    "chancesTotal",
-    "chancesLeft",
+    "mobile",
+    "dietary",
+    "covidStatus",
+    "parking",
     "Edit",
   ];
 
