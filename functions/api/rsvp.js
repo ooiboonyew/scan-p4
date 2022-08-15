@@ -159,7 +159,7 @@ rsvpApp.get("/rsvp/email/:rsvpId", async (req, res, next) => {
 
 rsvpApp.get("/rsvp/listusers", async (req, res, next) => {
   try {
-    const result = await userModel.getUsers();
+    const result = await rsvpModel.getRSVP();
 
     return res.status(200).json(result);
   } catch (error) {

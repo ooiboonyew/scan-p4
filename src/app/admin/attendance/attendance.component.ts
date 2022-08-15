@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { User } from "../../../models/rsvp.model";
+import { RSVP, User } from "../../../models/rsvp.model";
 import { RSVPService } from "../../../services/rsvp.service";
 import { AppComponent } from "src/app/app.component";
 import {
@@ -24,11 +24,11 @@ import { Router } from "@angular/router";
 export class AttendanceComponent implements OnInit {
   filtertType: string;
   filterText: string;
-  users: User[];
+  rsvps: RSVP[];
   selectedAll: boolean;
   datasource: any[];
-  dataSource: MatTableDataSource<User>;
-  selection: SelectionModel<User> = new SelectionModel<User>(true, []);
+  dataSource: MatTableDataSource<RSVP>;
+  selection: SelectionModel<RSVP> = new SelectionModel<RSVP>(true, []);
   displayedColumns: string[] = [
     "num",
     "name",
@@ -59,8 +59,9 @@ export class AttendanceComponent implements OnInit {
     this.rSVPService.listUser().subscribe(
       (data) => {
         setTimeout(() => (this.appComponent.isLoading = false), 0);
-        this.users = data;
-        this.dataSource = new MatTableDataSource<User>(data);
+        this.rsvps = data;
+        console.log(data);
+        this.dataSource = new MatTableDataSource<RSVP>(data);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       },
@@ -86,9 +87,9 @@ export class AttendanceComponent implements OnInit {
         this.appComponent.isLoading = false;
 
         if (this.filterText == "") {
-          this.users = data;
+          this.rsvps = data;
         } else {
-          this.users = data.filter(
+          this.rsvps = data.filter(
             (user: User) =>
               user.email
                 .toLocaleLowerCase()
@@ -118,7 +119,7 @@ export class AttendanceComponent implements OnInit {
           // }
         }
 
-        this.dataSource = new MatTableDataSource<User>(this.users);
+        this.dataSource = new MatTableDataSource<RSVP>(this.rsvps);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       },
@@ -192,7 +193,7 @@ export class AttendanceComponent implements OnInit {
 
   download() {
     this.appComponent.isLoading = true;
-    this.excelFunction.exportUserHeaderAsExcelFile(this.users, "rsvp");
+    this.excelFunction.exportCustomHeaderAsExcelFile(this.rsvps, "rsvp");
     this.appComponent.isLoading = false;
   }
 
