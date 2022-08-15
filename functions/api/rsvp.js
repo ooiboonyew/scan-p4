@@ -178,6 +178,18 @@ rsvpApp.get("/rsvp/getSetting/:id", async (req, res, next) => {
   }
 });
 
+rsvpApp.get("/rsvp/getrsvp/:id", async (req, res, next) => {
+  try {
+    const id = req.params.id;
+
+    const result = await rsvpModel.getRSVPById(id);
+    return res.status(200).json(result);
+  } catch (error) {
+    adeErrorHandler(error, req, res, next);
+  }
+});
+
+
 rsvpApp.get(
   "/rsvp/filterUsers/:filtertType/:filterText",
   async (req, res, next) => {
@@ -294,30 +306,10 @@ rsvpApp.post("/rsvp/import", async (req, res, next) => {
     for (const user of csvData) {
       var userData = {
         email: user.email,
-        createdDate: new Date(),
-        userAttend: 0,
-        guestAttend: 0,
-        chancesTotal: Number(user.chancesTotal),
-        chancesLeft: Number(user.chancesTotal),
+        table: user.table,
+        zone:  user.zone
       };
 
-      if (userData.chancesTotal > 0) {
-        if (userData.chancesTotal > 4) {
-          userData.userAvailable = 1;
-          userData.guestAvailable = 3;
-        } else if (userData.chancesTotal == 1) {
-          userData.userAvailable = 1;
-          userData.guestAvailable = 0;
-        } else {
-          userData.userAvailable = 1;
-          userData.guestAvailable = userData.chancesTotal - 1;
-        }
-      } else {
-        userData.userAvailable = 0;
-        userData.guestAvailable = 0;
-      }
-
-      // var existStaff = await userModel.checkStaffId(userData.staffId);
       var existStaff = await userModel.checkEmail(userData.email);
 
       // console.log(JSON.stringify(userData));
@@ -325,8 +317,6 @@ rsvpApp.post("/rsvp/import", async (req, res, next) => {
       if (existStaff.id) {
         userData.id = existStaff.id;
         const result = await userModel.update(userData);
-      } else {
-        const result = await userModel.add(userData);
       }
     }
 
@@ -525,17 +515,8 @@ rsvpApp.get(
 
 rsvpApp.post("/rsvp/updateUser", async (req, res, next) => {
   try {
-    const updateUserRequest = req.body;
-    console.log(updateUserRequest);
-    const result = await userModel.update(updateUserRequest.user);
-
-    for (const boothActivities of updateUserRequest.boothActivities) {
-      await boothActivitiesModel.updateStatus(
-        boothActivities.id,
-        Number(boothActivities.status)
-      );
-    }
-
+    const user = req.body;
+    const result = await userModel.update(user);
     return res.status(200).json(result);
   } catch (error) {
     adeErrorHandler(error, req, res, next);

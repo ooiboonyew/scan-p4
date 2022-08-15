@@ -12,6 +12,7 @@ import { CustomValidators } from "../../common/validators";
 import { AppComponent } from "src/app/app.component";
 import { Router } from "@angular/router";
 import { IDropdownSettings } from "ng-multiselect-dropdown";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-landing",
@@ -30,10 +31,12 @@ export class LandingComponent implements OnInit {
   zone: string = "";
   cluster: string = "";
   errorMessage: string = "";
+  rsvpId: string = "";
 
   constructor(
     private rsvpService: RSVPService,
     private router: Router,
+    private route: ActivatedRoute,
     private appComponent: AppComponent
   ) {}
 
@@ -93,11 +96,90 @@ export class LandingComponent implements OnInit {
         // Validators.required,
       ]),
     });
+
+    this.route.queryParams.subscribe((params) => {
+      this.rsvpId = params.id;
+    });
+
+    this.rsvpService.GetRsvp(this.rsvpId).subscribe(
+      (data) => {
+        this.appComponent.isLoading = false;
+        this.rsvp = data;
+        this.addrsvp.controls.name.setValue(this.rsvp.name);
+        this.addrsvp.controls.from.setValue(this.rsvp.from);
+        this.changeFrom(this.rsvp.from);
+        this.addrsvp.controls.designation.setValue(this.rsvp.designation);
+
+        if (this.rsvp.designation) {
+          this.CheckIsOtherDesignation(this.rsvp.designation);
+        }
+
+        this.addrsvp.controls.otherDesignation.setValue(
+          this.rsvp.otherDesignation
+        );
+        this.addrsvp.controls.division.setValue(this.rsvp.division);
+
+        if (this.rsvp.division) {
+          this.CheckIsOtherDivision(this.rsvp.division);
+        }
+
+        this.addrsvp.controls.zone.setValue(this.rsvp.zone);
+        
+        if (this.rsvp.zone) {
+          this.changeZone(this.rsvp.zone);
+        }
+
+        this.addrsvp.controls.cluster.setValue(this.rsvp.cluster);
+        if (this.rsvp.cluster) {
+          this.changeCluster(this.rsvp.cluster);
+        }
+        this.addrsvp.controls.attending.setValue(this.rsvp.attending);
+
+        if (this.rsvp.attending) {
+          this.changeRB(this.rsvp.attending);
+          
+          this.addrsvp.controls.email.setValue(this.rsvp.email);
+          this.addrsvp.controls.mobile.setValue(this.rsvp.mobile);
+          this.addrsvp.controls.dataProdection.setValue(this.rsvp.dataProdection);
+          this.addrsvp.controls.dietary.setValue(this.rsvp.dietary);
+          this.addrsvp.controls.otherDieraty.setValue(this.rsvp.otherDieraty);
+
+          if (this.rsvp.dietary) {
+            this.CheckIsOtherDieraty(this.rsvp.dietary);
+          }
+
+          this.addrsvp.controls.covidStatus.setValue(this.rsvp.covidStatus);
+
+          if (this.rsvp.covidStatus) {
+            this.CheckisOtherCovidStatus(this.rsvp.covidStatus);
+          }
+
+          this.addrsvp.controls.otherCovidStatus.setValue(this.rsvp.otherCovidStatus);
+
+          this.addrsvp.controls.parking.setValue(this.rsvp.parking);
+
+        }
+
+        console.log(this.rsvp);
+      },
+      (err) => {
+        this.appComponent.isLoading = false;
+        alert(err.error);
+        // this.errormsg = err.error;
+        // this.scanned = true;
+      }
+    );
   }
 
   changeRB(e) {
-    console.log(e.target.value);
-    if (e.target.value == "Yes") {
+    var attending = "";
+    if (this.rsvpId && !e.target) {
+      attending = this.rsvp.attending;
+    } else {
+      attending = e.target.value;
+    }
+
+    if (attending == "Yes") {
       this.isAttending = true;
       this.addrsvp.controls.dietary.setValue("");
       this.addrsvp.controls.dataProdection.setValue("");
@@ -110,7 +192,6 @@ export class LandingComponent implements OnInit {
 
       this.addrsvp.controls.otherDieraty.setValidators([]);
       this.addrsvp.controls.otherCovidStatus.setValidators([]);
-
 
       this.addrsvp.controls.dietary.setValidators([Validators.required]);
       this.addrsvp.controls.dataProdection.setValidators([Validators.required]);
@@ -128,7 +209,6 @@ export class LandingComponent implements OnInit {
       ]);
     } else {
       this.isAttending = false;
-
 
       this.addrsvp.controls.dietary.setValidators([]);
       this.addrsvp.controls.dataProdection.setValidators([]);
@@ -161,8 +241,13 @@ export class LandingComponent implements OnInit {
   }
 
   changeFrom(e) {
-    this.from = e.target.value;
-    if (e.target.value == "Schools") {
+    if (this.rsvpId && !e.target) {
+      this.from = this.rsvp.from;
+    } else {
+      this.from = e.target.value;
+    }
+
+    if (this.from == "Schools") {
       this.addrsvp.controls.designation.setValue("");
       this.addrsvp.controls.zone.setValue("");
       this.addrsvp.controls.cluster.setValue("");
@@ -171,7 +256,7 @@ export class LandingComponent implements OnInit {
       this.addrsvp.controls.designation.setValidators([Validators.required]);
       this.addrsvp.controls.zone.setValidators([Validators.required]);
     } else {
-      if (e.target.value == "SPED") {
+      if (this.from == "SPED") {
         this.addrsvp.controls.designation.setValidators([]);
         this.addrsvp.controls.designation.setValue("");
       }
@@ -185,16 +270,15 @@ export class LandingComponent implements OnInit {
       this.addrsvp.controls.school.setValue("");
     }
 
-    if (e.target.value == "SPED") {
+    if (this.from == "SPED") {
       this.addrsvp.controls.school.setValue("");
       this.addrsvp.controls.school.setValidators([Validators.required]);
     } else {
       this.addrsvp.controls.school.setValidators([]);
     }
 
-    if (e.target.value == "HQ") {
+    if (this.from == "HQ") {
       this.addrsvp.controls.division.enable();
-
 
       this.addrsvp.controls.designation.setValue("");
       this.addrsvp.controls.division.setValidators([Validators.required]);
@@ -209,12 +293,12 @@ export class LandingComponent implements OnInit {
       this.addrsvp.controls.division.setValidators([]);
       this.addrsvp.controls.designation.setValue("");
 
-      if (e.target.value == "SPED") {
+      if (this.from == "SPED") {
         this.addrsvp.controls.designation.setValidators([]);
       }
     }
 
-    if (e.target.value == "Seconded" ) {
+    if (this.from == "Seconded") {
       this.addrsvp.controls.organisation.enable();
       this.addrsvp.controls.organisation.setValidators([
         Validators.required,
@@ -232,12 +316,12 @@ export class LandingComponent implements OnInit {
       this.addrsvp.controls.organisation.setValidators([]);
       this.addrsvp.controls.designation.setValue("");
 
-      if (e.target.value == "SPED") {
+      if (this.from == "SPED") {
         this.addrsvp.controls.designation.setValidators([]);
       }
     }
 
-    if (e.target.value == "SEAB"|| e.target.value == "Teacher" || e.target.value == "NIE") {
+    if (this.from == "SEAB" || this.from == "Teacher" || this.from == "NIE") {
       this.addrsvp.controls.designation.setValue("");
       this.addrsvp.controls.designation.setValidators([
         Validators.required,
@@ -247,18 +331,18 @@ export class LandingComponent implements OnInit {
     } else {
       this.addrsvp.controls.designation.setValue("");
 
-      if (e.target.value == "SPED") {
+      if (this.from == "SPED") {
         this.addrsvp.controls.designation.setValidators([]);
       }
     }
 
     //*ngIf="from == 'HQ'|| from == 'Seconded' || from == 'SEAB' || from == 'Others'"
 
-    if (e.target.value != "Others") {
+    if (this.from != "Others") {
       this.addrsvp.controls.otherFrom.disable();
       this.addrsvp.controls.otherFrom.setValue("");
 
-      if (e.target.value == "SPED") {
+      if (this.from == "SPED") {
         this.addrsvp.controls.designation.setValidators([]);
       }
     } else {
@@ -280,18 +364,34 @@ export class LandingComponent implements OnInit {
   }
 
   changeZone(e) {
-    this.zone = e.target.value;
+    if (this.rsvpId && !e.target) {
+      this.zone = this.rsvp.zone;
+    } else {
+      this.zone = e.target.value;
+    }
+
     this.addrsvp.controls.cluster.setValidators([Validators.required]);
   }
 
   changeCluster(e) {
-    this.cluster = e.target.value;
+    if (this.rsvpId && !e.target) {
+      this.cluster = this.rsvp.cluster;
+    } else {
+      this.cluster = e.target.value;
+    }
+
     this.addrsvp.controls.school.setValidators([Validators.required]);
   }
 
   CheckIsOtherDieraty(e) {
-    console.log(e.target.value);
-    if (e.target.value != "Others") {
+    var dietary = "";
+    if (this.rsvpId && !e.target) {
+      dietary = this.rsvp.dietary;
+    } else {
+      dietary = e.target.value;
+    }
+
+    if (dietary!= "Others") {
       this.addrsvp.controls.otherDieraty.disable();
       this.addrsvp.controls.otherDieraty.setValue("");
     } else {
@@ -306,7 +406,15 @@ export class LandingComponent implements OnInit {
   }
 
   CheckisOtherCovidStatus(e) {
-    if (e.target.value != "Others") {
+
+    var covidStatus = "";
+    if (this.rsvpId && !e.target) {
+      covidStatus = this.rsvp.covidStatus;
+    } else {
+      covidStatus = e.target.value;
+    }
+
+    if (covidStatus != "Others") {
       this.addrsvp.controls.otherCovidStatus.disable();
       this.addrsvp.controls.otherCovidStatus.setValue("");
     } else {
@@ -320,7 +428,16 @@ export class LandingComponent implements OnInit {
   }
 
   CheckIsOtherDivision(e) {
-    if (e.target.value != "Others") {
+
+    var division = "";
+    if (this.rsvpId && !e.target) {
+      division = this.rsvp.division;
+    } else {
+      division = e.target.value;
+    }
+
+
+    if (division != "Others") {
       this.addrsvp.controls.otherDivision.disable();
       this.addrsvp.controls.otherDivision.setValue("");
     } else {
@@ -334,7 +451,16 @@ export class LandingComponent implements OnInit {
   }
 
   CheckIsOtherDesignation(e) {
-    if (e.target.value != "Others") {
+
+    var designation = "";
+    if (this.rsvpId && !e.target) {
+      designation = this.rsvp.designation;
+    } else {
+      designation = e.target.value;
+    }
+
+
+    if (designation != "Others") {
       this.addrsvp.controls.otherDesignation.disable();
       this.addrsvp.controls.otherDesignation.setValue("");
     } else {
@@ -364,7 +490,7 @@ export class LandingComponent implements OnInit {
     rsvp.dietary = this.addrsvp.controls.dietary.value;
     rsvp.otherDieraty = this.addrsvp.controls.otherDieraty.value;
     rsvp.covidStatus = this.addrsvp.controls.covidStatus.value;
-    rsvp.otherCovidStatus =  this.addrsvp.controls.otherCovidStatus.value;
+    rsvp.otherCovidStatus = this.addrsvp.controls.otherCovidStatus.value;
     rsvp.dataProdection = this.addrsvp.controls.dataProdection.value;
     rsvp.parking = this.addrsvp.controls.parking.value;
     rsvp.school = this.addrsvp.controls.school.value;

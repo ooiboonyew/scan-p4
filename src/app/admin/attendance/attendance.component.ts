@@ -32,13 +32,15 @@ export class AttendanceComponent implements OnInit {
   displayedColumns: string[] = [
     "num",
     "name",
-    "from",
-    "attending",
     "email",
     "mobile",
-    "dietary",
-    "covidStatus",
-    "parking",
+    "attending",
+    "from",
+    "designation",
+    "table",
+    "tableZone",
+    "createdDate",
+    "checkInDate",
     "Edit",
   ];
 
@@ -216,47 +218,46 @@ export class AttendanceComponent implements OnInit {
     });
   }
 
-  attend(user: User) {
-    this.router.navigate(["admin/checkin"], {
-      queryParams: { id: user.id, guestlist: true },
-      
-    });
+  attend(rsvp: RSVP) {
+    if (confirm("Are you sure you want to check-in " + rsvp.email + "?")) {
+      rsvp.checkedIn = true;
+      rsvp.checkedInDate = new Date();
 
-    // var updateUserRequest = new UpdateUserRequest();
-    // user.userAttend = 1;
-    // updateUserRequest.user = user;
-    // updateUserRequest.boothActivities = [];
-
-    // this.rSVPService.updateUser(updateUserRequest).subscribe(
-    //   (data) => {
-    //      this.appComponent.isLoading = false;
-    //     // this.dialogRef.close(this.editrsvp);
-    //   },
-    //   (err) => {
-    //     var errorstr = JSON.stringify(err.error);
-    //     alert(errorstr.replace(new RegExp('"', "g"), ""));
-    //     this.appComponent.isLoading = false;
-    //   }
-    // );
+      this.rSVPService.UpdateRSVP(rsvp).subscribe(
+        (data) => {
+          this.appComponent.isLoading = false;
+        },
+        (err) => {
+          var errorstr = JSON.stringify(err.error);
+          alert(errorstr.replace(new RegExp('"', "g"), ""));
+          this.appComponent.isLoading = false;
+        }
+      );
+    }
   }
 
   edit(user: User) {
-    let dialogRef = this.dialog.open(DialogEditdonationComponent, {
-      width: "80%",
-      // height: "90%",
-      disableClose: true,
-      data: {
-        addScreen: false,
-        user: user,
-      },
+
+    this.router.navigate(["../../"], {
+      queryParams: { id: user.id }
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        alert("Guest Update Successfully.");
-        this.ngOnInit();
-      }
-    });
+    // let dialogRef = this.dialog.open(DialogEditdonationComponent, {
+    //   width: "80%",
+    //   // height: "90%",
+    //   disableClose: true,
+    //   data: {
+    //     addScreen: false,
+    //     user: user,
+    //   },
+    // });
+
+    // dialogRef.afterClosed().subscribe((result) => {
+    //   if (result) {
+    //     alert("Guest Update Successfully.");
+    //     this.ngOnInit();
+    //   }
+    // });
   }
 
   // email(rsvp: RSVP) {

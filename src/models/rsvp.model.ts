@@ -91,6 +91,10 @@ export class RSVP {
   covidStatus: string;
   otherCovidStatus: string;
   parking: string;
+  table: string;
+  tableZone: string;
   createdDate: object;
   emailDate: object;
+  checkedIn: boolean;
+  checkedInDate: object;
 }
