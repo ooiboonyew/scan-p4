@@ -40,7 +40,7 @@ export class AttendanceComponent implements OnInit {
     "table",
     "tableZone",
     "createdDate",
-    "checkInDate",
+    "checkedInDate",
     "Edit",
   ];
 
@@ -220,11 +220,11 @@ export class AttendanceComponent implements OnInit {
 
   attend(rsvp: RSVP) {
     if (confirm("Are you sure you want to check-in " + rsvp.email + "?")) {
-      rsvp.checkedIn = true;
-      rsvp.checkedInDate = new Date();
 
-      this.rSVPService.UpdateRSVP(rsvp).subscribe(
+      this.rSVPService.CheckIn(rsvp).subscribe(
         (data) => {
+          rsvp.checkedIn = true;
+          rsvp.checkedInDate = data.checkedInDate;
           this.appComponent.isLoading = false;
         },
         (err) => {

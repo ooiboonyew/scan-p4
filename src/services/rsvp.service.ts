@@ -67,8 +67,8 @@ export class RSVPService {
     return this.http.get<User>(this.baseUrl + "/getuser/" + id);
   }
 
-  CheckIn(user: User): Observable<{}> {
-    return this.http.post<{}>(this.baseUrl + "/checkin", user);
+  CheckIn(rsvp: RSVP): Observable<RSVP> {
+    return this.http.post<RSVP>(this.baseUrl + "/checkin", rsvp);
   }
 
   PlayBooth(playBoothRequest: PlayBoothRequest): Observable<{}> {

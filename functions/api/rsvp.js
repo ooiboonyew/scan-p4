@@ -427,10 +427,11 @@ rsvpApp.post("/rsvp/update", async (req, res, next) => {
 
 rsvpApp.post("/rsvp/checkin", async (req, res, next) => {
   try {
-    const user = req.body;
-    user.lastCheckInDate = new Date();
-    console.log(user);
-    const result = await userModel.update(user);
+    const rsvp = req.body;
+    rsvp.checkedInDate = new Date();
+    rsvp.checkedIn = true;
+     await rsvpModel.update(rsvp);
+     const result = await rsvpModel.getRSVPById(rsvp.id);
     //send email
     return res.status(200).json(result);
   } catch (error) {

@@ -24,23 +24,27 @@ import { VotingComponent } from './voting/voting.component';
 import { PhotoComponent } from './photo/photo.component';
 import { PhotoVendorComponent } from './photo-vendor/photo-vendor.component';
 import { PhotoUBSComponent } from './photo-ubs/photo-ubs.component';
+import { GuestCheckinComponent } from './guest-checkin/guest-checkin.component';
+import { GuestCheckedinComponent } from './guest-checkedin/guest-checkedin.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
   // { path: 'login', component: GuestLoginComponent },
   { path: 'registration', component: LandingComponent },
   { path: 'registered', component: RegisteredComponent },
+  { path: 'checkin', component: GuestCheckinComponent },
+  { path: 'checkedin', component: GuestCheckedinComponent },
 
   // { path: 'admin', component: LoginComponent },
   { path: 'admin/login', component: LoginComponent },
   // { path: 'admin/account', component: AccountComponent },
   { path: 'admin', component: HomeComponent },
   { path: 'admin/guest-list', component: AttendanceComponent },
-  { path: 'admin/scan-qr', component: ScanQrComponent },
-  { path: 'admin/checkin', component: CheckinComponent },
+  // { path: 'admin/scan-qr', component: ScanQrComponent },
+  // { path: 'admin/checkin', component: CheckinComponent },
 
   { path: 'admin/stat', component: StatComponent },
-  { path: 'admin/booth-setup', component: BoothSetupComponent },
+  // { path: 'admin/booth-setup', component: BoothSetupComponent },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

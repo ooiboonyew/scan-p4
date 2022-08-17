@@ -137,14 +137,14 @@
                 }}
               </td>
             </ng-container>
-            <ng-container matColumnDef="checkInDate">
+            <ng-container matColumnDef="checkedInDate">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>
                 <b>Check In Date </b>
               </th>
               <td mat-cell *matCellDef="let row">
                 {{
-                  row.checkInDate
-                    ? (row.checkInDate._seconds * 1000 | date: "dd-MMM-yyyy hh:mma")
+                  row.checkedInDate
+                    ? (row.checkedInDate._seconds * 1000 | date: "dd-MMM-yyyy hh:mma")
                     : ""
                 }}
               </td>

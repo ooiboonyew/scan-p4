@@ -90,24 +90,24 @@ export class CheckinComponent implements OnInit, AfterViewInit {
 
     if (cfm) {
       this.appComponent.isLoading = true;
-      this.rSVPService.CheckIn(this.user).subscribe(
-        (data) => {
-          this.appComponent.isLoading = false;
-          alert("Check-in Successfully.");
+      // this.rSVPService.CheckIn(this.user).subscribe(
+      //   (data) => {
+      //     this.appComponent.isLoading = false;
+      //     alert("Check-in Successfully.");
 
-          if (this.fromGuestList) {
-            this.router.navigate(["admin/guest-list"]);
-          } else {
-            this.router.navigate(["admin/scan-qr"]);
-          }
-        },
-        (err) => {
-          var errorstr = JSON.stringify(err.error);
-          console.log(err.error);
-          alert(errorstr.replace(new RegExp('"', "g"), ""));
-          this.appComponent.isLoading = false;
-        }
-      );
+      //     if (this.fromGuestList) {
+      //       this.router.navigate(["admin/guest-list"]);
+      //     } else {
+      //       this.router.navigate(["admin/scan-qr"]);
+      //     }
+      //   },
+      //   (err) => {
+      //     var errorstr = JSON.stringify(err.error);
+      //     console.log(err.error);
+      //     alert(errorstr.replace(new RegExp('"', "g"), ""));
+      //     this.appComponent.isLoading = false;
+      //   }
+      // );
     }
   }
 }

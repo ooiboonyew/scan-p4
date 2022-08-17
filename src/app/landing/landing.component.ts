@@ -54,7 +54,7 @@ export class LandingComponent implements OnInit {
       ]),
       designation: new FormControl({ value: "", disabled: false }, []),
       otherDesignation: new FormControl({ value: "", disabled: true }, [
-        Validators.maxLength(50),
+        Validators.maxLength(200),
         CustomValidators.letterAndNumberSpaceOnly,
       ]),
       organisation: new FormControl({ value: "", disabled: false }, []),
@@ -124,7 +124,7 @@ export class LandingComponent implements OnInit {
         }
 
         this.addrsvp.controls.zone.setValue(this.rsvp.zone);
-        
+
         if (this.rsvp.zone) {
           this.changeZone(this.rsvp.zone);
         }
@@ -137,10 +137,12 @@ export class LandingComponent implements OnInit {
 
         if (this.rsvp.attending) {
           this.changeRB(this.rsvp.attending);
-          
+
           this.addrsvp.controls.email.setValue(this.rsvp.email);
           this.addrsvp.controls.mobile.setValue(this.rsvp.mobile);
-          this.addrsvp.controls.dataProdection.setValue(this.rsvp.dataProdection);
+          this.addrsvp.controls.dataProdection.setValue(
+            this.rsvp.dataProdection
+          );
           this.addrsvp.controls.dietary.setValue(this.rsvp.dietary);
           this.addrsvp.controls.otherDieraty.setValue(this.rsvp.otherDieraty);
 
@@ -154,10 +156,11 @@ export class LandingComponent implements OnInit {
             this.CheckisOtherCovidStatus(this.rsvp.covidStatus);
           }
 
-          this.addrsvp.controls.otherCovidStatus.setValue(this.rsvp.otherCovidStatus);
+          this.addrsvp.controls.otherCovidStatus.setValue(
+            this.rsvp.otherCovidStatus
+          );
 
           this.addrsvp.controls.parking.setValue(this.rsvp.parking);
-
         }
 
         console.log(this.rsvp);
@@ -391,7 +394,7 @@ export class LandingComponent implements OnInit {
       dietary = e.target.value;
     }
 
-    if (dietary!= "Others") {
+    if (dietary != "Others") {
       this.addrsvp.controls.otherDieraty.disable();
       this.addrsvp.controls.otherDieraty.setValue("");
     } else {
@@ -406,7 +409,6 @@ export class LandingComponent implements OnInit {
   }
 
   CheckisOtherCovidStatus(e) {
-
     var covidStatus = "";
     if (this.rsvpId && !e.target) {
       covidStatus = this.rsvp.covidStatus;
@@ -428,14 +430,12 @@ export class LandingComponent implements OnInit {
   }
 
   CheckIsOtherDivision(e) {
-
     var division = "";
     if (this.rsvpId && !e.target) {
       division = this.rsvp.division;
     } else {
       division = e.target.value;
     }
-
 
     if (division != "Others") {
       this.addrsvp.controls.otherDivision.disable();
@@ -451,14 +451,12 @@ export class LandingComponent implements OnInit {
   }
 
   CheckIsOtherDesignation(e) {
-
     var designation = "";
     if (this.rsvpId && !e.target) {
       designation = this.rsvp.designation;
     } else {
       designation = e.target.value;
     }
-
 
     if (designation != "Others") {
       this.addrsvp.controls.otherDesignation.disable();
@@ -506,18 +504,36 @@ export class LandingComponent implements OnInit {
 
     console.log(rsvp);
     this.appComponent.isLoading = true;
-    this.rsvpService.AddRSVP(rsvp).subscribe(
-      (data) => {
-        this.appComponent.isLoading = false;
-        this.router.navigate(["registered"]);
-      },
-      (err) => {
-        var errorstr = JSON.stringify(err.error);
-        console.log(err.error);
-        // alert(errorstr.replace('"/g', ""))
-        alert(errorstr.replace(new RegExp('"', "g"), ""));
-        this.appComponent.isLoading = false;
-      }
-    );
+
+    if (this.rsvpId) {
+      rsvp.id = this.rsvpId;
+      this.rsvpService.UpdateRSVP(rsvp).subscribe(
+        (data) => {
+          this.appComponent.isLoading = false;
+          alert("Update Successfully.")
+        },
+        (err) => {
+          var errorstr = JSON.stringify(err.error);
+          console.log(err.error);
+          // alert(errorstr.replace('"/g', ""))
+          alert(errorstr.replace(new RegExp('"', "g"), ""));
+          this.appComponent.isLoading = false;
+        }
+      );
+    } else {
+      this.rsvpService.AddRSVP(rsvp).subscribe(
+        (data) => {
+          this.appComponent.isLoading = false;
+          this.router.navigate(["registered"]);
+        },
+        (err) => {
+          var errorstr = JSON.stringify(err.error);
+          console.log(err.error);
+          // alert(errorstr.replace('"/g', ""))
+          alert(errorstr.replace(new RegExp('"', "g"), ""));
+          this.appComponent.isLoading = false;
+        }
+      );
+    }
   }
 }
