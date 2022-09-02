@@ -4807,6 +4807,41 @@
             </div>
           </div>
         </div>
+
+        <div style="border: solid 1px black">
+
+
+        <div class="row" style="padding-bottom: 10px; padding-left: 10px">
+          <div class="col-12" style="margin: 15px">
+            <div class="form-group" >
+              <input
+                style="width: 50%"
+                type="text"
+                formControlName="tableZone"
+                maxlength="200"
+                class="form-control"
+                placeholder="Table Zone*"
+              />
+            </div>
+          </div>
+          <div class="col-12" style="margin: 15px; margin-top: 5px">
+            <div class="form-group" >
+              <input
+                style="width: 50%"
+                type="text"
+                formControlName="table"
+                maxlength="200"
+                class="form-control"
+                placeholder="Table*"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
       </div>
       <div class="row" style="padding-top: 20px">
         <div
@@ -4844,21 +4879,28 @@
           </button> -->
           <button
             type="submit"
-    
-          [ngStyle]="
-          rsvpId
-            ? { 'background-color': '#ffbb33', borderColor: '#ffbb33' }
-            : { 'background-color': '#0d6efd', borderColor: '#0d6efd' }
-        "
-        style="
-        border-radius: 20px;
-        width: 150px;
-      "
+            [ngStyle]="
+              rsvpId
+                ? { 'background-color': '#ffbb33', borderColor: '#ffbb33' }
+                : { 'background-color': '#0d6efd', borderColor: '#0d6efd' }
+            "
+            style="border-radius: 20px; width: 150px"
             class="btn btn-info"
           >
-            Submit
+            {{ rsvpId ? "Update" : "Submit" }}
           </button>
         </div>
+        <div *ngIf="rsvpId" class="col-12 col-md-3 rsvpButton">
+          <button
+          [routerLink]="['admin/guest-list']"
+            style="border-radius: 20px; width: 150px;"
+            class="btn btn-info"
+          >
+            Back
+          </button>
+        </div>
+
+        
       </div>
     </div>
   </form>

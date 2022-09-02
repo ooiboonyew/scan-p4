@@ -95,6 +95,8 @@ export class LandingComponent implements OnInit {
       parking: new FormControl({ value: "", disabled: false }, [
         // Validators.required,
       ]),
+      tableZone: new FormControl({ value: "", disabled: false }, []),
+      table: new FormControl({ value: "", disabled: false }, []),
     });
 
     this.route.queryParams.subscribe((params) => {
@@ -105,8 +107,12 @@ export class LandingComponent implements OnInit {
       (data) => {
         this.appComponent.isLoading = false;
         this.rsvp = data;
+
         this.addrsvp.controls.name.setValue(this.rsvp.name);
         this.addrsvp.controls.from.setValue(this.rsvp.from);
+
+        this.addrsvp.controls.tableZone.setValue(this.rsvp.tableZone);
+        this.addrsvp.controls.table.setValue(this.rsvp.table);
         this.changeFrom(this.rsvp.from);
         this.addrsvp.controls.designation.setValue(this.rsvp.designation);
 
@@ -129,11 +135,14 @@ export class LandingComponent implements OnInit {
           this.changeZone(this.rsvp.zone);
         }
 
+        
         this.addrsvp.controls.cluster.setValue(this.rsvp.cluster);
         if (this.rsvp.cluster) {
           this.changeCluster(this.rsvp.cluster);
         }
         this.addrsvp.controls.attending.setValue(this.rsvp.attending);
+
+        this.addrsvp.controls.school.setValue(this.rsvp.school);
 
         if (this.rsvp.attending) {
           this.changeRB(this.rsvp.attending);
@@ -501,7 +510,9 @@ export class LandingComponent implements OnInit {
     rsvp.cluster = this.addrsvp.controls.cluster.value;
     rsvp.otherDivision = this.addrsvp.controls.otherDivision.value;
     rsvp.otherFrom = this.addrsvp.controls.otherFrom.value;
-
+    rsvp.table = this.addrsvp.controls.table.value;
+    rsvp.tableZone = this.addrsvp.controls.tableZone.value;
+    
     console.log(rsvp);
     this.appComponent.isLoading = true;
 
@@ -510,7 +521,9 @@ export class LandingComponent implements OnInit {
       this.rsvpService.UpdateRSVP(rsvp).subscribe(
         (data) => {
           this.appComponent.isLoading = false;
-          alert("Update Successfully.")
+          alert("Update Successfully.");
+          this.router.navigate(["/admin/guest-list"]);
+
         },
         (err) => {
           var errorstr = JSON.stringify(err.error);

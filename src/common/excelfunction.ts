@@ -105,6 +105,13 @@ export class ExcelFunction {
         covidStatus: rsvp.covidStatus,
         otherCovidStatus: rsvp.otherCovidStatus,
         parking: rsvp.parking,
+        tableZone: rsvp.tableZone,
+        table: rsvp.table,
+        checkedInDate: rsvp.checkedInDate
+        ? new Date(
+            JSON.parse(JSON.stringify(rsvp.checkedInDate))._seconds * 1000
+          ).toLocaleString()
+        : "",
         createdDate: rsvp.createdDate
           ? new Date(
               JSON.parse(JSON.stringify(rsvp.createdDate))._seconds * 1000
@@ -141,6 +148,9 @@ export class ExcelFunction {
         "Vaccination Status",
         "Other Vaccination Status",
         "Parking",
+        "Table Zone",
+        "Table",
+        "Check In Date",
         "Registered Date",
         "Email Date",
       ],
