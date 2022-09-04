@@ -189,7 +189,6 @@ rsvpApp.get("/rsvp/getrsvp/:id", async (req, res, next) => {
   }
 });
 
-
 rsvpApp.get(
   "/rsvp/filterUsers/:filtertType/:filterText",
   async (req, res, next) => {
@@ -246,45 +245,40 @@ rsvpApp.get("/rsvp/getuser/:userId", async (req, res, next) => {
 
 rsvpApp.get("/rsvp/summary", async (req, res, next) => {
   try {
-    const result = await userModel.getUsers();
+    const result = await rsvpModel.getRSVP();
+    var summary = {};
+    summary.totalGuest = result.length;
+    summary.totalGuestCheckedIn = result.filter(
+      (x) => x.checkedIn == true
+    ).length;
 
-    var totalUserAttended = result.filter((x) => x.userAttend == 1).length;
-    var totalGuestAttended = 0;
-
-    result.forEach((x) => {
-      totalGuestAttended += x.guestAttend;
-    });
-
-    var totalBoothActivies = [];
-
-    var boothActivies = await boothActivitiesModel.getBoothActivities();
-
-    // var grouped = boothActivies.groupBy(({ boothNum }) => boothNum);
-
-    totalBoothActivies = _.map(
-      _.groupBy(boothActivies, (x) => x.boothNum),
+    var totalTableZones = _.map(
+      _.groupBy(result, (x) => x.tableZone),
       (vals, key) => {
-        return { boothNum: Number(key), chancesUsed: vals.length };
+        return {
+          tableZone: Number(key),
+          total: vals.length,
+          totalCheckedIn: vals.filter((x) => x.checkedIn == true).length,
+        };
       }
     );
 
-    console.log(totalBoothActivies);
+    summary.totalTableZones = totalTableZones;
 
-    var summary = {};
-    summary.totalUserAttended = totalUserAttended;
-    summary.totalGuestAttended = totalGuestAttended;
-    summary.totalUser = result.length;
-    summary.totalBoothActivies = totalBoothActivies;
+    var totalTables = _.map(
+      _.groupBy(result, (x) => x.table),
+      (vals, key) => {
+        return {
+          table: Number(key),
+          total: vals.length,
+          totalCheckedIn: vals.filter((x) => x.checkedIn == true).length,
+        };
+      }
+    );
 
-    summary.sumTotalBoothActivies = {
-      chancesUsed: 0,
-    };
+    summary.totalTable = totalTables;
 
-    totalBoothActivies.forEach((x) => {
-      console.log(x);
-      summary.sumTotalBoothActivies.chancesUsed += x.chancesUsed;
-    });
-
+    console.log(summary);
     return res.status(200).json(summary);
   } catch (error) {
     adeErrorHandler(error, req, res, next);
@@ -307,16 +301,17 @@ rsvpApp.post("/rsvp/import", async (req, res, next) => {
       var userData = {
         email: user.email,
         table: user.table,
-        zone:  user.zone
+        tableZone: user.tableZone,
       };
 
-      var existStaff = await userModel.checkEmail(userData.email);
-
-      // console.log(JSON.stringify(userData));
+      var existStaff = await rsvpModel.checkEmail(userData.email);
 
       if (existStaff.id) {
+        console.log(existStaff);
         userData.id = existStaff.id;
-        const result = await userModel.update(userData);
+        console.log(JSON.stringify(userData));
+
+        const result = await rsvpModel.update(userData);
       }
     }
 
@@ -326,9 +321,38 @@ rsvpApp.post("/rsvp/import", async (req, res, next) => {
   }
 });
 
+rsvpApp.post("/rsvp/checkinGuest", async (req, res, next) => {
+  try {
+    let email = req.body.email;
+    let name = req.body.name;
+
+    var rsvp = await rsvpModel.checkEmail(email);
+
+    if (!rsvp.id) {
+      return res.status(405).json("Email not found.");
+    }
+
+    if (rsvp.name.toLowerCase() != name.toLowerCase()) {
+      return res.status(405).json("Name not found.");
+    }
+
+    if (rsvp.checkedIn) {
+      return res.status(405).json("User already check in.");
+    }
+
+    rsvp.checkedInDate = new Date();
+    rsvp.checkedIn = true;
+    await rsvpModel.update(rsvp);
+
+    const result = await rsvpModel.getRSVPById(rsvp.id);
+    return res.status(200).json(result);
+  } catch (error) {
+    adeErrorHandler(error, req, res, next);
+  }
+});
+
 rsvpApp.post("/rsvp/guestLogin", async (req, res, next) => {
   try {
-    console.log("jere");
     let email = req.body.email;
     // let staffId = req.body.staffId;
 
@@ -417,6 +441,13 @@ rsvpApp.post("/rsvp/update", async (req, res, next) => {
     const rsvp = req.body;
     rsvp.email = rsvp.email.toLowerCase();
     console.log(rsvp);
+
+    if (rsvp.checkedIn) {
+      rsvp.checkedInDate = new Date();
+    } else {
+      rsvp.checkedInDate = null;
+    }
+
     const result = await rsvpModel.update(rsvp);
     //send email
     return res.status(200).json(result);
@@ -430,8 +461,8 @@ rsvpApp.post("/rsvp/checkin", async (req, res, next) => {
     const rsvp = req.body;
     rsvp.checkedInDate = new Date();
     rsvp.checkedIn = true;
-     await rsvpModel.update(rsvp);
-     const result = await rsvpModel.getRSVPById(rsvp.id);
+    await rsvpModel.update(rsvp);
+    const result = await rsvpModel.getRSVPById(rsvp.id);
     //send email
     return res.status(200).json(result);
   } catch (error) {

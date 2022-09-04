@@ -4809,39 +4809,61 @@
         </div>
 
         <div style="border: solid 1px black">
+          <div class="row" style="padding-bottom: 10px; padding-left: 10px">
+            <div class="col-12" style="margin: 15px">
+              <div class="form-group">
+                <div style="display: inline; padding-right: 5px">
+                  Table Zone
+                </div>
 
-
-        <div class="row" style="padding-bottom: 10px; padding-left: 10px">
-          <div class="col-12" style="margin: 15px">
-            <div class="form-group" >
-              <input
-                style="width: 50%"
-                type="text"
-                formControlName="tableZone"
-                maxlength="200"
-                class="form-control"
-                placeholder="Table Zone*"
-              />
+                <input
+                  style="width: 50%; display: inline"
+                  type="text"
+                  formControlName="tableZone"
+                  maxlength="200"
+                  class="form-control"
+                  placeholder="Table Zone*"
+                />
+              </div>
             </div>
-          </div>
-          <div class="col-12" style="margin: 15px; margin-top: 5px">
-            <div class="form-group" >
-              <input
-                style="width: 50%"
-                type="text"
-                formControlName="table"
-                maxlength="200"
-                class="form-control"
-                placeholder="Table*"
-              />
+            <div class="col-12" style="margin: 15px; margin-top: 5px">
+              <div class="form-group">
+                <div style="display: inline; padding-right: 5px">Table</div>
+                <input
+                  style="width: 50%; display: inline"
+                  type="text"
+                  formControlName="table"
+                  maxlength="200"
+                  class="form-control"
+                  placeholder="Table*"
+                />
+              </div>
+            </div>
+            <div class="col-12" style="margin: 15px; margin-top: 5px">
+              <div class="form-group mainTable">
+                <span style="padding-right: 5px;">Check in </span>
+                <span style="padding-right: 20px">
+                  <input
+                    type="radio"
+                    value="1"
+                    formControlName="checkedIn"
+                    style="margin-right: 5px"
+                  />
+                  Yes
+                </span>
+                <span>
+                  <input
+                    type="radio"
+                    value="0"
+                    formControlName="checkedIn"
+                    style="margin-right: 5px"
+                  />
+                  No
+                </span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-
-
-
-
       </div>
       <div class="row" style="padding-top: 20px">
         <div
@@ -4892,15 +4914,13 @@
         </div>
         <div *ngIf="rsvpId" class="col-12 col-md-3 rsvpButton">
           <button
-          [routerLink]="['admin/guest-list']"
-            style="border-radius: 20px; width: 150px;"
+            [routerLink]="['admin/guest-list']"
+            style="border-radius: 20px; width: 150px"
             class="btn btn-info"
           >
             Back
           </button>
         </div>
-
-        
       </div>
     </div>
   </form>

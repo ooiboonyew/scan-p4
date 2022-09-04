@@ -97,6 +97,8 @@ export class LandingComponent implements OnInit {
       ]),
       tableZone: new FormControl({ value: "", disabled: false }, []),
       table: new FormControl({ value: "", disabled: false }, []),
+      checkedIn: new FormControl({ value: "0", disabled: false }, []),
+      
     });
 
     this.route.queryParams.subscribe((params) => {
@@ -112,6 +114,8 @@ export class LandingComponent implements OnInit {
         this.addrsvp.controls.from.setValue(this.rsvp.from);
 
         this.addrsvp.controls.tableZone.setValue(this.rsvp.tableZone);
+        this.addrsvp.controls.checkedIn.setValue(this.rsvp.checkedIn ? "1" : "0");
+
         this.addrsvp.controls.table.setValue(this.rsvp.table);
         this.changeFrom(this.rsvp.from);
         this.addrsvp.controls.designation.setValue(this.rsvp.designation);
@@ -512,6 +516,8 @@ export class LandingComponent implements OnInit {
     rsvp.otherFrom = this.addrsvp.controls.otherFrom.value;
     rsvp.table = this.addrsvp.controls.table.value;
     rsvp.tableZone = this.addrsvp.controls.tableZone.value;
+    rsvp.checkedIn = this.addrsvp.controls.checkedIn.value == "1";
+
     
     console.log(rsvp);
     this.appComponent.isLoading = true;

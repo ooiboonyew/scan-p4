@@ -20,6 +20,15 @@ export class RSVPService {
     return this.http.post<User>(this.baseUrl + "/guestLogin", loginRequest);
   }
 
+
+  checkIn(loginRequest: GuestLoginRequest): Observable<User> {
+    return this.http.post<User>(this.baseUrl + "/guestLogin", loginRequest);
+  }
+
+  CheckInGuest(loginRequest: GuestLoginRequest): Observable<RSVP> {
+    return this.http.post<RSVP>(this.baseUrl + "/checkinGuest", loginRequest);
+  }
+
   listRSVP(): Observable<[]> {
     return this.http.get<[]>(this.baseUrl);
   }

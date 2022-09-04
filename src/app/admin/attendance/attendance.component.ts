@@ -62,7 +62,6 @@ export class AttendanceComponent implements OnInit {
       (data) => {
         setTimeout(() => (this.appComponent.isLoading = false), 0);
         this.rsvps = data;
-        console.log(data);
         this.dataSource = new MatTableDataSource<RSVP>(data);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -81,7 +80,6 @@ export class AttendanceComponent implements OnInit {
   }
 
   filter() {
-    console.log(this.filterText);
     this.appComponent.isLoading = true;
 
     this.rSVPService.listUser().subscribe(

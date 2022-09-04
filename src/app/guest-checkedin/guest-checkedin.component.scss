@@ -1,0 +1,8 @@
+.banner {
+    width: 100%;
+    content: url("../../assets/images/Banner\ Header_Desktop\ \(002\).jpg");
+  
+    @media (max-width: 575px) {
+      content: url("../../assets/images/Banner\ Header_Mobile.jpg");
+    }
+  }
