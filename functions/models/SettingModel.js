@@ -3,7 +3,7 @@ const _ = require("lodash");
 
 const SETTINGS = "settings";
 
-class UserModel extends MainModel {
+class SettingModel extends MainModel {
   constructor() {
     super();
   }
@@ -19,4 +19,4 @@ class UserModel extends MainModel {
   }
 }
 
-module.exports = UserModel;
+module.exports = SettingModel;

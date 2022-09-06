@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PhotoVendorComponent } from './photo-vendor.component';
+import { DialogManagersvpComponent } from './dialog-managersvp.component';
 
-describe('PhotoVendorComponent', () => {
-  let component: PhotoVendorComponent;
-  let fixture: ComponentFixture<PhotoVendorComponent>;
+describe('DialogManagersvpComponent', () => {
+  let component: DialogManagersvpComponent;
+  let fixture: ComponentFixture<DialogManagersvpComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PhotoVendorComponent ]
+      declarations: [ DialogManagersvpComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PhotoVendorComponent);
+    fixture = TestBed.createComponent(DialogManagersvpComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -10,11 +10,11 @@ import {
   MatDialog,
 } from "@angular/material";
 import { SelectionModel } from "@angular/cdk/collections";
-import { DialogEditdonationComponent } from "../dialog-editdonation/dialog-editdonation.component";
 import { DialogUploaddonationComponent } from "../dialog-uploaddonation/dialog-uploaddonation.component";
 import { ExcelFunction } from "../../../common/excelfunction";
 import { UpdateUserRequest } from "src/models/rsvp-request.model";
 import { Router } from "@angular/router";
+import { DialogManagersvpComponent } from "../dialog-managersvp/dialog-managersvp.component";
 
 @Component({
   selector: "app-attendance",
@@ -198,7 +198,7 @@ export class AttendanceComponent implements OnInit {
   }
 
   add() {
-    let dialogRef = this.dialog.open(DialogEditdonationComponent, {
+    let dialogRef = this.dialog.open(DialogManagersvpComponent, {
       width: "80%",
       // height: "90%",
       disableClose: true,
@@ -240,7 +240,7 @@ export class AttendanceComponent implements OnInit {
       queryParams: { id: user.id }
     });
 
-    // let dialogRef = this.dialog.open(DialogEditdonationComponent, {
+    // let dialogRef = this.dialog.open(DialogManagersvpComponent, {
     //   width: "80%",
     //   // height: "90%",
     //   disableClose: true,

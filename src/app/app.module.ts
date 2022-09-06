@@ -17,70 +17,33 @@ import { AdminService } from 'src/services/admin.service';
 import { RSVPService } from 'src/services/rsvp.service';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ManageComponent } from './admin/manage/manage.component';
-import { AccountComponent } from './admin/account/account.component';
-import { LandingComponent } from './landing/landing.component';
-import { RegisteredComponent } from './registered/registered.component';
-import { DialogEditdonationComponent } from './admin/dialog-editdonation/dialog-editdonation.component';
-import { DialogEditboothComponent } from './admin/dialog-editbooth/dialog-editboothcomponent';
-
-
 import { ExcelFunction } from 'src/common/excelfunction';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { MainComponent } from './main/main.component';
-import { AgendaComponent } from './agenda/agenda.component';
-import { FloorplanComponent } from './floorplan/floorplan.component';
-import { BoothComponent } from './booth/booth.component';
-import { MyqrComponent } from './myqr/myqr.component';
-import { GuestLoginComponent } from './guest-login/guest-login.component';
 import { HomeComponent } from './admin/home/home.component';
 import { ScanQrComponent } from './admin/scan-qr/scan-qr.component';
 import { StatComponent } from './admin/stat/stat.component';
-import { BoothSetupComponent } from './admin/booth-setup/booth-setup.component';
 import { CheckinComponent } from './admin/checkin/checkin.component';
 import { DialogUploaddonationComponent } from './admin/dialog-uploaddonation/dialog-uploaddonation.component';
-import { DonationComponent } from './donation/donation.component';
-import { QuizComponent } from './quiz/quiz.component';
-import { PhotoComponent } from './photo/photo.component';
-import { VotingComponent } from './voting/voting.component';
-import { GuideComponent } from './guide/guide.component';
-import { PhotoVendorComponent } from './photo-vendor/photo-vendor.component';
-import { PhotoUBSComponent } from './photo-ubs/photo-ubs.component';
 import { GuestCheckinComponent } from './guest-checkin/guest-checkin.component';
 import { GuestCheckedinComponent } from './guest-checkedin/guest-checkedin.component';
+import { DialogManagersvpComponent } from './admin/dialog-managersvp/dialog-managersvp.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     AttendanceComponent,
-    ManageComponent,
-    AccountComponent,
-    LandingComponent,
-    RegisteredComponent,
-    DialogEditdonationComponent,
-    DialogEditboothComponent,
+    DialogManagersvpComponent,
     MainComponent,
-    AgendaComponent,
-    FloorplanComponent,
-    BoothComponent,
-    MyqrComponent,
-    GuestLoginComponent,
     HomeComponent,
     ScanQrComponent,
     StatComponent,
-    BoothSetupComponent,
     CheckinComponent,
     DialogUploaddonationComponent,
-    DonationComponent,
-    QuizComponent,
-    PhotoComponent,
-    VotingComponent,
-    GuideComponent,
-    PhotoVendorComponent,
-    PhotoUBSComponent,
     GuestCheckinComponent,
     GuestCheckedinComponent,
+    DialogManagersvpComponent,
   ],
   imports: [
     NgMultiSelectDropDownModule.forRoot(),
@@ -97,8 +60,7 @@ import { GuestCheckedinComponent } from './guest-checkedin/guest-checkedin.compo
     NgOtpInputModule
   ],
   entryComponents: [
-    DialogEditdonationComponent,
-    DialogEditboothComponent,
+    DialogManagersvpComponent,
     DialogUploaddonationComponent
   ],
   providers: [DatePipe, RSVPService, AdminService, ExcelFunction],

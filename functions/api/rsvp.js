@@ -15,15 +15,6 @@ rsvpApp.use(cors({ origin: true }));
 const RsvpModel = require("../models/RsvpModel");
 const rsvpModel = new RsvpModel();
 
-const UserModel = require("../models/UserModel");
-const userModel = new UserModel();
-
-const BoothModel = require("../models/BoothModel");
-const boothModel = new BoothModel();
-
-const BoothActivitiesModel = require("../models/BoothActivitiesModel");
-const boothActivitiesModel = new BoothActivitiesModel();
-
 const SettingModel = require("../models/SettingModel");
 const settingModel = new SettingModel();
 
@@ -35,59 +26,7 @@ rsvpApp.use(addResponseHeader);
 
 rsvpApp.get("/", async (req, res, next) => {
   try {
-    // var rsvp = await rsvpModel.getRSVPById("yFyq4jj5fkAHioLEMnFR")
-    // var result = await EmailNotification.sendRsvpEmail(rsvp);
-
-    //https://wtools.io/convert-list-to-json-array
-    //var inputs =
-    //var inputs = ["Admiralty Sec ","Canberra Pr ","Christ Church Sec ","Fuchun Pr ","Fuchun Sec ","Huamin Pr","Innova Pri ","North View Pr","Northbrooks Sec ","Riverside Pr","Si Ling Pr ","Wellington Pr","Woodgrove Sec ","Woodlands Pr ","Woodlands Ring Sec ","Yishun Innova JC "]
-    var inputs = [
-      "APSN Chaoyang School",
-      "APSN Delta Senior School",
-      "APSN Katong School",
-      "APSN Tanglin School",
-      "AWWA School @ Bedok",
-      "AWWA School @ Napiri",
-      "Canossian School",
-      "Cerebral Palsy Alliance Singapore School",
-      "Eden School 1",
-      "Eden School 2",
-      "Grace Orchard School",
-      "Lighthouse School",
-      "Metta School",
-      "MINDS Fernvale Gardens School",
-      "MINDS Lee Kong Chian Gardens School",
-      "MINDS Towner Gardens School",
-      "MINDS Woodlands Gardens School",
-      "Pathlight School",
-      "RC Admiral Hill School",
-      "RC Margaret Drive School",
-      "RC Yishun Park School",
-      "St Andrew's Autism School",
-      "St. Andrew's Mission School",
-    ];
-    var cluster = "N7";
-    var str = "";
-
-    //   <div>
-    //   <input
-    //     type="radio"
-    //     value="Bukit Batok Sec"
-    //     formControlName="school"
-    //     style="margin-right: 5px"
-    //   />
-    //   Bukit Batok Sec
-    // </div>
-
-    inputs.forEach((input) => {
-      input = input.trim();
-      // str += `<div *ngIf="cluster == '${cluster}'"><input type="radio" value="${input}" formControlName="school" style="margin-right: 5px"/> ${input}</div>`
-      str += `<div><input type="radio" value="${input}" formControlName="school" style="margin-right: 5px"/> ${input}</div>`;
-    });
-
-    console.log(str);
-    // const result = await rsvpModel.getRSVP();
-    return res.status(200).json(str);
+    return res.status(200).json("ok");
   } catch (error) {
     adeErrorHandler(error, req, res, next);
   }
@@ -95,47 +34,7 @@ rsvpApp.get("/", async (req, res, next) => {
 
 rsvpApp.get("/rsvp", async (req, res, next) => {
   try {
-    const result = await boothActivitiesModel.getBoothActivities();
 
-    var simply = [];
-    result.forEach((x) =>
-      simply.push({
-        num: x.num,
-        email: x.email,
-        boothNum: x.boothNum,
-        status: x.status == 1 ? "Completed" : "Cancelled",
-        createdDate: new Date(
-          JSON.parse(JSON.stringify(x.createdDate))._seconds * 1000
-        ).toLocaleString(),
-        chancesLeft: x.chancesLeft,
-      })
-    );
-
-    let json2csvCallback = function (err, csv) {
-      if (err) throw err;
-      res.attachment("booth_activitites.csv");
-      res.send(csv);
-      return res.status(200);
-    };
-
-    converter.json2csv(simply, json2csvCallback);
-
-    // converter.json2csv(simply, (err, csv) => {
-    //   if (err) {
-    //     throw err;
-    //   }
-    //   res.setHeader('Content-Type', 'text/csv');
-    //   res.attachment("booth_activitites.csv");
-    //   res.status(200).send(csv);
-    //   // print CSV string
-    //   return res.status(200).json(simply);
-
-    //   Response.Clear();
-    //   Response.ContentType = "application/CSV";
-    //   Response.AddHeader("content-disposition", "attachment; filename=\"" + filename + ".csv\"");
-    //   Response.Write(t.ToString());
-    //   Response.End();
-    // });
   } catch (error) {
     adeErrorHandler(error, req, res, next);
   }
@@ -185,60 +84,6 @@ rsvpApp.get("/rsvp/getrsvp/:id", async (req, res, next) => {
     const result = await rsvpModel.getRSVPById(id);
     return res.status(200).json(result);
   } catch (error) {
-    adeErrorHandler(error, req, res, next);
-  }
-});
-
-rsvpApp.get(
-  "/rsvp/filterUsers/:filtertType/:filterText",
-  async (req, res, next) => {
-    try {
-      const filtertType = req.params.filtertType;
-      const filterText = req.params.filterText;
-      var result = [];
-      // if (filtertType == "name") {
-      //   result = await userModel.filterNamelUsers(filterText);
-      // } else if (filtertType == "staffId") {
-      //   result = await userModel.filterStaffIdUsers(filterText);
-      // } else {
-      //   result = await userModel.filterEmailUsers(filterText);
-      // }
-      result = await userModel.filterEmailUsers(filterText);
-
-      return res.status(200).json(result);
-    } catch (error) {
-      adeErrorHandler(error, req, res, next);
-    }
-  }
-);
-
-// rsvpApp.get(
-//   "/rsvp/filterUsers/:filterText",
-//   async (req, res, next) => {
-//     try {
-//       const filterText = req.params.filterText;
-//       const result = await userModel.filterEmailUsers(filterText);
-
-//       return res.status(200).json(result);
-//     } catch (error) {
-//       adeErrorHandler(error, req, res, next);
-//     }
-//   }
-// );
-
-rsvpApp.get("/rsvp/getuser/:userId", async (req, res, next) => {
-  try {
-    const userId = req.params.userId;
-    console.log(userId);
-    var user = await userModel.getUserById(userId);
-
-    if (user.email) {
-      return res.status(200).json(user);
-    } else {
-      return res.status(401).json("Record Not Found.");
-    }
-  } catch (error) {
-    console.log(error);
     adeErrorHandler(error, req, res, next);
   }
 });
@@ -351,28 +196,6 @@ rsvpApp.post("/rsvp/checkinGuest", async (req, res, next) => {
   }
 });
 
-rsvpApp.post("/rsvp/guestLogin", async (req, res, next) => {
-  try {
-    let email = req.body.email;
-    // let staffId = req.body.staffId;
-
-    var users = await userModel.getUserByEmail(email);
-
-    if (
-      users &&
-      users.length > 0 &&
-      email == users[0].email
-      // && staffId == users[0].staffId
-    ) {
-      return res.status(200).json(users[0]);
-    } else {
-      return res.status(401).json("Invalid Email");
-    }
-  } catch (error) {
-    adeErrorHandler(error, req, res, next);
-  }
-});
-
 rsvpApp.post("/admin/login", async (req, res, next) => {
   try {
     let email = req.body.email;
@@ -470,162 +293,6 @@ rsvpApp.post("/rsvp/checkin", async (req, res, next) => {
   }
 });
 
-rsvpApp.post("/rsvp/playBooth", async (req, res, next) => {
-  try {
-    const playBoothRequest = req.body;
-
-    var user = await userModel.getUserById(playBoothRequest.userId);
-    var booth = (await boothModel.getBoothByNum(playBoothRequest.boothNum))[0];
-
-    console.log(booth);
-    if (!booth || booth.status == 0) {
-      return res.status(405).json(playBoothRequest.boothName + " is closed.");
-    }
-
-    if (booth.secretDigit != playBoothRequest.secretDigit) {
-      return res
-        .status(405)
-        .json("Secret Key Incorrect for " + booth.boothName + ".");
-    }
-
-    if (user.chancesLeft < 1) {
-      return res
-        .status(405)
-        .json("Not enough chance for " + booth.boothName + ".");
-    }
-
-    user.chancesLeft -= 1;
-    const userResult = await userModel.update(user);
-
-    var boothActivities = {};
-    boothActivities.userId = user.id;
-    // boothActivities.name = user.name;
-    // boothActivities.staffId = user.staffId;
-    boothActivities.email = user.email;
-    boothActivities.boothNum = booth.boothNum;
-    boothActivities.chancesLeft = user.chancesLeft;
-    boothActivities.status = 1;
-    boothActivities.createdDate = new Date();
-
-    const result = await boothActivitiesModel.add(boothActivities);
-
-    //send email
-    return res.status(200).json(result);
-  } catch (error) {
-    adeErrorHandler(error, req, res, next);
-  }
-});
-
-rsvpApp.get(
-  "/rsvp/getBoothActivitiesByUser/:userId",
-  async (req, res, next) => {
-    try {
-      const userId = req.params.userId;
-      var boothActivities = await boothActivitiesModel.getByUserId(userId);
-      return res.status(200).json(boothActivities);
-    } catch (error) {
-      console.log(error);
-      adeErrorHandler(error, req, res, next);
-    }
-  }
-);
-
-rsvpApp.get(
-  "/rsvp/getBoothActivitiesByBooth/:boothNum",
-  async (req, res, next) => {
-    try {
-      const boothNum = Number(req.params.boothNum);
-      var boothActivities = await boothActivitiesModel.getByBoothNum(boothNum);
-      console.log(boothActivities);
-      return res.status(200).json(boothActivities);
-    } catch (error) {
-      console.log(error);
-      adeErrorHandler(error, req, res, next);
-    }
-  }
-);
-
-rsvpApp.post("/rsvp/updateUser", async (req, res, next) => {
-  try {
-    const user = req.body;
-    const result = await userModel.update(user);
-    return res.status(200).json(result);
-  } catch (error) {
-    adeErrorHandler(error, req, res, next);
-  }
-});
-
-rsvpApp.post("/rsvp/addUser", async (req, res, next) => {
-  try {
-    const updateUserRequest = req.body;
-    console.log(updateUserRequest);
-
-    var existEmail = await userModel.checkEmail(updateUserRequest.user.email);
-
-    if (existEmail.id) {
-      return res.status(405).json("Add Failed. Email is already exist.");
-    }
-
-    // var existStaff = await userModel.checkEmail(updateUserRequest.user.staffId);
-
-    // if (existStaff.id) {
-    //   return res.status(405).json("Add Failed. Staff ID is already exist.");
-    // }
-
-    updateUserRequest.user.createdDate = new Date();
-    const result = await userModel.add(updateUserRequest.user);
-
-    return res.status(200).json(result);
-  } catch (error) {
-    adeErrorHandler(error, req, res, next);
-  }
-});
-
-rsvpApp.get("/rsvp/listBooth", async (req, res, next) => {
-  try {
-    const result = await boothModel.getBooths();
-
-    return res.status(200).json(result);
-  } catch (error) {
-    adeErrorHandler(error, req, res, next);
-  }
-});
-
-rsvpApp.post("/rsvp/updateBooth", async (req, res, next) => {
-  try {
-    const updateBoothRequest = req.body;
-    const result = await boothModel.update(updateBoothRequest.booth);
-
-    for (const boothActivities of updateBoothRequest.boothActivities) {
-      await boothActivitiesModel.updateStatus(
-        boothActivities.id,
-        Number(boothActivities.status)
-      );
-    }
-
-    return res.status(200).json(result);
-  } catch (error) {
-    adeErrorHandler(error, req, res, next);
-  }
-});
-
-rsvpApp.post("/rsvp/addBooth", async (req, res, next) => {
-  try {
-    const booth = req.body;
-    var exist = await boothModel.checkBoothNum(booth.boothNum);
-
-    if (exist.id) {
-      return res.status(405).json("Add Failed. Booth Number is already exist.");
-    }
-
-    booth.createdDate = new Date();
-    const result = await boothModel.add(booth);
-
-    return res.status(200).json(result);
-  } catch (error) {
-    adeErrorHandler(error, req, res, next);
-  }
-});
 
 rsvpApp.use(adeErrorHandler);
 
