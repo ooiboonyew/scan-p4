@@ -49,11 +49,13 @@ export class BoothActivities {
 }
 
 export class Summary {
+  totalGuest: number;
+  totalTableZones: number;
+  totalTable: number;
+  totalGuestCheckedIn: number;
   totalUserAttended: number;
   totalGuestAttended: number;
   totalUser: number;
-  totalBoothActivies: totalBoothActivity[];
-  sumTotalBoothActivies: totalBoothActivity;
 }
 
 export class totalBoothActivity {
