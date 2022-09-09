@@ -23,10 +23,10 @@
         </div>
       </div>
       <div class="row" style="padding-top: 30px; padding-bottom: 10px; font-size: large; font-weight: bold; " >
-        <div class="col-9 col-md-4">Zone</div>
+        <div class="col-9 col-md-4">Category</div>
       </div>
-      <div class="row" style="padding-bottom: 10px" *ngFor="let record of summary.totalTableZones; let i = index">
-        <div class="col-9 col-md-4">Zone {{record.tableZone ? record.tableZone : "NULL" }}</div>
+      <div class="row" style="padding-bottom: 10px" *ngFor="let record of summary.totalCategory; let i = index">
+        <div class="col-9 col-md-4">Category - {{record.category ? record.category : "NULL" }}</div>
         <div class="col-3 col-md-4">
           {{ record.totalCheckedIn }}
         </div>
@@ -35,10 +35,10 @@
         </div>
       </div>
       <div class="row" style="padding-top: 30px; padding-bottom: 10px; font-size: large; font-weight: bold; " >
-        <div class="col-9 col-md-4">Table</div>
+        <div class="col-9 col-md-4">Data 1</div>
       </div>
-      <div class="row" style="padding-bottom: 10px" *ngFor="let record of summary.totalTable; let i = index">
-        <div class="col-9 col-md-4">Table {{record.table ? record.table : "NULL" }}</div>
+      <div class="row" style="padding-bottom: 10px" *ngFor="let record of summary.totalData1; let i = index">
+        <div class="col-9 col-md-4">Data 1 - {{record.data1 ? record.data1 : "NULL" }}</div>
         <div class="col-3 col-md-4">
           {{ record.totalCheckedIn }}
         </div>

@@ -29,10 +29,6 @@ export class RSVPService {
     return this.http.post<RSVP>(this.baseUrl + "/checkinGuest", loginRequest);
   }
 
-  listRSVP(): Observable<[]> {
-    return this.http.get<[]>(this.baseUrl);
-  }
-
   getSetting(id: string): Observable<Setting> {
     return this.http.get<Setting>(this.baseUrl + "/getSetting/" + id);
   }
@@ -68,8 +64,8 @@ export class RSVPService {
   }
   
 
-  listUser(): Observable<[]> {
-    return this.http.get<[]>(this.baseUrl + "/listusers");
+  listRSVP(): Observable<[]> {
+    return this.http.get<[]>(this.baseUrl + "/listRSVP");
   }
 
   Getuser(id: string): Observable<User> {

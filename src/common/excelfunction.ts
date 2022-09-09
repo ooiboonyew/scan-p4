@@ -85,28 +85,17 @@ export class ExcelFunction {
     rsvps.forEach((rsvp) => {
       var json = {
         "#": rsvp.num,
-        // "attending": rsvp.attending == 0 ? "Physical" : "Virtual",
-        name: rsvp.name,
-        from: rsvp.from,
-        otherFrom: rsvp.otherFrom,
-        designation: rsvp.designation,
-        otherDesignation: rsvp.otherDesignation,
-        divsion: rsvp.division,
-        otherDivision: rsvp.otherDivision,
-        zone: rsvp.zone,
-        cluster: rsvp.cluster,
-        school: rsvp.school,
-        attending: rsvp.attending,
+        firstName: rsvp.firstName,
+        lastName: rsvp.lastName,
         email: rsvp.email,
-        mobile: rsvp.mobile,
-        dataProdection: rsvp.dataProdection,
-        dietary: rsvp.dietary,
-        otherDieraty: rsvp.otherDieraty,
-        covidStatus: rsvp.covidStatus,
-        otherCovidStatus: rsvp.otherCovidStatus,
-        parking: rsvp.parking,
-        tableZone: rsvp.tableZone,
-        table: rsvp.table,
+        category: rsvp.category,
+        company: rsvp.company,
+        data1: rsvp.data1,
+        data2: rsvp.data2,
+        data3: rsvp.data3,
+        data4: rsvp.data4,
+        data5: rsvp.data5,
+        checkedIn: rsvp.checkedIn ? "Yes" : "No",
         checkedInDate: rsvp.checkedInDate
         ? new Date(
             JSON.parse(JSON.stringify(rsvp.checkedInDate))._seconds * 1000
@@ -117,11 +106,6 @@ export class ExcelFunction {
               JSON.parse(JSON.stringify(rsvp.createdDate))._seconds * 1000
             ).toLocaleString()
           : "",
-        emailDate: rsvp.emailDate
-          ? new Date(
-              JSON.parse(JSON.stringify(rsvp.emailDate))._seconds * 1000
-            ).toLocaleString()
-          : "",
       };
       jsons.push(json);
     });
@@ -129,32 +113,20 @@ export class ExcelFunction {
     var Heading = [
       [
         "#",
-        "Name",
-        "From",
-        "Other From",
-        "Designation",
-        "Division",
-        "Other Divsion",
-        "Other Designation",
-        "Zone",
-        "Cluster",
-        "School",
-        "Attending",
-        "email",
-        "Mobile",
-        "Data Prodection",
-        "Dietary",
-        "Other Dieraty",
-        "Vaccination Status",
-        "Other Vaccination Status",
-        "Parking",
-        "tableZone",
-        "table",
+        "First Name",
+        "Last Name",
+        "Email",
+        "Category",
+        "Company",
+        "Data 1",
+        "Data 2",
+        "Data 3",
+        "Data 4",
+        "Data 5",
+        "Checked In",
         "Check In Date",
         "Registered Date",
-        "Email Date",
       ],
-      // ["#", "Attending", "First Name", "Last Name", "E-mail", "Mobile", "Country", "Registered Date", "Email Date"],
     ];
 
     const ws = XLSX.utils.book_new();

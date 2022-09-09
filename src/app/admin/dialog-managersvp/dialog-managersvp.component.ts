@@ -83,7 +83,10 @@ export class DialogManagersvpComponent implements OnInit {
         []
       ),
       checkedIn: new FormControl(
-        { value: this.addScreen ? "0" : this.rsvp.checkedIn ? "1" : "0", disabled: false },
+        {
+          value: this.addScreen ? "0" : this.rsvp.checkedIn ? "1" : "0",
+          disabled: false,
+        },
         []
       ),
     });
@@ -97,6 +100,8 @@ export class DialogManagersvpComponent implements OnInit {
 
     var editRsvp = this.rsvp;
     editRsvp.checkedIn = this.editrsvp.controls.checkedIn.value == "1";
+    editRsvp.firstName = this.editrsvp.controls.firstName.value;
+    editRsvp.lastName = this.editrsvp.controls.lastName.value;
     editRsvp.email = this.editrsvp.controls.email.value;
     editRsvp.category = this.editrsvp.controls.category.value;
     editRsvp.company = this.editrsvp.controls.company.value;
@@ -126,6 +131,17 @@ export class DialogManagersvpComponent implements OnInit {
         }
       );
     } else {
+      this.rsvpService.AddRSVP(editRsvp).subscribe(
+        (data) => {
+          this.isLoading = false;
+          this.dialogRef.close(this.editrsvp);
+        },
+        (err) => {
+          var errorstr = JSON.stringify(err.error);
+          alert(errorstr.replace(new RegExp('"', "g"), ""));
+          this.isLoading = false;
+        }
+      );
     }
   }
 }

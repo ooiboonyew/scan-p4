@@ -31,14 +31,16 @@ export class AttendanceComponent implements OnInit {
   selection: SelectionModel<RSVP> = new SelectionModel<RSVP>(true, []);
   displayedColumns: string[] = [
     "num",
-    "name",
+    "firstName",
+    "lastName",
     "email",
-    "mobile",
-    "attending",
-    "from",
-    "designation",
-    "tableZone",
-    "table",
+    "company",
+    "category",
+    "data1",
+    "data2",
+    "data3",
+    "data4",
+    "data5",
     "createdDate",
     "checkedInDate",
     "Edit",
@@ -58,7 +60,7 @@ export class AttendanceComponent implements OnInit {
   ngOnInit() {
     this.filtertType = "name";
     setTimeout(() => (this.appComponent.isLoading = true), 0);
-    this.rSVPService.listUser().subscribe(
+    this.rSVPService.listRSVP().subscribe(
       (data) => {
         setTimeout(() => (this.appComponent.isLoading = false), 0);
         this.rsvps = data;
@@ -82,7 +84,7 @@ export class AttendanceComponent implements OnInit {
   filter() {
     this.appComponent.isLoading = true;
 
-    this.rSVPService.listUser().subscribe(
+    this.rSVPService.listRSVP().subscribe(
       (data) => {
         this.appComponent.isLoading = false;
 
@@ -130,7 +132,7 @@ export class AttendanceComponent implements OnInit {
     );
 
     //if (this.filterText == "") {
-    // this.rSVPService.listUser().subscribe(
+    // this.rSVPService.listRSVP().subscribe(
     //   (data) => {
     //     this.appComponent.isLoading = false;
     //     this.users = data;
@@ -236,26 +238,26 @@ export class AttendanceComponent implements OnInit {
 
   edit(user: User) {
 
-    this.router.navigate(["../../"], {
-      queryParams: { id: user.id }
+    // this.router.navigate(["../../"], {
+    //   queryParams: { id: user.id }
+    // });
+
+    let dialogRef = this.dialog.open(DialogManagersvpComponent, {
+      width: "80%",
+      // height: "90%",
+      disableClose: true,
+      data: {
+        addScreen: false,
+        user: user,
+      },
     });
 
-    // let dialogRef = this.dialog.open(DialogManagersvpComponent, {
-    //   width: "80%",
-    //   // height: "90%",
-    //   disableClose: true,
-    //   data: {
-    //     addScreen: false,
-    //     user: user,
-    //   },
-    // });
-
-    // dialogRef.afterClosed().subscribe((result) => {
-    //   if (result) {
-    //     alert("Guest Update Successfully.");
-    //     this.ngOnInit();
-    //   }
-    // });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        alert("Guest Update Successfully.");
+        this.ngOnInit();
+      }
+    });
   }
 
   // email(rsvp: RSVP) {
