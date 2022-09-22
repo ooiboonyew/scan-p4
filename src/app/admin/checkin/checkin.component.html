@@ -5,102 +5,17 @@
     </div>
   </div>
   <br />
-  <div *ngIf="user">
+  <div *ngIf="rsvp">
     <div class="row" style="padding-bottom: 30px">
       <div class="col-12">
-        <span style="padding-right: 20px"> Guest : {{ user.email }} </span>
-        <span>
-          <button
-            (click)="userAttend($event.target)"
-            [ngClass]="
-              user.userAvailable == 0
-                ? 'btn btn-secondary'
-                : user.userAttend == 1
-                ? 'btn btn-success'
-                : 'btn btn-primary'
-            "
-            [disabled]="!user.userAvailable"
-            style="width: 200px"
-          >
-            {{ user.userAttend == 1 ? "Attended" : "Check-in" }}
-          </button>
-        </span>
+        <span> Guest : {{ rsvp.email }} </span>
+      </div>
+      <div class="col-12">
+        <span> Name : {{ rsvp.firstName }}, {{ rsvp.lastName }} </span>
       </div>
     </div>
-    <div class="row">
-      <div class="col-12">
-        <div style="padding-bottom: 15px">Accompanying Guest :</div>
-
-        <div
-          *ngFor="let num of numOfGuest; let i = index"
-          style="padding-bottom: 15px"
-        >
-          <!-- {{ num }} -->
-          <button
-            (click)="guestAttend($event.target)"
-            [ngClass]="
-              user.guestAvailable < i + 1
-                ? 'btn btn-secondary'
-                : user.guestAttend > i
-                ? 'btn btn-success'
-                : 'btn btn-primary'
-            "
-            [disabled]="user.guestAvailable < i + 1 || user.guestAttend < i"
-            style="width: 200px"
-          >
-            {{ user.guestAttend > i ? "Attended" : "Check-in" }}
-          </button>
-        </div>
-
-        <!-- <div style="padding-bottom: 15px">
-        <button
-          (click)="guestAttend($event.target)"
-          [ngClass]="
-            user.guestAvailable < 1
-              ? 'btn btn-secondary'
-              : user.guestAttend > 0
-              ? 'btn btn-success'
-              : 'btn btn-primary'
-          "
-          [disabled]="user.guestAvailable < 1 || user.guestAttend < 0"
-          style="width: 200px"
-        >
-          {{ user.guestAttend > 0 ? "Attended" : "Check-in" }}
-        </button>
-      </div> -->
-        <!-- <div style="padding-bottom: 15px">
-        <button
-          (click)="guestAttend($event.target)"
-          [ngClass]="
-            user.guestAvailable < 2
-              ? 'btn btn-secondary'
-              : user.guestAttend > 1
-              ? 'btn btn-success'
-              : 'btn btn-primary'
-          "
-          [disabled]="user.guestAvailable < 2 || user.guestAttend < 1"
-          style="width: 200px"
-        >
-          {{ user.guestAttend > 1 ? "Attended" : "Check-in" }}
-        </button>
-      </div> -->
-        <!-- <div style="padding-bottom: 15px">
-        <button
-          (click)="guestAttend($event.target)"
-          [ngClass]="
-            user.guestAvailable < 3
-              ? 'btn btn-secondary'
-              : user.guestAttend > 2
-              ? 'btn btn-success'
-              : 'btn btn-primary'
-          "
-          [disabled]="user.guestAvailable < 3 || user.guestAttend < 2"
-          style="width: 200px"
-        >
-          {{ user.guestAttend > 2 ? "Attended" : "Check-in" }}
-        </button>
-      </div> -->
-      </div>
+    <div class="row" style="padding-top: 20px; color: red" *ngIf="rsvp.checkedIn">
+      <div class="col-12">This Guest already Check In.</div>
     </div>
     <div class="row" style="padding-top: 25px">
       <div class="col-12">
@@ -116,11 +31,12 @@
             Cancel
           </button>
           <button
+            [disabled]="rsvp.checkedIn"
             class="btn btn-success"
             (click)="confirm()"
             style="width: 130px"
           >
-            Confirm
+            Check In
           </button>
         </div>
       </div>

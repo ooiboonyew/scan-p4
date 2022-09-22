@@ -83,6 +83,7 @@ export class RSVP {
   data3: string;
   data4: string;
   data5: string;
+  qr: string;
   createdDate: object;
   checkedIn: boolean;
   checkedInDate: object;

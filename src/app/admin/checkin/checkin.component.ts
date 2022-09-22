@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { RSVPService } from "../../../services/rsvp.service";
 import { AppComponent } from "src/app/app.component";
-import { User } from "src/models/rsvp.model";
+import { RSVP, User } from "src/models/rsvp.model";
 import { Router } from "@angular/router";
 
 @Component({
@@ -11,9 +11,8 @@ import { Router } from "@angular/router";
   styleUrls: ["./checkin.component.css"],
 })
 export class CheckinComponent implements OnInit, AfterViewInit {
-  userId: string;
-  user: User;
-  numOfGuest: Array<any> = [];
+  rsvpId: string;
+  rsvp: RSVP;
   fromGuestList: boolean;
 
   constructor(
@@ -24,7 +23,6 @@ export class CheckinComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit() {
-    this.numOfGuest = Array.from({ length: 3 }, (v, k) => k);
     //this.appComponent.ngOnInit();
   }
 
@@ -32,14 +30,14 @@ export class CheckinComponent implements OnInit, AfterViewInit {
     //this.appComponent.isLoading = true;
 
     this.route.queryParams.subscribe((params) => {
-      this.userId = params.id;
+      this.rsvpId = params.id;
       this.fromGuestList = params.guestlist;
     });
 
-    this.rSVPService.Getuser(this.userId).subscribe(
+    this.rSVPService.GetRsvp(this.rsvpId).subscribe(
       (data) => {
         this.appComponent.isLoading = false;
-        this.user = data;
+        this.rsvp = data;
       },
       (err) => {
         this.appComponent.isLoading = false;
@@ -50,26 +48,14 @@ export class CheckinComponent implements OnInit, AfterViewInit {
     );
   }
 
-  guestAttend(elemet) {
-    if (elemet.textContent.trim() == "Attended") {
-      this.user.guestAttend -= 1;
-      // elemet.textContent = "Check-in";
-      // elemet.classList = "btn btn-primary";
-    } else {
-      this.user.guestAttend += 1;
-      // elemet.textContent = "Attended";
-      // elemet.classList = "btn btn-success";
-    }
-  }
-
   userAttend(elemet) {
     console.log(elemet);
     if (elemet.textContent.trim() == "Attended") {
-      this.user.userAttend = 0;
+      this.rsvp.checkedIn = false;
       elemet.textContent = "Check-in";
       elemet.classList = "btn btn-primary";
     } else {
-      this.user.userAttend = 1;
+      this.rsvp.checkedIn = true;
       elemet.textContent = "Attended";
       elemet.classList = "btn btn-success";
     }
@@ -86,28 +72,28 @@ export class CheckinComponent implements OnInit, AfterViewInit {
   confirm() {
     let cfm = confirm("Confirm Check-in ?");
 
-    console.log(this.user);
+    console.log(this.rsvp);
 
     if (cfm) {
       this.appComponent.isLoading = true;
-      // this.rSVPService.CheckIn(this.user).subscribe(
-      //   (data) => {
-      //     this.appComponent.isLoading = false;
-      //     alert("Check-in Successfully.");
+      this.rSVPService.CheckIn(this.rsvp).subscribe(
+        (data) => {
+          this.appComponent.isLoading = false;
+          alert("Check-in Successfully.");
 
-      //     if (this.fromGuestList) {
-      //       this.router.navigate(["admin/guest-list"]);
-      //     } else {
-      //       this.router.navigate(["admin/scan-qr"]);
-      //     }
-      //   },
-      //   (err) => {
-      //     var errorstr = JSON.stringify(err.error);
-      //     console.log(err.error);
-      //     alert(errorstr.replace(new RegExp('"', "g"), ""));
-      //     this.appComponent.isLoading = false;
-      //   }
-      // );
+          if (this.fromGuestList) {
+            this.router.navigate(["admin/guest-list"]);
+          } else {
+            this.router.navigate(["admin/scan-qr"]);
+          }
+        },
+        (err) => {
+          var errorstr = JSON.stringify(err.error);
+          console.log(err.error);
+          alert(errorstr.replace(new RegExp('"', "g"), ""));
+          this.appComponent.isLoading = false;
+        }
+      );
     }
   }
 }

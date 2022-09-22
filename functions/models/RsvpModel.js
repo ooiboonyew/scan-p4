@@ -50,6 +50,26 @@ class RsvpModel extends MainModel {
     }
   }
 
+  async getRSVPbyQR(qr) {
+    try {
+      let rsvp, id;
+      await this.db
+        .collection(RSVP)
+        .where("qr", "==", qr)
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            rsvp = doc.data();
+            id = doc.id;
+          });
+        });
+
+      return { id, ...rsvp };
+    } catch (err) {
+      throw err;
+    }
+  }
+
   async checkRSVPEmail(email) {
     try {
       let rsvp, id;

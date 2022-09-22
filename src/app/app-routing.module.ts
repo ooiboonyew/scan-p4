@@ -5,6 +5,7 @@ import { AttendanceComponent } from './admin/attendance/attendance.component';
 import { HomeComponent } from './admin/home/home.component';
 import { StatComponent } from './admin/stat/stat.component';
 import { ScanQrComponent } from './admin/scan-qr/scan-qr.component';
+import { CheckinComponent } from './admin/checkin/checkin.component';
 
 
 const routes: Routes = [
@@ -17,7 +18,7 @@ const routes: Routes = [
   { path: 'admin', component: HomeComponent },
   { path: 'admin/guest-list', component: AttendanceComponent },
   { path: 'admin/scan-qr', component: ScanQrComponent },
-  // { path: 'admin/checkin', component: CheckinComponent },
+   { path: 'admin/checkin', component: CheckinComponent },
 
   { path: 'admin/stat', component: StatComponent },
   // { path: 'admin/booth-setup', component: BoothSetupComponent },

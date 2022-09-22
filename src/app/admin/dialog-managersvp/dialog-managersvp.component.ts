@@ -62,6 +62,10 @@ export class DialogManagersvpComponent implements OnInit {
         { value: this.addScreen ? "" : this.rsvp.category, disabled: false },
         []
       ),
+      qr: new FormControl(
+        { value: this.addScreen ? "" : this.rsvp.qr, disabled: false },
+        []
+      ),
       data1: new FormControl(
         { value: this.addScreen ? "" : this.rsvp.data1, disabled: false },
         []
@@ -82,6 +86,7 @@ export class DialogManagersvpComponent implements OnInit {
         { value: this.addScreen ? "" : this.rsvp.data5, disabled: false },
         []
       ),
+
       checkedIn: new FormControl(
         {
           value: this.addScreen ? "0" : this.rsvp.checkedIn ? "1" : "0",
@@ -110,6 +115,7 @@ export class DialogManagersvpComponent implements OnInit {
     editRsvp.data3 = this.editrsvp.controls.data3.value;
     editRsvp.data4 = this.editrsvp.controls.data4.value;
     editRsvp.data5 = this.editrsvp.controls.data5.value;
+    editRsvp.qr = this.editrsvp.controls.qr.value;
 
     this.isLoading = true;
     if (!this.addScreen) {

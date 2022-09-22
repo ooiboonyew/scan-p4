@@ -87,6 +87,19 @@ rsvpApp.get("/rsvp/getrsvp/:id", async (req, res, next) => {
   }
 });
 
+
+rsvpApp.get("/rsvp/GetRSVPByQR/:qr", async (req, res, next) => {
+  try {
+    const qr = req.params.qr;
+
+    const result = await rsvpModel.getRSVPbyQR(qr);
+    return res.status(200).json(result);
+  } catch (error) {
+    adeErrorHandler(error, req, res, next);
+  }
+});
+
+
 rsvpApp.get("/rsvp/summary", async (req, res, next) => {
   try {
     const result = await rsvpModel.getRSVP();
@@ -122,7 +135,7 @@ rsvpApp.get("/rsvp/summary", async (req, res, next) => {
 
     summary.totalData1 = totalData1;
 
-    console.log(summary);
+    // console.log(summary);
     return res.status(200).json(summary);
   } catch (error) {
     adeErrorHandler(error, req, res, next);
@@ -145,7 +158,7 @@ rsvpApp.post("/rsvp/import", async (req, res, next) => {
       var rsvpData = {
         firstName: rsvp.firstName,
         lastName: rsvp.lastName,
-        email: rsvp.email,
+        email: rsvp.email.toLowerCase(),
         category: rsvp.category,
         company: rsvp.company,
         data1: rsvp.data1,
@@ -153,6 +166,7 @@ rsvpApp.post("/rsvp/import", async (req, res, next) => {
         data3: rsvp.data3,
         data4: rsvp.data4,
         data5: rsvp.data5,
+        qr: rsvp.qr,
         checkedIn: false,
         createdDate: new Date(),
       };
@@ -161,7 +175,7 @@ rsvpApp.post("/rsvp/import", async (req, res, next) => {
 
       if (existStaff.id) {
         rsvpData.id = existStaff.id;
-        // const result = await rsvpModel.update(rsvpData);
+        const result = await rsvpModel.update(rsvpData);
       } else {
         const result = await rsvpModel.add(rsvpData);
       }
@@ -222,8 +236,7 @@ rsvpApp.post("/rsvp/update", async (req, res, next) => {
   try {
     const rsvp = req.body;
     rsvp.email = rsvp.email.toLowerCase();
-    console.log(rsvp);
-
+    
     if (rsvp.checkedIn) {
       rsvp.checkedInDate = new Date();
     } else {

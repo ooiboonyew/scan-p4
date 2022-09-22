@@ -72,6 +72,10 @@ export class RSVPService {
     return this.http.get<User>(this.baseUrl + "/getuser/" + id);
   }
 
+  GetRSVPByQR(qr: string): Observable<User> {
+    return this.http.get<User>(this.baseUrl + "/GetRSVPByQR/" + qr);
+  }
+
   CheckIn(rsvp: RSVP): Observable<RSVP> {
     return this.http.post<RSVP>(this.baseUrl + "/checkin", rsvp);
   }
