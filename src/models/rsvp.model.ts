@@ -50,24 +50,14 @@ export class BoothActivities {
 
 export class Summary {
   totalGuest: number;
-  totalTableZones: number;
-  totalTable: number;
+  totalCategory: number;
+  totalData1: number;
+  totalData2: number;
+  totalData3: number;
+  totalData4: number;
+  totalData5: number;
   totalGuestCheckedIn: number;
-  totalUserAttended: number;
   totalGuestAttended: number;
-  totalUser: number;
-}
-
-export class totalBoothActivity {
-  boothNum: number;
-  chancesUsed: number;
-}
-
-export class TotalUserBooth {
-  boothNum: number;
-  totalChances: number;
-  chancesLeft: number;
-  chancesUsed: number;
 }
 
 export class RSVP {
