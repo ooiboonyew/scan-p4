@@ -203,7 +203,7 @@ export class AttendanceComponent implements OnInit {
   add() {
     let dialogRef = this.dialog.open(DialogManagersvpComponent, {
       width: "80%",
-      // height: "90%",
+      height: "80%",
       disableClose: true,
       data: {
         user: {},
@@ -245,7 +245,7 @@ export class AttendanceComponent implements OnInit {
 
     let dialogRef = this.dialog.open(DialogManagersvpComponent, {
       width: "80%",
-      // height: "90%",
+      height: "80%",
       disableClose: true,
       data: {
         addScreen: false,
