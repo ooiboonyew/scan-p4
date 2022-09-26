@@ -8,10 +8,16 @@
   <div *ngIf="rsvp">
     <div class="row" style="padding-bottom: 30px">
       <div class="col-12">
-        <span> Guest : {{ rsvp.email }} </span>
+        <span> Email : {{ rsvp.email }} </span>
       </div>
       <div class="col-12">
         <span> Name : {{ rsvp.firstName }}, {{ rsvp.lastName }} </span>
+      </div>      
+      <div class="col-12">
+        <span> Company : {{ rsvp.company }}</span>
+      </div>
+      <div class="col-12">
+        <span> RSVP Status: {{ rsvp.category }}</span>
       </div>
     </div>
     <div class="row" style="padding-top: 20px; color: red" *ngIf="rsvp.checkedIn">

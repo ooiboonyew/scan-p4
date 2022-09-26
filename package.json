@@ -11,8 +11,10 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "dev": "ng serve",
+    "local": "ng serve --prod",
     "dev-back": "cd functions && firebase emulators:start --only functions",
     "deploy": "npm run build && firebase deploy",
+    "deploy-front": "npm run build && firebase deploy --except functions",
     "deploy-back": "firebase deploy --only functions"
   },
   "private": true,
