@@ -33,7 +33,7 @@ export class DialogManagersvpComponent implements OnInit {
 
   ngOnInit() {
     this.addScreen = this.data.addScreen;
-    this.rsvp = this.data.user;
+    this.rsvp = this.data.rsvp;
 
     this.editrsvp = new FormGroup({
       firstName: new FormControl(

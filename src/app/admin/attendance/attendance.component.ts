@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { RSVP, User } from "../../../models/rsvp.model";
+import { RSVP } from "../../../models/rsvp.model";
 import { RSVPService } from "../../../services/rsvp.service";
 import { AppComponent } from "src/app/app.component";
 import {
@@ -38,10 +38,10 @@ export class AttendanceComponent implements OnInit {
     "category",
     "qr",
     "data1",
-    "data2",
-    "data3",
-    "data4",
-    "data5",
+    // "data2",
+    // "data3",
+    // "data4",
+    // "data5",
     "createdDate",
     "checkedInDate",
     "Edit",
@@ -59,7 +59,7 @@ export class AttendanceComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.filtertType = "name";
+    this.filtertType = "email";
     setTimeout(() => (this.appComponent.isLoading = true), 0);
     this.rSVPService.listRSVP().subscribe(
       (data) => {
@@ -92,34 +92,46 @@ export class AttendanceComponent implements OnInit {
         if (this.filterText == "") {
           this.rsvps = data;
         } else {
-          this.rsvps = data.filter(
-            (user: User) =>
-              user.email
-                .toLocaleLowerCase()
-                .indexOf(this.filterText.toLocaleLowerCase()) > -1
-          );
-          // if (this.filtertType == "name") {
-          //   this.users = data.filter(
-          //     (user: User) =>
-          //       user.name
-          //         .toLocaleLowerCase()
-          //         .indexOf(this.filterText.toLocaleLowerCase()) > -1
-          //   );
-          // } else if (this.filtertType == "staffId") {
-          //   this.users = data.filter(
-          //     (user: User) =>
-          //       user.staffId
-          //         .toLocaleLowerCase()
-          //         .indexOf(this.filterText.toLocaleLowerCase()) > -1
-          //   );
-          // } else {
-          //   this.users = data.filter(
-          //     (user: User) =>
-          //       user.email
-          //         .toLocaleLowerCase()
-          //         .indexOf(this.filterText.toLocaleLowerCase()) > -1
-          //   );
-          // }
+          // this.rsvps = data.filter(
+          //   (rsvp: RSVP) =>
+          //     rsvp.email
+          //       .toLocaleLowerCase()
+          //       .indexOf(this.filterText.toLocaleLowerCase()) > -1
+          // );
+          if (this.filtertType == "firstName") {
+            this.rsvps = data.filter(
+              (rsvp: RSVP) =>
+                rsvp.firstName
+                  .toLocaleLowerCase()
+                  .indexOf(this.filterText.toLocaleLowerCase()) > -1
+            );
+
+            this.rsvps.forEach((rsvp, index) => {
+              rsvp.num = index + 1;
+            });
+          } else if (this.filtertType == "company") {
+            this.rsvps = data.filter(
+              (rsvp: RSVP) =>
+                rsvp.company
+                  .toLocaleLowerCase()
+                  .indexOf(this.filterText.toLocaleLowerCase()) > -1
+            );
+
+            this.rsvps.forEach((rsvp, index) => {
+              rsvp.num = index + 1;
+            });
+          } else {
+            this.rsvps = data.filter(
+              (rsvp: RSVP) =>
+                rsvp.email
+                  .toLocaleLowerCase()
+                  .indexOf(this.filterText.toLocaleLowerCase()) > -1
+            );
+
+            this.rsvps.forEach((rsvp, index) => {
+              rsvp.num = index + 1;
+            });
+          }
         }
 
         this.dataSource = new MatTableDataSource<RSVP>(this.rsvps);
@@ -131,53 +143,6 @@ export class AttendanceComponent implements OnInit {
         alert(err.error);
       }
     );
-
-    //if (this.filterText == "") {
-    // this.rSVPService.listRSVP().subscribe(
-    //   (data) => {
-    //     this.appComponent.isLoading = false;
-    //     this.users = data;
-    //     console.log(data);
-    //     this.dataSource = new MatTableDataSource<User>(data);
-    //     this.dataSource.paginator = this.paginator;
-    //     this.dataSource.sort = this.sort;
-    //   },
-    //   (err) => {
-    //     this.appComponent.isLoading = false;
-    //     alert(err.error);
-    //   }
-    // );
-    //  } else {
-    // this.users == null;
-
-    // this.users = this.users.filter(
-    //   (user: User) =>
-    //     user.name
-    //       .toLocaleLowerCase()
-    //       .indexOf(this.filterText.toLocaleLowerCase()) > -1
-    //);
-
-    // console.log(this.users);
-    // this.dataSource = new MatTableDataSource<User>(this.users);
-    // this.dataSource.paginator = this.paginator;
-    // this.dataSource.sort = this.sort;
-
-    // this.appComponent.isLoading = false;
-    // this.rSVPService.FilterUsers(this.filtertType, this.filterText).subscribe(
-    //   (data) => {
-    //     this.appComponent.isLoading = false;
-    //     this.users = data;
-    //     console.log(data);
-    //     this.dataSource = new MatTableDataSource<User>(data);
-    //     this.dataSource.paginator = this.paginator;
-    //     this.dataSource.sort = this.sort;
-    //   },
-    //   (err) => {
-    //     this.appComponent.isLoading = false;
-    //     alert(err.error);
-    //   }
-    // );
-    // }
   }
 
   import() {
@@ -206,7 +171,7 @@ export class AttendanceComponent implements OnInit {
       height: "80%",
       disableClose: true,
       data: {
-        user: {},
+        rsvp: {},
         addScreen: true,
       },
     });
@@ -221,7 +186,6 @@ export class AttendanceComponent implements OnInit {
 
   attend(rsvp: RSVP) {
     if (confirm("Are you sure you want to check-in " + rsvp.email + "?")) {
-
       this.rSVPService.CheckIn(rsvp).subscribe(
         (data) => {
           rsvp.checkedIn = true;
@@ -237,19 +201,14 @@ export class AttendanceComponent implements OnInit {
     }
   }
 
-  edit(user: User) {
-
-    // this.router.navigate(["../../"], {
-    //   queryParams: { id: user.id }
-    // });
-
+  edit(rsvp: RSVP) {
     let dialogRef = this.dialog.open(DialogManagersvpComponent, {
       width: "80%",
       height: "80%",
       disableClose: true,
       data: {
         addScreen: false,
-        user: user,
+        rsvp: rsvp,
       },
     });
 
@@ -260,22 +219,4 @@ export class AttendanceComponent implements OnInit {
       }
     });
   }
-
-  // email(rsvp: RSVP) {
-  //   if (confirm("Are you sure you want to send email to " + rsvp.email + "?")) {
-  //     this.appComponent.isLoading = true;
-  //     this.rSVPService.EmailRSVP(rsvp.id).subscribe(
-  //       (data) => {
-  //         this.appComponent.isLoading = false;
-  //         alert("Email Send Successfully.");
-  //         this.ngOnInit();
-  //       },
-  //       (err) => {
-  //         var errorstr = JSON.stringify(err.error);
-  //         alert(errorstr);
-  //         this.appComponent.isLoading = false;
-  //       }
-  //     );
-  //   }
-  // }
 }

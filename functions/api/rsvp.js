@@ -113,7 +113,7 @@ rsvpApp.get("/rsvp/summary", async (req, res, next) => {
       _.groupBy(result, (x) => x.category),
       (vals, key) => {
         return {
-          category: Number(key),
+          category: key,
           total: vals.length,
           totalCheckedIn: vals.filter((x) => x.checkedIn == true).length,
         };
@@ -126,7 +126,7 @@ rsvpApp.get("/rsvp/summary", async (req, res, next) => {
       _.groupBy(result, (x) => x.data1),
       (vals, key) => {
         return {
-          data1: Number(key),
+          data1: key,
           total: vals.length,
           totalCheckedIn: vals.filter((x) => x.checkedIn == true).length,
         };
@@ -256,6 +256,7 @@ rsvpApp.post("/rsvp/checkin", async (req, res, next) => {
     const rsvp = req.body;
     rsvp.checkedInDate = new Date();
     rsvp.checkedIn = true;
+    rsvp.id = rsvp.rsvpId;
     await rsvpModel.update(rsvp);
     const result = await rsvpModel.getRSVPById(rsvp.id);
     //send email
