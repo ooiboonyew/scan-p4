@@ -37,7 +37,7 @@ export class AttendanceComponent implements OnInit {
     "company",
     "category",
     "qr",
-    "data1",
+    // "data1",
     // "data2",
     // "data3",
     // "data4",
