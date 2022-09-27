@@ -87,7 +87,6 @@ rsvpApp.get("/rsvp/getrsvp/:id", async (req, res, next) => {
   }
 });
 
-
 rsvpApp.get("/rsvp/GetRSVPByQR/:qr", async (req, res, next) => {
   try {
     const qr = req.params.qr;
@@ -98,7 +97,6 @@ rsvpApp.get("/rsvp/GetRSVPByQR/:qr", async (req, res, next) => {
     adeErrorHandler(error, req, res, next);
   }
 });
-
 
 rsvpApp.get("/rsvp/summary", async (req, res, next) => {
   try {
@@ -236,7 +234,7 @@ rsvpApp.post("/rsvp/update", async (req, res, next) => {
   try {
     const rsvp = req.body;
     rsvp.email = rsvp.email.toLowerCase();
-    
+
     if (rsvp.checkedIn) {
       rsvp.checkedInDate = new Date();
     } else {
@@ -256,7 +254,12 @@ rsvpApp.post("/rsvp/checkin", async (req, res, next) => {
     const rsvp = req.body;
     rsvp.checkedInDate = new Date();
     rsvp.checkedIn = true;
-    rsvp.id = rsvp.rsvpId;
+    console.log(rsvp);
+
+    if (rsvp.rsvpId) {
+      rsvp.id = rsvp.rsvpId;
+    }
+    
     await rsvpModel.update(rsvp);
     const result = await rsvpModel.getRSVPById(rsvp.id);
     //send email
