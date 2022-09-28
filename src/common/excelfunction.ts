@@ -82,9 +82,9 @@ export class ExcelFunction {
     var jsons = [];
     var datePipe = new DatePipe("en-US");
 
-    rsvps.forEach((rsvp) => {
+    rsvps.forEach((rsvp, index) => {
       var json = {
-        "#": rsvp.num,
+        "#": (index += 1),
         firstName: rsvp.firstName,
         lastName: rsvp.lastName,
         email: rsvp.email,
@@ -98,10 +98,10 @@ export class ExcelFunction {
         data5: rsvp.data5,
         checkedIn: rsvp.checkedIn ? "Yes" : "No",
         checkedInDate: rsvp.checkedInDate
-        ? new Date(
-            JSON.parse(JSON.stringify(rsvp.checkedInDate))._seconds * 1000
-          ).toLocaleString()
-        : "",
+          ? new Date(
+              JSON.parse(JSON.stringify(rsvp.checkedInDate))._seconds * 1000
+            ).toLocaleString()
+          : "",
         createdDate: rsvp.createdDate
           ? new Date(
               JSON.parse(JSON.stringify(rsvp.createdDate))._seconds * 1000
