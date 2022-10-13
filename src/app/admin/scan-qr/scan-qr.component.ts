@@ -46,11 +46,16 @@ export class ScanQrComponent implements OnInit, AfterViewInit {
 
     this.rSVPService.GetRSVPByQR(resultString).subscribe(
       (data) => {
-        this.scanned = true;
         this.appComponent.isLoading = false;
-        this.router.navigate(["admin/checkin"], {
-          queryParams: { id: data.id },
-        });
+
+        if (data.id == null) {
+          alert("QR Not Found");
+        } else {
+          this.scanned = true;
+          this.router.navigate(["admin/checkin"], {
+            queryParams: { id: data.id },
+          });
+        }
       },
       (err) => {
         this.appComponent.isLoading = false;

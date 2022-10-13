@@ -42,8 +42,8 @@ export class AttendanceComponent implements OnInit {
     // "data3",
     // "data4",
     // "data5",
-    "createdDate",
-    "checkedInDate",
+    "createdDate._seconds",
+    "checkedInDate._seconds",
     "Edit",
   ];
 
@@ -67,6 +67,7 @@ export class AttendanceComponent implements OnInit {
         this.rsvps = data;
         this.dataSource = new MatTableDataSource<RSVP>(data);
         this.dataSource.paginator = this.paginator;
+        this.dataSource.sortingDataAccessor = this.pathDataAccessor;
         this.dataSource.sort = this.sort;
       },
       (err) => {
@@ -75,6 +76,14 @@ export class AttendanceComponent implements OnInit {
       }
     );
   }
+
+  pathDataAccessor(item: any, path: string): any {
+    return path.split('.')
+      .reduce((accumulator: any, key: string) => {
+        return accumulator ? accumulator[key] : undefined;
+      }, item);
+  }
+
 
   reset() {
     this.filterText = "";
@@ -136,6 +145,7 @@ export class AttendanceComponent implements OnInit {
 
         this.dataSource = new MatTableDataSource<RSVP>(this.rsvps);
         this.dataSource.paginator = this.paginator;
+        this.dataSource.sortingDataAccessor = this.pathDataAccessor;
         this.dataSource.sort = this.sort;
       },
       (err) => {
