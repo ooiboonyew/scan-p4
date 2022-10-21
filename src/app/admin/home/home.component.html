@@ -1,23 +1,30 @@
-<div class="container">
-
-<div class="row">
-  <div class="col-12 item" [routerLink]="['scan-qr']">
-    <img width="50px" src="../../assets/images/icon/qr-code-svgrepo-com.svg" />
-    Check In
-  </div>
-  <div class="col-12 item" [routerLink]="['guest-list']">
-    <img
-      width="50px"
-      src="../../../assets/images/icon/search-svgrepo-com.svg"
-    />
-    Guest List
-  </div>
-  <div class="col-12 item" [routerLink]="['stat']">
-    <img width="50px" src="../../../assets/images/icon/statistics-svgrepo-com.svg" />
-    STAT
+<div class="container" *ngIf="admin">
+  <div class="row">
+    <div class="col-12 item" [routerLink]="['scan-qr']">
+      <img
+        width="50px"
+        src="../../assets/images/icon/qr-code-svgrepo-com.svg"
+      />
+      Check In
+    </div>
+    <div
+      class="col-12 item"
+      [routerLink]="['guest-list']"
+      *ngIf="admin.adminID == 1 || admin.adminID == 3"
+    >
+      <img
+        width="50px"
+        src="../../../assets/images/icon/search-svgrepo-com.svg"
+      />
+      Guest List
+    </div>
+    <div class="col-12 item" [routerLink]="['stat']" *ngIf="admin.adminID == 1 || admin.adminID == 3">
+      <img
+        width="50px"
+        src="../../../assets/images/icon/statistics-svgrepo-com.svg"
+      />
+      STAT
+    </div>
   </div>
 </div>
-</div>
-<footer style="text-align:center;padding-top:20px">
-  Version 1.0.0
-</footer>
+<footer style="text-align: center; padding-top: 20px">Version 1.0.0</footer>

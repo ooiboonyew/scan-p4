@@ -60,7 +60,7 @@
           />
         </mat-form-field>
       </div>
-      <div class="col-12">
+      <!-- <div class="col-12">
         <mat-form-field style="width: 100%">
           <input
             matInput
@@ -69,6 +69,31 @@
             formControlName="category"
           />
         </mat-form-field>
+      </div> -->
+      <div class="col-12">
+        <div class="form-group">
+          <select
+            class="form-control catSelect"
+            style="padding-left: 0px"
+            formControlName="category"
+            placeholder="Category"
+          >
+            <option value="" disabled>Category</option>
+            <option value="Organiser">Organiser</option>
+            <option value="Staff">Staff</option>
+            <!-- <option value="Crew">Crew</option>
+              <option value="VIP">VIP</option> -->
+            <option value="Speaker">Speaker</option>
+            <!-- <option value="Exhibitor">Exhibitor</option>
+              <option value="Media">Media</option>
+              <option value="Delegate 1">Delegate 1</option>
+              <option value="Delegate 2">Delegate 2</option>
+              <option value="Delegate 3">Delegate 3</option>
+              <option value="delegate">delegate</option> -->
+            <option value="Client">Client</option>
+            <option value="NA">NA</option>
+          </select>
+        </div>
       </div>
       <div class="col-12">
         <mat-form-field style="width: 100%">

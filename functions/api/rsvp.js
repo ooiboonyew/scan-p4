@@ -18,6 +18,9 @@ const rsvpModel = new RsvpModel();
 const SettingModel = require("../models/SettingModel");
 const settingModel = new SettingModel();
 
+const AdminModel = require("../models/AdminModel");
+const adminModel = new AdminModel();
+
 const _ = require("lodash");
 const converter = require("json-2-csv");
 
@@ -190,14 +193,27 @@ rsvpApp.post("/admin/login", async (req, res, next) => {
     let email = req.body.email;
     let password = req.body.password;
 
-    let hardEmail = "admin@rsvp.com";
-    let hardPassword = "admin@123";
+    var admin = await adminModel.checkAdmin(email);
 
-    if (email == hardEmail && password == hardPassword) {
-      return res.status(200).json({ adminID: 1, name: "Admin", email: email });
-    } else {
+    if (admin && admin.password == password) {
+      return res.status(200).json(admin);
+    }else{
       return res.status(401).json("Invalid Email or Password");
     }
+
+    // let hardEmail = "admin@rsvp.com";
+    // let hardPassword = "admin@123";
+
+    // let hardEmail2 = "checkin@rsvp.com";
+    // let hardPassword2 = "check@in";
+
+    // if (email == hardEmail && password == hardPassword) {
+    //   return res.status(200).json({ adminID: 1, name: "Admin", email: email });
+    // } else if (email == hardEmail2 && password == hardPassword2) {
+    //   return res.status(200).json({ adminID: 2, name: "Admin", email: email });
+    // } else {
+    //   return res.status(401).json("Invalid Email or Password");
+    // }
   } catch (error) {
     adeErrorHandler(error, req, res, next);
   }

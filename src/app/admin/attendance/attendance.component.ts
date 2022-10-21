@@ -36,7 +36,7 @@ export class AttendanceComponent implements OnInit {
     "email",
     "company",
     "category",
-    "qr",
+    // "qr",
     // "data1",
     // "data2",
     // "data3",
@@ -59,7 +59,7 @@ export class AttendanceComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.filtertType = "email";
+    this.filtertType = "firstName";
     setTimeout(() => (this.appComponent.isLoading = true), 0);
     this.rSVPService.listRSVP().subscribe(
       (data) => {
@@ -78,10 +78,13 @@ export class AttendanceComponent implements OnInit {
   }
 
   pathDataAccessor(item: any, path: string): any {
-    return path.split('.')
-      .reduce((accumulator: any, key: string) => {
-        return accumulator ? accumulator[key] : undefined;
-      }, item);
+    return path.split(".").reduce((accumulator: any, key: string) => {
+      return accumulator
+        ? path.includes(".")
+          ? accumulator[key]
+          : accumulator[key].toLocaleLowerCase()
+        : undefined;
+    }, item);
   }
 
 
@@ -195,21 +198,27 @@ export class AttendanceComponent implements OnInit {
   }
 
   attend(rsvp: RSVP) {
-    if (confirm("Are you sure you want to check-in " + rsvp.email + "?")) {
-      this.rSVPService.CheckIn(rsvp).subscribe(
-        (data) => {
-          rsvp.checkedIn = true;
-          rsvp.checkedInDate = data.checkedInDate;
-          this.appComponent.isLoading = false;
-        },
-        (err) => {
-          var errorstr = JSON.stringify(err.error);
-          alert(errorstr.replace(new RegExp('"', "g"), ""));
-          this.appComponent.isLoading = false;
-        }
-      );
-    }
+    this.router.navigate(["admin/checkin"], {
+      queryParams: { id: rsvp.id, guestlist: true },
+    });
   }
+
+  // attend(rsvp: RSVP) {
+  //   if (confirm("Are you sure you want to check-in " + rsvp.email + "?")) {
+  //     this.rSVPService.CheckIn(rsvp).subscribe(
+  //       (data) => {
+  //         rsvp.checkedIn = true;
+  //         rsvp.checkedInDate = data.checkedInDate;
+  //         this.appComponent.isLoading = false;
+  //       },
+  //       (err) => {
+  //         var errorstr = JSON.stringify(err.error);
+  //         alert(errorstr.replace(new RegExp('"', "g"), ""));
+  //         this.appComponent.isLoading = false;
+  //       }
+  //     );
+  //   }
+  // }
 
   edit(rsvp: RSVP) {
     let dialogRef = this.dialog.open(DialogManagersvpComponent, {

@@ -70,16 +70,16 @@ export class CheckinComponent implements OnInit, AfterViewInit {
   }
 
   confirm() {
-    let cfm = confirm("Confirm Check-in ?");
+    // let cfm = confirm("Confirm Check-in ?");
 
     console.log(this.rsvp);
 
-    if (cfm) {
+    // if (cfm) {
       this.appComponent.isLoading = true;
       this.rSVPService.CheckIn(this.rsvp).subscribe(
         (data) => {
           this.appComponent.isLoading = false;
-          alert("Check-in Successfully.");
+          // alert("Check-in Successfully.");
 
           if (this.fromGuestList) {
             this.router.navigate(["admin/guest-list"]);
@@ -95,5 +95,5 @@ export class CheckinComponent implements OnInit, AfterViewInit {
         }
       );
     }
-  }
+  // }
 }
