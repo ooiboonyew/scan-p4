@@ -1,11 +1,6 @@
 const CSVToJSON = require("csvtojson");
 const functions = require("firebase-functions");
-const {
-  verifyToken,
-  adeErrorHandler,
-  addResponseHeader,
-} = require("../common/middlewares");
-const EmailNotification = require("../common/helpers/EmailNotification");
+const { adeErrorHandler, addResponseHeader } = require("../common/middlewares");
 
 const express = require("express");
 const cors = require("cors");
@@ -20,6 +15,9 @@ const settingModel = new SettingModel();
 
 const AdminModel = require("../models/AdminModel");
 const adminModel = new AdminModel();
+
+const ConfigModel = require("../models/ConfigModel");
+const configModel = new ConfigModel();
 
 const _ = require("lodash");
 const converter = require("json-2-csv");
@@ -61,6 +59,15 @@ rsvpApp.get("/rsvp/email/:rsvpId", async (req, res, next) => {
 rsvpApp.get("/rsvp/listRSVP", async (req, res, next) => {
   try {
     const result = await rsvpModel.getRSVP();
+    return res.status(200).json(result);
+  } catch (error) {
+    adeErrorHandler(error, req, res, next);
+  }
+});
+
+rsvpApp.get("/rsvp/listConfig", async (req, res, next) => {
+  try {
+    const result = await configModel.getConfig();
 
     return res.status(200).json(result);
   } catch (error) {
@@ -197,7 +204,7 @@ rsvpApp.post("/admin/login", async (req, res, next) => {
 
     if (admin && admin.password == password) {
       return res.status(200).json(admin);
-    }else{
+    } else {
       return res.status(401).json("Invalid Email or Password");
     }
 
@@ -223,24 +230,10 @@ rsvpApp.post("/rsvp/add", async (req, res, next) => {
   try {
     const rsvp = req.body;
     rsvp.createdDate = new Date();
-    rsvp.email = rsvp.email.toLowerCase();
+    await rsvpModel.add(rsvp);
+    // rsvp.id = resultId;
 
-    if (rsvp.email) {
-      var existingRSVP = await rsvpModel.checkRSVPEmail(rsvp.email);
-
-      if (existingRSVP.id) {
-        return res
-          .status(405)
-          .json(
-            "Your email shows that you have already registered for this event."
-          );
-      }
-    }
-
-    const resultId = await rsvpModel.add(rsvp);
-    rsvp.id = resultId;
-
-    return res.status(200).json(resultId);
+    return res.status(200).json();
   } catch (error) {
     adeErrorHandler(error, req, res, next);
   }
@@ -265,6 +258,39 @@ rsvpApp.post("/rsvp/update", async (req, res, next) => {
   }
 });
 
+rsvpApp.post("/rsvp/addconfig", async (req, res, next) => {
+  try {
+    const data = req.body;
+    const resultId = await configModel.add(data);
+
+    return res.status(200).json(resultId);
+  } catch (error) {
+    adeErrorHandler(error, req, res, next);
+  }
+});
+
+rsvpApp.post("/rsvp/updateConfig", async (req, res, next) => {
+  try {
+    const data = req.body;
+    const result = await configModel.update(data);
+    //send email
+    return res.status(200).json(result);
+  } catch (error) {
+    adeErrorHandler(error, req, res, next);
+  }
+});
+
+rsvpApp.get("/rsvp/deleteConfig/:id", async (req, res, next) => {
+  try {
+    const id = req.params.id;
+
+    const result = await configModel.delete(id);
+    return res.status(200).json(result);
+  } catch (error) {
+    adeErrorHandler(error, req, res, next);
+  }
+});
+
 rsvpApp.post("/rsvp/checkin", async (req, res, next) => {
   try {
     const rsvp = req.body;
@@ -275,7 +301,7 @@ rsvpApp.post("/rsvp/checkin", async (req, res, next) => {
     if (rsvp.rsvpId) {
       rsvp.id = rsvp.rsvpId;
     }
-    
+
     await rsvpModel.update(rsvp);
     const result = await rsvpModel.getRSVPById(rsvp.id);
     //send email

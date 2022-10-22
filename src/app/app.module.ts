@@ -28,6 +28,8 @@ import { DialogUploaddonationComponent } from './admin/dialog-uploaddonation/dia
 import { GuestCheckinComponent } from './guest-checkin/guest-checkin.component';
 import { GuestCheckedinComponent } from './guest-checkedin/guest-checkedin.component';
 import { DialogManagersvpComponent } from './admin/dialog-managersvp/dialog-managersvp.component';
+import { DialogManageconfigComponent } from './admin/dialog-manageconfig/dialog-manageconfig.component';
+import { ConfigComponent } from './admin/config/config.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +46,8 @@ import { DialogManagersvpComponent } from './admin/dialog-managersvp/dialog-mana
     GuestCheckinComponent,
     GuestCheckedinComponent,
     DialogManagersvpComponent,
+    DialogManageconfigComponent,
+    ConfigComponent,
   ],
   imports: [
     NgMultiSelectDropDownModule.forRoot(),
@@ -61,7 +65,8 @@ import { DialogManagersvpComponent } from './admin/dialog-managersvp/dialog-mana
   ],
   entryComponents: [
     DialogManagersvpComponent,
-    DialogUploaddonationComponent
+    DialogUploaddonationComponent,
+    DialogManageconfigComponent
   ],
   providers: [DatePipe, RSVPService, AdminService, ExcelFunction],
   bootstrap: [AppComponent]

@@ -67,7 +67,7 @@ export class RSVP {
   lastName: string;
   email: string;
   company: string;
-  category:string;
+  category: string;
   data1: string;
   data2: string;
   data3: string;
@@ -77,4 +77,17 @@ export class RSVP {
   createdDate: object;
   checkedIn: boolean;
   checkedInDate: object;
+}
+
+export class RSVP_Scan {
+  id: string;
+  num: number;
+  qr: string;
+  location: string;
+  createdDate: object;
+}
+
+export class Config {
+  id: string;
+  name: string;
 }

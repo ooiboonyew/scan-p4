@@ -10,6 +10,7 @@ import {
   UpdateBoothRequest,
   UpdateUserRequest,
 } from "../models/rsvp-request.model";
+import { Config } from "protractor";
 
 @Injectable()
 export class RSVPService {
@@ -33,7 +34,7 @@ export class RSVPService {
     return this.http.get<Setting>(this.baseUrl + "/getSetting/" + id);
   }
 
-  AddRSVP(rsvp: RSVP): Observable<{}> {
+  AddRSVP(rsvp): Observable<{}> {
     return this.http.post<{}>(this.baseUrl + "/Add", rsvp);
   }
 
@@ -43,6 +44,23 @@ export class RSVPService {
 
   UpdateRSVP(rsvp: RSVP): Observable<{}> {
     return this.http.post<{}>(this.baseUrl + "/Update", rsvp);
+  }
+
+
+  AddConfig(config: Config): Observable<{}> {
+    return this.http.post<{}>(this.baseUrl + "/Addconfig", config);
+  }
+
+  GetConfig(id: string): Observable<RSVP> {
+    return this.http.get<RSVP>(this.baseUrl + "/getconfig/" + id);
+  }
+
+  UpdateConfig(config: Config): Observable<{}> {
+    return this.http.post<{}>(this.baseUrl + "/Updateconfig", config);
+  }
+
+  DeleteConfig(id: string): Observable<RSVP> {
+    return this.http.get<RSVP>(this.baseUrl + "/deleteConfig/" + id);
   }
 
   EmailRSVP(id: string): Observable<{}> {
@@ -63,6 +81,9 @@ export class RSVPService {
     );
   }
   
+  listConfig(): Observable<[]> {
+    return this.http.get<[]>(this.baseUrl + "/listConfig");
+  }
 
   listRSVP(): Observable<[]> {
     return this.http.get<[]>(this.baseUrl + "/listRSVP");

@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "g": "cd src && cd app && ng g component guest-checkedin --module app",
-    "generate-admin": "cd src && cd app/admin && ng g component dialog-managersvp --module app",
+    "g-admin": "cd src && cd app/admin && ng g component config --module app",
     "ng": "ng update",
     "start": "ng serve",
     "build": "ng build --prod --configuration=production",

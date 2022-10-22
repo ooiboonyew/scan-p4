@@ -5,18 +5,18 @@
         width="50px"
         src="../../assets/images/icon/qr-code-svgrepo-com.svg"
       />
-      Check In
+      Scan QR
     </div>
     <div
       class="col-12 item"
-      [routerLink]="['guest-list']"
+      [routerLink]="['config-list']"
       *ngIf="admin.adminID == 1 || admin.adminID == 3"
     >
       <img
         width="50px"
         src="../../../assets/images/icon/search-svgrepo-com.svg"
       />
-      Guest List
+      Configuration
     </div>
     <div class="col-12 item" [routerLink]="['stat']" *ngIf="admin.adminID == 1 || admin.adminID == 3">
       <img

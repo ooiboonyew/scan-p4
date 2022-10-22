@@ -1,13 +1,7 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  ElementRef,
-  AfterViewInit,
-} from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { RSVPService } from "../../../services/rsvp.service";
 import { AppComponent } from "src/app/app.component";
-import { RSVP } from "src/models/rsvp.model";
+import { Config, RSVP, RSVP_Scan } from "src/models/rsvp.model";
 import { stringify } from "querystring";
 import { Router } from "@angular/router";
 
@@ -16,9 +10,13 @@ import { Router } from "@angular/router";
   templateUrl: "./scan-qr.component.html",
   styleUrls: ["./scan-qr.component.css"],
 })
-export class ScanQrComponent implements OnInit, AfterViewInit {
+export class ScanQrComponent implements OnInit {
   rsvp: RSVP;
   scanned: boolean = false;
+  selectedConfig = "";
+
+  configs: Config[];
+
   // attended: boolean = false;
   // errormsg: string = "";
   //qrstring: string = "";
@@ -31,10 +29,18 @@ export class ScanQrComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit() {
-    this.appComponent.ngOnInit();
+    // this.appComponent.ngOnInit();
+    this.rSVPService.listConfig().subscribe(
+      (data) => {
+        this.appComponent.isLoading = false;
+        this.configs = data;
+      },
+      (err) => {
+        this.appComponent.isLoading = false;
+        alert(err.error);
+      }
+    );
   }
-
-  ngAfterViewInit() {}
 
   onCodeResult(resultString: string) {
     if (resultString == "") {
@@ -42,20 +48,17 @@ export class ScanQrComponent implements OnInit, AfterViewInit {
       return;
     }
     this.appComponent.isLoading = true;
-    console.log(resultString);
+    // console.log(resultString);
+    var req = {
+      location: this.selectedConfig,
+      qr: resultString,
+    };
 
-    this.rSVPService.GetRSVPByQR(resultString).subscribe(
+    this.rSVPService.AddRSVP(req).subscribe(
       (data) => {
         this.appComponent.isLoading = false;
-
-        if (data.id == null) {
-          alert("QR Not Found");
-        } else {
-          this.scanned = true;
-          this.router.navigate(["admin/checkin"], {
-            queryParams: { id: data.id },
-          });
-        }
+        this.scanned = true;
+        setTimeout(() => (this.scanned = false), 1000);
       },
       (err) => {
         this.appComponent.isLoading = false;

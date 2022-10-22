@@ -30,7 +30,27 @@
     </div>
   </div>
   <br />
-  <div *ngIf="!scanned">
+  <div class="row text-center">
+    <div class="col-12">
+      <select
+        [(ngModel)]="selectedConfig"
+        class="form-control"
+        placeholder="Category"
+      >
+        <option value="" disabled>Select Location</option>
+        <option
+          [ngValue]="config.name"
+          *ngFor="let config of configs; trackBy: trackAnswerById"
+        >
+          {{ config.name }}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <br />
+
+  <div *ngIf="selectedConfig != '' && !scanned">
     <div class="row text-center">
       <div class="col-0 col-md-2"></div>
       <div
@@ -61,5 +81,9 @@
         </button>
       </div>
     </div>
+  </div>
+
+  <div *ngIf="scanned" class="row text-center">
+    <div class="col-12" style="font-size: x-large;padding-top: 80px;color: green;">Scan QR Succesfully.</div>
   </div>
 </div>

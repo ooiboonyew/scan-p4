@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   //Service_URL: 'http://localhost:6001/citi-webapp/asia-southeast1/rsvp'
-  Service_URL: 'http://localhost:6001/onsite-checkin-186f3/asia-southeast1/rsvp'
+  Service_URL: 'http://localhost:6001/entrancescanner/asia-southeast1/rsvp'
 };
 
 /*
