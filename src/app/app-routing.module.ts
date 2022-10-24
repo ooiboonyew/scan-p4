@@ -9,7 +9,7 @@ import { CheckinComponent } from "./admin/checkin/checkin.component";
 import { ConfigComponent } from "./admin/config/config.component";
 
 const routes: Routes = [
-  { path: "", component: LoginComponent },
+  //{ path: "", component: LoginComponent },
   // { path: 'checkin', component: GuestCheckinComponent },
   // { path: 'checkedin', component: GuestCheckedinComponent },
   // { path: 'admin', component: LoginComponent },
