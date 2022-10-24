@@ -32,7 +32,9 @@
               <th mat-header-cell *matHeaderCellDef mat-sort-header>
                 <b>#</b>
               </th>
-              <td mat-cell *matCellDef="let row">{{ row.num }}</td>
+              <td mat-cell *matCellDef="let i = index">
+                {{ [i + 1 + paginator.pageIndex * paginator.pageSize] }}
+              </td>
             </ng-container>
             <ng-container matColumnDef="name">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -51,12 +53,12 @@
                   <mat-icon>edit</mat-icon>
                 </button>
                 <button
-                mat-icon-button
-                style="color: #6c757d"
-                (click)="delete(row)"
-              >
-                <mat-icon>delete</mat-icon>
-              </button>
+                  mat-icon-button
+                  style="color: #6c757d"
+                  (click)="delete(row)"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
               </td>
             </ng-container>
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
