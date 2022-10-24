@@ -5,71 +5,11 @@ import { DatePipe } from "@angular/common";
 const EXCEL_TYPE =
   "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
 const EXCEL_EXTENSION = ".csv";
-import { RSVP, User } from "../models/rsvp.model";
+import { RSVP, RSVP_Scan, User } from "../models/rsvp.model";
 
 export class ExcelFunction {
   public exportAsExcelFile(json: any[], excelFileName: string): void {
     const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
-    const wb: XLSX.WorkBook = { Sheets: { data: ws }, SheetNames: ["data"] };
-    const excelBuffer: any = XLSX.write(wb, { bookType: "csv", type: "array" });
-    this.saveExcelFile(excelBuffer, excelFileName);
-  }
-
-  public exportUserHeaderAsExcelFile(
-    rsvps: User[],
-    excelFileName: string
-  ): void {
-    var jsons = [];
-    var datePipe = new DatePipe("en-US");
-
-    rsvps.forEach((user) => {
-      var json = {
-        "#": user.num,
-        // "name": user.name,
-        // "staffId": user.staffId,
-        email: user.email,
-        available: user.userAvailable == 1 ? "Yes" : "No",
-        attended: user.userAttend == 1 ? "Yes" : "No",
-        acc_person: user.guestAvailable,
-        acc_attended: user.guestAttend,
-        acc_absent: user.guestAvailable - user.guestAttend,
-        chancesTotal: user.chancesTotal,
-        chancesLeft: user.chancesLeft,
-        createdDate: user.createdDate
-          ? new Date(
-              JSON.parse(JSON.stringify(user.createdDate))._seconds * 1000
-            ).toLocaleString()
-          : "",
-        lastCheckInDate: user.lastCheckInDate
-          ? new Date(
-              JSON.parse(JSON.stringify(user.lastCheckInDate))._seconds * 1000
-            ).toLocaleString()
-          : "",
-      };
-      jsons.push(json);
-    });
-
-    var Heading = [
-      [
-        "#",
-        "Email",
-        "Available",
-        "Attended",
-        "Acc Person",
-        "Acc Attended",
-        "Acc Absent",
-        "Total Chances",
-        "Chances Left",
-        "Created Date",
-        "Check In Date",
-      ],
-      // ["#", "Attending", "First Name", "Last Name", "E-mail", "Mobile", "Country", "Registered Date", "Email Date"],
-    ];
-
-    const ws = XLSX.utils.book_new();
-
-    XLSX.utils.sheet_add_aoa(ws, Heading);
-    XLSX.utils.sheet_add_json(ws, jsons, { origin: "A2", skipHeader: true });
     const wb: XLSX.WorkBook = { Sheets: { data: ws }, SheetNames: ["data"] };
     const excelBuffer: any = XLSX.write(wb, { bookType: "csv", type: "array" });
     this.saveExcelFile(excelBuffer, excelFileName);
@@ -139,6 +79,38 @@ export class ExcelFunction {
     const excelBuffer: any = XLSX.write(wb, { bookType: "csv", type: "array" });
     this.saveExcelFile(excelBuffer, excelFileName);
   }
+
+  public exportRSVPHeaderAsExcelFile(
+    rsvps: RSVP_Scan[],
+    excelFileName: string
+  ): void {
+    var jsons = [];
+
+    rsvps.forEach((rsvp, index) => {
+      var json = {
+        "#": (index += 1),
+        qr: rsvp.qr,
+        location: rsvp.location,
+        createdDate: rsvp.createdDate
+          ? new Date(
+              JSON.parse(JSON.stringify(rsvp.createdDate))._seconds * 1000
+            ).toLocaleString()
+          : "",
+      };
+      jsons.push(json);
+    });
+
+    var Heading = [Object.keys(jsons[0])];
+
+    const ws = XLSX.utils.book_new();
+
+    XLSX.utils.sheet_add_aoa(ws, Heading);
+    XLSX.utils.sheet_add_json(ws, jsons, { origin: "A2", skipHeader: true });
+    const wb: XLSX.WorkBook = { Sheets: { data: ws }, SheetNames: ["data"] };
+    const excelBuffer: any = XLSX.write(wb, { bookType: "csv", type: "array" });
+    this.saveExcelFile(excelBuffer, excelFileName);
+  }
+
 
   private saveExcelFile(buffer: any, fileName: string): void {
     const data: Blob = new Blob([buffer], { type: EXCEL_TYPE });

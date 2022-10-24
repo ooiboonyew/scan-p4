@@ -113,35 +113,18 @@ rsvpApp.get("/rsvp/summary", async (req, res, next) => {
     const result = await rsvpModel.getRSVP();
     var summary = {};
     summary.totalGuest = result.length;
-    summary.totalGuestCheckedIn = result.filter(
-      (x) => x.checkedIn == true
-    ).length;
 
-    var totalCategory = _.map(
-      _.groupBy(result, (x) => x.category),
+    var totalLocation = _.map(
+      _.groupBy(result, (x) => x.location),
       (vals, key) => {
         return {
-          category: key,
+          location: key,
           total: vals.length,
-          totalCheckedIn: vals.filter((x) => x.checkedIn == true).length,
         };
       }
     );
 
-    summary.totalCategory = totalCategory;
-
-    var totalData1 = _.map(
-      _.groupBy(result, (x) => x.data1),
-      (vals, key) => {
-        return {
-          data1: key,
-          total: vals.length,
-          totalCheckedIn: vals.filter((x) => x.checkedIn == true).length,
-        };
-      }
-    );
-
-    summary.totalData1 = totalData1;
+    summary.totalLocation = totalLocation;
 
     // console.log(summary);
     return res.status(200).json(summary);

@@ -71,7 +71,7 @@ export class ConfigComponent implements OnInit {
 
     this.rSVPService.listRSVP().subscribe(
       (data) => {
-        this.excelFunction.exportCustomHeaderAsExcelFile(data, "config");
+        this.excelFunction.exportRSVPHeaderAsExcelFile(data, "Scanning_Report");
         this.appComponent.isLoading = false;
       },
       (err) => {

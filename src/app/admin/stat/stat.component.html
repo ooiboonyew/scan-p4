@@ -5,103 +5,26 @@
     </div>
     <div class="col-md-12" *ngIf="summary">
       <div class="row" style="padding-top: 20px; padding-bottom: 10px; font-size: large; font-weight: bold; " >
-        <div class="col-9 col-md-4">Total Attandance</div>
+        <div class="col-9 col-md-4"></div>
         <div class="col-3 col-md-4">
-          Attended
-        </div>
-        <div class="col-3 col-md-4">
-          Total Registered
+          Total
         </div>
       </div>
       <div class="row" style="padding-bottom: 10px">
         <div class="col-9 col-md-4">Guest</div>
         <div class="col-3 col-md-4">
-          {{ summary.totalGuestCheckedIn }}
-        </div>
-        <div class="col-3 col-md-4">
           {{ summary.totalGuest }}
         </div>
       </div>
       <div class="row" style="padding-top: 30px; padding-bottom: 10px; font-size: large; font-weight: bold; " >
-        <div class="col-9 col-md-4">Category</div>
+        <div class="col-9 col-md-4">Location</div>
       </div>
-      <div class="row" style="padding-bottom: 10px" *ngFor="let record of summary.totalCategory; let i = index">
-        <div class="col-9 col-md-4">Category - {{record.category ? record.category : "NULL" }}</div>
-        <div class="col-3 col-md-4">
-          {{ record.totalCheckedIn }}
-        </div>
+      <div class="row" style="padding-bottom: 10px" *ngFor="let record of summary.totalLocation; let i = index">
+        <div class="col-9 col-md-4">Location - {{record.location ? record.location : "NULL" }}</div>
         <div class="col-3 col-md-4">
           {{ record.total }}
         </div>
-      </div>
-      <!-- <div class="row" style="padding-top: 30px; padding-bottom: 10px; font-size: large; font-weight: bold; " >
-        <div class="col-9 col-md-4">Data 1</div>
-      </div>
-      <div class="row" style="padding-bottom: 10px" *ngFor="let record of summary.totalData1; let i = index">
-        <div class="col-9 col-md-4">Data 1 - {{record.data1 ? record.data1 : "NULL" }}</div>
-        <div class="col-3 col-md-4">
-          {{ record.totalCheckedIn }}
-        </div>
-        <div class="col-3 col-md-4">
-          {{ record.total }}
-        </div>
-      </div> -->
-
-
-      <!-- <div class="row" style="padding-bottom: 20px">
-            <div class="col-8">
-                Filter by <u style="padding-left:20px">Reg-status</u>
-            </div>
-        </div>
-        <div class="row" style="padding-bottom: 10px">
-            <div class="col-6">
-                Pre-reg (Attended/Absent/Total)
-            </div>
-            <div class="col-4">
-                {{rSVPSummary.totalPreRegAttend}}
-                / {{rSVPSummary.totalPreRegAbsent}}
-                / {{rSVPSummary.totalPreRegRecord}}
-            </div>
-        </div>
-        <div class="row" style="padding-bottom: 60px">
-            <div class="col-6">
-                Walk-in (Attended/Absent/Total)
-            </div>
-            <div class="col-4">
-                {{rSVPSummary.totalWalkInAttend}}
-                / {{rSVPSummary.totalWalkInAbsent}}
-                / {{rSVPSummary.totalWalkInRecord}}</div>
-        </div>
-        <div class="row" style="padding-bottom: 20px">
-            <div class="col-8">
-                Filter by <u style="padding-left:20px">Category</u>
-            </div>
-        </div>
-        <div class="row" style="padding-bottom: 10px" *ngFor="let cat of rSVPSummary.totalCategory">
-            <div class="col-6">
-                {{getCategory(cat.category).CategoryName}} (Attended/Absent/Total)
-            </div>
-            <div class="col-4">
-                {{cat.totalAttend}}
-                / {{cat.totalAbsent}}
-                / {{cat.totalRecord}}
-            </div>
-        </div>
-        <div class="row" style="padding-top:60px;padding-bottom: 20px">
-            <div class="col-8">
-                Filter by <u style="padding-left:20px">Session</u>
-            </div>
-        </div>
-        <div class="row" style="padding-bottom: 10px" *ngFor="let cat of rSVPSummary.totalSession">
-            <div class="col-6">
-                {{cat.session}} (Attended/Absent/Total)
-            </div>
-            <div class="col-4">
-                {{cat.totalAttend}}
-                / {{cat.totalAbsent}}
-                / {{cat.totalRecord}}
-            </div>
-        </div> -->
+      </div>   
     </div>
   </div>
 </div>
