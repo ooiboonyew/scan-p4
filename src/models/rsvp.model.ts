@@ -50,14 +50,7 @@ export class BoothActivities {
 
 export class Summary {
   totalGuest: number;
-  totalCategory: number;
-  totalData1: number;
-  totalData2: number;
-  totalData3: number;
-  totalData4: number;
-  totalData5: number;
-  totalGuestCheckedIn: number;
-  totalGuestAttended: number;
+  totalLocation: number;
 }
 
 export class RSVP {

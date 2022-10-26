@@ -40,7 +40,7 @@
         <option value="" disabled>Select Location</option>
         <option
           [ngValue]="config.name"
-          *ngFor="let config of configs; trackBy: trackAnswerById"
+          *ngFor="let config of configs;"
         >
           {{ config.name }}
         </option>
