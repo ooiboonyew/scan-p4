@@ -108,6 +108,19 @@ rsvpApp.get("/rsvp/GetRSVPByQR/:qr", async (req, res, next) => {
   }
 });
 
+
+
+rsvpApp.get("/rsvp/GetRsvpCount/:location", async (req, res, next) => {
+  try {
+    const location = req.params.location;
+    const result = await rsvpModel.getRSVPbylocation(location);
+    return res.status(200).json(result.length);
+  } catch (error) {
+    adeErrorHandler(error, req, res, next);
+  }
+});
+
+
 rsvpApp.get("/rsvp/summary", async (req, res, next) => {
   try {
     const result = await rsvpModel.getRSVP();

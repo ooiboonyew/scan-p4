@@ -14,7 +14,7 @@ export class ScanQrComponent implements OnInit {
   rsvp: RSVP;
   scanned: boolean = false;
   selectedConfig = "";
-
+  count: number;
   configs: Config[];
 
   // attended: boolean = false;
@@ -30,10 +30,31 @@ export class ScanQrComponent implements OnInit {
 
   ngOnInit() {
     // this.appComponent.ngOnInit();
+    setTimeout(() => (this.appComponent.isLoading = true), 0);
+
     this.rSVPService.listConfig().subscribe(
       (data) => {
         this.appComponent.isLoading = false;
         this.configs = data;
+      },
+      (err) => {
+        this.appComponent.isLoading = false;
+        alert(err.error);
+      }
+    );
+  }
+
+  selectConfig(){
+    this.count = null;
+  }
+
+  counting(){
+    this.appComponent.isLoading = true
+
+    this.rSVPService.GetRsvpCount(this.selectedConfig).subscribe(
+      (data) => {
+        this.appComponent.isLoading = false;
+        this.count = data;
       },
       (err) => {
         this.appComponent.isLoading = false;

@@ -97,6 +97,10 @@ export class RSVPService {
     return this.http.get<User>(this.baseUrl + "/GetRSVPByQR/" + qr);
   }
 
+  GetRsvpCount(location: string): Observable<number> {
+    return this.http.get<number>(this.baseUrl + "/GetRsvpCount/" + location);
+  }
+
   CheckIn(rsvp: RSVP): Observable<RSVP> {
     return this.http.post<RSVP>(this.baseUrl + "/checkin", rsvp);
   }

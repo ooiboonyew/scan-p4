@@ -70,6 +70,18 @@ class RsvpModel extends MainModel {
     }
   }
 
+  async getRSVPbylocation(location) {
+    const result = await this.db
+      .collection(RSVP)
+      .where("location", "==", location)
+      .get()
+      .catch((firestoreError) => {
+        throw firestoreError;
+      });
+
+    return this.toArray(result);
+  }
+
   async checkRSVPEmail(email) {
     try {
       let rsvp, id;
