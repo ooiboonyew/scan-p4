@@ -14,7 +14,10 @@ export class ScanQrComponent implements OnInit {
   rsvp: RSVP;
   scanned: boolean = false;
   selectedConfig = "";
+  selectedEntry = "";
   count: number;
+  msg: string = "";
+  
   configs: Config[];
 
   // attended: boolean = false;
@@ -48,6 +51,10 @@ export class ScanQrComponent implements OnInit {
     this.count = null;
   }
 
+  entry(input){
+    this.selectedEntry = input;
+  }
+
   counting(){
     this.appComponent.isLoading = true
 
@@ -64,6 +71,7 @@ export class ScanQrComponent implements OnInit {
   }
 
   onCodeResult(resultString: string) {
+   this.msg = "";
     if (resultString == "") {
       this.scanned = false;
       return;
@@ -72,11 +80,13 @@ export class ScanQrComponent implements OnInit {
     // console.log(resultString);
     var req = {
       location: this.selectedConfig,
+      entry: this.selectedEntry,
       qr: resultString,
     };
 
     this.rSVPService.AddRSVP(req).subscribe(
       (data) => {
+        this.msg = data;
         this.appComponent.isLoading = false;
         this.scanned = true;
         setTimeout(() => (this.scanned = false), 1000);

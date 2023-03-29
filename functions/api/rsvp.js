@@ -108,34 +108,52 @@ rsvpApp.get("/rsvp/GetRSVPByQR/:qr", async (req, res, next) => {
   }
 });
 
-
-
 rsvpApp.get("/rsvp/GetRsvpCount/:location", async (req, res, next) => {
   try {
     const location = req.params.location;
-    const result = await rsvpModel.getRSVPbylocation(location);
-    return res.status(200).json(result.length);
+    const rspvs = await rsvpModel.getRSVPbylocation(location);
+
+    var resultIn = rspvs.filter((x) => x.entry == "IN").length;
+    var resultOut = rspvs.filter((x) => x.entry == "OUT").length;
+    var result = resultIn - resultOut;
+
+    return res.status(200).json(result);
   } catch (error) {
     adeErrorHandler(error, req, res, next);
   }
 });
 
-
 rsvpApp.get("/rsvp/summary", async (req, res, next) => {
   try {
     const result = await rsvpModel.getRSVP();
     var summary = {};
-    summary.totalGuest = result.length;
+    // summary.totalGuest = result.length;
 
     var totalLocation = _.map(
       _.groupBy(result, (x) => x.location),
-      (vals, key) => {
+      (rsvps, key) => {
+        var resultIn = rsvps.filter((x) => x.entry == "IN").length;
+        var resultOut = rsvps.filter((x) => x.entry == "OUT").length;
+        var result = resultIn - resultOut;
+
         return {
           location: key,
-          total: vals.length,
+          totalIn: resultIn,
+          totalOut: resultOut,
+          totalLive: result,
         };
       }
     );
+
+    summary.totalIn = 0;
+    summary.totalOut = 0;
+    summary.totalLive = 0;
+
+    totalLocation.forEach((x) => {
+      summary.totalIn += x.totalIn;
+      summary.totalOut += x.totalOut;
+      summary.totalLive += x.totalLive;
+    });
 
     summary.totalLocation = totalLocation;
 
@@ -224,12 +242,29 @@ rsvpApp.post("/admin/login", async (req, res, next) => {
 
 rsvpApp.post("/rsvp/add", async (req, res, next) => {
   try {
+    var msg = "";
     const rsvp = req.body;
     rsvp.createdDate = new Date();
-    await rsvpModel.add(rsvp);
-    // rsvp.id = resultId;
 
-    return res.status(200).json();
+    var lastRSVP = await rsvpModel.getRSVPbyQR(rsvp.qr);
+
+    if (lastRSVP.id == undefined) {
+      if (rsvp.entry == "OUT") {
+        msg = "No IN record found";
+      } else {
+        await rsvpModel.add(rsvp);
+      }
+    } else {
+      if (rsvp.entry == "OUT" && lastRSVP.entry == "OUT") {
+        msg = "No IN record found";
+      } else if (rsvp.entry == "IN" && lastRSVP.entry == "IN") {
+        msg = "Already scan IN";
+      } else {
+        await rsvpModel.add(rsvp);
+      }
+    }
+
+    return res.status(200).json(msg);
   } catch (error) {
     adeErrorHandler(error, req, res, next);
   }

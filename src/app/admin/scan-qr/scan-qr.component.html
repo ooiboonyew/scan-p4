@@ -37,7 +37,6 @@
         class="form-control"
         placeholder="Category"
         (change)="selectConfig()"
-
       >
         <option value="" disabled>Select Location</option>
         <option [ngValue]="config.name" *ngFor="let config of configs">
@@ -48,20 +47,38 @@
   </div>
   <br />
   <div class="row text-center" *ngIf="selectedConfig">
-    <div class="col-12">
+    <div class="col-6">
       <button
-        class="btn btn-info btn-sm"
-        style="width: 200px;padding-right: 15px;"
-        (click)="counting()"
+        class="btn btn"
+        [ngStyle]="{
+          width: '100%',
+          height: '40px',
+          color: 'black',
+          'background-color': selectedEntry == 'IN' ? '#54C571' : '#EAFFFB'
+        }"
+        (click)="entry('IN')"
       >
-        Update
+        IN
       </button>
-      Count : {{count ? count : '-'}}
-
+    </div>
+    <div class="col-6">
+      <button
+        class="btn btn"
+        [ngStyle]="{
+          width: '100%',
+          height: '40px',
+          color: 'black',
+          'background-color': selectedEntry == 'OUT' ? '#F597B2' : '#F3E8EA'
+        }"
+        (click)="entry('OUT')"
+      >
+        OUT
+      </button>
     </div>
   </div>
+
   <br />
-  <div *ngIf="selectedConfig != '' && !scanned">
+  <div *ngIf="selectedEntry != '' && !scanned">
     <div class="row text-center">
       <div class="col-0 col-md-2"></div>
       <div
@@ -93,13 +110,43 @@
       </div>
     </div> -->
   </div>
+  <br />
+  <div class="row text-center" *ngIf="selectedConfig">
+    <div class="col-12">
+      <button
+        class="btn btn-info btn-sm"
+        style="width: 200px; margin-right: 20px"
+        (click)="counting()"
+      >
+        Get Count
+      </button>
+      Live : {{ count }}
+    </div>
+  </div>
 
   <div *ngIf="scanned" class="row text-center">
     <div
+      *ngIf="!msg"
       class="col-12"
       style="font-size: x-large; padding-top: 80px; color: green"
     >
-      Scan success
+      Scan success for
+      <span
+        [ngStyle]="{
+          color: selectedEntry == 'OUT' ? '#F597B2' : '#54C571'
+        }"
+      >
+        {{ selectedEntry }}
+      </span>
+
+      , {{ selectedConfig }}
+    </div>
+    <div
+      *ngIf="msg"
+      class="col-12"
+      style="font-size: x-large; padding-top: 80px; color: red"
+    >
+      {{ msg }}
     </div>
   </div>
 </div>

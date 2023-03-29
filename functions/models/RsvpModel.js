@@ -56,6 +56,8 @@ class RsvpModel extends MainModel {
       await this.db
         .collection(RSVP)
         .where("qr", "==", qr)
+        .orderBy("createdDate", "desc")
+        .limit(1)
         .get()
         .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
