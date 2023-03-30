@@ -13,7 +13,7 @@ import { Router } from "@angular/router";
 export class ScanQrComponent implements OnInit {
   rsvp: RSVP;
   scanned: boolean = false;
-  selectedConfig = "";
+  selectedConfig: Config = null;
   selectedEntry = "";
   count: number;
   msg: string = "";
@@ -58,7 +58,7 @@ export class ScanQrComponent implements OnInit {
   counting(){
     this.appComponent.isLoading = true
 
-    this.rSVPService.GetRsvpCount(this.selectedConfig).subscribe(
+    this.rSVPService.GetRsvpCount(this.selectedConfig.id).subscribe(
       (data) => {
         this.appComponent.isLoading = false;
         this.count = data;
@@ -79,7 +79,8 @@ export class ScanQrComponent implements OnInit {
     this.appComponent.isLoading = true;
     // console.log(resultString);
     var req = {
-      location: this.selectedConfig,
+      location: this.selectedConfig.location,
+      sublocation: this.selectedConfig.sublocation,
       entry: this.selectedEntry,
       qr: resultString,
     };

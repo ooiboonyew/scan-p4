@@ -25,7 +25,7 @@ export class ConfigComponent implements OnInit {
   datasource: any[];
   dataSource: MatTableDataSource<Config>;
   selection: SelectionModel<Config> = new SelectionModel<Config>(true, []);
-  displayedColumns: string[] = ["num", "name", "Edit"];
+  displayedColumns: string[] = ["num", "location","sublocation", "Edit"];
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
@@ -121,7 +121,7 @@ export class ConfigComponent implements OnInit {
 
 
   delete(config: Config) {
-    if (confirm("Are you sure you delete " + config.name + "?")) {
+    if (confirm("Are you sure you delete " + config.location + "?")) {
       this.appComponent.isLoading = true;
 
       this.rSVPService.DeleteConfig(config.id).subscribe(

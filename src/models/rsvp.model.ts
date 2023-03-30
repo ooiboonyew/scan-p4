@@ -77,10 +77,12 @@ export class RSVP_Scan {
   num: number;
   qr: string;
   location: string;
+  sublocation: string;
   createdDate: object;
 }
 
 export class Config {
   id: string;
-  name: string;
+  location: string;
+  sublocation: string;
 }

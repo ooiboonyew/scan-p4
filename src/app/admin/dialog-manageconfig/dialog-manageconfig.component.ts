@@ -12,9 +12,9 @@ import { DatePipe } from "@angular/common";
 import { CustomValidators } from "../../../common/validators";
 
 @Component({
-  selector: 'app-dialog-manageconfig',
-  templateUrl: './dialog-manageconfig.component.html',
-  styleUrls: ['./dialog-manageconfig.component.css']
+  selector: "app-dialog-manageconfig",
+  templateUrl: "./dialog-manageconfig.component.html",
+  styleUrls: ["./dialog-manageconfig.component.css"],
 })
 export class DialogManageconfigComponent implements OnInit {
   config: Config;
@@ -35,9 +35,16 @@ export class DialogManageconfigComponent implements OnInit {
     this.config = this.data.config;
 
     this.editconfig = new FormGroup({
-      name: new FormControl(
+      location: new FormControl(
         {
-          value: this.addScreen ? "" : this.config.name,
+          value: this.addScreen ? "" : this.config.location,
+          disabled: false,
+        },
+        []
+      ),
+      sublocation: new FormControl(
+        {
+          value: this.addScreen ? "" : this.config.sublocation,
           disabled: false,
         },
         []
@@ -52,8 +59,9 @@ export class DialogManageconfigComponent implements OnInit {
     }
 
     var editconfig = this.config;
-    editconfig.name = this.editconfig.controls.name.value;
- 
+    editconfig.location = this.editconfig.controls.location.value;
+    editconfig.sublocation = this.editconfig.controls.sublocation.value;
+
     this.isLoading = true;
     if (!this.addScreen) {
       editconfig.id = this.config.id;
@@ -88,4 +96,3 @@ export class DialogManageconfigComponent implements OnInit {
     }
   }
 }
-

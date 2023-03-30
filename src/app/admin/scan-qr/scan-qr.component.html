@@ -38,9 +38,13 @@
         placeholder="Category"
         (change)="selectConfig()"
       >
-        <option value="" disabled>Select Location</option>
-        <option [ngValue]="config.name" *ngFor="let config of configs">
-          {{ config.name }}
+        <option value="null" disabled>Select Location</option>
+        <option [ngValue]="config" *ngFor="let config of configs">
+          {{
+            config.sublocation
+              ? config.location + " - " + config.sublocation
+              : config.location
+          }}
         </option>
       </select>
     </div>
@@ -138,8 +142,12 @@
       >
         {{ selectedEntry }}
       </span>
-
-      , {{ selectedConfig }}
+      ,
+      {{
+        selectedConfig.sublocation
+          ? selectedConfig.location + " - " + selectedConfig.sublocation
+          : selectedConfig.location
+      }}
     </div>
     <div
       *ngIf="msg"

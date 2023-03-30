@@ -108,10 +108,10 @@ rsvpApp.get("/rsvp/GetRSVPByQR/:qr", async (req, res, next) => {
   }
 });
 
-rsvpApp.get("/rsvp/GetRsvpCount/:location", async (req, res, next) => {
+rsvpApp.get("/rsvp/GetRsvpCount/:id", async (req, res, next) => {
   try {
-    const location = req.params.location;
-    const rspvs = await rsvpModel.getRSVPbylocation(location);
+    const id = req.params.id;
+    const rspvs = await rsvpModel.getRSVPbylocationId(id);
 
     var resultIn = rspvs.filter((x) => x.entry == "IN").length;
     var resultOut = rspvs.filter((x) => x.entry == "OUT").length;
