@@ -108,10 +108,25 @@ rsvpApp.get("/rsvp/GetRSVPByQR/:qr", async (req, res, next) => {
   }
 });
 
-rsvpApp.get("/rsvp/GetRsvpCount/:id", async (req, res, next) => {
+// rsvpApp.get("/rsvp/GetRsvpCount/:id", async (req, res, next) => {
+//   try {
+//     const id = req.params.id;
+//     const rspvs = await rsvpModel.getRSVPbylocationId(id);
+
+//     var resultIn = rspvs.filter((x) => x.entry == "IN").length;
+//     var resultOut = rspvs.filter((x) => x.entry == "OUT").length;
+//     var result = resultIn - resultOut;
+
+//     return res.status(200).json(result);
+//   } catch (error) {
+//     adeErrorHandler(error, req, res, next);
+//   }
+// });
+
+rsvpApp.get("/rsvp/GetRsvpCount/:location", async (req, res, next) => {
   try {
-    const id = req.params.id;
-    const rspvs = await rsvpModel.getRSVPbylocationId(id);
+    const location = req.params.location;
+    const rspvs = await rsvpModel.getRSVPbylocation(location);
 
     var resultIn = rspvs.filter((x) => x.entry == "IN").length;
     var resultOut = rspvs.filter((x) => x.entry == "OUT").length;

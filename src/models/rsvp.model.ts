@@ -51,6 +51,9 @@ export class BoothActivities {
 export class Summary {
   totalGuest: number;
   totalLocation: number;
+  totalOut: number;
+  totalIn: number;
+  totalLive: number;
 }
 
 export class RSVP {

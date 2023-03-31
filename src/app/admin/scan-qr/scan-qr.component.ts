@@ -58,7 +58,7 @@ export class ScanQrComponent implements OnInit {
   counting(){
     this.appComponent.isLoading = true
 
-    this.rSVPService.GetRsvpCount(this.selectedConfig.id).subscribe(
+    this.rSVPService.GetRsvpCount(this.selectedConfig.location).subscribe(
       (data) => {
         this.appComponent.isLoading = false;
         this.count = data;
