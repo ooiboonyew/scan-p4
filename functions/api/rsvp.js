@@ -274,6 +274,8 @@ rsvpApp.post("/rsvp/add", async (req, res, next) => {
         msg = "No IN record found";
       } else if (rsvp.entry == "IN" && lastRSVP.entry == "IN") {
         msg = "Already scan IN";
+      } else if (rsvp.entry == "OUT" && lastRSVP.location != rsvp.location) {
+        msg = "Pleas scan OUT at " + lastRSVP.location;
       } else {
         await rsvpModel.add(rsvp);
       }

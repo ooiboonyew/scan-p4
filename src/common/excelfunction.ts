@@ -92,6 +92,7 @@ export class ExcelFunction {
         qr: rsvp.qr,
         location: rsvp.location,
         sublocation: rsvp.sublocation,
+        entry: rsvp.entry,
         createdDate: rsvp.createdDate
           ? new Date(
               JSON.parse(JSON.stringify(rsvp.createdDate))._seconds * 1000

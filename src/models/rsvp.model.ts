@@ -81,6 +81,7 @@ export class RSVP_Scan {
   qr: string;
   location: string;
   sublocation: string;
+  entry: string;
   createdDate: object;
 }
 
