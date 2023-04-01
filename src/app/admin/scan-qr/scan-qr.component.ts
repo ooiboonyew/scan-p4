@@ -90,7 +90,7 @@ export class ScanQrComponent implements OnInit {
         this.msg = data;
         this.appComponent.isLoading = false;
         this.scanned = true;
-        setTimeout(() => (this.scanned = false), 1000);
+        setTimeout(() => (this.scanned = false), 2000);
       },
       (err) => {
         this.appComponent.isLoading = false;
