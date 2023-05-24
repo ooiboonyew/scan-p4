@@ -25,7 +25,8 @@ export class ConfigComponent implements OnInit {
   datasource: any[];
   dataSource: MatTableDataSource<Config>;
   selection: SelectionModel<Config> = new SelectionModel<Config>(true, []);
-  displayedColumns: string[] = ["num", "location","sublocation", "Edit"];
+  // displayedColumns: string[] = ["num", "location","sublocation", "Edit"];
+  displayedColumns: string[] = ["num", "location", "Edit"];
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;

@@ -15,9 +15,10 @@ export class ScanQrComponent implements OnInit {
   scanned: boolean = false;
   selectedConfig: Config = null;
   selectedEntry = "";
-  count: number;
+  count: number = 0;
   msg: string = "";
-  
+  userInput: number;
+
   configs: Config[];
 
   // attended: boolean = false;
@@ -47,56 +48,53 @@ export class ScanQrComponent implements OnInit {
     );
   }
 
-  selectConfig(){
-    this.count = null;
+  selectConfig() {
+    this.counting();
   }
 
-  entry(input){
-    this.selectedEntry = input;
-  }
-
-  counting(){
-    this.appComponent.isLoading = true
-
-    this.rSVPService.GetRsvpCount(this.selectedConfig.location).subscribe(
-      (data) => {
-        this.appComponent.isLoading = false;
-        this.count = data;
-      },
-      (err) => {
-        this.appComponent.isLoading = false;
-        alert(err.error);
-      }
-    );
-  }
-
-  onCodeResult(resultString: string) {
-   this.msg = "";
-    if (resultString == "") {
-      this.scanned = false;
-      return;
-    }
+  entry(input) {
     this.appComponent.isLoading = true;
-    // console.log(resultString);
+    this.selectedEntry = input;
     var req = {
       location: this.selectedConfig.location,
-      sublocation: this.selectedConfig.sublocation,
-      entry: this.selectedEntry,
-      qr: resultString,
+      entry: input,
+      userInput: this.userInput,
     };
 
     this.rSVPService.AddRSVP(req).subscribe(
       (data) => {
-        this.msg = data;
+        this.count = data;
         this.appComponent.isLoading = false;
         this.scanned = true;
-        setTimeout(() => (this.scanned = false), 2000);
+
+        setTimeout(
+          () => ((this.scanned = false), (this.userInput = null)),
+          2000
+        );
       },
       (err) => {
         this.appComponent.isLoading = false;
         alert(err.error);
         // this.errormsg = err.error;
         // this.scanned = true;
+      }
+    );
+
+    // this.selectedEntry = input;
+  }
+
+  counting() {
+    this.appComponent.isLoading = true;
+
+    this.rSVPService.GetRsvpCount(this.selectedConfig.location).subscribe(
+      (data) => {
+        console.log(data);
+        this.appComponent.isLoading = false;
+        this.count = data;
+      },
+      (err) => {
+        this.appComponent.isLoading = false;
+        alert(err.error);
       }
     );
   }

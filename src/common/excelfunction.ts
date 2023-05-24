@@ -91,7 +91,7 @@ export class ExcelFunction {
         "#": (index += 1),
         qr: rsvp.qr,
         location: rsvp.location,
-        sublocation: rsvp.sublocation,
+        // sublocation: rsvp.sublocation,
         entry: rsvp.entry,
         createdDate: rsvp.createdDate
           ? new Date(

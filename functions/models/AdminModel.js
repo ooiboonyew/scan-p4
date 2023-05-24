@@ -8,6 +8,16 @@ class AdminModel extends MainModel {
     super();
   }
 
+  async add(product) {
+    const result = await this.db
+      .collection(ADMIN)
+      .add(product)
+      .catch((firestoreError) => {
+        throw firestoreError;
+      });
+
+    return result.id;
+  }
 
   async checkAdmin(email) {
     try {

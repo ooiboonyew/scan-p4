@@ -72,6 +72,27 @@ class RsvpModel extends MainModel {
     }
   }
 
+  async getRSVPbyLocation(location) {
+    try {
+      let rsvp, id;
+      await this.db
+        .collection(RSVP)
+        .where("location", "==", location)
+        .limit(1)
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            rsvp = doc.data();
+            id = doc.id;
+          });
+        });
+        
+      return { id, ...rsvp };
+    } catch (err) {
+      throw err;
+    }
+  }
+
   async getRSVPbylocation(location) {
     const result = await this.db
       .collection(RSVP)

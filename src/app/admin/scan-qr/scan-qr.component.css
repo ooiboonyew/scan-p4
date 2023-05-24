@@ -36,3 +36,13 @@
     border: none !important;
     color: white;
   }
+
+  .numBtn{
+    width: 100%;
+    height: 40px;
+    border: 1px solid black;
+    background-color: rgb(228, 228, 228);
+
+
+
+  }

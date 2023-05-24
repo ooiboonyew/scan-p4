@@ -126,13 +126,14 @@ rsvpApp.get("/rsvp/GetRSVPByQR/:qr", async (req, res, next) => {
 rsvpApp.get("/rsvp/GetRsvpCount/:location", async (req, res, next) => {
   try {
     const location = req.params.location;
-    const rspvs = await rsvpModel.getRSVPbylocation(location);
+    const queue = (await rsvpModel.getRSVPbylocation(location))[0];
 
-    var resultIn = rspvs.filter((x) => x.entry == "IN").length;
-    var resultOut = rspvs.filter((x) => x.entry == "OUT").length;
-    var result = resultIn - resultOut;
-
-    return res.status(200).json(result);
+    if (queue.id != null) {
+      console.log(queue);
+      return res.status(200).json(queue.queue);
+    } else {
+      return res.status(200).json(0);
+    }
   } catch (error) {
     adeErrorHandler(error, req, res, next);
   }
@@ -255,113 +256,59 @@ rsvpApp.post("/admin/login", async (req, res, next) => {
   }
 });
 
+rsvpApp.get("/addadmin", async (req, res, next) => {
+  try {
+    await adminModel.add({
+      adminID: 1,
+      email: "admin@rsvp.com",
+      password: "admin@123",
+    });
+    await adminModel.add({
+      adminID: 1,
+      email: "admin@sgrsvp.com",
+      password: "admin4321",
+    });
+    await adminModel.add({
+      adminID: 2,
+      email: "checkin@sgrsvp.com",
+      password: "onsit3",
+    });
+    await adminModel.add({
+      adminID: 3,
+      email: "helpdesk@sgrsvp.com",
+      password: "helpd3sk",
+    });
+  } catch (error) {
+    adeErrorHandler(error, req, res, next);
+  }
+});
+
 rsvpApp.post("/rsvp/add", async (req, res, next) => {
   try {
-    var msg = "";
     const rsvp = req.body;
-    rsvp.createdDate = new Date();
-    var previousDate1 = new Date();
-    previousDate1.setSeconds(previousDate1.getSeconds() - 1);
-    var previousDate = new Date();
-    previousDate.setSeconds(previousDate.getSeconds() - 2);
+    var queue = await rsvpModel.getRSVPbyLocation(rsvp.location);
 
-    var lastRSVP = await rsvpModel.getRSVPbyQR(rsvp.qr);
+    if (queue.id == null) {
+      var newQueue = {};
+      newQueue.location = rsvp.location;
 
-    if (lastRSVP.id == undefined) {
       if (rsvp.entry == "OUT") {
-        msg = "No IN record found";
-        // var prevRSVP = {
-        //   createdDate: previousDate,
-        //   location: rsvp.location,
-        //   qr: rsvp.qr,
-        //   entry: "IN",
-        // };
-        // await rsvpModel.add(prevRSVP);
-        // await rsvpModel.add(rsvp);
+        newQueue.queue = -rsvp.userInput;
       } else {
-        await rsvpModel.add(rsvp);
+        newQueue.queue = rsvp.userInput;
       }
+      await rsvpModel.add(newQueue);
+      return res.status(200).json(newQueue.queue);
     } else {
-      if (lastRSVP.location == rsvp.location) {
-        if (rsvp.entry == "OUT" && lastRSVP.entry == "OUT") {
-          msg = "No IN record found";
-        } else if (rsvp.entry == "IN" && lastRSVP.entry == "IN") {
-          msg = "Already scan IN";
-        } else {
-          await rsvpModel.add(rsvp);
-        }
+      if (rsvp.entry == "OUT") {
+        queue.queue -= rsvp.userInput;
       } else {
-        if (rsvp.entry == "IN" && lastRSVP.entry == "IN") {
-          var prevRSVP = {
-            createdDate: previousDate,
-            location: lastRSVP.location,
-            qr: rsvp.qr,
-            entry: "OUT",
-          };
-          await rsvpModel.add(prevRSVP);
-          await rsvpModel.add(rsvp);
-        } else if (lastRSVP.entry == "IN" && rsvp.entry == "OUT") {
-          var prevRSVP = {
-            createdDate: previousDate,
-            location: lastRSVP.location,
-            qr: rsvp.qr,
-            entry: "OUT",
-          };
-
-          var nextRSVP = {
-            createdDate: previousDate1,
-            location: rsvp.location,
-            qr: rsvp.qr,
-            entry: "IN",
-          };
-
-          await rsvpModel.add(prevRSVP);
-          await rsvpModel.add(nextRSVP);
-          await rsvpModel.add(rsvp);
-        } else if (lastRSVP.entry == "OUT" && rsvp.entry == "OUT") {
-          var nextRSVP = {
-            createdDate: new Date(),
-            location: previousDate,
-            qr: rsvp.qr,
-            entry: "IN",
-          };
-          await rsvpModel.add(nextRSVP);
-          await rsvpModel.add(rsvp);
-        } else if (lastRSVP.entry == "OUT" && rsvp.entry == "IN") {
-          await rsvpModel.add(rsvp);
-        }
+        queue.queue += rsvp.userInput;
       }
 
-      // if (
-      //   rsvp.entry == "OUT" &&
-      //   lastRSVP.entry == "OUT" &&
-      //   lastRSVP.location == rsvp.location
-      // ) {
-      //   msg = "No IN record found";
-      // } else if (
-      //   rsvp.entry == "IN" &&
-      //   lastRSVP.entry == "IN" &&
-      //   lastRSVP.location == rsvp.location
-      // ) {
-      //   msg = "Already scan IN";
-      // } else if (rsvp.entry == "OUT" && lastRSVP.location != rsvp.location) {
-      //   var prevRSVP = {
-      //     createdDate: new Date(),
-      //     location: lastRSVP.location,
-      //     qr: rsvp.qr,
-      //     entry: "IN",
-      //   };
-
-      //   await rsvpModel.add(prevRSVP);
-      //   await rsvpModel.add(rsvp);
-
-      //   // msg = "Pleas scan OUT at " + lastRSVP.location;
-      // } else {
-      //   await rsvpModel.add(rsvp);
-      // }
+      await rsvpModel.update(queue);
+      return res.status(200).json(queue.queue);
     }
-
-    return res.status(200).json(msg);
   } catch (error) {
     adeErrorHandler(error, req, res, next);
   }

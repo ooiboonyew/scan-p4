@@ -80,7 +80,7 @@ export class RSVP_Scan {
   num: number;
   qr: string;
   location: string;
-  sublocation: string;
+  // sublocation: string;
   entry: string;
   createdDate: object;
 }
@@ -88,5 +88,5 @@ export class RSVP_Scan {
 export class Config {
   id: string;
   location: string;
-  sublocation: string;
+  // sublocation: string;
 }

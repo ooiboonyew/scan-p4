@@ -12,7 +12,7 @@ class RsvpModel extends MainModel {
     const result = await this.db
       .collection(Config)
       .orderBy("location", "asc")
-      .orderBy("sublocation", "asc")
+      // .orderBy("sublocation", "asc")
       .get()
       .catch((firestoreError) => {
         throw firestoreError;

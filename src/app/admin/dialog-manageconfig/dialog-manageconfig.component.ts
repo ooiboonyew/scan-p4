@@ -42,13 +42,13 @@ export class DialogManageconfigComponent implements OnInit {
         },
         []
       ),
-      sublocation: new FormControl(
-        {
-          value: this.addScreen ? "" : this.config.sublocation,
-          disabled: false,
-        },
-        []
-      ),
+      // sublocation: new FormControl(
+      //   {
+      //     value: this.addScreen ? "" : this.config.sublocation,
+      //     disabled: false,
+      //   },
+      //   []
+      // ),
     });
   }
 
@@ -60,7 +60,7 @@ export class DialogManageconfigComponent implements OnInit {
 
     var editconfig = this.config;
     editconfig.location = this.editconfig.controls.location.value;
-    editconfig.sublocation = this.editconfig.controls.sublocation.value;
+    // editconfig.sublocation = this.editconfig.controls.sublocation.value;
 
     this.isLoading = true;
     if (!this.addScreen) {

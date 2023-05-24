@@ -34,8 +34,8 @@ export class RSVPService {
     return this.http.get<Setting>(this.baseUrl + "/getSetting/" + id);
   }
 
-  AddRSVP(rsvp): Observable<string> {
-    return this.http.post<string>(this.baseUrl + "/Add", rsvp);
+  AddRSVP(rsvp): Observable<number> {
+    return this.http.post<number>(this.baseUrl + "/Add", rsvp);
   }
 
   GetRsvp(id: string): Observable<RSVP> {
