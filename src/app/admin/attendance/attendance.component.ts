@@ -172,11 +172,11 @@ export class AttendanceComponent implements OnInit {
     });
   }
 
-  download() {
-    this.appComponent.isLoading = true;
-    this.excelFunction.exportCustomHeaderAsExcelFile(this.rsvps, "rsvp");
-    this.appComponent.isLoading = false;
-  }
+  // download() {
+  //   this.appComponent.isLoading = true;
+  //   this.excelFunction.exportCustomHeaderAsExcelFile(this.rsvps, "rsvp");
+  //   this.appComponent.isLoading = false;
+  // }
 
   add() {
     let dialogRef = this.dialog.open(DialogManagersvpComponent, {

@@ -89,6 +89,10 @@ export class RSVPService {
     return this.http.get<[]>(this.baseUrl + "/listRSVP");
   }
 
+  listEntrance(): Observable<[]> {
+    return this.http.get<[]>(this.baseUrl + "/listEntrance");
+  }
+
   Getuser(id: string): Observable<User> {
     return this.http.get<User>(this.baseUrl + "/getuser/" + id);
   }

@@ -10,6 +10,9 @@ rsvpApp.use(cors({ origin: true }));
 const RsvpModel = require("../models/RsvpModel");
 const rsvpModel = new RsvpModel();
 
+const EntranceModel = require("../models/EntranceModel");
+const entranceModel = new EntranceModel();
+
 const SettingModel = require("../models/SettingModel");
 const settingModel = new SettingModel();
 
@@ -59,6 +62,15 @@ rsvpApp.get("/rsvp/email/:rsvpId", async (req, res, next) => {
 rsvpApp.get("/rsvp/listRSVP", async (req, res, next) => {
   try {
     const result = await rsvpModel.getRSVP();
+    return res.status(200).json(result);
+  } catch (error) {
+    adeErrorHandler(error, req, res, next);
+  }
+});
+
+rsvpApp.get("/rsvp/listEntrance", async (req, res, next) => {
+  try {
+    const result = await entranceModel.getINEntrance();
     return res.status(200).json(result);
   } catch (error) {
     adeErrorHandler(error, req, res, next);
@@ -141,22 +153,30 @@ rsvpApp.get("/rsvp/GetRsvpCount/:location", async (req, res, next) => {
 
 rsvpApp.get("/rsvp/summary", async (req, res, next) => {
   try {
-    const result = await rsvpModel.getRSVP();
+    const result = await entranceModel.getINEntrance();
     var summary = {};
     // summary.totalGuest = result.length;
 
     var totalLocation = _.map(
       _.groupBy(result, (x) => x.location),
       (rsvps, key) => {
-        var resultIn = rsvps.filter((x) => x.entry == "IN").length;
-        var resultOut = rsvps.filter((x) => x.entry == "OUT").length;
-        var result = resultIn - resultOut;
+        var resultIn = rsvps
+          // .filter((x) => x.entry == "IN")
+          .map((item) => +item.userInput)
+          .reduce((sum, current) => sum + current);
+
+        // var resultOut = rsvps
+        //   .filter((x) => x.entry == "OUT")
+        //   .map((item) => +item.userInput)
+        //   .reduce((sum, current) => sum + current);
+
+        // var result = resultIn - resultOut;
 
         return {
           location: key,
           totalIn: resultIn,
-          totalOut: resultOut,
-          totalLive: result,
+          // totalOut: resultOut,
+          // totalLive: result,
         };
       }
     );
@@ -307,6 +327,15 @@ rsvpApp.post("/rsvp/add", async (req, res, next) => {
       }
 
       await rsvpModel.update(queue);
+
+      var entrance = {};
+      entrance.location = rsvp.location;
+      entrance.entry = rsvp.entry;
+      entrance.userInput = rsvp.userInput;
+      entrance.createdDate = new Date();
+
+      await entranceModel.add(entrance);
+
       return res.status(200).json(queue.queue);
     }
   } catch (error) {
@@ -337,6 +366,11 @@ rsvpApp.post("/rsvp/addconfig", async (req, res, next) => {
   try {
     const data = req.body;
     const resultId = await configModel.add(data);
+
+    var rsvp = {};
+    rsvp.location = data.location;
+    rsvp.queue = 0;
+    await rsvpModel.add(rsvp);
 
     return res.status(200).json(resultId);
   } catch (error) {

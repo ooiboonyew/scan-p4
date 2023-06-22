@@ -82,6 +82,7 @@ export class RSVP_Scan {
   location: string;
   // sublocation: string;
   entry: string;
+  userInput: number;
   createdDate: object;
 }
 

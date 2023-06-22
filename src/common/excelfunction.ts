@@ -16,7 +16,7 @@ export class ExcelFunction {
   }
 
   public exportCustomHeaderAsExcelFile(
-    rsvps: RSVP[],
+    rsvps: RSVP_Scan[],
     excelFileName: string
   ): void {
     var jsons = [];
@@ -25,28 +25,14 @@ export class ExcelFunction {
     rsvps.forEach((rsvp, index) => {
       var json = {
         "#": (index += 1),
-        firstName: rsvp.firstName,
-        lastName: rsvp.lastName,
-        email: rsvp.email,
-        company: rsvp.company,
-        category: rsvp.category,
-        qr: rsvp.qr,
-        data1: rsvp.data1,
-        data2: rsvp.data2,
-        data3: rsvp.data3,
-        data4: rsvp.data4,
-        data5: rsvp.data5,
-        checkedIn: rsvp.checkedIn ? "Yes" : "No",
-        checkedInDate: rsvp.checkedInDate
-          ? new Date(
-              JSON.parse(JSON.stringify(rsvp.checkedInDate))._seconds * 1000
-            ).toLocaleString()
-          : "",
         createdDate: rsvp.createdDate
           ? new Date(
               JSON.parse(JSON.stringify(rsvp.createdDate))._seconds * 1000
             ).toLocaleString()
           : "",
+        location: rsvp.location,
+        entry: rsvp.entry,
+        userInput: rsvp.userInput,
       };
       jsons.push(json);
     });
@@ -54,20 +40,10 @@ export class ExcelFunction {
     var Heading = [
       [
         "#",
-        "First Name",
-        "Last Name",
-        "Email",
-        "Company",
-        "Category",
-        "Qr",
-        "Data 1",
-        "Data 2",
-        "Data 3",
-        "Data 4",
-        "Data 5",
-        "Checked In",
-        "Check In Date",
-        "Registered Date",
+        "Scan Date",
+        "Location",
+        "Entry",
+        "Input"
       ],
     ];
 
@@ -112,7 +88,6 @@ export class ExcelFunction {
     const excelBuffer: any = XLSX.write(wb, { bookType: "csv", type: "array" });
     this.saveExcelFile(excelBuffer, excelFileName);
   }
-
 
   private saveExcelFile(buffer: any, fileName: string): void {
     const data: Blob = new Blob([buffer], { type: EXCEL_TYPE });
